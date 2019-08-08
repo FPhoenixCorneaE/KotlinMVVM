@@ -1,0 +1,50 @@
+ext {
+
+    android = [
+            compileSdkVersion: 29,
+            buildToolsVersion: "29.0.0",
+            minSdkVersion    : 21,
+            targetSdkVersion : 29,
+            versionCode      : 1000,
+            versionName      : "1.0.0.0"
+    ]
+
+    dependVersion = [
+            androidSupportSdkVersion: "27.1.1",
+            retrofitSdkVersion      : "2.3.0",
+            glideSdkVersion         : "4.7.1",
+            rxJava                  : "2.1.5",
+            rxAndroid               : "2.0.1"
+    ]
+
+    support = [
+            appcompat: "androidx.appcompat:appcompat:1.0.2",
+    ]
+
+    retrofit2 = [
+            retrofit                 : "com.squareup.retrofit2:retrofit:2.3.0",
+            retrofitConverterGson    : "com.squareup.retrofit2:converter-gson:2.3.0",
+            retrofitAdapterRxjava2   : "com.squareup.retrofit2:adapter-rxjava2:2.3.0",
+            okhttp3LoggingInterceptor: 'com.squareup.okhttp3:logging-interceptor:3.4.1',
+    ]
+
+    rxJava2 = [
+            rxJava   : "io.reactivex.rxjava2:rxjava:2.2.0",
+            rxAndroid: "io.reactivex.rxjava2:rxandroid:2.1.0",
+    ]
+
+    glide = [
+            glide      : "com.github.bumptech.glide:glide:4.9.0",
+            glideOkhttp: "com.github.bumptech.glide:okhttp3-integration:4.9.0",
+    ]
+
+    glideCompiler = "com.github.bumptech.glide:compiler:4.9.0"
+
+    supportLibs = support.values()
+    retrofit2Libs = retrofit2.values()
+    rxJava2Libs = rxJava2.values()
+    glideLibs = glide.values()
+
+    // APT
+    annotationProcessorGlide = [glideCompiler]
+}
