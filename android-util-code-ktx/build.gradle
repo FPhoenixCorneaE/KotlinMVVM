@@ -21,35 +21,24 @@ android {
     }
 
     compileOptions {
-        targetCompatibility JavaVersion.VERSION_1_8
         sourceCompatibility JavaVersion.VERSION_1_8
-    }
-
-    dexOptions {
-        jumboMode true
-    }
-
-    lintOptions {
-        abortOnError false
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     /**
+     * Supports
+     */
+    implementation rootProject.ext.supportLibs
+    /**
      * Kotlin
      */
     implementation rootProject.ext.kotlinLibs
-    /**
-     * Retrofit2
-     */
-    api rootProject.ext.retrofit2Libs
-    /**
-     * RxJava2
-     */
-    api rootProject.ext.rxJava2Libs
-    /**
-     * common-util
-     */
-    implementation project(':common-util')
+
+    implementation 'com.afollestad.material-dialogs:core:3.0.0-rc4'
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.2.1"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0-alpha02"
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0-alpha02'
 }

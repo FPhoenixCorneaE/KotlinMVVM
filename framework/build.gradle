@@ -1,4 +1,4 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 // 扩展插件
 apply plugin: 'kotlin-android-extensions'
@@ -10,17 +10,10 @@ android {
     buildToolsVersion rootProject.ext.android.buildToolsVersion
 
     defaultConfig {
-        applicationId "com.wkz.kotlinmvvm"
         minSdkVersion rootProject.ext.android.minSdkVersion
         targetSdkVersion rootProject.ext.android.targetSdkVersion
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-
-        // 支持矢量图
-        vectorDrawables {
-            useSupportLibrary = true
-        }
     }
 
     buildTypes {
@@ -49,21 +42,43 @@ android {
     }
 }
 
+kapt {
+    generateStubs = true
+}
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     /**
-     * test
+     * common-util
      */
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.2.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-
-    implementation project(':framework')
+    api project(':common-util')
     /**
-     * navigation 扩展插件
+     * RxRetrofit
      */
-    implementation 'androidx.navigation:navigation-common-ktx:2.0.0'
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.0.0'
-    implementation 'androidx.navigation:navigation-runtime-ktx:2.0.0'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.0.0'
+    api project(':rxretrofit')
+    /**
+     * multiple-status-view
+     */
+    api project(':multiple-status-view')
+
+    /**
+     * Supports
+     */
+    api rootProject.ext.supportLibs
+    /**
+     * Kotlin
+     */
+    api rootProject.ext.kotlinLibs
+    /**
+     * Dagger2
+     */
+    api rootProject.ext.dragger2Libs
+    /**
+     * DataBinding
+     */
+    kapt rootProject.ext.kaptDataBinding
+    /**
+     * Dagger2
+     */
+    kapt rootProject.ext.kaptdragger2
 }

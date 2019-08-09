@@ -10,7 +10,7 @@ android {
         minSdkVersion rootProject.ext.android.minSdkVersion
         targetSdkVersion rootProject.ext.android.targetSdkVersion
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.0"
     }
 
     buildTypes {
@@ -36,20 +36,15 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation rootProject.ext.support.appcompat
     /**
      * Kotlin
      */
     implementation rootProject.ext.kotlinLibs
     /**
-     * Retrofit2
+     * logger
      */
-    api rootProject.ext.retrofit2Libs
-    /**
-     * RxJava2
-     */
-    api rootProject.ext.rxJava2Libs
-    /**
-     * common-util
-     */
-    implementation project(':common-util')
+    api(rootProject.ext.logger) {
+        transitive true
+    }
 }
