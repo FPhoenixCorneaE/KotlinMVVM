@@ -117,7 +117,7 @@ object RetrofitManager {
     /**
      * 获取retrofit的实例
      */
-    private fun getRetrofit(iBaseUrl: IBaseUrl): Retrofit {
+    fun getRetrofit(iBaseUrl: IBaseUrl): Retrofit {
         return Retrofit.Builder()
             // 自由配置BaseUrl,Model需实现IBaseUrl接口
             .baseUrl(iBaseUrl.getBaseUrl())

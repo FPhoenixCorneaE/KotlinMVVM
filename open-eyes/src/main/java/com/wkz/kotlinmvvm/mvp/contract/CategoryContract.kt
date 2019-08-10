@@ -1,0 +1,31 @@
+package com.wkz.kotlinmvvm.mvp.contract
+
+import com.wkz.framework.base.IBaseModel
+import com.wkz.framework.base.IBaseView
+import com.wkz.framework.base.IPresenter
+import com.wkz.kotlinmvvm.mvp.model.bean.CategoryBean
+
+/**
+ * desc: 分类 契约类
+ */
+interface CategoryContract {
+
+    interface View : IBaseView {
+        /**
+         * 显示分类的信息
+         */
+        fun showCategory(categoryList: ArrayList<CategoryBean>)
+
+        /**
+         * 显示错误信息
+         */
+        fun showError(errorMsg: String, errorCode: Int)
+    }
+
+    interface Presenter : IPresenter<View, IBaseModel> {
+        /**
+         * 获取分类的信息
+         */
+        fun getCategoryData()
+    }
+}

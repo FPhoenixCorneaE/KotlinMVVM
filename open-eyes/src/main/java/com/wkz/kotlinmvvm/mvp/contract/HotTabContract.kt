@@ -1,0 +1,29 @@
+package com.wkz.kotlinmvvm.mvp.contract
+
+import com.wkz.framework.base.IBaseModel
+import com.wkz.framework.base.IBaseView
+import com.wkz.framework.base.IPresenter
+import com.wkz.kotlinmvvm.mvp.model.bean.TabInfoBean
+
+/**
+ * @desc:热门标签 契约类
+ */
+interface HotTabContract {
+
+    interface View : IBaseView {
+        /**
+         * 设置 TabInfo
+         */
+        fun setTabInfo(tabInfoBean: TabInfoBean)
+
+        fun showError(errorMsg: String, errorCode: Int)
+    }
+
+
+    interface Presenter : IPresenter<View, IBaseModel> {
+        /**
+         * 获取 TabInfo
+         */
+        fun getTabInfo()
+    }
+}

@@ -53,6 +53,11 @@ ext {
             glideOkhttp: "com.github.bumptech.glide:okhttp3-integration:4.9.0",
     ]
 
+    smartRefresh = [
+            smartRefreshLayout: "com.scwang.smartrefresh:SmartRefreshLayout:1.0.3",
+            smartRefreshHeader: "com.scwang.smartrefresh:SmartRefreshHeader:1.0.3",
+    ]
+
     /** compiler */
     dataBindingCompiler = "com.android.databinding:compiler:3.1.4"
     glideCompiler = "com.github.bumptech.glide:compiler:4.9.0"
@@ -70,6 +75,7 @@ ext {
     rxJava2Libs = rxJava2.values()
     dragger2Libs = dragger2.values()
     glideLibs = glide.values()
+    smartRefreshLibs = smartRefresh.values()
 
     /** kapt */
     kaptDataBinding = [dataBindingCompiler]

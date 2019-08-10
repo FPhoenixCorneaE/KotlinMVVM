@@ -61,6 +61,7 @@ dependencies {
      */
     api project(':multiple-status-view')
 
+
     /**
      * Supports
      */
@@ -73,6 +74,16 @@ dependencies {
      * Dagger2
      */
     api rootProject.ext.dragger2Libs
+    /**
+     * SmartRefreshLayout
+     */
+    api rootProject.ext.smartRefreshLibs
+    /**
+     * 视屏播放器
+     */
+    api 'com.shuyu:GSYVideoPlayer:2.1.1'
+
+
     /**
      * DataBinding
      */
