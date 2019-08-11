@@ -1,15 +1,16 @@
-package com.hazz.kotlinmvp.mvp.presenter
+package com.wkz.kotlinmvvm.mvp.presenter
 
-import com.hazz.kotlinmvp.base.BasePresenter
-import com.hazz.kotlinmvp.mvp.contract.RankContract
-import com.hazz.kotlinmvp.mvp.model.RankModel
-import com.hazz.kotlinmvp.net.exception.ExceptionHandle
+import com.wkz.framework.base.BasePresenter
+import com.wkz.framework.base.IBaseModel
+import com.wkz.kotlinmvvm.mvp.contract.RankContract
+import com.wkz.kotlinmvvm.mvp.model.RankModel
+import com.wkz.rxretrofit.network.exception.ExceptionHandle
+
 
 /**
- * Created by xuhao on 2017/11/30.
- * desc: 获取 TabInfo Presenter
+ * @desc: 排行榜 Presenter
  */
-class RankPresenter : BasePresenter<RankContract.View>(), RankContract.Presenter {
+class RankPresenter : BasePresenter<RankContract.View, IBaseModel>(), RankContract.Presenter {
 
     private val rankModel by lazy { RankModel() }
 
@@ -19,19 +20,19 @@ class RankPresenter : BasePresenter<RankContract.View>(), RankContract.Presenter
      */
     override fun requestRankList(apiUrl: String) {
         checkViewAttached()
-        mRootView?.showLoading()
+        mView?.showLoading()
         val disposable = rankModel.requestRankList(apiUrl)
-                .subscribe({ issue ->
-                    mRootView?.apply {
-                        dismissLoading()
-                        setRankList(issue.itemList)
-                    }
-                }, { throwable ->
-                    mRootView?.apply {
-                        //处理异常
-                        showError(ExceptionHandle.handleException(throwable),ExceptionHandle.errorCode)
-                    }
-                })
+            .subscribe({ issue ->
+                mView?.apply {
+                    dismissLoading()
+                    setRankList(issue.itemList)
+                }
+            }, { throwable ->
+                mView?.apply {
+                    //处理异常
+                    showError(ExceptionHandle.handleException(throwable), ExceptionHandle.errorCode)
+                }
+            })
         addSubscription(disposable)
     }
 }

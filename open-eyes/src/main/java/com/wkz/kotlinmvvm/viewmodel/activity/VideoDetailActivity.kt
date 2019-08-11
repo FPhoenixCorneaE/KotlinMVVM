@@ -4,37 +4,32 @@ import android.annotation.SuppressLint
 import android.annotation.TargetApi
 import android.content.res.Configuration
 import android.os.Build
-import android.support.v4.view.ViewCompat
-import android.support.v7.widget.LinearLayoutManager
+import android.os.Bundle
 import android.transition.Transition
 import android.view.View
 import android.widget.ImageView
+import androidx.core.view.ViewCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DecodeFormat
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import com.hazz.kotlinmvp.Constants
-import com.hazz.kotlinmvp.MyApplication
-import com.hazz.kotlinmvp.R
-import com.hazz.kotlinmvp.base.BaseActivity
-import com.hazz.kotlinmvp.glide.GlideApp
-import com.hazz.kotlinmvp.mvp.contract.VideoDetailContract
-import com.hazz.kotlinmvp.mvp.model.bean.HomeBean
-import com.hazz.kotlinmvp.mvp.presenter.VideoDetailPresenter
-import com.hazz.kotlinmvp.showToast
-import com.hazz.kotlinmvp.ui.adapter.VideoDetailAdapter
-import com.hazz.kotlinmvp.utils.CleanLeakUtils
-import com.hazz.kotlinmvp.utils.StatusBarUtil
-import com.hazz.kotlinmvp.utils.WatchHistoryUtils
-import com.hazz.kotlinmvp.view.VideoListener
 import com.orhanobut.logger.Logger
 import com.scwang.smartrefresh.header.MaterialHeader
 import com.shuyu.gsyvideoplayer.listener.LockClickListener
 import com.shuyu.gsyvideoplayer.utils.OrientationUtils
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
 import com.shuyu.gsyvideoplayer.video.base.GSYVideoPlayer
+import com.wkz.extension.showToast
 import com.wkz.framework.base.BaseActivity
 import com.wkz.kotlinmvvm.R
+import com.wkz.kotlinmvvm.constant.Constants
 import com.wkz.kotlinmvvm.databinding.OpenEyesActivityVideoDetailBinding
+import com.wkz.kotlinmvvm.listener.VideoListener
 import com.wkz.kotlinmvvm.mvp.contract.VideoDetailContract
+import com.wkz.kotlinmvvm.mvp.model.bean.HomeBean
+import com.wkz.kotlinmvvm.mvp.presenter.VideoDetailPresenter
+import com.wkz.kotlinmvvm.viewmodel.adapter.VideoDetailAdapter
+import com.wkz.util.StatusBarUtil
 import kotlinx.android.synthetic.main.open_eyes_activity_video_detail.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -44,19 +39,15 @@ import java.util.*
  * Created by xuhao on 2017/11/25.
  * desc: 视频详情
  */
-class VideoDetailActivity : BaseActivity<VideoDetailContract.View,VideoDetailPresenter<VideoDetailContract.View,*>,OpenEyesActivityVideoDetailBinding>(), VideoDetailContract.View {
+class VideoDetailActivity :
+    BaseActivity<VideoDetailContract.View, VideoDetailPresenter, OpenEyesActivityVideoDetailBinding>(),
+    VideoDetailContract.View {
 
 
     companion object {
         const val IMG_TRANSITION = "IMG_TRANSITION"
         const val TRANSITION = "TRANSITION"
     }
-
-
-    /**
-     * 第一次调用的时候初始化
-     */
-    private val mPresenter by lazy { VideoDetailPresenter() }
 
     private val mAdapter by lazy { VideoDetailAdapter(this, itemList) }
 
@@ -112,7 +103,7 @@ class VideoDetailActivity : BaseActivity<VideoDetailContract.View,VideoDetailPre
         //打开下拉刷新区域块背景:
         mMaterialHeader?.setShowBezierWave(true)
         //设置下拉刷新主题颜色
-        mRefreshLayout.setPrimaryColorsId(R.color.color_light_black, R.color.color_title_bg)
+        mRefreshLayout.setPrimaryColorsId(R.color.open_eyes_color_black_alpha50, R.color.open_eyes_color_bg_title)
     }
 
 
@@ -130,10 +121,10 @@ class VideoDetailActivity : BaseActivity<VideoDetailContract.View,VideoDetailPre
         //增加封面
         val imageView = ImageView(this)
         imageView.scaleType = ImageView.ScaleType.CENTER_CROP
-        GlideApp.with(this)
-                .load(itemData.data?.cover?.feed)
-                .centerCrop()
-                .into(imageView)
+        Glide.with(this)
+            .load(itemData.data?.cover?.feed)
+            .centerCrop()
+            .into(imageView)
         mVideoView.thumbImageView = imageView
 
         mVideoView.setStandardVideoAllCallBack(object : VideoListener {
@@ -186,36 +177,12 @@ class VideoDetailActivity : BaseActivity<VideoDetailContract.View,VideoDetailPre
         })
     }
 
-
-    override fun start() {
-
-    }
-
-
-
     /**
      * 初始化数据
      */
-    override fun initData() {
+    override fun initData(savedInstanceState: Bundle?) {
         itemData = intent.getSerializableExtra(Constants.BUNDLE_VIDEO_DATA) as HomeBean.Issue.Item
         isTransition = intent.getBooleanExtra(TRANSITION, false)
-
-        saveWatchVideoHistoryInfo(itemData)
-    }
-
-
-    /**
-     * 保存观看记录
-     */
-    private fun saveWatchVideoHistoryInfo(watchItem: HomeBean.Issue.Item) {
-        //保存之前要先查询sp中是否有该value的记录，有则删除.这样保证搜索历史记录不会有重复条目
-        val historyMap = WatchHistoryUtils.getAll(Constants.FILE_WATCH_HISTORY_NAME,MyApplication.context) as Map<*, *>
-        for ((key, _) in historyMap) {
-            if (watchItem == WatchHistoryUtils.getObject(Constants.FILE_WATCH_HISTORY_NAME,MyApplication.context, key as String)) {
-                WatchHistoryUtils.remove(Constants.FILE_WATCH_HISTORY_NAME,MyApplication.context, key)
-            }
-        }
-        WatchHistoryUtils.putObject(Constants.FILE_WATCH_HISTORY_NAME,MyApplication.context, watchItem,"" + mFormat.format(Date()))
     }
 
 
@@ -244,7 +211,7 @@ class VideoDetailActivity : BaseActivity<VideoDetailContract.View,VideoDetailPre
         itemData = itemInfo
         mAdapter.addData(itemInfo)
         // 请求相关的最新等视频
-        mPresenter.requestRelatedVideo(itemInfo.data?.id?:0)
+        mPresenter.requestRelatedVideo(itemInfo.data?.id ?: 0)
 
     }
 
@@ -262,12 +229,12 @@ class VideoDetailActivity : BaseActivity<VideoDetailContract.View,VideoDetailPre
      * 设置背景颜色
      */
     override fun setBackground(url: String) {
-        GlideApp.with(this)
-                .load(url)
-                .centerCrop()
-                .format(DecodeFormat.PREFER_ARGB_8888)
-                .transition(DrawableTransitionOptions().crossFade())
-                .into(mVideoBackground)
+        Glide.with(this)
+            .load(url)
+            .centerCrop()
+            .format(DecodeFormat.PREFER_ARGB_8888)
+            .transition(DrawableTransitionOptions().crossFade())
+            .into(mVideoBackground)
     }
 
     /**
@@ -277,8 +244,7 @@ class VideoDetailActivity : BaseActivity<VideoDetailContract.View,VideoDetailPre
 
     }
 
-
-    override fun onConfigurationChanged(newConfig: Configuration?) {
+    override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
         if (isPlay && !isPause) {
             mVideoView.onConfigurationChanged(this, newConfig, orientationUtils)
@@ -306,7 +272,6 @@ class VideoDetailActivity : BaseActivity<VideoDetailContract.View,VideoDetailPre
             super.onBackPressed()
         } else {
             finish()
-            overridePendingTransition(R.anim.anim_out, R.anim.anim_in)
         }
     }
 
@@ -323,7 +288,6 @@ class VideoDetailActivity : BaseActivity<VideoDetailContract.View,VideoDetailPre
     }
 
     override fun onDestroy() {
-        CleanLeakUtils.fixInputMethodManagerLeak(this)
         super.onDestroy()
         GSYVideoPlayer.releaseAllVideos()
         orientationUtils?.releaseListener()
@@ -372,6 +336,4 @@ class VideoDetailActivity : BaseActivity<VideoDetailContract.View,VideoDetailPre
 
         })
     }
-
-
 }

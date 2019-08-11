@@ -40,7 +40,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_below="@id/mVideoView"
-                    android:background="@color/color_black_alpha50"/>
+                    android:background="@color/open_eyes_color_black_alpha50"/>
 
 
             <androidx.recyclerview.widget.RecyclerView

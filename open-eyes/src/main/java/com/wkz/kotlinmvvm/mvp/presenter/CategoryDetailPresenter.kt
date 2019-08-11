@@ -1,39 +1,38 @@
-package com.hazz.kotlinmvp.mvp.presenter
+package com.wkz.kotlinmvvm.mvp.presenter
 
-import com.hazz.kotlinmvp.base.BasePresenter
-import com.hazz.kotlinmvp.mvp.contract.CategoryDetailContract
-import com.hazz.kotlinmvp.mvp.model.CategoryDetailModel
+import com.wkz.framework.base.BasePresenter
+import com.wkz.framework.base.IBaseModel
+import com.wkz.kotlinmvvm.mvp.contract.CategoryDetailContract
+import com.wkz.kotlinmvvm.mvp.model.CategoryDetailModel
 
 /**
- * Created by xuhao on 2017/11/30.
- * desc:
+ * @desc: 分类详情 Presenter
  */
-class CategoryDetailPresenter:BasePresenter<CategoryDetailContract.View>(),CategoryDetailContract.Presenter{
+class CategoryDetailPresenter : BasePresenter<CategoryDetailContract.View, IBaseModel>(),
+    CategoryDetailContract.Presenter {
 
-   private val categoryDetailModel by lazy {
-       CategoryDetailModel()
-   }
+    private val categoryDetailModel by lazy {
+        CategoryDetailModel()
+    }
 
-    private var nextPageUrl:String?=null
+    private var nextPageUrl: String? = null
 
     /**
      * 获取分类详情的列表信息
      */
     override fun getCategoryDetailList(id: Long) {
         checkViewAttached()
-        val disposable= categoryDetailModel.getCategoryDetailList(id)
-                .subscribe({
-                    issue ->
-                    mRootView?.apply {
-                        nextPageUrl = issue.nextPageUrl
-                        setCateDetailList(issue.itemList)
-                    }
-                },{
-                    throwable ->
-                    mRootView?.apply {
-                        showError(throwable.toString())
-                    }
-                })
+        val disposable = categoryDetailModel.getCategoryDetailList(id)
+            .subscribe({ issue ->
+                mView?.apply {
+                    nextPageUrl = issue.nextPageUrl
+                    setCateDetailList(issue.itemList)
+                }
+            }, { throwable ->
+                mView?.apply {
+                    showError(throwable.toString())
+                }
+            })
 
         addSubscription(disposable)
     }
@@ -44,16 +43,16 @@ class CategoryDetailPresenter:BasePresenter<CategoryDetailContract.View>(),Categ
     override fun loadMoreData() {
         val disposable = nextPageUrl?.let {
             categoryDetailModel.loadMoreData(it)
-                    .subscribe({ issue ->
-                        mRootView?.apply {
-                            nextPageUrl = issue.nextPageUrl
-                            setCateDetailList(issue.itemList)
-                        }
-                    }, { throwable ->
-                        mRootView?.apply {
-                            showError(throwable.toString())
-                        }
-                    })
+                .subscribe({ issue ->
+                    mView?.apply {
+                        nextPageUrl = issue.nextPageUrl
+                        setCateDetailList(issue.itemList)
+                    }
+                }, { throwable ->
+                    mView?.apply {
+                        showError(throwable.toString())
+                    }
+                })
         }
 
         disposable?.let { addSubscription(it) }

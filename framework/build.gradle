@@ -60,8 +60,6 @@ dependencies {
      * multiple-status-view
      */
     api project(':multiple-status-view')
-
-
     /**
      * Supports
      */
@@ -74,22 +72,22 @@ dependencies {
      * Dagger2
      */
     api rootProject.ext.dragger2Libs
+    kapt rootProject.ext.kaptdragger2
     /**
      * SmartRefreshLayout
      */
     api rootProject.ext.smartRefreshLibs
     /**
+     * Glide
+     */
+    api rootProject.ext.glideLibs
+    kapt rootProject.ext.kaptGlide
+    /**
      * 视屏播放器
      */
     api 'com.shuyu:GSYVideoPlayer:2.1.1'
-
-
     /**
      * DataBinding
      */
     kapt rootProject.ext.kaptDataBinding
-    /**
-     * Dagger2
-     */
-    kapt rootProject.ext.kaptdragger2
 }

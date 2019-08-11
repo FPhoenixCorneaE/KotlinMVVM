@@ -31,7 +31,7 @@ class SizeUtil private constructor() {
          * @return px值
          */
         fun dp2px(dpValue: Float): Int {
-            val scale = ContextUtil.context.getResources().getDisplayMetrics().density
+            val scale = ContextUtil.context.resources.displayMetrics.density
             return (dpValue * scale + 0.5f).toInt()
         }
 
@@ -42,7 +42,7 @@ class SizeUtil private constructor() {
          * @return dp值
          */
         fun px2dp(pxValue: Float): Int {
-            val scale = ContextUtil.context.getResources().getDisplayMetrics().density
+            val scale = ContextUtil.context.resources.displayMetrics.density
             return (pxValue / scale + 0.5f).toInt()
         }
 

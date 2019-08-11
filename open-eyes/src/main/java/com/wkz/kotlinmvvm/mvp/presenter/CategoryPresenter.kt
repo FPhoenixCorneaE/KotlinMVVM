@@ -1,15 +1,16 @@
-package com.hazz.kotlinmvp.mvp.presenter
+package com.wkz.kotlinmvvm.mvp.presenter
 
-import com.hazz.kotlinmvp.base.BasePresenter
-import com.hazz.kotlinmvp.mvp.contract.CategoryContract
-import com.hazz.kotlinmvp.mvp.model.CategoryModel
-import com.hazz.kotlinmvp.net.exception.ExceptionHandle
+import com.wkz.framework.base.BasePresenter
+import com.wkz.framework.base.IBaseModel
+import com.wkz.kotlinmvvm.mvp.contract.CategoryContract
+import com.wkz.kotlinmvvm.mvp.model.CategoryModel
+import com.wkz.rxretrofit.network.exception.ExceptionHandle
+
 
 /**
- * Created by xuhao on 2017/11/29.
- * desc:分类的 Presenter
+ * @desc: 分类 Presenter
  */
-class CategoryPresenter : BasePresenter<CategoryContract.View>(), CategoryContract.Presenter {
+class CategoryPresenter : BasePresenter<CategoryContract.View, IBaseModel>(), CategoryContract.Presenter {
 
     private val categoryModel: CategoryModel by lazy {
         CategoryModel()
@@ -20,20 +21,20 @@ class CategoryPresenter : BasePresenter<CategoryContract.View>(), CategoryContra
      */
     override fun getCategoryData() {
         checkViewAttached()
-        mRootView?.showLoading()
+        mView?.showLoading()
         val disposable = categoryModel.getCategoryData()
-                .subscribe({ categoryList ->
-                    mRootView?.apply {
-                        dismissLoading()
-                        showCategory(categoryList)
-                    }
-                }, { t ->
-                    mRootView?.apply {
-                        //处理异常
-                        showError(ExceptionHandle.handleException(t),ExceptionHandle.errorCode)
-                    }
+            .subscribe({ categoryList ->
+                mView?.apply {
+                    dismissLoading()
+                    showCategory(categoryList)
+                }
+            }, { t ->
+                mView?.apply {
+                    //处理异常
+                    showError(ExceptionHandle.handleException(t), ExceptionHandle.errorCode)
+                }
 
-                })
+            })
 
         addSubscription(disposable)
     }

@@ -1,15 +1,17 @@
-package com.hazz.kotlinmvp.mvp.presenter
+package com.wkz.kotlinmvvm.mvp.presenter
 
-import com.hazz.kotlinmvp.base.BasePresenter
-import com.hazz.kotlinmvp.mvp.contract.SearchContract
-import com.hazz.kotlinmvp.mvp.model.SearchModel
-import com.hazz.kotlinmvp.net.exception.ExceptionHandle
+import com.wkz.framework.base.BasePresenter
+import com.wkz.framework.base.IBaseModel
+import com.wkz.kotlinmvvm.mvp.contract.SearchContract
+import com.wkz.kotlinmvvm.mvp.model.SearchModel
+import com.wkz.rxretrofit.network.exception.ExceptionHandle
+
 
 /**
  * Created by xuhao on 2017/12/4.
  * desc: 搜索的 Presenter
  */
-class SearchPresenter : BasePresenter<SearchContract.View>(), SearchContract.Presenter {
+class SearchPresenter : BasePresenter<SearchContract.View, IBaseModel>(), SearchContract.Presenter {
 
     private var nextPageUrl: String? = null
 
@@ -21,22 +23,23 @@ class SearchPresenter : BasePresenter<SearchContract.View>(), SearchContract.Pre
      */
     override fun requestHotWordData() {
         checkViewAttached()
-        checkViewAttached()
-        mRootView?.apply {
+        mView?.apply {
             closeSoftKeyboard()
             showLoading()
         }
-        addSubscription(disposable = searchModel.requestHotWordData()
+        addSubscription(
+            disposable = searchModel.requestHotWordData()
                 .subscribe({ string ->
-                    mRootView?.apply {
+                    mView?.apply {
                         setHotWordData(string)
                     }
                 }, { throwable ->
-                    mRootView?.apply {
+                    mView?.apply {
                         //处理异常
-                        showError(ExceptionHandle.handleException(throwable),ExceptionHandle.errorCode)
+                        showError(ExceptionHandle.handleException(throwable), ExceptionHandle.errorCode)
                     }
-                }))
+                })
+        )
     }
 
     /**
@@ -44,13 +47,14 @@ class SearchPresenter : BasePresenter<SearchContract.View>(), SearchContract.Pre
      */
     override fun querySearchData(words: String) {
         checkViewAttached()
-        mRootView?.apply {
+        mView?.apply {
             closeSoftKeyboard()
             showLoading()
         }
-        addSubscription(disposable = searchModel.getSearchResult(words)
+        addSubscription(
+            disposable = searchModel.getSearchResult(words)
                 .subscribe({ issue ->
-                    mRootView?.apply {
+                    mView?.apply {
                         dismissLoading()
                         if (issue.count > 0 && issue.itemList.size > 0) {
                             nextPageUrl = issue.nextPageUrl
@@ -59,10 +63,10 @@ class SearchPresenter : BasePresenter<SearchContract.View>(), SearchContract.Pre
                             setEmptyView()
                     }
                 }, { throwable ->
-                    mRootView?.apply {
+                    mView?.apply {
                         dismissLoading()
                         //处理异常
-                        showError(ExceptionHandle.handleException(throwable),ExceptionHandle.errorCode)
+                        showError(ExceptionHandle.handleException(throwable), ExceptionHandle.errorCode)
                     }
                 })
         )
@@ -75,21 +79,21 @@ class SearchPresenter : BasePresenter<SearchContract.View>(), SearchContract.Pre
     override fun loadMoreData() {
         checkViewAttached()
         nextPageUrl?.let {
-            addSubscription(disposable = searchModel.loadMoreData(it)
+            addSubscription(
+                disposable = searchModel.loadMoreData(it)
                     .subscribe({ issue ->
-                        mRootView?.apply {
+                        mView?.apply {
                             nextPageUrl = issue.nextPageUrl
                             setSearchResult(issue)
                         }
                     }, { throwable ->
-                        mRootView?.apply {
+                        mView?.apply {
                             //处理异常
-                            showError(ExceptionHandle.handleException(throwable),ExceptionHandle.errorCode)
+                            showError(ExceptionHandle.handleException(throwable), ExceptionHandle.errorCode)
                         }
-                    }))
+                    })
+            )
         }
 
     }
-
-
 }

@@ -22,6 +22,11 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
+        <!-- 视频播放详情页面 -->
+        <activity
+                android:name=".viewmodel.activity.VideoDetailActivity"
+                android:configChanges="orientation|keyboardHidden|screenSize"/>
     </application>
 
 </manifest>

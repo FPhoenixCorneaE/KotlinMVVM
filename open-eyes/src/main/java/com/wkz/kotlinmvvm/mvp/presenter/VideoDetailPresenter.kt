@@ -1,19 +1,22 @@
 package com.wkz.kotlinmvvm.mvp.presenter
 
 import android.app.Activity
+import com.wkz.extension.dataFormat
+import com.wkz.extension.showToast
 import com.wkz.framework.base.BasePresenter
 import com.wkz.framework.base.IBaseModel
 import com.wkz.kotlinmvvm.mvp.contract.VideoDetailContract
 import com.wkz.kotlinmvvm.mvp.model.VideoDetailModel
 import com.wkz.kotlinmvvm.mvp.model.bean.HomeBean
-import com.wkz.util.ContextUtil
+import com.wkz.rxretrofit.network.exception.ExceptionHandle
 import com.wkz.util.NetworkUtil
+import com.wkz.util.ScreenUtil
+import com.wkz.util.SizeUtil
 
 /**
- * Created by xuhao on 2017/11/25.
- * desc:
+ * @desc: 视频详情Presenter
  */
-class VideoDetailPresenter : BasePresenter<VideoDetailContract.View,IBaseModel>(), VideoDetailContract.Presenter {
+class VideoDetailPresenter : BasePresenter<VideoDetailContract.View, IBaseModel>(), VideoDetailContract.Presenter {
 
     private val videoDetailModel: VideoDetailModel by lazy {
 
@@ -46,9 +49,7 @@ class VideoDetailPresenter : BasePresenter<VideoDetailContract.View,IBaseModel>(
                     if (i.type == "normal") {
                         val playUrl = i.url
                         mView?.setVideo(playUrl)
-                        //Todo 待完善
-                        (mView as Activity).showToast("本次消耗${(mView as Activity)
-                                .dataFormat(i.urlList[0].size)}流量")
+                        showToast("本次消耗${dataFormat(i.urlList[0].size)}流量")
 
                         break
                     }
@@ -59,14 +60,12 @@ class VideoDetailPresenter : BasePresenter<VideoDetailContract.View,IBaseModel>(
         }
 
         //设置背景
-        val backgroundUrl = itemInfo.data.cover.blurred + "/thumbnail/${DisplayManager.getScreenHeight()!! - DisplayManager.dip2px(250f)!!}x${DisplayManager.getScreenWidth()}"
+        val backgroundUrl =
+            itemInfo.data.cover.blurred + "/thumbnail/${ScreenUtil.screenHeight - SizeUtil.dp2px(250f)}x${ScreenUtil.screenWidth}"
         backgroundUrl.let { mView?.setBackground(it) }
 
         mView?.setVideoInfo(itemInfo)
-
-
     }
-
 
     /**
      * 请求相关的视频数据
@@ -74,21 +73,17 @@ class VideoDetailPresenter : BasePresenter<VideoDetailContract.View,IBaseModel>(
     override fun requestRelatedVideo(id: Long) {
         mView?.showLoading()
         val disposable = videoDetailModel.requestRelatedData(id)
-                .subscribe({ issue ->
-                    mView?.apply {
-                        dismissLoading()
-                        setRecentRelatedVideo(issue.itemList)
-                    }
-                }, { t ->
-                    mView?.apply {
-                        dismissLoading()
-                        setErrorMsg(ExceptionHandle.handleException(t))
-                    }
-                })
-
+            .subscribe({ issue ->
+                mView?.apply {
+                    dismissLoading()
+                    setRecentRelatedVideo(issue.itemList)
+                }
+            }, { t ->
+                mView?.apply {
+                    dismissLoading()
+                    setErrorMsg(ExceptionHandle.handleException(t))
+                }
+            })
         addSubscription(disposable)
-
     }
-
-
 }
