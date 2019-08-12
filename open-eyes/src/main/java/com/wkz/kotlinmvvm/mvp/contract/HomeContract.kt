@@ -1,6 +1,7 @@
 package com.wkz.kotlinmvvm.mvp.contract
 
 import com.wkz.framework.base.IBaseView
+import com.wkz.framework.base.IPresenter
 import com.wkz.kotlinmvvm.mvp.model.bean.HomeBean
 
 /**
@@ -29,7 +30,7 @@ interface HomeContract {
 
     }
 
-    interface Presenter {
+    interface Presenter : IPresenter<View> {
 
         /**
          * 获取首页精选数据

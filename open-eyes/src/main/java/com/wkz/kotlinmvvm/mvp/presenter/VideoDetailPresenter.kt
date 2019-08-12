@@ -1,10 +1,8 @@
 package com.wkz.kotlinmvvm.mvp.presenter
 
-import android.app.Activity
 import com.wkz.extension.dataFormat
 import com.wkz.extension.showToast
 import com.wkz.framework.base.BasePresenter
-import com.wkz.framework.base.IBaseModel
 import com.wkz.kotlinmvvm.mvp.contract.VideoDetailContract
 import com.wkz.kotlinmvvm.mvp.model.VideoDetailModel
 import com.wkz.kotlinmvvm.mvp.model.bean.HomeBean
@@ -12,16 +10,16 @@ import com.wkz.rxretrofit.network.exception.ExceptionHandle
 import com.wkz.util.NetworkUtil
 import com.wkz.util.ScreenUtil
 import com.wkz.util.SizeUtil
+import javax.inject.Inject
 
 /**
  * @desc: 视频详情Presenter
  */
-class VideoDetailPresenter : BasePresenter<VideoDetailContract.View, IBaseModel>(), VideoDetailContract.Presenter {
+class VideoDetailPresenter @Inject constructor() : BasePresenter<VideoDetailContract.View>(),
+    VideoDetailContract.Presenter {
 
-    private val videoDetailModel: VideoDetailModel by lazy {
-
-        VideoDetailModel()
-    }
+    @Inject
+    lateinit var videoDetailModel: VideoDetailModel
 
     /**
      * 加载视频相关的数据

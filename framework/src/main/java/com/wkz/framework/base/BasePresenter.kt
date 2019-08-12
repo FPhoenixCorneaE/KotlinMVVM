@@ -6,7 +6,7 @@ import io.reactivex.disposables.Disposable
 /**
  * @desc: Presenter 基类
  */
-open class BasePresenter<V : IBaseView, M : IBaseModel> : IPresenter<V, M> {
+open class BasePresenter<V : IBaseView> : IPresenter<V> {
 
     var mView: V? = null
         private set

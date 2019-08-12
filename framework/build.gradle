@@ -71,8 +71,8 @@ dependencies {
     /**
      * Dagger2
      */
-    api rootProject.ext.dragger2Libs
-    kapt rootProject.ext.kaptdragger2
+    implementation rootProject.ext.dragger2Libs
+    kapt rootProject.ext.kaptDragger2
     /**
      * SmartRefreshLayout
      */

@@ -1,7 +1,6 @@
 package com.wkz.kotlinmvvm.mvp.presenter
 
 import com.wkz.framework.base.BasePresenter
-import com.wkz.framework.base.IBaseModel
 import com.wkz.kotlinmvvm.mvp.contract.RankContract
 import com.wkz.kotlinmvvm.mvp.model.RankModel
 import com.wkz.rxretrofit.network.exception.ExceptionHandle
@@ -10,7 +9,7 @@ import com.wkz.rxretrofit.network.exception.ExceptionHandle
 /**
  * @desc: 排行榜 Presenter
  */
-class RankPresenter : BasePresenter<RankContract.View, IBaseModel>(), RankContract.Presenter {
+class RankPresenter : BasePresenter<RankContract.View>(), RankContract.Presenter {
 
     private val rankModel by lazy { RankModel() }
 

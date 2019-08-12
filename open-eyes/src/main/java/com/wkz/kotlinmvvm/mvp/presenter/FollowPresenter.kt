@@ -1,7 +1,6 @@
 package com.wkz.kotlinmvvm.mvp.presenter
 
 import com.wkz.framework.base.BasePresenter
-import com.wkz.framework.base.IBaseModel
 import com.wkz.kotlinmvvm.mvp.contract.FollowContract
 import com.wkz.kotlinmvvm.mvp.model.FollowModel
 import com.wkz.rxretrofit.network.exception.ExceptionHandle
@@ -9,7 +8,7 @@ import com.wkz.rxretrofit.network.exception.ExceptionHandle
 /**
  * @desc: 关注 Presenter
  */
-class FollowPresenter : BasePresenter<FollowContract.View, IBaseModel>(), FollowContract.Presenter {
+class FollowPresenter : BasePresenter<FollowContract.View>(), FollowContract.Presenter {
 
     private val followModel by lazy { FollowModel() }
 

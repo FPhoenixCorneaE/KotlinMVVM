@@ -1,8 +1,8 @@
 package com.wkz.kotlinmvvm.api
 
 /**
- * 链接常量
+ * @desc: 地址链接常量
  */
-object UrlConstant {
+object OpenEyesUrlConstant {
     const val BASE_URL = "http://baobab.kaiyanapp.com/api/"
 }

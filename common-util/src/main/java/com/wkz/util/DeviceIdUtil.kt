@@ -38,10 +38,7 @@ class DeviceIdUtil private constructor() {
             @SuppressLint("HardwareIds", "MissingPermission")
             get() {
                 val telephonyMgr = ContextUtil.context.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
-                var szImei = ""
-                if (telephonyMgr != null) {
-                    szImei = telephonyMgr.deviceId
-                }
+                val szImei = telephonyMgr.deviceId
                 return szImei
             }
 

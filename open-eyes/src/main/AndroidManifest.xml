@@ -1,21 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:dist="http://schemas.android.com/apk/distribution"
-          package="com.wkz.kotlinmvvm">
+          xmlns:tools="http://schemas.android.com/tools" package="com.wkz.kotlinmvvm">
 
     <dist:module dist:instant="true"/>
 
+    <!--当调用远程接口进行网络通信时，报如下错误：
+    java.net.UnknownServiceException: CLEARTEXT communication to gank.io not permitted by network security policy
+    可以通过设置android:usesCleartextTraffic="true"使用明文的通信方式作为一种临时的通信策略，但不建议使用-->
     <application
+            android:name=".application.OpenEyesApplication"
             android:allowBackup="true"
             android:icon="@mipmap/ic_launcher"
             android:label="@string/app_name"
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
-            android:theme="@style/AppTheme">
+            android:theme="@style/AppTheme"
+            android:usesCleartextTraffic="true"
+            tools:ignore="AllowBackup,GoogleAppIndexingWarning"
+            tools:targetApi="m">
         <activity
                 android:name=".viewmodel.MainActivity"
                 android:label="@string/app_name"
-                android:theme="@style/AppTheme.NoActionBar">
+                android:configChanges="orientation|keyboardHidden|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

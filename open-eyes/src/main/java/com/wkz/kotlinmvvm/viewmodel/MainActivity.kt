@@ -1,11 +1,13 @@
 package com.wkz.kotlinmvvm.viewmodel
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import com.wkz.kotlinmvvm.R
+import com.wkz.kotlinmvvm.viewmodel.activity.VideoDetailActivity
 import kotlinx.android.synthetic.main.open_eyes_activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -18,6 +20,8 @@ class MainActivity : AppCompatActivity() {
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
+
+            startActivity(Intent(this@MainActivity, VideoDetailActivity::class.java))
         }
     }
 

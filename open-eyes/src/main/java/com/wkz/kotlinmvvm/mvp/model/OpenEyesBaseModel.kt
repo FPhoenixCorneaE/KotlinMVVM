@@ -2,7 +2,7 @@ package com.wkz.kotlinmvvm.mvp.model
 
 import com.wkz.framework.base.IBaseModel
 import com.wkz.kotlinmvvm.api.OpenEyesApi
-import com.wkz.kotlinmvvm.api.UrlConstant
+import com.wkz.kotlinmvvm.api.OpenEyesUrlConstant
 import com.wkz.rxretrofit.network.IBaseUrl
 import com.wkz.rxretrofit.network.RetrofitManager
 
@@ -16,6 +16,6 @@ open class OpenEyesBaseModel : IBaseUrl, IBaseModel {
     }
 
     override fun getBaseUrl(): String {
-        return UrlConstant.BASE_URL
+        return OpenEyesUrlConstant.BASE_URL
     }
 }

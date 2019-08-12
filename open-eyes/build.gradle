@@ -49,6 +49,10 @@ android {
     }
 }
 
+kapt {
+    generateStubs = true
+}
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     /**
@@ -59,6 +63,12 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
     implementation project(':framework')
+
+    /**
+     * Dagger2
+     */
+    implementation rootProject.ext.dragger2Libs
+    kapt rootProject.ext.kaptDragger2
     /**
      * navigation 扩展插件
      */

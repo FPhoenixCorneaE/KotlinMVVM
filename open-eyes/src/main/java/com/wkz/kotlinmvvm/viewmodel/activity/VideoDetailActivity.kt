@@ -22,9 +22,8 @@ import com.shuyu.gsyvideoplayer.video.base.GSYVideoPlayer
 import com.wkz.extension.showToast
 import com.wkz.framework.base.BaseActivity
 import com.wkz.kotlinmvvm.R
-import com.wkz.kotlinmvvm.constant.Constants
 import com.wkz.kotlinmvvm.databinding.OpenEyesActivityVideoDetailBinding
-import com.wkz.kotlinmvvm.listener.VideoListener
+import com.wkz.kotlinmvvm.listener.OnVideoListener
 import com.wkz.kotlinmvvm.mvp.contract.VideoDetailContract
 import com.wkz.kotlinmvvm.mvp.model.bean.HomeBean
 import com.wkz.kotlinmvvm.mvp.presenter.VideoDetailPresenter
@@ -36,8 +35,7 @@ import java.util.*
 
 @SuppressLint("SimpleDateFormat")
 /**
- * Created by xuhao on 2017/11/25.
- * desc: 视频详情
+ * @desc: 视频详情
  */
 class VideoDetailActivity :
     BaseActivity<VideoDetailContract.View, VideoDetailPresenter, OpenEyesActivityVideoDetailBinding>(),
@@ -77,10 +75,8 @@ class VideoDetailActivity :
      * 初始化 View
      */
     override fun initView() {
-
-        mPresenter.attachView(this)
         //过渡动画
-        initTransition()
+//        initTransition()
         initVideoViewConfig()
 
         mRecyclerView.layoutManager = LinearLayoutManager(this)
@@ -121,13 +117,13 @@ class VideoDetailActivity :
         //增加封面
         val imageView = ImageView(this)
         imageView.scaleType = ImageView.ScaleType.CENTER_CROP
-        Glide.with(this)
-            .load(itemData.data?.cover?.feed)
-            .centerCrop()
-            .into(imageView)
+//        Glide.with(this)
+//            .load(itemData.data?.cover?.feed)
+//            .centerCrop()
+//            .into(imageView)
         mVideoView.thumbImageView = imageView
 
-        mVideoView.setStandardVideoAllCallBack(object : VideoListener {
+        mVideoView.setStandardVideoAllCallBack(object : OnVideoListener {
 
             override fun onPrepared(url: String, vararg objects: Any) {
                 super.onPrepared(url, *objects)
@@ -181,8 +177,12 @@ class VideoDetailActivity :
      * 初始化数据
      */
     override fun initData(savedInstanceState: Bundle?) {
-        itemData = intent.getSerializableExtra(Constants.BUNDLE_VIDEO_DATA) as HomeBean.Issue.Item
+//        itemData = intent.getSerializableExtra(OpenEyesConstants.BUNDLE_VIDEO_DATA) as HomeBean.Issue.Item
+        itemData = HomeBean.Issue.Item("", null, "")
         isTransition = intent.getBooleanExtra(TRANSITION, false)
+
+        mBaseLayoutBinding.mMsvRoot.showContent()
+        mPresenter.requestRelatedVideo(169617)
     }
 
 
@@ -328,8 +328,6 @@ class VideoDetailActivity :
             }
 
             override fun onTransitionEnd(p0: Transition?) {
-                Logger.d("onTransitionEnd()------")
-
                 loadVideoInfo()
                 transition?.removeListener(this)
             }

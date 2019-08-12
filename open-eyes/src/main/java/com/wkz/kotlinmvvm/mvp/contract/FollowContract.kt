@@ -1,6 +1,5 @@
 package com.wkz.kotlinmvvm.mvp.contract
 
-import com.wkz.framework.base.IBaseModel
 import com.wkz.framework.base.IBaseView
 import com.wkz.framework.base.IPresenter
 import com.wkz.kotlinmvvm.mvp.model.bean.HomeBean
@@ -20,7 +19,7 @@ interface FollowContract {
     }
 
 
-    interface Presenter : IPresenter<View, IBaseModel> {
+    interface Presenter : IPresenter<View> {
         /**
          * 获取List
          */

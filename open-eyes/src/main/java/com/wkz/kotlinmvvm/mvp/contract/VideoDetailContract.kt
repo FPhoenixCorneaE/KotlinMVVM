@@ -1,6 +1,5 @@
 package com.wkz.kotlinmvvm.mvp.contract
 
-import com.wkz.framework.base.IBaseModel
 import com.wkz.framework.base.IBaseView
 import com.wkz.framework.base.IPresenter
 import com.wkz.kotlinmvvm.mvp.model.bean.HomeBean
@@ -38,7 +37,7 @@ interface VideoDetailContract {
         fun setErrorMsg(errorMsg: String)
     }
 
-    interface Presenter : IPresenter<View, IBaseModel> {
+    interface Presenter : IPresenter<View> {
 
         /**
          * 加载视频信息

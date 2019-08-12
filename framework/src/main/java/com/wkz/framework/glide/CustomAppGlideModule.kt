@@ -24,7 +24,7 @@ class CustomAppGlideModule : AppGlideModule() {
      * @param builder
      */
     override fun applyOptions(context: Context, builder: GlideBuilder) {
-        //重新设置内存限制
+        // 重新设置内存限制
         builder.setMemoryCache(LruResourceCache(10 * 1024 * 1024))
     }
 
@@ -37,9 +37,7 @@ class CustomAppGlideModule : AppGlideModule() {
      *
      * @return
      */
-    override fun isManifestParsingEnabled(): Boolean {
-        return false
-    }
+    override fun isManifestParsingEnabled() = false
 
     /**
      *

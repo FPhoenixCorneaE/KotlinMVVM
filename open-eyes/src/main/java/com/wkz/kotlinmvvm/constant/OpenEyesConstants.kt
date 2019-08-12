@@ -3,7 +3,7 @@ package com.wkz.kotlinmvvm.constant
 /**
  * @desc: 常量
  */
-class Constants private constructor() {
+class OpenEyesConstants private constructor() {
 
     companion object {
 

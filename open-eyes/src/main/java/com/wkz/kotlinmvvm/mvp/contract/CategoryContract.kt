@@ -1,6 +1,5 @@
 package com.wkz.kotlinmvvm.mvp.contract
 
-import com.wkz.framework.base.IBaseModel
 import com.wkz.framework.base.IBaseView
 import com.wkz.framework.base.IPresenter
 import com.wkz.kotlinmvvm.mvp.model.bean.CategoryBean
@@ -22,7 +21,7 @@ interface CategoryContract {
         fun showError(errorMsg: String, errorCode: Int)
     }
 
-    interface Presenter : IPresenter<View, IBaseModel> {
+    interface Presenter : IPresenter<View> {
         /**
          * 获取分类的信息
          */

@@ -80,5 +80,5 @@ ext {
     /** kapt */
     kaptDataBinding = [dataBindingCompiler]
     kaptGlide = [glideCompiler]
-    kaptdragger2 = dragger2Compiler.values()
+    kaptDragger2 = dragger2Compiler.values()
 }

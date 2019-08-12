@@ -2,12 +2,15 @@ package com.wkz.kotlinmvvm.mvp.model
 
 import com.wkz.kotlinmvvm.mvp.model.bean.HomeBean
 import com.wkz.rxretrofit.scheduler.SchedulerManager
+import dagger.Module
 import io.reactivex.Observable
+import javax.inject.Inject
 
 /**
  * @desc: 视频详情 Model
  */
-class VideoDetailModel : OpenEyesBaseModel() {
+@Module
+class VideoDetailModel @Inject constructor() : OpenEyesBaseModel() {
 
     /**
      * 请求相关数据

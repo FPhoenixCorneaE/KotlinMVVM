@@ -1,14 +1,13 @@
 package com.wkz.kotlinmvvm.mvp.presenter
 
 import com.wkz.framework.base.BasePresenter
-import com.wkz.framework.base.IBaseModel
 import com.wkz.kotlinmvvm.mvp.contract.CategoryDetailContract
 import com.wkz.kotlinmvvm.mvp.model.CategoryDetailModel
 
 /**
  * @desc: 分类详情 Presenter
  */
-class CategoryDetailPresenter : BasePresenter<CategoryDetailContract.View, IBaseModel>(),
+class CategoryDetailPresenter : BasePresenter<CategoryDetailContract.View>(),
     CategoryDetailContract.Presenter {
 
     private val categoryDetailModel by lazy {

@@ -1,17 +1,15 @@
 package com.wkz.kotlinmvvm.mvp.presenter
 
 import com.wkz.framework.base.BasePresenter
-import com.wkz.framework.base.IBaseModel
 import com.wkz.kotlinmvvm.mvp.contract.SearchContract
 import com.wkz.kotlinmvvm.mvp.model.SearchModel
 import com.wkz.rxretrofit.network.exception.ExceptionHandle
 
 
 /**
- * Created by xuhao on 2017/12/4.
- * desc: 搜索的 Presenter
+ * @desc: 搜索 Presenter
  */
-class SearchPresenter : BasePresenter<SearchContract.View, IBaseModel>(), SearchContract.Presenter {
+class SearchPresenter : BasePresenter<SearchContract.View>(), SearchContract.Presenter {
 
     private var nextPageUrl: String? = null
 

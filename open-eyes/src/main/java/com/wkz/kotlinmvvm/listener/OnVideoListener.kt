@@ -3,10 +3,9 @@ package com.wkz.kotlinmvvm.listener
 import com.shuyu.gsyvideoplayer.listener.StandardVideoAllCallBack
 
 /**
- * Created by xuhao on 2017/11/27.
- * desc: VideoAllCallBack 回调
+ * @desc: VideoAllCallBack 回调
  */
-interface VideoListener : StandardVideoAllCallBack {
+interface OnVideoListener : StandardVideoAllCallBack {
 
     //加载成功，objects[0]是title，object[1]是当前所处播放器（全屏或非全屏）
     override fun onPrepared(url: String, vararg objects: Any) {

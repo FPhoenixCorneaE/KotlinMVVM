@@ -1,7 +1,6 @@
 package com.wkz.kotlinmvvm.mvp.presenter
 
 import com.wkz.framework.base.BasePresenter
-import com.wkz.framework.base.IBaseModel
 import com.wkz.kotlinmvvm.mvp.contract.HomeContract
 import com.wkz.kotlinmvvm.mvp.model.HomeModel
 import com.wkz.kotlinmvvm.mvp.model.bean.HomeBean
@@ -13,7 +12,7 @@ import com.wkz.rxretrofit.network.exception.ExceptionHandle
  * (数据是 Banner 数据和一页数据组合而成的 HomeBean,查看接口然后在分析就明白了)
  */
 
-class HomePresenter : BasePresenter<HomeContract.View, IBaseModel>(), HomeContract.Presenter {
+class HomePresenter : BasePresenter<HomeContract.View>(), HomeContract.Presenter {
 
 
     private var bannerHomeBean: HomeBean? = null

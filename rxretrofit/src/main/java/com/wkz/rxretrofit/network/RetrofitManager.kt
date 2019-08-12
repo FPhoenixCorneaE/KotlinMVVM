@@ -1,5 +1,6 @@
 package com.wkz.rxretrofit.network
 
+import com.orhanobut.logger.Logger
 import com.wkz.util.AppUtil
 import com.wkz.util.ContextUtil
 import com.wkz.util.NetworkUtil
@@ -89,7 +90,7 @@ object RetrofitManager {
 
     private fun getOkHttpClient(): OkHttpClient {
         // 添加一个log拦截器,打印所有的log
-        val httpLoggingInterceptor = HttpLoggingInterceptor()
+        val httpLoggingInterceptor = HttpLoggingInterceptor { message -> Logger.i(message) }
         // 可以设置请求过滤的水平,body,basic,headers
         httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
 

@@ -1,13 +1,10 @@
 package com.wkz.unit
 
-import java.lang.annotation.Retention
-import java.lang.annotation.RetentionPolicy
-
 /**
  * @author wkz
  */
 @Target(AnnotationTarget.CLASS, AnnotationTarget.FILE)
-@Retention(RetentionPolicy.CLASS)
+@kotlin.annotation.Retention(AnnotationRetention.BINARY)
 annotation class MemoryUnit {
     companion object {
 
