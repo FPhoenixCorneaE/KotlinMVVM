@@ -1,5 +1,6 @@
 package com.wkz.kotlinmvvm.mvp.presenter
 
+import com.uber.autodispose.autoDisposable
 import com.wkz.framework.base.BasePresenter
 import com.wkz.kotlinmvvm.mvp.contract.FollowContract
 import com.wkz.kotlinmvvm.mvp.model.FollowModel
@@ -18,12 +19,12 @@ class FollowPresenter : BasePresenter<FollowContract.View>(), FollowContract.Pre
      *  请求关注数据
      */
     override fun requestFollowList() {
-        checkViewAttached()
         mView?.showLoading()
-        val disposable = followModel.requestFollowList()
+        followModel.requestFollowList()
+            .autoDisposable(mScopeProvider!!)
             .subscribe({ issue ->
                 mView?.apply {
-                    dismissLoading()
+                    showContent()
                     nextPageUrl = issue.nextPageUrl
                     setFollowInfo(issue)
                 }
@@ -33,15 +34,15 @@ class FollowPresenter : BasePresenter<FollowContract.View>(), FollowContract.Pre
                     showError(ExceptionHandle.handleException(throwable), ExceptionHandle.errorCode)
                 }
             })
-        addSubscription(disposable)
     }
 
     /**
      * 加载更多
      */
     override fun loadMoreData() {
-        val disposable = nextPageUrl?.let {
+        nextPageUrl?.let {
             followModel.loadMoreData(it)
+                .autoDisposable(mScopeProvider!!)
                 .subscribe({ issue ->
                     mView?.apply {
                         nextPageUrl = issue.nextPageUrl
@@ -55,9 +56,6 @@ class FollowPresenter : BasePresenter<FollowContract.View>(), FollowContract.Pre
                 })
 
 
-        }
-        if (disposable != null) {
-            addSubscription(disposable)
         }
     }
 }

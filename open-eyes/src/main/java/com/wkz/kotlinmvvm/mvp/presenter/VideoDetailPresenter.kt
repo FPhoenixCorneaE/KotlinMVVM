@@ -1,5 +1,6 @@
 package com.wkz.kotlinmvvm.mvp.presenter
 
+import com.uber.autodispose.autoDisposable
 import com.wkz.extension.dataFormat
 import com.wkz.extension.showToast
 import com.wkz.framework.base.BasePresenter
@@ -29,8 +30,7 @@ class VideoDetailPresenter @Inject constructor() : BasePresenter<VideoDetailCont
         val playInfo = itemInfo.data?.playInfo
 
         val netType = NetworkUtil.isWifiConnected
-        // 检测是否绑定 View
-        checkViewAttached()
+
         if (playInfo!!.size > 1) {
             // 当前网络是 Wifi环境下选择高清的视频
             if (netType) {
@@ -70,18 +70,18 @@ class VideoDetailPresenter @Inject constructor() : BasePresenter<VideoDetailCont
      */
     override fun requestRelatedVideo(id: Long) {
         mView?.showLoading()
-        val disposable = videoDetailModel.requestRelatedData(id)
+        videoDetailModel.requestRelatedData(id)
+            .autoDisposable(mScopeProvider!!)
             .subscribe({ issue ->
                 mView?.apply {
-                    dismissLoading()
+                    showContent()
                     setRecentRelatedVideo(issue.itemList)
                 }
             }, { t ->
                 mView?.apply {
-                    dismissLoading()
+                    showContent()
                     setErrorMsg(ExceptionHandle.handleException(t))
                 }
             })
-        addSubscription(disposable)
     }
 }

@@ -8,8 +8,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
+import com.uber.autodispose.AutoDispose
+import com.uber.autodispose.AutoDisposeConverter
+import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
+import com.wkz.extension.showToast
 import com.wkz.framework.R
 import com.wkz.framework.databinding.FrameworkLayoutBaseBinding
+import com.wkz.rxretrofit.network.exception.ExceptionHandle
 import dagger.android.AndroidInjection
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
@@ -34,6 +40,11 @@ abstract class BaseActivity<V : IBaseView, P : IPresenter<V>, DB : ViewDataBindi
     @JvmField
     var frameworkFragmentInjector: DispatchingAndroidInjector<android.app.Fragment>? = null
 
+    /** 解决RxJava内存泄漏 */
+    protected val mScopeProvider: AndroidLifecycleScopeProvider by lazy {
+        AndroidLifecycleScopeProvider.from(this, Lifecycle.Event.ON_DESTROY)
+    }
+
     /** 当前界面 Context 对象*/
     protected lateinit var mContext: Activity
     /** 当前界面 Presenter 对象 */
@@ -53,8 +64,8 @@ abstract class BaseActivity<V : IBaseView, P : IPresenter<V>, DB : ViewDataBindi
             LayoutInflater.from(mContext),
             R.layout.framework_layout_base, null, false
         )
-        // 界面绑定
-        mPresenter.attachView(this as V)
+        // 设置生命周期作用域提供者
+        mPresenter.setLifecycleScopeProvider(mScopeProvider)
         setContentView(getLayoutId())
         initView()
         initListener()
@@ -80,8 +91,6 @@ abstract class BaseActivity<V : IBaseView, P : IPresenter<V>, DB : ViewDataBindi
     }
 
     override fun onDestroy() {
-        // 解除绑定
-        mPresenter.detachView()
         super.onDestroy()
     }
 
@@ -91,6 +100,34 @@ abstract class BaseActivity<V : IBaseView, P : IPresenter<V>, DB : ViewDataBindi
 
     override fun fragmentInjector(): AndroidInjector<android.app.Fragment> {
         return frameworkFragmentInjector!!
+    }
+
+    protected fun <T> bindLifecycle(): AutoDisposeConverter<T> {
+        return AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(this))
+    }
+
+    override fun showLoading() {
+        mBaseLayoutBinding.mMsvRoot.showLoading()
+    }
+
+    override fun showContent() {
+        mBaseLayoutBinding.mMsvRoot.showContent()
+    }
+
+    override fun showEmpty() {
+        mBaseLayoutBinding.mMsvRoot.showEmpty()
+    }
+
+    override fun showError() {
+        mBaseLayoutBinding.mMsvRoot.showError()
+    }
+
+    override fun showErrorMsg(t: Throwable) {
+        ExceptionHandle.handleException(t)
+    }
+
+    override fun showErrorMsg(errorMsg: CharSequence) {
+        showToast(errorMsg)
     }
 
     /**

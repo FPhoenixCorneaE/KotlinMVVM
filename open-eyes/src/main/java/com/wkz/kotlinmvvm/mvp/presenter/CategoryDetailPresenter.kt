@@ -1,5 +1,6 @@
 package com.wkz.kotlinmvvm.mvp.presenter
 
+import com.uber.autodispose.autoDisposable
 import com.wkz.framework.base.BasePresenter
 import com.wkz.kotlinmvvm.mvp.contract.CategoryDetailContract
 import com.wkz.kotlinmvvm.mvp.model.CategoryDetailModel
@@ -20,8 +21,8 @@ class CategoryDetailPresenter : BasePresenter<CategoryDetailContract.View>(),
      * 获取分类详情的列表信息
      */
     override fun getCategoryDetailList(id: Long) {
-        checkViewAttached()
-        val disposable = categoryDetailModel.getCategoryDetailList(id)
+        categoryDetailModel.getCategoryDetailList(id)
+            .autoDisposable(mScopeProvider!!)
             .subscribe({ issue ->
                 mView?.apply {
                     nextPageUrl = issue.nextPageUrl
@@ -32,16 +33,15 @@ class CategoryDetailPresenter : BasePresenter<CategoryDetailContract.View>(),
                     showError(throwable.toString())
                 }
             })
-
-        addSubscription(disposable)
     }
 
     /**
      * 加载更多数据
      */
     override fun loadMoreData() {
-        val disposable = nextPageUrl?.let {
+        nextPageUrl?.let {
             categoryDetailModel.loadMoreData(it)
+                .autoDisposable(mScopeProvider!!)
                 .subscribe({ issue ->
                     mView?.apply {
                         nextPageUrl = issue.nextPageUrl
@@ -53,7 +53,5 @@ class CategoryDetailPresenter : BasePresenter<CategoryDetailContract.View>(),
                     }
                 })
         }
-
-        disposable?.let { addSubscription(it) }
     }
 }

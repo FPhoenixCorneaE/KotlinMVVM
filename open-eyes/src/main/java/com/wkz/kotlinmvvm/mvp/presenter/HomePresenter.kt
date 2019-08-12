@@ -1,5 +1,6 @@
 package com.wkz.kotlinmvvm.mvp.presenter
 
+import com.uber.autodispose.autoDisposable
 import com.wkz.framework.base.BasePresenter
 import com.wkz.kotlinmvvm.mvp.contract.HomeContract
 import com.wkz.kotlinmvvm.mvp.model.HomeModel
@@ -28,10 +29,8 @@ class HomePresenter : BasePresenter<HomeContract.View>(), HomeContract.Presenter
      * 获取首页精选数据 banner 加 一页数据
      */
     override fun requestHomeData(num: Int) {
-        // 检测是否绑定 View
-        checkViewAttached()
         mView?.showLoading()
-        val disposable = homeModel.requestHomeData(num)
+        homeModel.requestHomeData(num)
             .flatMap { homeBean ->
 
                 //过滤掉 Banner2(包含广告,等不需要的 Type), 具体查看接口分析
@@ -50,10 +49,10 @@ class HomePresenter : BasePresenter<HomeContract.View>(), HomeContract.Presenter
                 //根据 nextPageUrl 请求下一页数据
                 homeModel.loadMoreData(homeBean.nextPageUrl)
             }
-
+            .autoDisposable(mScopeProvider!!)
             .subscribe({ homeBean ->
                 mView?.apply {
-                    dismissLoading()
+                    showContent()
 
                     nextPageUrl = homeBean.nextPageUrl
                     //过滤掉 Banner2(包含广告,等不需要的 Type), 具体查看接口分析
@@ -77,13 +76,10 @@ class HomePresenter : BasePresenter<HomeContract.View>(), HomeContract.Presenter
 
             }, { t ->
                 mView?.apply {
-                    dismissLoading()
+                    showContent()
                     showError(ExceptionHandle.handleException(t), ExceptionHandle.errorCode)
                 }
             })
-
-        addSubscription(disposable)
-
     }
 
     /**
@@ -91,8 +87,9 @@ class HomePresenter : BasePresenter<HomeContract.View>(), HomeContract.Presenter
      */
 
     override fun loadMoreData() {
-        val disposable = nextPageUrl?.let {
+        nextPageUrl?.let {
             homeModel.loadMoreData(it)
+                .autoDisposable(mScopeProvider!!)
                 .subscribe({ homeBean ->
                     mView?.apply {
                         //过滤掉 Banner2(包含广告,等不需要的 Type), 具体查看接口分析
@@ -117,10 +114,5 @@ class HomePresenter : BasePresenter<HomeContract.View>(), HomeContract.Presenter
 
 
         }
-        if (disposable != null) {
-            addSubscription(disposable)
-        }
     }
-
-
 }

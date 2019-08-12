@@ -1,10 +1,10 @@
 package com.wkz.kotlinmvvm.mvp.presenter
 
+import com.uber.autodispose.autoDisposable
 import com.wkz.framework.base.BasePresenter
 import com.wkz.kotlinmvvm.mvp.contract.CategoryContract
 import com.wkz.kotlinmvvm.mvp.model.CategoryModel
 import com.wkz.rxretrofit.network.exception.ExceptionHandle
-
 
 /**
  * @desc: 分类 Presenter
@@ -19,12 +19,12 @@ class CategoryPresenter : BasePresenter<CategoryContract.View>(), CategoryContra
      * 获取分类
      */
     override fun getCategoryData() {
-        checkViewAttached()
         mView?.showLoading()
-        val disposable = categoryModel.getCategoryData()
+        categoryModel.getCategoryData()
+            .autoDisposable(mScopeProvider!!)
             .subscribe({ categoryList ->
                 mView?.apply {
-                    dismissLoading()
+                    showContent()
                     showCategory(categoryList)
                 }
             }, { t ->
@@ -34,7 +34,5 @@ class CategoryPresenter : BasePresenter<CategoryContract.View>(), CategoryContra
                 }
 
             })
-
-        addSubscription(disposable)
     }
 }

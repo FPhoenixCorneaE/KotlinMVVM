@@ -74,6 +74,10 @@ dependencies {
     implementation rootProject.ext.dragger2Libs
     kapt rootProject.ext.kaptDragger2
     /**
+     * AutoDispose,解决RxJava内存泄漏
+     */
+    api rootProject.ext.autoDisposeLibs
+    /**
      * SmartRefreshLayout
      */
     api rootProject.ext.smartRefreshLibs

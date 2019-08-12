@@ -1,4 +1,4 @@
-package com.wkz.kotlinmvvm.viewmodel
+package com.wkz.kotlinmvvm.viewmodel.activity
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,7 +7,6 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import com.wkz.kotlinmvvm.R
-import com.wkz.kotlinmvvm.viewmodel.activity.VideoDetailActivity
 import kotlinx.android.synthetic.main.open_eyes_activity_main.*
 
 class MainActivity : AppCompatActivity() {

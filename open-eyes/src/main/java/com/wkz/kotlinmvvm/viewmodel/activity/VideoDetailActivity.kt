@@ -190,7 +190,8 @@ class VideoDetailActivity :
 
     }
 
-    override fun dismissLoading() {
+    override fun showContent() {
+        super.showContent()
         mRefreshLayout.finishRefresh()
     }
 
@@ -291,7 +292,6 @@ class VideoDetailActivity :
         super.onDestroy()
         GSYVideoPlayer.releaseAllVideos()
         orientationUtils?.releaseListener()
-        mPresenter.detachView()
     }
 
     private fun getCurPlay(): GSYVideoPlayer {

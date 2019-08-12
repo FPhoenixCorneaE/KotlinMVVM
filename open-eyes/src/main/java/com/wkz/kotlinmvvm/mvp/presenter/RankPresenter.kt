@@ -1,5 +1,6 @@
 package com.wkz.kotlinmvvm.mvp.presenter
 
+import com.uber.autodispose.autoDisposable
 import com.wkz.framework.base.BasePresenter
 import com.wkz.kotlinmvvm.mvp.contract.RankContract
 import com.wkz.kotlinmvvm.mvp.model.RankModel
@@ -18,12 +19,12 @@ class RankPresenter : BasePresenter<RankContract.View>(), RankContract.Presenter
      *  请求排行榜数据
      */
     override fun requestRankList(apiUrl: String) {
-        checkViewAttached()
         mView?.showLoading()
-        val disposable = rankModel.requestRankList(apiUrl)
+        rankModel.requestRankList(apiUrl)
+            .autoDisposable(mScopeProvider!!)
             .subscribe({ issue ->
                 mView?.apply {
-                    dismissLoading()
+                    showContent()
                     setRankList(issue.itemList)
                 }
             }, { throwable ->
@@ -32,6 +33,5 @@ class RankPresenter : BasePresenter<RankContract.View>(), RankContract.Presenter
                     showError(ExceptionHandle.handleException(throwable), ExceptionHandle.errorCode)
                 }
             })
-        addSubscription(disposable)
     }
 }
