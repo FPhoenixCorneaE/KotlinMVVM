@@ -1,9 +1,9 @@
 package com.wkz.framework.base
 
 /**
- * @desc: 基类 接口
+ * @desc: 视图基类 接口
  */
-interface IBaseView {
+interface IView {
     /**
      * 显示加载中视图
      */

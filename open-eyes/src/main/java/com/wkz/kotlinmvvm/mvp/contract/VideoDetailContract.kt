@@ -1,6 +1,6 @@
 package com.wkz.kotlinmvvm.mvp.contract
 
-import com.wkz.framework.base.IBaseView
+import com.wkz.framework.base.IView
 import com.wkz.framework.base.IPresenter
 import com.wkz.kotlinmvvm.mvp.model.bean.HomeBean
 
@@ -9,7 +9,7 @@ import com.wkz.kotlinmvvm.mvp.model.bean.HomeBean
  */
 interface VideoDetailContract {
 
-    interface View : IBaseView {
+    interface View : IView {
 
         /**
          * 设置视频播放源

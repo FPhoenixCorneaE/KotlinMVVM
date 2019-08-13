@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">KotlinMVVM</string>
-    <string name="action_settings">Settings</string>
+    <string name="open_eyes_app_name">KotlinMVVM</string>
+    <string name="open_eyes_transition_name_search">TransitionReveal</string>
 </resources>

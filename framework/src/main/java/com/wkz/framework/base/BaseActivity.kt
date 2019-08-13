@@ -9,8 +9,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
-import com.uber.autodispose.AutoDispose
-import com.uber.autodispose.AutoDisposeConverter
 import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
 import com.wkz.extension.showToast
 import com.wkz.framework.R
@@ -28,8 +26,8 @@ import javax.inject.Inject
  * @desc:BaseActivity基类
  */
 @Beta
-abstract class BaseActivity<V : IBaseView, P : IPresenter<V>, DB : ViewDataBinding> : AppCompatActivity(),
-    HasFragmentInjector, HasSupportFragmentInjector, IBaseView {
+abstract class BaseActivity<V : IView, P : IPresenter<V>, DB : ViewDataBinding> : AppCompatActivity(),
+    HasFragmentInjector, HasSupportFragmentInjector, IView {
 
     /** Kotlin中使用Dagger2 可能导致错误"Dagger does not support injection into private fields" */
     /** Kotlin 生成.java文件时属性默认为 private，给属性添加@JvmField声明可以转成 public */
@@ -100,10 +98,6 @@ abstract class BaseActivity<V : IBaseView, P : IPresenter<V>, DB : ViewDataBindi
 
     override fun fragmentInjector(): AndroidInjector<android.app.Fragment> {
         return frameworkFragmentInjector!!
-    }
-
-    protected fun <T> bindLifecycle(): AutoDisposeConverter<T> {
-        return AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(this))
     }
 
     override fun showLoading() {

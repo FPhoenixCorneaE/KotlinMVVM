@@ -6,7 +6,7 @@ import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
 /**
  * @desc: Presenter 基类
  */
-open class BasePresenter<V : IBaseView> : IPresenter<V> {
+open class BasePresenter<V : IView> : IPresenter<V> {
 
     var mView: V? = null
         private set

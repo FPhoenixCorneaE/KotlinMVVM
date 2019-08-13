@@ -2,28 +2,25 @@ package com.wkz.kotlinmvvm.mvp.presenter
 
 import com.uber.autodispose.autoDisposable
 import com.wkz.framework.base.BasePresenter
-import com.wkz.kotlinmvvm.mvp.contract.HomeContract
-import com.wkz.kotlinmvvm.mvp.model.HomeModel
+import com.wkz.kotlinmvvm.mvp.contract.OpenEyesHomeContract
+import com.wkz.kotlinmvvm.mvp.model.OpenEyesHomeModel
 import com.wkz.kotlinmvvm.mvp.model.bean.HomeBean
-import com.wkz.rxretrofit.network.exception.ExceptionHandle
+import javax.inject.Inject
 
 
 /**
  * @desc: 首页精选的 Presenter
  * (数据是 Banner 数据和一页数据组合而成的 HomeBean,查看接口然后在分析就明白了)
  */
-
-class HomePresenter : BasePresenter<HomeContract.View>(), HomeContract.Presenter {
-
+class OpenEyesHomePresenter @Inject constructor() : BasePresenter<OpenEyesHomeContract.View>(),
+    OpenEyesHomeContract.Presenter {
 
     private var bannerHomeBean: HomeBean? = null
 
     private var nextPageUrl: String? = null     //加载首页的Banner 数据+一页数据合并后，nextPageUrl没 add
 
-    private val homeModel: HomeModel by lazy {
-
-        HomeModel()
-    }
+    @Inject
+    lateinit var homeModel: OpenEyesHomeModel
 
     /**
      * 获取首页精选数据 banner 加 一页数据
@@ -77,7 +74,7 @@ class HomePresenter : BasePresenter<HomeContract.View>(), HomeContract.Presenter
             }, { t ->
                 mView?.apply {
                     showContent()
-                    showError(ExceptionHandle.handleException(t), ExceptionHandle.errorCode)
+                    showErrorMsg(t)
                 }
             })
     }
@@ -108,7 +105,7 @@ class HomePresenter : BasePresenter<HomeContract.View>(), HomeContract.Presenter
 
                 }, { t ->
                     mView?.apply {
-                        showError(ExceptionHandle.handleException(t), ExceptionHandle.errorCode)
+                        showErrorMsg(t)
                     }
                 })
 

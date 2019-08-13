@@ -1,6 +1,6 @@
 package com.wkz.kotlinmvvm.mvp.contract
 
-import com.wkz.framework.base.IBaseView
+import com.wkz.framework.base.IView
 import com.wkz.framework.base.IPresenter
 import com.wkz.kotlinmvvm.mvp.model.bean.HomeBean
 
@@ -8,9 +8,9 @@ import com.wkz.kotlinmvvm.mvp.model.bean.HomeBean
  * @desc:首页精选 契约类
  */
 
-interface HomeContract {
+interface OpenEyesHomeContract {
 
-    interface View : IBaseView {
+    interface View : IView {
 
         /**
          * 设置第一次请求的数据
@@ -21,12 +21,6 @@ interface HomeContract {
          * 设置加载更多的数据
          */
         fun setMoreData(itemList: ArrayList<HomeBean.Issue.Item>)
-
-        /**
-         * 显示错误信息
-         */
-        fun showError(msg: String, errorCode: Int)
-
 
     }
 

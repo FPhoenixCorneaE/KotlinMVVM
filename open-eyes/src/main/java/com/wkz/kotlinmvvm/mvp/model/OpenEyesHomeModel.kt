@@ -2,12 +2,15 @@ package com.wkz.kotlinmvvm.mvp.model
 
 import com.wkz.kotlinmvvm.mvp.model.bean.HomeBean
 import com.wkz.rxretrofit.scheduler.SchedulerManager
+import dagger.Module
 import io.reactivex.Observable
+import javax.inject.Inject
 
 /**
  * @desc: 首页精选 model
  */
-class HomeModel : OpenEyesBaseModel() {
+@Module
+class OpenEyesHomeModel @Inject constructor() : OpenEyesBaseModel() {
 
     /**
      * 获取首页 Banner 数据

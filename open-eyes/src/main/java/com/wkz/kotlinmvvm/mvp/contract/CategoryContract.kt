@@ -1,6 +1,6 @@
 package com.wkz.kotlinmvvm.mvp.contract
 
-import com.wkz.framework.base.IBaseView
+import com.wkz.framework.base.IView
 import com.wkz.framework.base.IPresenter
 import com.wkz.kotlinmvvm.mvp.model.bean.CategoryBean
 
@@ -9,7 +9,7 @@ import com.wkz.kotlinmvvm.mvp.model.bean.CategoryBean
  */
 interface CategoryContract {
 
-    interface View : IBaseView {
+    interface View : IView {
         /**
          * 显示分类的信息
          */

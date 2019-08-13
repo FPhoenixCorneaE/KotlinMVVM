@@ -60,6 +60,11 @@ ext {
             smartRefreshHeader: "com.scwang.smartrefresh:SmartRefreshHeader:1.0.3",
     ]
 
+    multiType = [
+            multiType      : 'me.drakeet.multitype:multitype:3.4.4',
+            multiTypeKotlin: 'me.drakeet.multitype:multitype-kotlin:3.4.4',
+    ]
+
     /** compiler */
     dataBindingCompiler = "com.android.databinding:compiler:3.1.4"
     glideCompiler = "com.github.bumptech.glide:compiler:4.9.0"
@@ -70,6 +75,7 @@ ext {
 
 
     logger = "com.orhanobut:logger:2.2.0"
+    videoPlayer = 'com.shuyu:GSYVideoPlayer:2.1.1'
 
     supportLibs = support.values()
     kotlinLibs = kotlin.values()
@@ -79,6 +85,7 @@ ext {
     autoDisposeLibs = autoDispose.values()
     glideLibs = glide.values()
     smartRefreshLibs = smartRefresh.values()
+    multiTypeLibs = multiType.values()
 
     /** kapt */
     kaptDataBinding = [dataBindingCompiler]

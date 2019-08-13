@@ -1,5 +1,6 @@
 package com.wkz.kotlinmvvm.mvp.model.bean
 
+import com.wkz.framework.base.IViewBinder
 import java.io.Serializable
 
 /**
@@ -24,7 +25,7 @@ data class HomeBean(
         val nextPageUrl: String
     ) : Serializable {
 
-        data class Item(val type: String, val data: Data?, val tag: String) : Serializable {
+        data class Item(val type: String, val data: Data?, val tag: String) : Serializable, IViewBinder {
 
             data class Data(
                 val dataType: String,
