@@ -8,13 +8,14 @@ import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
  */
 open class BasePresenter<V : IView> : IPresenter<V> {
 
-    var mView: V? = null
+    lateinit var mView: V
         private set
 
-    var mScopeProvider: ScopeProvider? = null
-        protected set
+    lateinit var mScopeProvider: ScopeProvider
+        private set
 
-    override fun setLifecycleScopeProvider(scopeProvider: AndroidLifecycleScopeProvider) {
+    override fun setLifecycleScopeProvider(view: V, scopeProvider: AndroidLifecycleScopeProvider) {
+        mView = view
         mScopeProvider = scopeProvider
     }
 

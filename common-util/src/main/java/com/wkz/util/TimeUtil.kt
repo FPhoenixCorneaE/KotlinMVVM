@@ -1,7 +1,7 @@
 package com.wkz.util
 
 import com.orhanobut.logger.Logger
-import com.wkz.unit.TimeUnit
+import com.wkz.annotation.TimeUnit
 
 import java.text.DateFormat
 import java.text.ParseException

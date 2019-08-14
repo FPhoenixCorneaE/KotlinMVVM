@@ -15,6 +15,7 @@ import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
 import com.wkz.extension.showToast
 import com.wkz.framework.R
 import com.wkz.framework.databinding.FrameworkLayoutBaseBinding
+import com.wkz.rxretrofit.network.exception.ErrorStatus
 import com.wkz.rxretrofit.network.exception.ExceptionHandle
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
@@ -62,7 +63,7 @@ abstract class BaseFragment<V : IView, P : IPresenter<V>, DB : ViewDataBinding> 
             R.layout.framework_layout_base, null, false
         )
         // 设置生命周期作用域提供者
-        mPresenter.setLifecycleScopeProvider(mScopeProvider)
+        mPresenter.setLifecycleScopeProvider(this as V, mScopeProvider)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -120,12 +121,21 @@ abstract class BaseFragment<V : IView, P : IPresenter<V>, DB : ViewDataBinding> 
         mBaseLayoutBinding.mMsvRoot.showEmpty()
     }
 
+    override fun showNoNetwork() {
+        mBaseLayoutBinding.mMsvRoot.showNoNetwork()
+    }
+
     override fun showError() {
         mBaseLayoutBinding.mMsvRoot.showError()
     }
 
     override fun showErrorMsg(t: Throwable) {
         ExceptionHandle.handleException(t)
+        if (ExceptionHandle.errorCode == ErrorStatus.NETWORK_ERROR) {
+            showNoNetwork()
+        } else {
+            showError()
+        }
     }
 
     override fun showErrorMsg(errorMsg: CharSequence) {

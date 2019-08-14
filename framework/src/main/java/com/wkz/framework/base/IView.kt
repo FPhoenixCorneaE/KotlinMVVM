@@ -20,6 +20,11 @@ interface IView {
     fun showEmpty()
 
     /**
+     * 显示无网络视图
+     */
+    fun showNoNetwork()
+
+    /**
      * 显示错误视图
      */
     fun showError()

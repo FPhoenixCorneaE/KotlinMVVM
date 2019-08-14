@@ -7,6 +7,6 @@ import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
  */
 interface IPresenter<in V : IView> {
 
-    fun setLifecycleScopeProvider(scopeProvider: AndroidLifecycleScopeProvider)
+    fun setLifecycleScopeProvider(view: V, scopeProvider: AndroidLifecycleScopeProvider)
 
 }

@@ -46,7 +46,7 @@ class OpenEyesHomePresenter @Inject constructor() : BasePresenter<OpenEyesHomeCo
                 //根据 nextPageUrl 请求下一页数据
                 homeModel.loadMoreData(homeBean.nextPageUrl)
             }
-            .autoDisposable(mScopeProvider!!)
+            .autoDisposable(mScopeProvider)
             .subscribe({ homeBean ->
                 mView?.apply {
                     showContent()
@@ -82,11 +82,10 @@ class OpenEyesHomePresenter @Inject constructor() : BasePresenter<OpenEyesHomeCo
     /**
      * 加载更多
      */
-
     override fun loadMoreData() {
         nextPageUrl?.let {
             homeModel.loadMoreData(it)
-                .autoDisposable(mScopeProvider!!)
+                .autoDisposable(mScopeProvider)
                 .subscribe({ homeBean ->
                     mView?.apply {
                         //过滤掉 Banner2(包含广告,等不需要的 Type), 具体查看接口分析
@@ -108,8 +107,6 @@ class OpenEyesHomePresenter @Inject constructor() : BasePresenter<OpenEyesHomeCo
                         showErrorMsg(t)
                     }
                 })
-
-
         }
     }
 }

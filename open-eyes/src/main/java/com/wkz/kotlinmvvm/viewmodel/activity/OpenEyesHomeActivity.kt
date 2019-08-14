@@ -16,7 +16,7 @@ class OpenEyesHomeActivity :
     override fun getLayoutId(): Int = R.layout.open_eyes_activity_home
 
     override fun initView() {
-        FragmentUtil.addFragment(mContext as FragmentActivity, R.id.mFlContainer, OpenEyesHomeFragment(), Bundle(), false)
+        FragmentUtil.addFragment(mContext as FragmentActivity, R.id.mFlContainer, OpenEyesHomeFragment.getInstance(), Bundle(), false)
     }
 
     override fun initData(savedInstanceState: Bundle?) {

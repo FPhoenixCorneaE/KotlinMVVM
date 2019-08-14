@@ -2,7 +2,7 @@ package com.wkz.util
 
 import android.annotation.SuppressLint
 import com.orhanobut.logger.Logger
-import com.wkz.unit.MemoryUnit
+import com.wkz.annotation.MemoryUnit
 import java.io.*
 import java.security.DigestInputStream
 import java.security.MessageDigest

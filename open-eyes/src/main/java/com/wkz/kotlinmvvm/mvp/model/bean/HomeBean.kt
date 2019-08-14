@@ -1,5 +1,6 @@
 package com.wkz.kotlinmvvm.mvp.model.bean
 
+import androidx.databinding.BaseObservable
 import com.wkz.framework.base.IViewBinder
 import java.io.Serializable
 
@@ -12,7 +13,7 @@ data class HomeBean(
     val nextPublishTime: Long,
     val newestIssueType: String,
     val dialog: Any
-) : Serializable {
+) : Serializable, BaseObservable() {
 
     data class Issue(
         val releaseTime: Long,
@@ -23,9 +24,10 @@ data class HomeBean(
         val itemList: ArrayList<Item>,
         var count: Int,
         val nextPageUrl: String
-    ) : Serializable {
+    ) : Serializable, BaseObservable() {
 
-        data class Item(val type: String, val data: Data?, val tag: String) : Serializable, IViewBinder {
+        data class Item(val type: String, val data: Data?, val tag: String) : Serializable, BaseObservable(),
+            IViewBinder {
 
             data class Data(
                 val dataType: String,
@@ -76,25 +78,28 @@ data class HomeBean(
                 val playlists: Any,
                 val header: Header,
                 val itemList: ArrayList<HomeBean.Issue.Item>
-            ) : Serializable {
-                data class Tag(val id: Int, val name: String, val actionUrl: String, val adTrack: Any) : Serializable
+            ) : Serializable, BaseObservable() {
+                data class Tag(val id: Int, val name: String, val actionUrl: String, val adTrack: Any) : Serializable,
+                    BaseObservable()
 
-                data class Author(val icon: String, val name: String, val description: String) : Serializable
+                data class Author(val icon: String, val name: String, val description: String) : Serializable,
+                    BaseObservable()
 
-                data class Provider(val name: String, val alias: String, val icon: String) : Serializable
+                data class Provider(val name: String, val alias: String, val icon: String) : Serializable,
+                    BaseObservable()
 
                 data class Cover(
                     val feed: String, val detail: String,
                     val blurred: String, val sharing: String, val homepage: String
-                ) : Serializable
+                ) : Serializable, BaseObservable()
 
-                data class WebUrl(val raw: String, val forWeibo: String) : Serializable
+                data class WebUrl(val raw: String, val forWeibo: String) : Serializable, BaseObservable()
 
                 data class PlayInfo(val name: String, val url: String, val type: String, val urlList: ArrayList<Url>) :
-                    Serializable
+                    Serializable, BaseObservable()
 
                 data class Consumption(val collectionCount: Int, val shareCount: Int, val replyCount: Int) :
-                    Serializable
+                    Serializable, BaseObservable()
 
                 data class User(
                     val uid: Long,
@@ -102,11 +107,11 @@ data class HomeBean(
                     val avatar: String,
                     val userType: String,
                     val ifPgc: Boolean
-                ) : Serializable
+                ) : Serializable, BaseObservable()
 
-                data class ParentReply(val user: User, val message: String) : Serializable
+                data class ParentReply(val user: User, val message: String) : Serializable, BaseObservable()
 
-                data class Url(val size: Long) : Serializable
+                data class Url(val size: Long) : Serializable, BaseObservable()
 
                 data class Header(
                     val id: Int,
@@ -120,18 +125,13 @@ data class HomeBean(
                     val actionUrl: String,
                     val subtitle: String,
                     val labelList: ArrayList<Label>
-                ) : Serializable {
+                ) : Serializable, BaseObservable() {
                     data class Label(val text: String, val card: String, val detial: Any, val actionUrl: Any) :
-                        Serializable
+                        Serializable, BaseObservable()
                 }
-
             }
         }
-
-
     }
-
-
 }
 
 
