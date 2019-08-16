@@ -10,5 +10,6 @@
             app:loadingView="@layout/multiple_status_layout_loading"
             app:noNetworkView="@layout/multiple_status_layout_no_network"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+    />
 </layout>

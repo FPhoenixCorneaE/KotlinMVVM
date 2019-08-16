@@ -1,9 +1,9 @@
 package com.wkz.kotlinmvvm.api
 
-import com.wkz.kotlinmvvm.mvp.model.bean.AuthorInfoBean
-import com.wkz.kotlinmvvm.mvp.model.bean.CategoryBean
-import com.wkz.kotlinmvvm.mvp.model.bean.HomeBean
-import com.wkz.kotlinmvvm.mvp.model.bean.TabInfoBean
+import com.wkz.kotlinmvvm.mvvm.model.bean.AuthorInfoBean
+import com.wkz.kotlinmvvm.mvvm.model.bean.CategoryBean
+import com.wkz.kotlinmvvm.mvvm.model.bean.HomeBean
+import com.wkz.kotlinmvvm.mvvm.model.bean.TabInfoBean
 import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Query

@@ -4,7 +4,7 @@
     <data>
         <variable
                 name="data"
-                type="com.wkz.kotlinmvvm.mvp.model.bean.HomeBean.Issue.Item"
+                type="com.wkz.kotlinmvvm.mvvm.model.bean.HomeBean.Issue.Item"
         />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,7 +18,7 @@
                 android:layout_height="@dimen/dp_180"
                 android:scaleType="centerCrop"
                 app:layout_constraintTop_toTopOf="parent"
-                src="@{data.data.cover.feed}"
+                imageUrl="@{data.data.cover.feed}"
                 tools:src="@tools:sample/backgrounds/scenic"
                 tools:ignore="ContentDescription"
         />
@@ -44,7 +44,7 @@
                 android:layout_height="@dimen/dp_50"
                 android:layout_margin="@dimen/dp_16"
                 android:scaleType="centerCrop"
-                src="@{data.data.author.icon}"
+                imageUrl="@{data.data.author.icon??data.data.provider.icon}"
                 placeholder="@{#000000}"
                 tools:src="@tools:sample/avatars"
                 tools:ignore="ContentDescription"

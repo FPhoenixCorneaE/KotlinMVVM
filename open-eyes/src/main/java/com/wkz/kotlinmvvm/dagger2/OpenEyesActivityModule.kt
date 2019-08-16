@@ -1,10 +1,10 @@
 package com.wkz.kotlinmvvm.dagger2
 
-import com.wkz.kotlinmvvm.mvp.model.OpenEyesHomeModel
-import com.wkz.kotlinmvvm.mvp.model.VideoDetailModel
-import com.wkz.kotlinmvvm.viewmodel.activity.OpenEyesHomeActivity
-import com.wkz.kotlinmvvm.viewmodel.activity.VideoDetailActivity
-import com.wkz.kotlinmvvm.viewmodel.fragment.OpenEyesHomeFragment
+import com.wkz.kotlinmvvm.mvvm.model.OpenEyesHomeModel
+import com.wkz.kotlinmvvm.mvvm.model.VideoDetailModel
+import com.wkz.kotlinmvvm.mvvm.viewmodel.activity.OpenEyesHomeActivity
+import com.wkz.kotlinmvvm.mvvm.viewmodel.activity.VideoDetailActivity
+import com.wkz.kotlinmvvm.mvvm.viewmodel.fragment.OpenEyesHomeFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 

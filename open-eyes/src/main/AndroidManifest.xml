@@ -21,7 +21,7 @@
             tools:replace="android:label"
             tools:targetApi="m">
         <activity
-                android:name=".viewmodel.activity.OpenEyesHomeActivity"
+                android:name="com.wkz.kotlinmvvm.mvvm.viewmodel.activity.OpenEyesHomeActivity"
                 android:label="@string/app_name"
                 android:configChanges="orientation|keyboardHidden|screenSize">
             <intent-filter>
@@ -33,7 +33,7 @@
 
         <!-- 视频播放详情页面 -->
         <activity
-                android:name=".viewmodel.activity.VideoDetailActivity"
+                android:name="com.wkz.kotlinmvvm.mvvm.viewmodel.activity.VideoDetailActivity"
                 android:configChanges="orientation|keyboardHidden|screenSize"/>
     </application>
 
