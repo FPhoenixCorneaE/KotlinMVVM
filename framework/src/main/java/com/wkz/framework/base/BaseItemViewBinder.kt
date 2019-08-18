@@ -19,11 +19,6 @@ abstract class BaseItemViewBinder<T : IViewBinder, DB : ViewDataBinding> :
     override fun onCreateViewHolder(inflater: LayoutInflater, parent: ViewGroup): ViewHolder {
         val itemView = inflater.inflate(getLayoutId(), parent, false)
         mBinding = DataBindingUtil.bind(itemView)!!
-        // 迫使数据立即绑定而不是在下一帧的时候才绑定
-        // 假设没使用executePendingBindings()方法，由于在下一帧的时候才会绑定，
-        // view就会绑定错误的data，测量也会出错。
-        // 因此，executePendingBindings()是很重要的。
-        mBinding.executePendingBindings()
         return ViewHolder(mBinding.root)
     }
 

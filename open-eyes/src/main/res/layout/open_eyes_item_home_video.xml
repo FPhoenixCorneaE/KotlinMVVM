@@ -2,6 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
+        <import type="com.wkz.annotation.ShapeType"/>
         <variable
                 name="data"
                 type="com.wkz.kotlinmvvm.mvvm.model.bean.HomeBean.Issue.Item"
@@ -46,6 +47,7 @@
                 android:scaleType="centerCrop"
                 imageUrl="@{data.data.author.icon??data.data.provider.icon}"
                 placeholder="@{#000000}"
+                shapeType="@{ShapeType.CIRCLE}"
                 tools:src="@tools:sample/avatars"
                 tools:ignore="ContentDescription"
         />

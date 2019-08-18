@@ -26,7 +26,7 @@ data class HomeBean(
         val nextPageUrl: String
     ) : Serializable, BaseObservable() {
 
-        data class Item(val type: String, val data: Data?, val tag: String) : Serializable,
+        data class Item(val type: String, val data: Data?, val tag: String) : Serializable, BaseObservable(),
             IViewBinder {
 
             data class Data(
