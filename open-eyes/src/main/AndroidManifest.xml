@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:dist="http://schemas.android.com/apk/distribution"
-          xmlns:tools="http://schemas.android.com/tools" package="com.wkz.kotlinmvvm">
+          xmlns:tools="http://schemas.android.com/tools"
+          package="com.wkz.kotlinmvvm">
 
     <dist:module dist:instant="true"/>
 
-    <!--当调用远程接口进行网络通信时，报如下错误：
-    java.net.UnknownServiceException: CLEARTEXT communication to gank.io not permitted by network security policy
-    可以通过设置android:usesCleartextTraffic="true"使用明文的通信方式作为一种临时的通信策略，但不建议使用-->
     <application
             android:name=".application.OpenEyesApplication"
             android:allowBackup="true"
@@ -20,20 +18,20 @@
             tools:ignore="AllowBackup,GoogleAppIndexingWarning"
             tools:replace="android:label"
             tools:targetApi="m">
-        <activity
-                android:name="com.wkz.kotlinmvvm.mvvm.viewmodel.activity.OpenEyesHomeActivity"
-                android:label="@string/app_name"
-                android:configChanges="orientation|keyboardHidden|screenSize">
+        <activity android:name=".test.TestActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-
-        <!-- 视频播放详情页面 -->
         <activity
-                android:name="com.wkz.kotlinmvvm.mvvm.viewmodel.activity.VideoDetailActivity"
+                android:name=".mvvm.viewmodel.activity.OpenEyesHomeActivity"
+                android:configChanges="orientation|keyboardHidden|screenSize"
+                android:label="@string/open_eyes_app_name">
+        </activity> <!-- 视频播放详情页面 -->
+        <activity
+                android:name=".mvvm.viewmodel.activity.VideoDetailActivity"
                 android:configChanges="orientation|keyboardHidden|screenSize"/>
     </application>
 
