@@ -26,4 +26,10 @@ class TestModel : IBaseUrl {
             .compose(SchedulerManager.ioToMain())
             .subscribe()
     }
+
+    fun uploadImage(userId: String, image: String, folder: String) {
+        sService.uploadImage(userId, image, folder)
+            .compose(SchedulerManager.ioToMain())
+            .subscribe()
+    }
 }

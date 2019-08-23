@@ -82,6 +82,7 @@ ext {
 
 
     logger = "com.orhanobut:logger:2.2.0"
+    rxPermissions = 'com.github.tbruyelle:rxpermissions:0.10.2'
     videoPlayer = 'com.shuyu:GSYVideoPlayer:2.1.1'
 
     supportLibs = support.values()

@@ -102,4 +102,8 @@ dependencies {
      * RxImagePicker:灵活的图片选择器,知乎、微信主题，可自定义主题
      */
     api rootProject.ext.rxImagePickerLibs
+    /**
+     * RxPermissions,权限管理
+     */
+    api rootProject.ext.rxPermissions
 }

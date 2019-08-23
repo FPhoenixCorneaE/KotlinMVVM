@@ -66,7 +66,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:text="Post Multipart格式"
+            android:text="GoToHome"
             tools:ignore="HardcodedText"
     />
 </androidx.constraintlayout.widget.ConstraintLayout>
