@@ -123,7 +123,11 @@ object RetrofitManager {
             // 自由配置BaseUrl,Model需实现IBaseUrl接口
             .baseUrl(iBaseUrl.getBaseUrl())
             .client(getOkHttpClient())
+            // Retrofit接口的返回值分为两部分，一部分是前面的Call或者Observable，另一部分是泛型
+            // Call类型是默认支持的(内部由DefaultCallAdapterFactory支持)，而如果要支持Observable，我们就需要自己添加RxJava2CallAdapterFactory
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            // Retrofit只支持返回值的第二部分是ResponseBody.class和Void.class类型的或者请求参数为ResponseBody.class
+            // 添加GsonConverterFactory可以对服务器的数据进行解析
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }

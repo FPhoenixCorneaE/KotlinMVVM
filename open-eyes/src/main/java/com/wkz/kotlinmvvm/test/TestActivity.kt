@@ -5,6 +5,8 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.Target
 import com.orhanobut.logger.Logger
 import com.qingmei2.rximagepicker.core.RxImagePicker
 import com.qingmei2.rximagepicker_extension.MimeType
@@ -26,6 +28,7 @@ import okhttp3.MediaType
 import okhttp3.RequestBody
 import java.io.File
 import java.net.URI
+import java.util.concurrent.ExecutionException
 
 
 class TestActivity : AppCompatActivity() {
@@ -97,11 +100,25 @@ class TestActivity : AppCompatActivity() {
                     Logger.d("mime types: $mimeType")
 
                     it.uri.path?.let { it1 ->
-                        TestModel().uploadImage(
-                            "32834",
-                            ImgBase64Util.imageToBase64(it1),
-                            "android/pics"
-                        )
+                        object : Thread() {
+                            override fun run() {
+                                try {
+                                    val file = Glide.with(this@TestActivity)
+                                        .load(it.uri)
+                                        .downloadOnly(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
+                                        .get()
+                                    TestModel().uploadImage(
+                                        "32834",
+                                        ImgBase64Util.imageToBase64(file.path),
+                                        "android/pics"
+                                    )
+                                } catch (e: InterruptedException) {
+                                    Logger.e(e.toString())
+                                } catch (e: ExecutionException) {
+                                    Logger.e(e.toString())
+                                }
+                            }
+                        }.start()
                     }
                 }, {
                     ToastUtil.showShort("Failed:$it")

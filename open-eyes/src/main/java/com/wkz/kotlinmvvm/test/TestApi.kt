@@ -19,5 +19,5 @@ interface TestApi {
     @POST("/file/uploadImage")
     // 支持文件上传的表单
     @Multipart
-    fun uploadImage(@Field("userId") userId: String, @Field("image") image: String, @Field("folder") folder: String): Observable<Any>
+    fun uploadImage(@Part("userId") userId: String, @Part("image") image: String, @Part("folder") folder: String): Observable<Any>
 }
