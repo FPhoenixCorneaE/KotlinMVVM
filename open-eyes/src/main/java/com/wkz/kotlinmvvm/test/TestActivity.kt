@@ -107,7 +107,7 @@ class TestActivity : AppCompatActivity() {
                                         .get()
                                     TestModel().uploadImage(
                                         "32834",
-                                        ImgBase64Util.imageToBase64("data:image/jpeg;base64," + file.path),
+                                        "data:image/jpeg;base64," + ImgBase64Util.imageToBase64(file.path),
                                         "android/pics"
                                     )
                                 } catch (e: InterruptedException) {
