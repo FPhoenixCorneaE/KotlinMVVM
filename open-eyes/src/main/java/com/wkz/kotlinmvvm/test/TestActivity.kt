@@ -26,8 +26,6 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_test.*
 import okhttp3.MediaType
 import okhttp3.RequestBody
-import java.io.File
-import java.net.URI
 import java.util.concurrent.ExecutionException
 
 
@@ -109,7 +107,7 @@ class TestActivity : AppCompatActivity() {
                                         .get()
                                     TestModel().uploadImage(
                                         "32834",
-                                        ImgBase64Util.imageToBase64(file.path),
+                                        ImgBase64Util.imageToBase64("data:image/jpeg;base64," + file.path),
                                         "android/pics"
                                     )
                                 } catch (e: InterruptedException) {
