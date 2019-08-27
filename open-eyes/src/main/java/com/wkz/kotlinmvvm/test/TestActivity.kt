@@ -5,8 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.target.Target
 import com.orhanobut.logger.Logger
 import com.qingmei2.rximagepicker.core.RxImagePicker
 import com.qingmei2.rximagepicker_extension.MimeType
@@ -26,7 +24,6 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_test.*
 import okhttp3.MediaType
 import okhttp3.RequestBody
-import java.util.concurrent.ExecutionException
 
 
 class TestActivity : AppCompatActivity() {
@@ -96,28 +93,12 @@ class TestActivity : AppCompatActivity() {
                     val mimeType = it.getStringExtra(WechatImagePickerFragment.EXTRA_OPTIONAL_MIME_TYPE, "")
                     Logger.d("select image original:" + originalMode + " , uri path: " + it.uri.path)
                     Logger.d("mime types: $mimeType")
-
-                    it.uri.path?.let { it1 ->
-                        object : Thread() {
-                            override fun run() {
-                                try {
-                                    val file = Glide.with(this@TestActivity)
-                                        .load(it.uri)
-                                        .downloadOnly(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
-                                        .get()
-                                    TestModel().uploadImage(
-                                        "32834",
-                                        "data:image/jpeg;base64," + ImgBase64Util.imageToBase64(file.path),
-                                        "android/pics"
-                                    )
-                                } catch (e: InterruptedException) {
-                                    Logger.e(e.toString())
-                                } catch (e: ExecutionException) {
-                                    Logger.e(e.toString())
-                                }
-                            }
-                        }.start()
-                    }
+                    Logger.d("content:/" + it.uri.path)
+                    TestModel().uploadImage(
+                        "32834",
+                        "data:image/jpeg;base64," + ImgBase64Util.imageToBase64("content:/" + it.uri.path),
+                        "android/pics"
+                    )
                 }, {
                     ToastUtil.showShort("Failed:$it")
                 })
