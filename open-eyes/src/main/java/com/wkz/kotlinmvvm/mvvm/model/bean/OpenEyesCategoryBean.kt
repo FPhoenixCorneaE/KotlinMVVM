@@ -5,7 +5,7 @@ import java.io.Serializable
 /**
  * @desc:分类 Bean
  */
-data class CategoryBean(
+data class OpenEyesCategoryBean(
     val id: Long,
     val name: String,
     val description: String,

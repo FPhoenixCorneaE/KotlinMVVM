@@ -4,9 +4,9 @@ import com.uber.autodispose.autoDisposable
 import com.wkz.extension.dataFormat
 import com.wkz.extension.showToast
 import com.wkz.framework.base.BasePresenter
-import com.wkz.kotlinmvvm.mvvm.contract.VideoDetailContract
-import com.wkz.kotlinmvvm.mvvm.model.VideoDetailModel
-import com.wkz.kotlinmvvm.mvvm.model.bean.HomeBean
+import com.wkz.kotlinmvvm.mvvm.contract.OpenEyesVideoDetailContract
+import com.wkz.kotlinmvvm.mvvm.model.OpenEyesVideoDetailModel
+import com.wkz.kotlinmvvm.mvvm.model.bean.OpenEyesHomeBean
 import com.wkz.rxretrofit.network.exception.ExceptionHandle
 import com.wkz.util.NetworkUtil
 import com.wkz.util.ScreenUtil
@@ -16,16 +16,16 @@ import javax.inject.Inject
 /**
  * @desc: 视频详情Presenter
  */
-class VideoDetailPresenter @Inject constructor() : BasePresenter<VideoDetailContract.View>(),
-    VideoDetailContract.Presenter {
+class OpenEyesVideoDetailPresenter @Inject constructor() : BasePresenter<OpenEyesVideoDetailContract.View>(),
+    OpenEyesVideoDetailContract.Presenter {
 
     @Inject
-    lateinit var videoDetailModel: VideoDetailModel
+    lateinit var videoDetailModel: OpenEyesVideoDetailModel
 
     /**
      * 加载视频相关的数据
      */
-    override fun loadVideoInfo(itemInfo: HomeBean.Issue.Item) {
+    override fun loadVideoInfo(itemInfo: OpenEyesHomeBean.Issue.Item) {
 
         val playInfo = itemInfo.data?.playInfo
 

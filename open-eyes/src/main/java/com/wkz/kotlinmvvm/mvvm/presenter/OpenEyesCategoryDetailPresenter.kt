@@ -2,17 +2,17 @@ package com.wkz.kotlinmvvm.mvvm.presenter
 
 import com.uber.autodispose.autoDisposable
 import com.wkz.framework.base.BasePresenter
-import com.wkz.kotlinmvvm.mvvm.contract.CategoryDetailContract
-import com.wkz.kotlinmvvm.mvvm.model.CategoryDetailModel
+import com.wkz.kotlinmvvm.mvvm.contract.OpenEyesCategoryDetailContract
+import com.wkz.kotlinmvvm.mvvm.model.OpenEyesCategoryDetailModel
 
 /**
  * @desc: 分类详情 Presenter
  */
-class CategoryDetailPresenter : BasePresenter<CategoryDetailContract.View>(),
-    CategoryDetailContract.Presenter {
+class OpenEyesCategoryDetailPresenter : BasePresenter<OpenEyesCategoryDetailContract.View>(),
+    OpenEyesCategoryDetailContract.Presenter {
 
     private val categoryDetailModel by lazy {
-        CategoryDetailModel()
+        OpenEyesCategoryDetailModel()
     }
 
     private var nextPageUrl: String? = null

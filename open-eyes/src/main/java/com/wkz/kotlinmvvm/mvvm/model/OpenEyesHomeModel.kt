@@ -1,6 +1,6 @@
 package com.wkz.kotlinmvvm.mvvm.model
 
-import com.wkz.kotlinmvvm.mvvm.model.bean.HomeBean
+import com.wkz.kotlinmvvm.mvvm.model.bean.OpenEyesHomeBean
 import com.wkz.rxretrofit.scheduler.SchedulerManager
 import dagger.Module
 import io.reactivex.Observable
@@ -15,7 +15,7 @@ class OpenEyesHomeModel @Inject constructor() : OpenEyesBaseModel() {
     /**
      * 获取首页 Banner 数据
      */
-    fun requestHomeData(num: Int): Observable<HomeBean> {
+    fun requestHomeData(num: Int): Observable<OpenEyesHomeBean> {
         return sOpenEyesService
             .getFirstHomeData(num)
             .compose(SchedulerManager.ioToMain())
@@ -24,7 +24,7 @@ class OpenEyesHomeModel @Inject constructor() : OpenEyesBaseModel() {
     /**
      * 加载更多
      */
-    fun loadMoreData(url: String): Observable<HomeBean> {
+    fun loadMoreData(url: String): Observable<OpenEyesHomeBean> {
         return sOpenEyesService
             .getMoreHomeData(url)
             .compose(SchedulerManager.ioToMain())

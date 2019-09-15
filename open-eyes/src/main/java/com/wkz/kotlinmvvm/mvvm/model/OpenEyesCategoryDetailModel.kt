@@ -1,18 +1,18 @@
 package com.wkz.kotlinmvvm.mvvm.model
 
-import com.wkz.kotlinmvvm.mvvm.model.bean.HomeBean
+import com.wkz.kotlinmvvm.mvvm.model.bean.OpenEyesHomeBean
 import com.wkz.rxretrofit.scheduler.SchedulerManager
 import io.reactivex.Observable
 
 /**
  * @desc: 分类详情 Model
  */
-class CategoryDetailModel : OpenEyesBaseModel() {
+class OpenEyesCategoryDetailModel : OpenEyesBaseModel() {
 
     /**
      * 获取分类下的 List 数据
      */
-    fun getCategoryDetailList(id: Long): Observable<HomeBean.Issue> {
+    fun getCategoryDetailList(id: Long): Observable<OpenEyesHomeBean.Issue> {
         return sOpenEyesService
             .getCategoryDetailList(id)
             .compose(SchedulerManager.ioToMain())
@@ -21,7 +21,7 @@ class CategoryDetailModel : OpenEyesBaseModel() {
     /**
      * 加载更多数据
      */
-    fun loadMoreData(url: String): Observable<HomeBean.Issue> {
+    fun loadMoreData(url: String): Observable<OpenEyesHomeBean.Issue> {
         return sOpenEyesService
             .getIssueData(url)
             .compose(SchedulerManager.ioToMain())

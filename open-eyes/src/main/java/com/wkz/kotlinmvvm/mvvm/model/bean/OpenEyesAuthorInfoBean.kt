@@ -5,7 +5,7 @@ import java.io.Serializable
 /**
  * @desc：作者信息 Bean
  */
-data class AuthorInfoBean(
+data class OpenEyesAuthorInfoBean(
     val tabInfo: TabInfo,
     val pgcInfo: PgcInfo
 ) : Serializable {

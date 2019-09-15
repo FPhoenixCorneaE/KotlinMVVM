@@ -2,16 +2,16 @@ package com.wkz.kotlinmvvm.mvvm.presenter
 
 import com.uber.autodispose.autoDisposable
 import com.wkz.framework.base.BasePresenter
-import com.wkz.kotlinmvvm.mvvm.contract.FollowContract
-import com.wkz.kotlinmvvm.mvvm.model.FollowModel
+import com.wkz.kotlinmvvm.mvvm.contract.OpenEyesFollowContract
+import com.wkz.kotlinmvvm.mvvm.model.OpenEyesFollowModel
 import com.wkz.rxretrofit.network.exception.ExceptionHandle
 
 /**
  * @desc: 关注 Presenter
  */
-class FollowPresenter : BasePresenter<FollowContract.View>(), FollowContract.Presenter {
+class OpenEyesFollowPresenter : BasePresenter<OpenEyesFollowContract.View>(), OpenEyesFollowContract.Presenter {
 
-    private val followModel by lazy { FollowModel() }
+    private val followModel by lazy { OpenEyesFollowModel() }
 
     private var nextPageUrl: String? = null
 

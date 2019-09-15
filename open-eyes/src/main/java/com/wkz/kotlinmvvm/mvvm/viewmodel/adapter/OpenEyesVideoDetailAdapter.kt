@@ -14,7 +14,7 @@ import com.wkz.framework.widget.recyclerview.RecyclerItemType
 import com.wkz.framework.widget.recyclerview.ViewHolder
 import com.wkz.framework.widget.recyclerview.AbstractRecyclerAdapter
 import com.wkz.kotlinmvvm.R
-import com.wkz.kotlinmvvm.mvvm.model.bean.HomeBean
+import com.wkz.kotlinmvvm.mvvm.model.bean.OpenEyesHomeBean
 import com.wkz.util.ContextUtil
 
 
@@ -22,9 +22,9 @@ import com.wkz.util.ContextUtil
  * Created by xuhao on 2017/11/25.
  * desc: 视频详情
  */
-class VideoDetailAdapter(mContext: Context, data: ArrayList<HomeBean.Issue.Item>) :
-    AbstractRecyclerAdapter<HomeBean.Issue.Item>(mContext, data, object : RecyclerItemType<HomeBean.Issue.Item> {
-        override fun getLayoutId(item: HomeBean.Issue.Item, position: Int): Int {
+class OpenEyesVideoDetailAdapter(mContext: Context, data: ArrayList<OpenEyesHomeBean.Issue.Item>) :
+    AbstractRecyclerAdapter<OpenEyesHomeBean.Issue.Item>(mContext, data, object : RecyclerItemType<OpenEyesHomeBean.Issue.Item> {
+        override fun getLayoutId(item: OpenEyesHomeBean.Issue.Item, position: Int): Int {
             return when {
                 position == 0 ->
                     R.layout.open_eyes_item_video_detail_info
@@ -49,7 +49,7 @@ class VideoDetailAdapter(mContext: Context, data: ArrayList<HomeBean.Issue.Item>
     /**
      * 添加视频的详细信息
      */
-    fun addData(item: HomeBean.Issue.Item) {
+    fun addData(item: OpenEyesHomeBean.Issue.Item) {
         mData.clear()
         notifyDataSetChanged()
         mData.add(item)
@@ -60,7 +60,7 @@ class VideoDetailAdapter(mContext: Context, data: ArrayList<HomeBean.Issue.Item>
     /**
      * 添加相关推荐等数据 Item
      */
-    fun addData(item: ArrayList<HomeBean.Issue.Item>) {
+    fun addData(item: ArrayList<OpenEyesHomeBean.Issue.Item>) {
         mData.addAll(item)
         notifyItemRangeInserted(1, item.size)
 
@@ -70,10 +70,10 @@ class VideoDetailAdapter(mContext: Context, data: ArrayList<HomeBean.Issue.Item>
      * Kotlin的函数可以作为参数，写callback的时候，可以不用interface了
      */
 
-    private var mOnItemClickRelatedVideo: ((item: HomeBean.Issue.Item) -> Unit)? = null
+    private var mOnItemClickRelatedVideo: ((item: OpenEyesHomeBean.Issue.Item) -> Unit)? = null
 
 
-    fun setOnItemDetailClick(mItemRelatedVideo: (item: HomeBean.Issue.Item) -> Unit) {
+    fun setOnItemDetailClick(mItemRelatedVideo: (item: OpenEyesHomeBean.Issue.Item) -> Unit) {
         this.mOnItemClickRelatedVideo = mItemRelatedVideo
     }
 
@@ -81,7 +81,7 @@ class VideoDetailAdapter(mContext: Context, data: ArrayList<HomeBean.Issue.Item>
     /**
      * 绑定数据
      */
-    override fun bindData(holder: ViewHolder, data: HomeBean.Issue.Item, position: Int) {
+    override fun bindData(holder: ViewHolder, data: OpenEyesHomeBean.Issue.Item, position: Int) {
         when {
             position == 0 -> setVideoDetailInfo(data, holder)
 
@@ -117,7 +117,7 @@ class VideoDetailAdapter(mContext: Context, data: ArrayList<HomeBean.Issue.Item>
     /**
      * 设置视频详情数据
      */
-    private fun setVideoDetailInfo(data: HomeBean.Issue.Item, holder: ViewHolder) {
+    private fun setVideoDetailInfo(data: OpenEyesHomeBean.Issue.Item, holder: ViewHolder) {
         data.data?.title?.let { holder.setText(R.id.tv_title, it) }
         //视频简介
         data.data?.description?.let { holder.setText(R.id.expandable_text, it) }

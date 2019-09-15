@@ -2,12 +2,12 @@ package com.wkz.kotlinmvvm.mvvm.contract
 
 import com.wkz.framework.base.IView
 import com.wkz.framework.base.IPresenter
-import com.wkz.kotlinmvvm.mvvm.model.bean.HomeBean
+import com.wkz.kotlinmvvm.mvvm.model.bean.OpenEyesHomeBean
 
 /**
  * @desc: 视频详情 契约类
  */
-interface VideoDetailContract {
+interface OpenEyesVideoDetailContract {
 
     interface View : IView {
 
@@ -19,7 +19,7 @@ interface VideoDetailContract {
         /**
          * 设置视频信息
          */
-        fun setVideoInfo(itemInfo: HomeBean.Issue.Item)
+        fun setVideoInfo(itemInfo: OpenEyesHomeBean.Issue.Item)
 
         /**
          * 设置背景
@@ -29,7 +29,7 @@ interface VideoDetailContract {
         /**
          * 设置最新相关视频
          */
-        fun setRecentRelatedVideo(itemList: ArrayList<HomeBean.Issue.Item>)
+        fun setRecentRelatedVideo(itemList: ArrayList<OpenEyesHomeBean.Issue.Item>)
 
         /**
          * 设置错误信息
@@ -42,7 +42,7 @@ interface VideoDetailContract {
         /**
          * 加载视频信息
          */
-        fun loadVideoInfo(itemInfo: HomeBean.Issue.Item)
+        fun loadVideoInfo(itemInfo: OpenEyesHomeBean.Issue.Item)
 
         /**
          * 请求相关的视频数据

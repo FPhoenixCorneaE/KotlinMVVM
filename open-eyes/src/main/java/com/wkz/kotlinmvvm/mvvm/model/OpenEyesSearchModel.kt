@@ -1,13 +1,13 @@
 package com.wkz.kotlinmvvm.mvvm.model
 
-import com.wkz.kotlinmvvm.mvvm.model.bean.HomeBean
+import com.wkz.kotlinmvvm.mvvm.model.bean.OpenEyesHomeBean
 import com.wkz.rxretrofit.scheduler.SchedulerManager
 import io.reactivex.Observable
 
 /**
  * @desc: 搜索 Model
  */
-class SearchModel : OpenEyesBaseModel() {
+class OpenEyesSearchModel : OpenEyesBaseModel() {
 
     /**
      * 请求热门关键词的数据
@@ -21,7 +21,7 @@ class SearchModel : OpenEyesBaseModel() {
     /**
      * 搜索关键词返回的结果
      */
-    fun getSearchResult(words: String): Observable<HomeBean.Issue> {
+    fun getSearchResult(words: String): Observable<OpenEyesHomeBean.Issue> {
         return sOpenEyesService.getSearchData(words)
             .compose(SchedulerManager.ioToMain())
     }
@@ -29,7 +29,7 @@ class SearchModel : OpenEyesBaseModel() {
     /**
      * 加载更多数据
      */
-    fun loadMoreData(url: String): Observable<HomeBean.Issue> {
+    fun loadMoreData(url: String): Observable<OpenEyesHomeBean.Issue> {
         return sOpenEyesService.getIssueData(url)
             .compose(SchedulerManager.ioToMain())
     }

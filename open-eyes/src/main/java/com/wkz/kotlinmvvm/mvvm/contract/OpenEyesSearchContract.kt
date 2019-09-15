@@ -2,12 +2,12 @@ package com.wkz.kotlinmvvm.mvvm.contract
 
 import com.wkz.framework.base.IView
 import com.wkz.framework.base.IPresenter
-import com.wkz.kotlinmvvm.mvvm.model.bean.HomeBean
+import com.wkz.kotlinmvvm.mvvm.model.bean.OpenEyesHomeBean
 
 /**
  * @desc: 搜索 契约类
  */
-interface SearchContract {
+interface OpenEyesSearchContract {
 
     interface View : IView {
         /**
@@ -18,7 +18,7 @@ interface SearchContract {
         /**
          * 设置搜索关键词返回的结果
          */
-        fun setSearchResult(issue: HomeBean.Issue)
+        fun setSearchResult(issue: OpenEyesHomeBean.Issue)
 
         /**
          * 关闭软件盘

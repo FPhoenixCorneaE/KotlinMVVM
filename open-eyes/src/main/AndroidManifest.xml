@@ -9,9 +9,9 @@
     <application
             android:name=".application.OpenEyesApplication"
             android:allowBackup="true"
-            android:icon="@mipmap/ic_launcher"
+            android:icon="@mipmap/open_eyes_ic_launcher"
             android:label="@string/open_eyes_app_name"
-            android:roundIcon="@mipmap/ic_launcher_round"
+            android:roundIcon="@mipmap/open_eyes_ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             android:usesCleartextTraffic="true"
@@ -31,7 +31,7 @@
                 android:label="@string/open_eyes_app_name">
         </activity> <!-- 视频播放详情页面 -->
         <activity
-                android:name=".mvvm.viewmodel.activity.VideoDetailActivity"
+                android:name=".mvvm.viewmodel.activity.OpenEyesVideoDetailActivity"
                 android:configChanges="orientation|keyboardHidden|screenSize"/>
     </application>
 

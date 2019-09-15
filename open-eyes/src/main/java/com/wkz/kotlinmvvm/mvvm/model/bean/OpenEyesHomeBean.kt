@@ -7,7 +7,7 @@ import java.io.Serializable
 /**
  * @desc: 首页（视频详情等）Bean
  */
-data class HomeBean(
+data class OpenEyesHomeBean(
     val issueList: ArrayList<Issue>,
     val nextPageUrl: String,
     val nextPublishTime: Long,
@@ -77,7 +77,7 @@ data class HomeBean(
                 val lastViewTime: Any,
                 val playlists: Any,
                 val header: Header,
-                val itemList: ArrayList<HomeBean.Issue.Item>
+                val itemList: ArrayList<OpenEyesHomeBean.Issue.Item>
             ) : Serializable, BaseObservable() {
                 data class Tag(val id: Int, val name: String, val actionUrl: String, val adTrack: Any) : Serializable,
                     BaseObservable()

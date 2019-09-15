@@ -2,7 +2,7 @@ package com.wkz.kotlinmvvm.mvvm.contract
 
 import com.wkz.framework.base.IView
 import com.wkz.framework.base.IPresenter
-import com.wkz.kotlinmvvm.mvvm.model.bean.HomeBean
+import com.wkz.kotlinmvvm.mvvm.model.bean.OpenEyesHomeBean
 
 /**
  * @desc:首页精选 契约类
@@ -15,12 +15,12 @@ interface OpenEyesHomeContract {
         /**
          * 设置第一次请求的数据
          */
-        fun setHomeData(homeBean: HomeBean)
+        fun setHomeData(homeBean: OpenEyesHomeBean)
 
         /**
          * 设置加载更多的数据
          */
-        fun setMoreData(itemList: ArrayList<HomeBean.Issue.Item>)
+        fun setMoreData(itemList: ArrayList<OpenEyesHomeBean.Issue.Item>)
 
     }
 

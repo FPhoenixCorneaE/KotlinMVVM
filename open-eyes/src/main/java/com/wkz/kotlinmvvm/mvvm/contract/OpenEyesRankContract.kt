@@ -2,32 +2,27 @@ package com.wkz.kotlinmvvm.mvvm.contract
 
 import com.wkz.framework.base.IView
 import com.wkz.framework.base.IPresenter
-import com.wkz.kotlinmvvm.mvvm.model.bean.HomeBean
+import com.wkz.kotlinmvvm.mvvm.model.bean.OpenEyesHomeBean
+
 
 /**
- * @desc: 关注 契约类
+ * @desc: 排行榜 契约类
  */
-interface FollowContract {
+interface OpenEyesRankContract {
 
     interface View : IView {
         /**
-         * 设置关注信息数据
+         * 设置排行榜的数据
          */
-        fun setFollowInfo(issue: HomeBean.Issue)
+        fun setRankList(itemList: ArrayList<OpenEyesHomeBean.Issue.Item>)
 
         fun showError(errorMsg: String, errorCode: Int)
     }
 
-
     interface Presenter : IPresenter<View> {
         /**
-         * 获取List
+         * 获取 TabInfo
          */
-        fun requestFollowList()
-
-        /**
-         * 加载更多
-         */
-        fun loadMoreData()
+        fun requestRankList(apiUrl: String)
     }
 }

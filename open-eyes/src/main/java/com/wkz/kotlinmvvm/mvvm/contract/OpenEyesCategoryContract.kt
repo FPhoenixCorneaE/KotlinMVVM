@@ -2,18 +2,18 @@ package com.wkz.kotlinmvvm.mvvm.contract
 
 import com.wkz.framework.base.IView
 import com.wkz.framework.base.IPresenter
-import com.wkz.kotlinmvvm.mvvm.model.bean.CategoryBean
+import com.wkz.kotlinmvvm.mvvm.model.bean.OpenEyesCategoryBean
 
 /**
  * desc: 分类 契约类
  */
-interface CategoryContract {
+interface OpenEyesCategoryContract {
 
     interface View : IView {
         /**
          * 显示分类的信息
          */
-        fun showCategory(categoryList: ArrayList<CategoryBean>)
+        fun showCategory(categoryList: ArrayList<OpenEyesCategoryBean>)
 
         /**
          * 显示错误信息

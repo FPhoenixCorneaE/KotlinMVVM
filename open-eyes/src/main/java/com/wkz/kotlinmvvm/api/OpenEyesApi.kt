@@ -1,9 +1,9 @@
 package com.wkz.kotlinmvvm.api
 
-import com.wkz.kotlinmvvm.mvvm.model.bean.AuthorInfoBean
-import com.wkz.kotlinmvvm.mvvm.model.bean.CategoryBean
-import com.wkz.kotlinmvvm.mvvm.model.bean.HomeBean
-import com.wkz.kotlinmvvm.mvvm.model.bean.TabInfoBean
+import com.wkz.kotlinmvvm.mvvm.model.bean.OpenEyesAuthorInfoBean
+import com.wkz.kotlinmvvm.mvvm.model.bean.OpenEyesCategoryBean
+import com.wkz.kotlinmvvm.mvvm.model.bean.OpenEyesHomeBean
+import com.wkz.kotlinmvvm.mvvm.model.bean.OpenEyesTabInfoBean
 import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -18,49 +18,49 @@ interface OpenEyesApi {
      * 首页精选
      */
     @GET("v2/feed?")
-    fun getFirstHomeData(@Query("num") num: Int): Observable<HomeBean>
+    fun getFirstHomeData(@Query("num") num: Int): Observable<OpenEyesHomeBean>
 
     /**
      * 根据 nextPageUrl 请求数据下一页数据
      */
     @GET
-    fun getMoreHomeData(@Url url: String): Observable<HomeBean>
+    fun getMoreHomeData(@Url url: String): Observable<OpenEyesHomeBean>
 
     /**
      * 根据item id获取相关视频
      */
     @GET("v4/video/related?")
-    fun getRelatedData(@Query("id") id: Long): Observable<HomeBean.Issue>
+    fun getRelatedData(@Query("id") id: Long): Observable<OpenEyesHomeBean.Issue>
 
     /**
      * 获取分类
      */
     @GET("v4/categories")
-    fun getCategory(): Observable<ArrayList<CategoryBean>>
+    fun getCategory(): Observable<ArrayList<OpenEyesCategoryBean>>
 
     /**
      * 获取分类详情List
      */
     @GET("v4/categories/videoList?")
-    fun getCategoryDetailList(@Query("id") id: Long): Observable<HomeBean.Issue>
+    fun getCategoryDetailList(@Query("id") id: Long): Observable<OpenEyesHomeBean.Issue>
 
     /**
      * 获取更多的 Issue
      */
     @GET
-    fun getIssueData(@Url url: String): Observable<HomeBean.Issue>
+    fun getIssueData(@Url url: String): Observable<OpenEyesHomeBean.Issue>
 
     /**
      * 获取全部排行榜的Info（包括:title 和 Url）
      */
     @GET("v4/rankList")
-    fun getRankList(): Observable<TabInfoBean>
+    fun getRankList(): Observable<OpenEyesTabInfoBean>
 
     /**
      * 获取搜索信息
      */
     @GET("v1/search?&num=10&start=10")
-    fun getSearchData(@Query("query") query: String): Observable<HomeBean.Issue>
+    fun getSearchData(@Query("query") query: String): Observable<OpenEyesHomeBean.Issue>
 
     /**
      * 热门搜索词
@@ -72,12 +72,12 @@ interface OpenEyesApi {
      * 关注
      */
     @GET("v4/tabs/follow")
-    fun getFollowInfo(): Observable<HomeBean.Issue>
+    fun getFollowInfo(): Observable<OpenEyesHomeBean.Issue>
 
     /**
      * 作者信息
      */
     @GET("v4/pgcs/detail/tab?")
-    fun getAuthorInfo(@Query("id") id: Long): Observable<AuthorInfoBean>
+    fun getAuthorInfo(@Query("id") id: Long): Observable<OpenEyesAuthorInfoBean>
 
 }

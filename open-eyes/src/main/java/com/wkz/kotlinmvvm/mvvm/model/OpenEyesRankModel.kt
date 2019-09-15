@@ -1,18 +1,18 @@
 package com.wkz.kotlinmvvm.mvvm.model
 
-import com.wkz.kotlinmvvm.mvvm.model.bean.HomeBean
+import com.wkz.kotlinmvvm.mvvm.model.bean.OpenEyesHomeBean
 import com.wkz.rxretrofit.scheduler.SchedulerManager
 import io.reactivex.Observable
 
 /**
  * @desc: 排行榜 Model
  */
-class RankModel : OpenEyesBaseModel(){
+class OpenEyesRankModel : OpenEyesBaseModel(){
 
     /**
      * 获取排行榜
      */
-    fun requestRankList(apiUrl:String): Observable<HomeBean.Issue> {
+    fun requestRankList(apiUrl:String): Observable<OpenEyesHomeBean.Issue> {
         return sOpenEyesService.getIssueData(apiUrl)
                 .compose(SchedulerManager.ioToMain())
     }

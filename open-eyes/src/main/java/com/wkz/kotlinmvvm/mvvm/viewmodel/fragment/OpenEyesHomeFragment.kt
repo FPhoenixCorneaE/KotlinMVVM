@@ -8,7 +8,7 @@ import com.wkz.framework.base.BaseFragment
 import com.wkz.kotlinmvvm.R
 import com.wkz.kotlinmvvm.databinding.OpenEyesFragmentHomeBinding
 import com.wkz.kotlinmvvm.mvvm.contract.OpenEyesHomeContract
-import com.wkz.kotlinmvvm.mvvm.model.bean.HomeBean
+import com.wkz.kotlinmvvm.mvvm.model.bean.OpenEyesHomeBean
 import com.wkz.kotlinmvvm.mvvm.presenter.OpenEyesHomePresenter
 import com.wkz.kotlinmvvm.mvvm.viewmodel.binder.OpenEyesHomeBannerBinder
 import com.wkz.kotlinmvvm.mvvm.viewmodel.binder.OpenEyesHomeDateBinder
@@ -32,7 +32,7 @@ class OpenEyesHomeFragment :
     }
 
     private val mDatas by lazy {
-        ArrayList<HomeBean.Issue.Item>()
+        ArrayList<OpenEyesHomeBean.Issue.Item>()
     }
 
     private val mLinearLayoutManager by lazy {
@@ -77,7 +77,7 @@ class OpenEyesHomeFragment :
 
     private fun initRecyclerView() {
         // 注册多状态布局
-        mAdapter.register(HomeBean.Issue.Item::class.java).to(
+        mAdapter.register(OpenEyesHomeBean.Issue.Item::class.java).to(
             OpenEyesHomeBannerBinder(),
             OpenEyesHomeDateBinder(),
             OpenEyesHomeVideoBinder()
@@ -137,10 +137,10 @@ class OpenEyesHomeFragment :
         mSrlRefresh.autoRefresh()
     }
 
-    override fun setHomeData(homeBean: HomeBean) {
+    override fun setHomeData(homeBean: OpenEyesHomeBean) {
         mSrlRefresh.finishRefresh()
 
-        val bannerItemData: ArrayList<HomeBean.Issue.Item> =
+        val bannerItemData: ArrayList<OpenEyesHomeBean.Issue.Item> =
             mDatas.take(homeBean.issueList[0].count).toCollection(ArrayList())
         val bannerFeedList = ArrayList<String>()
         val bannerTitleList = ArrayList<String>()
@@ -155,7 +155,7 @@ class OpenEyesHomeFragment :
         mAdapter.notifyDataSetChanged()
     }
 
-    override fun setMoreData(itemList: ArrayList<HomeBean.Issue.Item>) {
+    override fun setMoreData(itemList: ArrayList<OpenEyesHomeBean.Issue.Item>) {
         mDatas.addAll(itemList)
         mAdapter.notifyDataSetChanged()
     }

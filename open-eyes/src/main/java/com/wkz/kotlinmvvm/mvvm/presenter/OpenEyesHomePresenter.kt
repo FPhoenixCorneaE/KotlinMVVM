@@ -4,18 +4,18 @@ import com.uber.autodispose.autoDisposable
 import com.wkz.framework.base.BasePresenter
 import com.wkz.kotlinmvvm.mvvm.contract.OpenEyesHomeContract
 import com.wkz.kotlinmvvm.mvvm.model.OpenEyesHomeModel
-import com.wkz.kotlinmvvm.mvvm.model.bean.HomeBean
+import com.wkz.kotlinmvvm.mvvm.model.bean.OpenEyesHomeBean
 import javax.inject.Inject
 
 
 /**
  * @desc: 首页精选的 Presenter
- * (数据是 Banner 数据和一页数据组合而成的 HomeBean,查看接口然后在分析就明白了)
+ * (数据是 Banner 数据和一页数据组合而成的 OpenEyesHomeBean,查看接口然后在分析就明白了)
  */
 class OpenEyesHomePresenter @Inject constructor() : BasePresenter<OpenEyesHomeContract.View>(),
     OpenEyesHomeContract.Presenter {
 
-    private var bannerHomeBean: HomeBean? = null
+    private var bannerHomeBean: OpenEyesHomeBean? = null
 
     private var nextPageUrl: String? = null     //加载首页的Banner 数据+一页数据合并后，nextPageUrl没 add
 

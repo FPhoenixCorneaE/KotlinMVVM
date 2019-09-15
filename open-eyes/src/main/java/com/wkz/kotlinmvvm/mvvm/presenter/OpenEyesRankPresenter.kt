@@ -2,17 +2,17 @@ package com.wkz.kotlinmvvm.mvvm.presenter
 
 import com.uber.autodispose.autoDisposable
 import com.wkz.framework.base.BasePresenter
-import com.wkz.kotlinmvvm.mvvm.contract.RankContract
-import com.wkz.kotlinmvvm.mvvm.model.RankModel
+import com.wkz.kotlinmvvm.mvvm.contract.OpenEyesRankContract
+import com.wkz.kotlinmvvm.mvvm.model.OpenEyesRankModel
 import com.wkz.rxretrofit.network.exception.ExceptionHandle
 
 
 /**
  * @desc: 排行榜 Presenter
  */
-class RankPresenter : BasePresenter<RankContract.View>(), RankContract.Presenter {
+class OpenEyesRankPresenter : BasePresenter<OpenEyesRankContract.View>(), OpenEyesRankContract.Presenter {
 
-    private val rankModel by lazy { RankModel() }
+    private val rankModel by lazy { OpenEyesRankModel() }
 
 
     /**

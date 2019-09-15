@@ -24,10 +24,10 @@ import com.wkz.framework.base.BaseActivity
 import com.wkz.kotlinmvvm.R
 import com.wkz.kotlinmvvm.databinding.OpenEyesActivityVideoDetailBinding
 import com.wkz.kotlinmvvm.listener.OnVideoListener
-import com.wkz.kotlinmvvm.mvvm.contract.VideoDetailContract
-import com.wkz.kotlinmvvm.mvvm.model.bean.HomeBean
-import com.wkz.kotlinmvvm.mvvm.presenter.VideoDetailPresenter
-import com.wkz.kotlinmvvm.mvvm.viewmodel.adapter.VideoDetailAdapter
+import com.wkz.kotlinmvvm.mvvm.contract.OpenEyesVideoDetailContract
+import com.wkz.kotlinmvvm.mvvm.model.bean.OpenEyesHomeBean
+import com.wkz.kotlinmvvm.mvvm.presenter.OpenEyesVideoDetailPresenter
+import com.wkz.kotlinmvvm.mvvm.viewmodel.adapter.OpenEyesVideoDetailAdapter
 import com.wkz.util.StatusBarUtil
 import kotlinx.android.synthetic.main.open_eyes_activity_video_detail.*
 import java.text.SimpleDateFormat
@@ -37,9 +37,9 @@ import java.util.*
 /**
  * @desc: 视频详情
  */
-class VideoDetailActivity :
-    BaseActivity<VideoDetailContract.View, VideoDetailPresenter, OpenEyesActivityVideoDetailBinding>(),
-    VideoDetailContract.View {
+class OpenEyesVideoDetailActivity :
+    BaseActivity<OpenEyesVideoDetailContract.View, OpenEyesVideoDetailPresenter, OpenEyesActivityVideoDetailBinding>(),
+    OpenEyesVideoDetailContract.View {
 
 
     companion object {
@@ -47,7 +47,7 @@ class VideoDetailActivity :
         const val TRANSITION = "TRANSITION"
     }
 
-    private val mAdapter by lazy { VideoDetailAdapter(this, itemList) }
+    private val mAdapter by lazy { OpenEyesVideoDetailAdapter(this, itemList) }
 
     private val mFormat by lazy { SimpleDateFormat("yyyyMMddHHmmss"); }
 
@@ -55,10 +55,10 @@ class VideoDetailActivity :
     /**
      * Item 详细数据
      */
-    private lateinit var itemData: HomeBean.Issue.Item
+    private lateinit var itemData: OpenEyesHomeBean.Issue.Item
     private var orientationUtils: OrientationUtils? = null
 
-    private var itemList = ArrayList<HomeBean.Issue.Item>()
+    private var itemList = ArrayList<OpenEyesHomeBean.Issue.Item>()
 
     private var isPlay: Boolean = false
     private var isPause: Boolean = false
@@ -177,8 +177,8 @@ class VideoDetailActivity :
      * 初始化数据
      */
     override fun initData(savedInstanceState: Bundle?) {
-//        itemData = intent.getSerializableExtra(OpenEyesConstants.BUNDLE_VIDEO_DATA) as HomeBean.Issue.Item
-        itemData = HomeBean.Issue.Item("", null, "")
+//        itemData = intent.getSerializableExtra(OpenEyesConstants.BUNDLE_VIDEO_DATA) as OpenEyesHomeBean.Issue.Item
+        itemData = OpenEyesHomeBean.Issue.Item("", null, "")
         isTransition = intent.getBooleanExtra(TRANSITION, false)
 
         mBaseLayoutBinding.mMsvRoot.showContent()
@@ -208,7 +208,7 @@ class VideoDetailActivity :
     /**
      * 设置视频信息
      */
-    override fun setVideoInfo(itemInfo: HomeBean.Issue.Item) {
+    override fun setVideoInfo(itemInfo: OpenEyesHomeBean.Issue.Item) {
         itemData = itemInfo
         mAdapter.addData(itemInfo)
         // 请求相关的最新等视频
@@ -220,7 +220,7 @@ class VideoDetailActivity :
     /**
      * 设置相关的数据视频
      */
-    override fun setRecentRelatedVideo(itemList: ArrayList<HomeBean.Issue.Item>) {
+    override fun setRecentRelatedVideo(itemList: ArrayList<OpenEyesHomeBean.Issue.Item>) {
         mAdapter.addData(itemList)
         this.itemList = itemList
     }

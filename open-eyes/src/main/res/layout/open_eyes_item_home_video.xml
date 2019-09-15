@@ -5,7 +5,7 @@
         <import type="com.wkz.annotation.ShapeType"/>
         <variable
                 name="data"
-                type="com.wkz.kotlinmvvm.mvvm.model.bean.HomeBean.Issue.Item"
+                type="com.wkz.kotlinmvvm.mvvm.model.bean.OpenEyesHomeBean.Issue.Item"
         />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -2,19 +2,19 @@ package com.wkz.kotlinmvvm.mvvm.presenter
 
 import com.uber.autodispose.autoDisposable
 import com.wkz.framework.base.BasePresenter
-import com.wkz.kotlinmvvm.mvvm.contract.SearchContract
-import com.wkz.kotlinmvvm.mvvm.model.SearchModel
+import com.wkz.kotlinmvvm.mvvm.contract.OpenEyesSearchContract
+import com.wkz.kotlinmvvm.mvvm.model.OpenEyesSearchModel
 import com.wkz.rxretrofit.network.exception.ExceptionHandle
 
 
 /**
  * @desc: 搜索 Presenter
  */
-class SearchPresenter : BasePresenter<SearchContract.View>(), SearchContract.Presenter {
+class OpenEyesSearchPresenter : BasePresenter<OpenEyesSearchContract.View>(), OpenEyesSearchContract.Presenter {
 
     private var nextPageUrl: String? = null
 
-    private val searchModel by lazy { SearchModel() }
+    private val searchModel by lazy { OpenEyesSearchModel() }
 
 
     /**

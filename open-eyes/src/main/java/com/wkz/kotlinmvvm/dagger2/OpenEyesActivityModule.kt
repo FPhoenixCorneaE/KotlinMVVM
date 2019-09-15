@@ -1,9 +1,9 @@
 package com.wkz.kotlinmvvm.dagger2
 
 import com.wkz.kotlinmvvm.mvvm.model.OpenEyesHomeModel
-import com.wkz.kotlinmvvm.mvvm.model.VideoDetailModel
+import com.wkz.kotlinmvvm.mvvm.model.OpenEyesVideoDetailModel
 import com.wkz.kotlinmvvm.mvvm.viewmodel.activity.OpenEyesHomeActivity
-import com.wkz.kotlinmvvm.mvvm.viewmodel.activity.VideoDetailActivity
+import com.wkz.kotlinmvvm.mvvm.viewmodel.activity.OpenEyesVideoDetailActivity
 import com.wkz.kotlinmvvm.mvvm.viewmodel.fragment.OpenEyesHomeFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -26,6 +26,6 @@ abstract class OpenEyesActivityModule {
     /**
      * 绑定视频详情Activity
      */
-    @ContributesAndroidInjector(modules = [VideoDetailModel::class])
-    abstract fun bindOpenEyesVideoDetailActivity(): VideoDetailActivity
+    @ContributesAndroidInjector(modules = [OpenEyesVideoDetailModel::class])
+    abstract fun bindOpenEyesVideoDetailActivity(): OpenEyesVideoDetailActivity
 }
