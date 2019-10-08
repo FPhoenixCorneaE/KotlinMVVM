@@ -50,7 +50,7 @@ class ExceptionHandle {
             }
 
             Logger.e("errorCode:$errorCode errorMsg:$errorMsg")
-            e.printStackTrace()
+            Logger.e("Exception:$e")
             return errorMsg
         }
     }
