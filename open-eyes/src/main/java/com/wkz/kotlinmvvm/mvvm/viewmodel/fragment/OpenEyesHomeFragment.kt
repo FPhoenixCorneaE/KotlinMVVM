@@ -3,25 +3,23 @@ package com.wkz.kotlinmvvm.mvvm.viewmodel.fragment
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.uber.autodispose.autoDisposable
+import com.wkz.adapter.internal.Delegation
+import com.wkz.adapter.internal.MultiTypeAdapter
+import com.wkz.adapter.wrapper.ViewHolderWrapper
 import com.wkz.framework.base.BaseFragment
 import com.wkz.kotlinmvvm.R
 import com.wkz.kotlinmvvm.databinding.OpenEyesFragmentHomeBinding
 import com.wkz.kotlinmvvm.mvvm.contract.OpenEyesHomeContract
 import com.wkz.kotlinmvvm.mvvm.model.bean.OpenEyesHomeBean
 import com.wkz.kotlinmvvm.mvvm.presenter.OpenEyesHomePresenter
-import com.wkz.kotlinmvvm.mvvm.viewmodel.binder.OpenEyesHomeBannerBinder
-import com.wkz.kotlinmvvm.mvvm.viewmodel.binder.OpenEyesHomeDateBinder
-import com.wkz.kotlinmvvm.mvvm.viewmodel.binder.OpenEyesHomeVideoBinder
+import com.wkz.kotlinmvvm.mvvm.viewmodel.wrapper.OpenEyesHomeBannerWrapper
+import com.wkz.kotlinmvvm.mvvm.viewmodel.wrapper.OpenEyesHomeDateWrapper
+import com.wkz.kotlinmvvm.mvvm.viewmodel.wrapper.OpenEyesHomeVideoWrapper
 import com.wkz.util.ResourceUtil
 import com.wkz.util.StatusBarUtil
-import io.reactivex.Observable
 import kotlinx.android.synthetic.main.open_eyes_fragment_home.*
-import me.drakeet.multitype.MultiTypeAdapter
-import me.drakeet.multitype.withKClassLinker
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 class OpenEyesHomeFragment :
     BaseFragment<OpenEyesHomeContract.View, OpenEyesHomePresenter, OpenEyesFragmentHomeBinding>(),
@@ -29,10 +27,6 @@ class OpenEyesHomeFragment :
 
     private val mAdapter by lazy {
         MultiTypeAdapter()
-    }
-
-    private val mDatas by lazy {
-        ArrayList<OpenEyesHomeBean.Issue.Item>()
     }
 
     private val mLinearLayoutManager by lazy {
@@ -64,7 +58,10 @@ class OpenEyesHomeFragment :
         // 打开下拉刷新区域块背景:
         mMhHeader.setShowBezierWave(true)
         // 设置下拉刷新主题颜色
-        mSrlRefresh.setPrimaryColorsId(R.color.open_eyes_color_black, R.color.open_eyes_color_bg_default)
+        mSrlRefresh.setPrimaryColorsId(
+            R.color.open_eyes_color_black,
+            R.color.open_eyes_color_bg_default
+        )
 
         initRecyclerView()
 
@@ -77,20 +74,22 @@ class OpenEyesHomeFragment :
 
     private fun initRecyclerView() {
         // 注册多状态布局
-        mAdapter.register(OpenEyesHomeBean.Issue.Item::class.java).to(
-            OpenEyesHomeBannerBinder(),
-            OpenEyesHomeDateBinder(),
-            OpenEyesHomeVideoBinder()
-        ).withKClassLinker { position, data ->
-            when {
-                position == 0 -> OpenEyesHomeBannerBinder::class
-                data.type == "textHeader" ->
-                    OpenEyesHomeDateBinder::class
-                else ->
-                    OpenEyesHomeVideoBinder::class
-            }
-        }
-        mAdapter.items = mDatas
+        mAdapter.register(
+            OpenEyesHomeBannerWrapper(),
+            OpenEyesHomeDateWrapper(),
+            OpenEyesHomeVideoWrapper(),
+            delegation = object : Delegation<OpenEyesHomeBean.Issue.Item> {
+                override fun getWrapperType(item: OpenEyesHomeBean.Issue.Item): Class<out ViewHolderWrapper<OpenEyesHomeBean.Issue.Item>> {
+                    return when {
+                        item.type == "textHeader" ->
+                            OpenEyesHomeDateWrapper::class.java
+                        item.type == "video" ->
+                            OpenEyesHomeVideoWrapper::class.java
+                        else ->
+                            OpenEyesHomeBannerWrapper::class.java
+                    }
+                }
+            })
         mRvRecycler.adapter = mAdapter
         mRvRecycler.layoutManager = mLinearLayoutManager
         mRvRecycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -118,10 +117,11 @@ class OpenEyesHomeFragment :
                     mTbToolbar.setBackgroundColor(ResourceUtil.getColor(R.color.open_eyes_color_translucent))
                     mTvTitle.text = ""
                 } else {
-                    if (mDatas.size > 1) {
+                    if (mAdapter.data.size > 1 && currentVisibleItemPosition < mAdapter.data.size) {
                         mTbToolbar.setBackgroundColor(ResourceUtil.getColor(R.color.open_eyes_color_bg_title))
-                        val itemList = mDatas
-                        val item = itemList[currentVisibleItemPosition]
+                        val itemList = mAdapter.data
+                        val item =
+                            itemList[currentVisibleItemPosition] as OpenEyesHomeBean.Issue.Item
                         if (item.type == "textHeader") {
                             mTvTitle.text = item.data?.text
                         } else {
@@ -140,23 +140,26 @@ class OpenEyesHomeFragment :
     override fun setHomeData(homeBean: OpenEyesHomeBean) {
         mSrlRefresh.finishRefresh()
 
-        val bannerItemData: ArrayList<OpenEyesHomeBean.Issue.Item> =
-            mDatas.take(homeBean.issueList[0].count).toCollection(ArrayList())
-        val bannerFeedList = ArrayList<String>()
-        val bannerTitleList = ArrayList<String>()
-        // 取出banner 显示的 img 和 Title
-        Observable.fromIterable(bannerItemData)
-            .autoDisposable(mScopeProvider)
-            .subscribe { list ->
-                bannerFeedList.add(list.data?.cover?.feed ?: "")
-                bannerTitleList.add(list.data?.title ?: "")
-            }
-        mDatas.addAll(homeBean.issueList[0].itemList)
+//        val bannerItemData: ArrayList<OpenEyesHomeBean.Issue.Item> =
+//            (mAdapter.data.take(homeBean.issueList[0].count) as ArrayList<OpenEyesHomeBean.Issue.Item>).toCollection(
+//                ArrayList()
+//            )
+//        val bannerFeedList = ArrayList<String>()
+//        val bannerTitleList = ArrayList<String>()
+//        // 取出banner 显示的 img 和 Title
+//        Observable.fromIterable(bannerItemData)
+//            .autoDisposable(mScopeProvider)
+//            .subscribe { list ->
+//                bannerFeedList.add(list.data?.cover?.feed ?: "")
+//                bannerTitleList.add(list.data?.title ?: "")
+//            }
+        mAdapter.data.clear()
+        mAdapter.data.addAll(homeBean.issueList[0].itemList)
         mAdapter.notifyDataSetChanged()
     }
 
     override fun setMoreData(itemList: ArrayList<OpenEyesHomeBean.Issue.Item>) {
-        mDatas.addAll(itemList)
+        mAdapter.data.addAll(itemList)
         mAdapter.notifyDataSetChanged()
     }
 }

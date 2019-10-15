@@ -1,6 +1,5 @@
 package com.wkz.util
 
-import android.app.Activity
 import android.content.res.AssetFileDescriptor
 import android.content.res.ColorStateList
 import android.content.res.XmlResourceParser
@@ -13,6 +12,7 @@ import java.io.InputStream
 import java.io.InputStreamReader
 
 /**
+ * @desc: 资源工具类
  * @author wkz
  */
 class ResourceUtil private constructor() {

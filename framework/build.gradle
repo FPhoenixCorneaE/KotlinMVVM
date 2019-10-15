@@ -61,6 +61,10 @@ dependencies {
      */
     api project(':multiple-status-view')
     /**
+     * multi-type-adapter
+     */
+    api project(':multi-type-adapter')
+    /**
      * Supports
      */
     api rootProject.ext.supportLibs
