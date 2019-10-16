@@ -1,0 +1,24 @@
+{
+  "data": [
+    {
+      "name": "华特迪士尼影片",
+      "description": "华特迪士尼影片（Walt Disney Pictures）是华特迪士尼公司的最重要的电影发行品牌。在此品牌下，迪士尼发行了许多优秀的动画片与真人片。"
+    },
+    {
+      "name": "环球影业",
+      "description": "环球影业（Universal Pictures）是全球最大的电影、电视制片厂之一，也是好莱坞最悠久的公司之一。"
+    },
+    {
+      "name": "Rudy Mancuso",
+      "description": "Rudy Mancuso 是 Youtube 音乐、搞笑原创视频网红博主。"
+    },
+    {
+      "name": "开眼创意精选",
+      "description": "技术与审美结合，探索视觉的无限可能。"
+    },
+    {
+      "name": "开眼广告精选",
+      "description": "为广告人的精彩创意点赞。"
+    }
+  ]
+}

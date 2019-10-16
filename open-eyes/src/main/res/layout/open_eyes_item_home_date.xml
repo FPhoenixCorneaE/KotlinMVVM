@@ -12,7 +12,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:textColor="@color/open_eyes_color_title"
+            android:textColor="@color/open_eyes_color_title_0x222222"
             android:textSize="@dimen/sp_18"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"

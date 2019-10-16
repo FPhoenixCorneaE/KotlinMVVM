@@ -17,6 +17,23 @@
             tools:src="@tools:sample/backgrounds/scenic" />
 
     <TextView
+            android:id="@+id/mTvTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_8"
+            android:layout_marginTop="@dimen/dp_8"
+            android:layout_marginEnd="@dimen/dp_8"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textColor="@color/open_eyes_color_title_white"
+            android:textSize="@dimen/sp_15"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/mIvCoverFeed"
+            app:layout_constraintStart_toStartOf="@+id/mIvCoverFeed"
+            app:layout_constraintTop_toTopOf="@+id/mIvCoverFeed"
+            tools:text="@sample/title.json/data/title" />
+
+    <TextView
             android:id="@+id/mTvDuration"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -47,29 +64,29 @@
             android:layout_marginEnd="@dimen/dp_16"
             android:ellipsize="end"
             android:maxLines="1"
-            android:textColor="@color/open_eyes_color_title"
+            android:textColor="@color/open_eyes_color_name"
             android:textSize="@dimen/sp_15"
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/mTvCategory"
             app:layout_constraintStart_toEndOf="@+id/mIvAvatar"
             app:layout_constraintTop_toTopOf="@+id/mIvAvatar"
-            tools:text="@tools:sample/full_names" />
+            tools:text="@sample/author.json/data/name" />
 
     <TextView
-            android:id="@+id/mTvTags"
+            android:id="@+id/mTvDescription"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp_16"
+            android:layout_marginTop="@dimen/dp_8"
             android:layout_marginEnd="@dimen/dp_16"
             android:ellipsize="end"
-            android:maxLines="1"
+            android:maxLines="2"
             android:textColor="@color/open_eyes_color_darker_gray"
             android:textSize="@dimen/sp_13"
-            app:layout_constraintBottom_toBottomOf="@+id/mIvAvatar"
             app:layout_constraintEnd_toStartOf="@+id/mTvCategory"
             app:layout_constraintStart_toEndOf="@+id/mIvAvatar"
             app:layout_constraintTop_toBottomOf="@+id/mTvAuthor"
-            tools:text="@tools:sample/lorem" />
+            tools:text="@sample/author.json/data/description" />
 
     <TextView
             android:id="@+id/mTvCategory"

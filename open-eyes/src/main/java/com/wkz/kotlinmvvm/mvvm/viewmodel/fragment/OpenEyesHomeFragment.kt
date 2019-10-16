@@ -29,6 +29,10 @@ class OpenEyesHomeFragment :
         MultiTypeAdapter()
     }
 
+    private val mVideoWrapper by lazy {
+        OpenEyesHomeVideoWrapper()
+    }
+
     private val mLinearLayoutManager by lazy {
         LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
     }
@@ -73,11 +77,18 @@ class OpenEyesHomeFragment :
     }
 
     private fun initRecyclerView() {
+        mVideoWrapper.setOnItemClickListener { viewHolder, position, item ->
+
+        }
+        mVideoWrapper.setOnItemLongClickListener { viewHolder, position, item ->
+
+            true
+        }
         // 注册多状态布局
         mAdapter.register(
             OpenEyesHomeBannerWrapper(),
             OpenEyesHomeDateWrapper(),
-            OpenEyesHomeVideoWrapper(),
+            mVideoWrapper,
             delegation = object : Delegation<OpenEyesHomeBean.Issue.Item> {
                 override fun getWrapperType(item: OpenEyesHomeBean.Issue.Item): Class<out ViewHolderWrapper<OpenEyesHomeBean.Issue.Item>> {
                     return when {

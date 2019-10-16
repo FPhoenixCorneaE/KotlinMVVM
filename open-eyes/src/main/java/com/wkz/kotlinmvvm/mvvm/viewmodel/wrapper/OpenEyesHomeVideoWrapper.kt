@@ -24,6 +24,8 @@ class OpenEyesHomeVideoWrapper :
             holder.itemView.mIvAvatar,
             item.data?.author?.icon ?: item.data?.provider?.icon
         )
-        holder.itemView.mTvAuthor.text = item.data?.title
+        holder.itemView.mTvTitle.text = item.data?.title
+        holder.itemView.mTvAuthor.text = item.data?.author?.name
+        holder.itemView.mTvDescription.text = item.data?.author?.description
     }
 }
