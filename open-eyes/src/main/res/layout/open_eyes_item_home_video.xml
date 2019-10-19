@@ -1,103 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/dp_16"
+    android:layout_marginEnd="@dimen/dp_16">
+
+    <ImageView
+        android:id="@+id/mIvAvatar"
+        android:layout_width="@dimen/dp_50"
+        android:layout_height="@dimen/dp_50"
+        android:layout_marginTop="@dimen/dp_16"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription"
+        tools:src="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/mTvAuthorName"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dp_16"
-        android:layout_marginEnd="@dimen/dp_16">
+        android:layout_marginEnd="@dimen/dp_16"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/open_eyes_color_name"
+        android:textSize="@dimen/sp_15"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/mTvCategory"
+        app:layout_constraintStart_toEndOf="@+id/mIvAvatar"
+        app:layout_constraintTop_toTopOf="@+id/mIvAvatar"
+        tools:text="@sample/author.json/data/name" />
+
+    <TextView
+        android:id="@+id/mTvAuthorDescription"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_16"
+        android:layout_marginTop="@dimen/dp_8"
+        android:layout_marginEnd="@dimen/dp_16"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:textColor="@color/open_eyes_color_darker_gray"
+        android:textSize="@dimen/sp_13"
+        app:layout_constraintEnd_toStartOf="@+id/mTvCategory"
+        app:layout_constraintStart_toEndOf="@+id/mIvAvatar"
+        app:layout_constraintTop_toBottomOf="@+id/mTvAuthorName"
+        tools:text="@sample/author.json/data/description" />
+
+    <TextView
+        android:id="@+id/mTvCategory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/dp_16"
+        android:textColor="@color/open_eyes_color_black"
+        android:textSize="@dimen/sp_18"
+        app:layout_constraintBottom_toBottomOf="@+id/mIvAvatar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/mIvAvatar"
+        tools:text="#搞笑" />
 
     <ImageView
-            android:id="@+id/mIvCoverFeed"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_180"
-            android:scaleType="centerCrop"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="ContentDescription"
-            tools:src="@tools:sample/backgrounds/scenic" />
+        android:id="@+id/mIvCoverFeed"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_180"
+        android:layout_marginTop="@dimen/dp_16"
+        android:scaleType="centerCrop"
+        app:layout_constraintTop_toBottomOf="@+id/mIvAvatar"
+        tools:ignore="ContentDescription"
+        tools:src="@tools:sample/backgrounds/scenic" />
 
     <TextView
-            android:id="@+id/mTvTitle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_8"
-            android:layout_marginTop="@dimen/dp_8"
-            android:layout_marginEnd="@dimen/dp_8"
-            android:ellipsize="end"
-            android:maxLines="2"
-            android:textColor="@color/open_eyes_color_title_white"
-            android:textSize="@dimen/sp_15"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/mIvCoverFeed"
-            app:layout_constraintStart_toStartOf="@+id/mIvCoverFeed"
-            app:layout_constraintTop_toTopOf="@+id/mIvCoverFeed"
-            tools:text="@sample/title.json/data/title" />
+        android:id="@+id/mTvTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_8"
+        android:layout_marginTop="@dimen/dp_8"
+        android:layout_marginEnd="@dimen/dp_8"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:textColor="@color/open_eyes_color_title_white"
+        android:textSize="@dimen/sp_15"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/mIvCoverFeed"
+        app:layout_constraintStart_toStartOf="@+id/mIvCoverFeed"
+        app:layout_constraintTop_toTopOf="@+id/mIvCoverFeed"
+        tools:text="@sample/title.json/data/title" />
 
     <TextView
-            android:id="@+id/mTvDuration"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/dp_16"
-            android:textColor="@color/open_eyes_color_white"
-            android:textSize="@dimen/sp_12"
-            app:layout_constraintBottom_toBottomOf="@+id/mIvCoverFeed"
-            app:layout_constraintEnd_toEndOf="@+id/mIvCoverFeed"
-            tools:text="@tools:sample/date/hhmm" />
+        android:id="@+id/mTvDuration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp_16"
+        android:textColor="@color/open_eyes_color_white"
+        android:textSize="@dimen/sp_12"
+        app:layout_constraintBottom_toBottomOf="@+id/mIvCoverFeed"
+        app:layout_constraintEnd_toEndOf="@+id/mIvCoverFeed"
+        tools:text="@tools:sample/date/hhmm" />
 
-    <ImageView
-            android:id="@+id/mIvAvatar"
-            android:layout_width="@dimen/dp_50"
-            android:layout_height="@dimen/dp_50"
-            android:layout_margin="@dimen/dp_16"
-            android:scaleType="centerCrop"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/mIvCoverFeed"
-            tools:ignore="ContentDescription"
-            tools:src="@tools:sample/avatars" />
-
-    <TextView
-            android:id="@+id/mTvAuthor"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_16"
-            android:layout_marginEnd="@dimen/dp_16"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:textColor="@color/open_eyes_color_name"
-            android:textSize="@dimen/sp_15"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@+id/mTvCategory"
-            app:layout_constraintStart_toEndOf="@+id/mIvAvatar"
-            app:layout_constraintTop_toTopOf="@+id/mIvAvatar"
-            tools:text="@sample/author.json/data/name" />
-
-    <TextView
-            android:id="@+id/mTvDescription"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_16"
-            android:layout_marginTop="@dimen/dp_8"
-            android:layout_marginEnd="@dimen/dp_16"
-            android:ellipsize="end"
-            android:maxLines="2"
-            android:textColor="@color/open_eyes_color_darker_gray"
-            android:textSize="@dimen/sp_13"
-            app:layout_constraintEnd_toStartOf="@+id/mTvCategory"
-            app:layout_constraintStart_toEndOf="@+id/mIvAvatar"
-            app:layout_constraintTop_toBottomOf="@+id/mTvAuthor"
-            tools:text="@sample/author.json/data/description" />
-
-    <TextView
-            android:id="@+id/mTvCategory"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/dp_16"
-            android:textColor="@color/open_eyes_color_black"
-            android:textSize="@dimen/sp_18"
-            app:layout_constraintBottom_toBottomOf="@+id/mIvAvatar"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/mIvAvatar"
-            tools:text="#搞笑" />
-
+    <com.wkz.widget.ExpandCollapseTextView
+        android:id="@+id/mTvDescription"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_8"
+        android:textColor="@color/open_eyes_color_darker_gray"
+        android:textSize="@dimen/sp_13"
+        app:ectv_collapsed_lines="4"
+        app:ectv_prompt_collapsed="收起"
+        app:ectv_prompt_expanded="展开"
+        app:layout_constraintEnd_toEndOf="@+id/mIvCoverFeed"
+        app:layout_constraintStart_toStartOf="@+id/mIvCoverFeed"
+        app:layout_constraintTop_toBottomOf="@+id/mIvCoverFeed"
+        tools:text="@sample/description.json/data/description" />
 </androidx.constraintlayout.widget.ConstraintLayout>

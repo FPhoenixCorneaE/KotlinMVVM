@@ -65,6 +65,10 @@ dependencies {
      */
     api project(':multi-type-adapter')
     /**
+     * expand-collapse-text-view
+     */
+    api project(':expand-collapse-text-view')
+    /**
      * Supports
      */
     api rootProject.ext.supportLibs

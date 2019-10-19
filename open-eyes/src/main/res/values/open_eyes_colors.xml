@@ -5,14 +5,14 @@
     <color name="colorAccent">#D81B60</color>
 
     <color name="open_eyes_color_black_alpha50">#50000000</color>
-    <color name="open_eyes_color_bg_title">#bbffffff</color>
-    <color name="open_eyes_color_darker_gray">#aaaaaa</color>
-    <color name="open_eyes_color_white">#ffffff</color>
-    <color name="open_eyes_color_bg_default">#eeeeee</color>
-    <color name="open_eyes_color_lighter_gray">#dddddd</color>
-    <color name="open_eyes_color_black">#000000</color>
+    <color name="open_eyes_color_bg_title">#bbe8e8e8</color>
+    <color name="open_eyes_color_bg_default">#aaeeeeee</color>
     <color name="open_eyes_color_translucent">#00000000</color>
+    <color name="open_eyes_color_white">#ffffff</color>
+    <color name="open_eyes_color_black">#000000</color>
+    <color name="open_eyes_color_darker_gray">#aaaaaa</color>
+    <color name="open_eyes_color_lighter_gray">#dddddd</color>
     <color name="open_eyes_color_title_white">#ffffff</color>
-    <color name="open_eyes_color_title_0x222222">#222222</color>
+    <color name="open_eyes_color_title_0x222222">#000000</color>
     <color name="open_eyes_color_name">#222222</color>
 </resources>

@@ -15,17 +15,24 @@ class OpenEyesHomeVideoWrapper :
     ViewHolderWrapper<OpenEyesHomeBean.Issue.Item>(R.layout.open_eyes_item_home_video) {
 
     override fun onBindViewHolder(holder: ViewHolder, item: OpenEyesHomeBean.Issue.Item) {
+        // cover
         GlideUtil.setupRoundedImage(
             holder.itemView.mIvCoverFeed,
             item.data?.cover?.feed,
             SizeUtil.dp2px(8F)
         )
+        // avatar
         GlideUtil.setupCircleImage(
             holder.itemView.mIvAvatar,
             item.data?.author?.icon ?: item.data?.provider?.icon
         )
+        // title
         holder.itemView.mTvTitle.text = item.data?.title
-        holder.itemView.mTvAuthor.text = item.data?.author?.name
-        holder.itemView.mTvDescription.text = item.data?.author?.description
+        // description
+        holder.itemView.mTvDescription.setContent(item.data?.description)
+        // author name
+        holder.itemView.mTvAuthorName.text = item.data?.author?.name
+        // author description
+        holder.itemView.mTvAuthorDescription.text = item.data?.author?.description
     }
 }

@@ -4,7 +4,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/open_eyes_color_bg_title">
+        android:background="@color/open_eyes_color_bg_default">
 
     <TextView
             android:id="@+id/mTvHeader"

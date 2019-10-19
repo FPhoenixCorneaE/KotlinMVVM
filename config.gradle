@@ -20,6 +20,7 @@ ext {
 
     kotlin = [
             core            : "androidx.core:core-ktx:1.0.2",
+            fragment        : "androidx.fragment:fragment-ktx:1.0.0",
             kotlinStdlibJdk7: "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$Config.kotlin_version",
     ]
 
