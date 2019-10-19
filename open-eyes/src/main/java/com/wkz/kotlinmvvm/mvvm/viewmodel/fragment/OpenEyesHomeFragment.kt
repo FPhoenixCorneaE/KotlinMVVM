@@ -1,8 +1,10 @@
 package com.wkz.kotlinmvvm.mvvm.viewmodel.fragment
 
 import android.os.Bundle
+import android.text.TextUtils
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.orhanobut.logger.Logger
 import com.wkz.adapter.internal.Delegation
 import com.wkz.adapter.internal.MultiTypeAdapter
 import com.wkz.adapter.wrapper.ViewHolderWrapper
@@ -133,10 +135,13 @@ class OpenEyesHomeFragment :
                         val itemList = mAdapter.data
                         val item =
                             itemList[currentVisibleItemPosition] as OpenEyesHomeBean.Issue.Item
-                        if (item.type == "textHeader") {
-                            mTvTitle.text = item.data?.text
-                        } else {
-                            mTvTitle.text = mSimpleDateFormat.format(item.data?.date)
+                        val title: String?
+                        title = when {
+                            item.type == "textHeader" -> item.data?.text
+                            else -> mSimpleDateFormat.format(item.data?.date)
+                        }
+                        if (!TextUtils.equals(mTvTitle.text, title)) {
+                            mTvTitle.text = title
                         }
                     }
                 }
