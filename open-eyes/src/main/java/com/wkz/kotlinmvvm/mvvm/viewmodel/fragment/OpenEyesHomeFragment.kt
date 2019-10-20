@@ -4,13 +4,11 @@ import android.os.Bundle
 import android.text.TextUtils
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.orhanobut.logger.Logger
 import com.wkz.adapter.internal.Delegation
 import com.wkz.adapter.internal.MultiTypeAdapter
 import com.wkz.adapter.wrapper.ViewHolderWrapper
 import com.wkz.framework.base.BaseFragment
 import com.wkz.kotlinmvvm.R
-import com.wkz.kotlinmvvm.databinding.OpenEyesFragmentHomeBinding
 import com.wkz.kotlinmvvm.mvvm.contract.OpenEyesHomeContract
 import com.wkz.kotlinmvvm.mvvm.model.bean.OpenEyesHomeBean
 import com.wkz.kotlinmvvm.mvvm.presenter.OpenEyesHomePresenter
@@ -24,7 +22,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class OpenEyesHomeFragment :
-    BaseFragment<OpenEyesHomeContract.View, OpenEyesHomePresenter, OpenEyesFragmentHomeBinding>(),
+    BaseFragment<OpenEyesHomeContract.View, OpenEyesHomePresenter>(),
     OpenEyesHomeContract.View {
 
     private val mAdapter by lazy {
@@ -128,7 +126,7 @@ class OpenEyesHomeFragment :
                 if (currentVisibleItemPosition == 0) {
                     //背景设置为透明
                     mTbToolbar.setBackgroundColor(ResourceUtil.getColor(R.color.open_eyes_color_translucent))
-                    mTvTitle.text = ""
+                    mTvToolbar.text = ""
                 } else {
                     if (mAdapter.data.size > 1 && currentVisibleItemPosition < mAdapter.data.size) {
                         mTbToolbar.setBackgroundColor(ResourceUtil.getColor(R.color.open_eyes_color_bg_title))
@@ -140,8 +138,8 @@ class OpenEyesHomeFragment :
                             item.type == "textHeader" -> item.data?.text
                             else -> mSimpleDateFormat.format(item.data?.date)
                         }
-                        if (!TextUtils.equals(mTvTitle.text, title)) {
-                            mTvTitle.text = title
+                        if (!TextUtils.equals(mTvToolbar.text, title)) {
+                            mTvToolbar.text = title
                         }
                     }
                 }

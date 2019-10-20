@@ -5,29 +5,28 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
 import com.wkz.extension.showToast
 import com.wkz.framework.R
-import com.wkz.framework.databinding.FrameworkLayoutBaseBinding
 import com.wkz.rxretrofit.network.exception.ErrorStatus
 import com.wkz.rxretrofit.network.exception.ExceptionHandle
+import com.wkz.widget.MultipleStatusView
 import dagger.android.AndroidInjection
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasFragmentInjector
 import dagger.android.support.HasSupportFragmentInjector
 import dagger.internal.Beta
+import kotlinx.android.synthetic.main.framework_layout_base.view.*
 import javax.inject.Inject
 
 /**
  * @desc:BaseActivity基类
  */
 @Beta
-abstract class BaseActivity<V : IView, P : IPresenter<V>, DB : ViewDataBinding> : AppCompatActivity(),
+abstract class BaseActivity<V : IView, P : IPresenter<V>> : AppCompatActivity(),
     HasFragmentInjector, HasSupportFragmentInjector, IView {
 
     /** Kotlin中使用Dagger2 可能导致错误"Dagger does not support injection into private fields" */
@@ -49,20 +48,18 @@ abstract class BaseActivity<V : IView, P : IPresenter<V>, DB : ViewDataBinding> 
     /** 当前界面 Presenter 对象 */
     @Inject
     protected lateinit var mPresenter: P
-    /** 根布局 DataBinding 对象 */
-    protected lateinit var mBaseLayoutBinding: FrameworkLayoutBaseBinding
-    /** 当前界面布局 DataBinding 对象 */
-    protected lateinit var mBinding: DB
+    /** 根布局 */
+    protected lateinit var mBaseLayout: MultipleStatusView
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         mContext = this
-        // 加载根布局，初始化 DataBinding
-        mBaseLayoutBinding = DataBindingUtil.inflate(
-            LayoutInflater.from(mContext),
+        // 加载根布局
+        mBaseLayout = LayoutInflater.from(mContext).inflate(
             R.layout.framework_layout_base, null, false
-        )
+        ) as MultipleStatusView
         // 设置生命周期作用域提供者
         mPresenter.setLifecycleScopeProvider(this as V, mScopeProvider)
         setContentView(getLayoutId())
@@ -72,17 +69,16 @@ abstract class BaseActivity<V : IView, P : IPresenter<V>, DB : ViewDataBinding> 
     }
 
     override fun setContentView(layoutResID: Int) {
-        // 加载布局，初始化 DataBinding
-        mBinding = DataBindingUtil.inflate(
-            LayoutInflater.from(mContext),
-            layoutResID, null, false
+        // 加载布局
+        val contentView =LayoutInflater.from(mContext).inflate(
+            getLayoutId(), null, false
         )
 
         // 将当前布局添加到根布局
-        mBaseLayoutBinding.mMsvRoot.removeAllViews()
-        mBaseLayoutBinding.mMsvRoot.addView(mBinding.root)
+        mBaseLayout.mMsvRoot.removeAllViews()
+        mBaseLayout.mMsvRoot.addView(contentView)
 
-        super.setContentView(mBaseLayoutBinding.root)
+        super.setContentView(mBaseLayout)
     }
 
     protected fun initListener() {
@@ -102,23 +98,23 @@ abstract class BaseActivity<V : IView, P : IPresenter<V>, DB : ViewDataBinding> 
     }
 
     override fun showLoading() {
-        mBaseLayoutBinding.mMsvRoot.showLoading()
+        mBaseLayout.mMsvRoot.showLoading()
     }
 
     override fun showContent() {
-        mBaseLayoutBinding.mMsvRoot.showContent()
+        mBaseLayout.mMsvRoot.showContent()
     }
 
     override fun showEmpty() {
-        mBaseLayoutBinding.mMsvRoot.showEmpty()
+        mBaseLayout.mMsvRoot.showEmpty()
     }
 
     override fun showNoNetwork() {
-        mBaseLayoutBinding.mMsvRoot.showNoNetwork()
+        mBaseLayout.mMsvRoot.showNoNetwork()
     }
 
     override fun showError() {
-        mBaseLayoutBinding.mMsvRoot.showError()
+        mBaseLayout.mMsvRoot.showError()
     }
 
     override fun showErrorMsg(t: Throwable) {

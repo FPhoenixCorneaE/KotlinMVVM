@@ -1,71 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.scwang.smartrefresh.layout.SmartRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mSrlRefresh"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:srlAccentColor="@color/open_eyes_color_white"
+    app:srlEnableHeaderTranslationContent="false"
+    app:srlEnableLoadmore="false"
+    app:srlPrimaryColor="@color/colorPrimary">
 
-    <data>
-
-    </data>
-
-    <com.scwang.smartrefresh.layout.SmartRefreshLayout
-        android:id="@+id/mSrlRefresh"
+    <com.scwang.smartrefresh.header.MaterialHeader
+        android:id="@+id/mMhHeader"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:srlAccentColor="@color/open_eyes_color_white"
-        app:srlEnableHeaderTranslationContent="false"
-        app:srlEnableLoadmore="false"
-        app:srlPrimaryColor="@color/colorPrimary">
+        android:layout_height="wrap_content" />
 
-        <com.scwang.smartrefresh.header.MaterialHeader
-            android:id="@+id/mMhHeader"
+    <FrameLayout
+        android:id="@+id/mFlContent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- 当设置RecyclerView的paddingTop属性时,滑动时内容是滑动不到paddingTop的区域,
+        设置clipToPadding为false就可以滑动到paddingTop区域-->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/mRvRecycler"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:paddingTop="?attr/actionBarSize"
+            tools:itemCount="10"
+            tools:listitem="@layout/open_eyes_item_home_video" />
 
-        <FrameLayout
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/mTbToolbar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="?attr/actionBarSize"
+            app:contentInsetStart="0dp">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/mRvRecycler"
+            <RelativeLayout
+                android:id="@+id/mRlToolbar"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:clipToPadding="false"
-                tools:itemCount="10"
-                tools:listitem="@layout/open_eyes_item_home_video" />
+                android:layout_height="match_parent">
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/mTbToolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:contentInsetStart="0dp">
-
-                <RelativeLayout
+                <TextView
+                    android:id="@+id/mTvToolbar"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:textColor="@color/open_eyes_color_title_0x222222"
+                    android:textSize="@dimen/sp_18"
+                    android:textStyle="bold"
+                    tools:ignore="RelativeOverlap" />
 
-                    <TextView
-                        android:id="@+id/mTvTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:textColor="@color/open_eyes_color_title_0x222222"
-                        android:textSize="@dimen/sp_18"
-                        android:textStyle="bold"
-                        tools:ignore="RelativeOverlap" />
-
-                    <ImageView
-                        android:id="@+id/mIvSearch"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginEnd="@dimen/dp_15"
-                        android:transitionName="@string/open_eyes_transition_name_search"
-                        tools:ignore="ContentDescription"
-                        tools:src="@drawable/open_eyes_ic_search"
-                        tools:targetApi="lollipop" />
-                </RelativeLayout>
-            </androidx.appcompat.widget.Toolbar>
-        </FrameLayout>
-    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
-</layout>
+                <ImageView
+                    android:id="@+id/mIvSearch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/dp_15"
+                    android:transitionName="@string/open_eyes_transition_name_search"
+                    tools:ignore="ContentDescription"
+                    tools:src="@drawable/open_eyes_ic_search"
+                    tools:targetApi="lollipop" />
+            </RelativeLayout>
+        </androidx.appcompat.widget.Toolbar>
+    </FrameLayout>
+</com.scwang.smartrefresh.layout.SmartRefreshLayout>

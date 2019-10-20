@@ -7,26 +7,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
-import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
 import com.wkz.extension.showToast
 import com.wkz.framework.R
-import com.wkz.framework.databinding.FrameworkLayoutBaseBinding
 import com.wkz.rxretrofit.network.exception.ErrorStatus
 import com.wkz.rxretrofit.network.exception.ExceptionHandle
+import com.wkz.widget.MultipleStatusView
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.AndroidSupportInjection
 import dagger.android.support.HasSupportFragmentInjector
+import kotlinx.android.synthetic.main.framework_layout_base.view.*
 import javax.inject.Inject
 
 /**
  * @desc:BaseFragment基类
  */
-abstract class BaseFragment<V : IView, P : IPresenter<V>, DB : ViewDataBinding> : Fragment(),
+abstract class BaseFragment<V : IView, P : IPresenter<V>> : Fragment(),
     HasSupportFragmentInjector, IView {
     /** Kotlin中使用Dagger2 可能导致错误"Dagger does not support injection into private fields" */
     /** Kotlin 生成.java文件时属性默认为 private，给属性添加@JvmField声明可以转成 public */
@@ -47,36 +46,32 @@ abstract class BaseFragment<V : IView, P : IPresenter<V>, DB : ViewDataBinding> 
     /** 当前界面 Presenter 对象 */
     @Inject
     protected lateinit var mPresenter: P
-    /** 根布局 DataBinding 对象 */
-    protected lateinit var mBaseLayoutBinding: FrameworkLayoutBaseBinding
-    /** 当前界面布局 DataBinding 对象 */
-    protected lateinit var mBinding: DB
+    /** 根布局 */
+    protected lateinit var mBaseLayout: MultipleStatusView
 
     override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
         super.onAttach(context)
         mContext = context as Activity
 
-        // 加载根布局，初始化 DataBinding
-        mBaseLayoutBinding = DataBindingUtil.inflate(
-            LayoutInflater.from(mContext),
+        // 加载根布局
+        mBaseLayout = LayoutInflater.from(mContext).inflate(
             R.layout.framework_layout_base, null, false
-        )
+        ) as MultipleStatusView
         // 设置生命周期作用域提供者
         mPresenter.setLifecycleScopeProvider(this as V, mScopeProvider)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        // 加载布局，初始化 DataBinding
-        mBinding = DataBindingUtil.inflate(
-            inflater,
+        // 加载布局
+        val contentView =inflater.inflate(
             getLayoutId(), container, false
         )
 
         // 将当前布局添加到根布局
-        mBaseLayoutBinding.mMsvRoot.removeAllViews()
-        mBaseLayoutBinding.mMsvRoot.addView(mBinding.root)
-        return mBaseLayoutBinding.root
+        mBaseLayout.mMsvRoot.removeAllViews()
+        mBaseLayout.mMsvRoot.addView(contentView)
+        return mBaseLayout
     }
 
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
@@ -110,23 +105,23 @@ abstract class BaseFragment<V : IView, P : IPresenter<V>, DB : ViewDataBinding> 
     }
 
     override fun showLoading() {
-        mBaseLayoutBinding.mMsvRoot.showLoading()
+        mBaseLayout.mMsvRoot.showLoading()
     }
 
     override fun showContent() {
-        mBaseLayoutBinding.mMsvRoot.showContent()
+        mBaseLayout.mMsvRoot.showContent()
     }
 
     override fun showEmpty() {
-        mBaseLayoutBinding.mMsvRoot.showEmpty()
+        mBaseLayout.mMsvRoot.showEmpty()
     }
 
     override fun showNoNetwork() {
-        mBaseLayoutBinding.mMsvRoot.showNoNetwork()
+        mBaseLayout.mMsvRoot.showNoNetwork()
     }
 
     override fun showError() {
-        mBaseLayoutBinding.mMsvRoot.showError()
+        mBaseLayout.mMsvRoot.showError()
     }
 
     override fun showErrorMsg(t: Throwable) {

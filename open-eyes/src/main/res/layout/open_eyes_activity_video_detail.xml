@@ -1,54 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools">
-    <data>
+<com.scwang.smartrefresh.layout.SmartRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mRefreshLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    app:srlAccentColor="@android:color/white"
+    app:srlEnableHeaderTranslationContent="false"
+    app:srlEnableLoadmore="false"
+    app:srlPrimaryColor="@color/colorPrimary">
 
-    </data>
-    <com.scwang.smartrefresh.layout.SmartRefreshLayout
-            android:id="@+id/mRefreshLayout"
-            app:srlAccentColor="@android:color/white"
-            app:srlEnableHeaderTranslationContent="false"
-            app:srlEnableLoadmore="false"
-            app:srlPrimaryColor="@color/colorPrimary"
+    <com.scwang.smartrefresh.header.MaterialHeader
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
+            android:id="@+id/mVideoView"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:background="@android:color/black" />
+
+        <ImageView
+            android:id="@+id/mVideoBackground"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@android:color/white">
+            android:layout_below="@+id/mVideoView"
+            tools:ignore="ContentDescription" />
 
-        <com.scwang.smartrefresh.header.MaterialHeader
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
-        <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-            <com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
-                    android:id="@+id/mVideoView"
-                    android:layout_width="match_parent"
-                    android:layout_height="250dp"
-                    android:background="@android:color/black"/>
-
-            <ImageView
-                    android:id="@+id/mVideoBackground"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_below="@+id/mVideoView"
-                    tools:ignore="ContentDescription"/>
-
-            <View
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_below="@id/mVideoView"
-                    android:background="@color/open_eyes_color_black_alpha50"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/mVideoView"
+            android:background="@color/open_eyes_color_black_alpha50" />
 
 
-            <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/mRecyclerView"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_below="@+id/mVideoView"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/mRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/mVideoView" />
 
-        </RelativeLayout>
-    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
-</layout>
+    </RelativeLayout>
+</com.scwang.smartrefresh.layout.SmartRefreshLayout>

@@ -22,7 +22,6 @@ import com.shuyu.gsyvideoplayer.video.base.GSYVideoPlayer
 import com.wkz.extension.showToast
 import com.wkz.framework.base.BaseActivity
 import com.wkz.kotlinmvvm.R
-import com.wkz.kotlinmvvm.databinding.OpenEyesActivityVideoDetailBinding
 import com.wkz.kotlinmvvm.listener.OnVideoListener
 import com.wkz.kotlinmvvm.mvvm.contract.OpenEyesVideoDetailContract
 import com.wkz.kotlinmvvm.mvvm.model.bean.OpenEyesHomeBean
@@ -38,7 +37,7 @@ import java.util.*
  * @desc: 视频详情
  */
 class OpenEyesVideoDetailActivity :
-    BaseActivity<OpenEyesVideoDetailContract.View, OpenEyesVideoDetailPresenter, OpenEyesActivityVideoDetailBinding>(),
+    BaseActivity<OpenEyesVideoDetailContract.View, OpenEyesVideoDetailPresenter>(),
     OpenEyesVideoDetailContract.View {
 
 
@@ -47,7 +46,7 @@ class OpenEyesVideoDetailActivity :
         const val TRANSITION = "TRANSITION"
     }
 
-    private val mAdapter by lazy { OpenEyesVideoDetailAdapter(this, itemList) }
+    private val mAdapter by lazy { OpenEyesVideoDetailAdapter(mContext, itemList) }
 
     private val mFormat by lazy { SimpleDateFormat("yyyyMMddHHmmss"); }
 
@@ -79,7 +78,7 @@ class OpenEyesVideoDetailActivity :
 //        initTransition()
         initVideoViewConfig()
 
-        mRecyclerView.layoutManager = LinearLayoutManager(this)
+        mRecyclerView.layoutManager = LinearLayoutManager(mContext)
         mRecyclerView.adapter = mAdapter
 
         //设置相关视频 Item 的点击事件
@@ -99,7 +98,10 @@ class OpenEyesVideoDetailActivity :
         //打开下拉刷新区域块背景:
         mMaterialHeader?.setShowBezierWave(true)
         //设置下拉刷新主题颜色
-        mRefreshLayout.setPrimaryColorsId(R.color.open_eyes_color_black_alpha50, R.color.open_eyes_color_bg_title)
+        mRefreshLayout.setPrimaryColorsId(
+            R.color.open_eyes_color_black_alpha50,
+            R.color.open_eyes_color_bg_title
+        )
     }
 
 
@@ -181,7 +183,7 @@ class OpenEyesVideoDetailActivity :
         itemData = OpenEyesHomeBean.Issue.Item("", null, "")
         isTransition = intent.getBooleanExtra(TRANSITION, false)
 
-        mBaseLayoutBinding.mMsvRoot.showContent()
+        showContent()
         mPresenter.requestRelatedVideo(169617)
     }
 
