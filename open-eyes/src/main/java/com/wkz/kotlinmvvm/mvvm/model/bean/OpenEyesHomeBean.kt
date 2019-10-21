@@ -26,7 +26,8 @@ data class OpenEyesHomeBean(
         val nextPageUrl: String
     ) : Serializable, BaseObservable() {
 
-        data class Item(val type: String, val data: Data?, val tag: String) : Serializable, BaseObservable(),
+        data class Item(val type: String, val data: Data?, val tag: String) : Serializable,
+            BaseObservable(),
             IViewBinder {
 
             data class Data(
@@ -37,6 +38,7 @@ data class OpenEyesHomeBean(
                 val title: String,
                 val slogan: String?,
                 val description: String,
+                var expanded: Boolean,
                 val actionUrl: String,
                 val provider: Provider,
                 val category: String,
@@ -79,13 +81,20 @@ data class OpenEyesHomeBean(
                 val header: Header,
                 val itemList: ArrayList<OpenEyesHomeBean.Issue.Item>
             ) : Serializable, BaseObservable() {
-                data class Tag(val id: Int, val name: String, val actionUrl: String, val adTrack: Any) : Serializable,
+                data class Tag(
+                    val id: Int,
+                    val name: String,
+                    val actionUrl: String,
+                    val adTrack: Any
+                ) : Serializable,
                     BaseObservable()
 
-                data class Author(val icon: String, val name: String, val description: String) : Serializable,
+                data class Author(val icon: String, val name: String, val description: String) :
+                    Serializable,
                     BaseObservable()
 
-                data class Provider(val name: String, val alias: String, val icon: String) : Serializable,
+                data class Provider(val name: String, val alias: String, val icon: String) :
+                    Serializable,
                     BaseObservable()
 
                 data class Cover(
@@ -93,12 +102,22 @@ data class OpenEyesHomeBean(
                     val blurred: String, val sharing: String, val homepage: String
                 ) : Serializable, BaseObservable()
 
-                data class WebUrl(val raw: String, val forWeibo: String) : Serializable, BaseObservable()
+                data class WebUrl(val raw: String, val forWeibo: String) : Serializable,
+                    BaseObservable()
 
-                data class PlayInfo(val name: String, val url: String, val type: String, val urlList: ArrayList<Url>) :
+                data class PlayInfo(
+                    val name: String,
+                    val url: String,
+                    val type: String,
+                    val urlList: ArrayList<Url>
+                ) :
                     Serializable, BaseObservable()
 
-                data class Consumption(val collectionCount: Int, val shareCount: Int, val replyCount: Int) :
+                data class Consumption(
+                    val collectionCount: Int,
+                    val shareCount: Int,
+                    val replyCount: Int
+                ) :
                     Serializable, BaseObservable()
 
                 data class User(
@@ -109,7 +128,8 @@ data class OpenEyesHomeBean(
                     val ifPgc: Boolean
                 ) : Serializable, BaseObservable()
 
-                data class ParentReply(val user: User, val message: String) : Serializable, BaseObservable()
+                data class ParentReply(val user: User, val message: String) : Serializable,
+                    BaseObservable()
 
                 data class Url(val size: Long) : Serializable, BaseObservable()
 
@@ -126,7 +146,12 @@ data class OpenEyesHomeBean(
                     val subtitle: String,
                     val labelList: ArrayList<Label>
                 ) : Serializable, BaseObservable() {
-                    data class Label(val text: String, val card: String, val detial: Any, val actionUrl: Any) :
+                    data class Label(
+                        val text: String,
+                        val card: String,
+                        val detial: Any,
+                        val actionUrl: Any
+                    ) :
                         Serializable, BaseObservable()
                 }
             }

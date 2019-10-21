@@ -54,13 +54,12 @@
         android:id="@+id/mTvCategory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/dp_16"
         android:textColor="@color/open_eyes_color_black"
         android:textSize="@dimen/sp_18"
         app:layout_constraintBottom_toBottomOf="@+id/mIvAvatar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/mIvAvatar"
-        tools:text="#搞笑" />
+        tools:text="#广告" />
 
     <ImageView
         android:id="@+id/mIvCoverFeed"
@@ -100,16 +99,15 @@
         app:layout_constraintEnd_toEndOf="@+id/mIvCoverFeed"
         tools:text="@tools:sample/date/hhmm" />
 
-    <com.wkz.widget.ExpandCollapseTextView
+    <com.wkz.widget.ExpandTextView
         android:id="@+id/mTvDescription"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_8"
+        android:layout_marginBottom="@dimen/dp_16"
         android:textColor="@color/open_eyes_color_darker_gray"
         android:textSize="@dimen/sp_13"
-        app:ectv_collapsed_lines="4"
-        app:ectv_prompt_collapsed="收起"
-        app:ectv_prompt_expanded="展开"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/mIvCoverFeed"
         app:layout_constraintStart_toStartOf="@+id/mIvCoverFeed"
         app:layout_constraintTop_toBottomOf="@+id/mIvCoverFeed"
