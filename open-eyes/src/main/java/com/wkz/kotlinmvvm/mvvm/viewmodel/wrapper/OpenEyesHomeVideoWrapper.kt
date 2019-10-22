@@ -7,6 +7,7 @@ import com.wkz.adapter.wrapper.ViewHolderWrapper
 import com.wkz.framework.glide.GlideUtil
 import com.wkz.kotlinmvvm.R
 import com.wkz.kotlinmvvm.mvvm.model.bean.OpenEyesHomeBean
+import com.wkz.util.ResourceUtil
 import com.wkz.util.SizeUtil
 import com.wkz.widget.Callback
 import kotlinx.android.synthetic.main.open_eyes_item_home_video.view.*
@@ -37,9 +38,9 @@ class OpenEyesHomeVideoWrapper :
             // 设置最大显示行数
             mMaxLineCount = 3
             // 收起文案
-            mCollapseText = "收起"
+            mCollapseText = ResourceUtil.getString(R.string.open_eyes_collapse_text)
             // 展开文案
-            mExpandText = "查看全文"
+            mExpandText = ResourceUtil.getString(R.string.open_eyes_expand_text)
             // 是否支持收起功能
             mCollapseEnable = true
             // 是否给展开收起添加下划线

@@ -1,4 +1,6 @@
 <resources>
     <string name="open_eyes_app_name">KotlinMVVM</string>
     <string name="open_eyes_transition_name_search">TransitionReveal</string>
+    <string name="open_eyes_collapse_text">收起</string>
+    <string name="open_eyes_expand_text">查看全文</string>
 </resources>

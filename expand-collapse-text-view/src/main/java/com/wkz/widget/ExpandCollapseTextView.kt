@@ -2,12 +2,11 @@ package com.wkz.widget
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.Color
+import android.graphics.Paint
 import android.graphics.Rect
 import android.text.*
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
-import android.text.style.UnderlineSpan
 import android.util.AttributeSet
 import android.view.View
 import android.widget.TextView
@@ -22,7 +21,7 @@ class ExpandTextView @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : TextView(context, attrs, defStyleAttr) {
 
-    /**展开状态 true：展开，false：收起 */
+    /** 展开状态 true：展开，false：收起 */
     private var mExpanded: Boolean = false
     /** 状态接口 */
     var mCallback: Callback? = null
@@ -35,12 +34,12 @@ class ExpandTextView @JvmOverloads constructor(
     /** 展开文案文字 */
     var mExpandText = "全文"
     /** 展开文案文字颜色 */
-    var mExpandTextColor: Int = Color.parseColor("#1C7FFD")
+    var mExpandTextColor: Int = 0x1C7FFD
     /** 收起文案文字 */
     var mCollapseText = "收起"
     /** 收起文案文字颜色 */
-    var mCollapseTextColor: Int = Color.parseColor("#1C7FFD")
-    /**是否支持收起功能*/
+    var mCollapseTextColor: Int = 0x1C7FFD
+    /** 是否支持收起功能 */
     var mCollapseEnable = false
     /** 是否添加下划线 */
     var mUnderlineEnable = true
@@ -56,7 +55,7 @@ class ExpandTextView @JvmOverloads constructor(
         if (mSourceText.isNullOrEmpty()) {
             setMeasuredDimension(measuredWidth, measuredHeight)
         }
-        //StaticLayout对象
+        // StaticLayout对象
         val sl = StaticLayout(
             mSourceText,
             paint,
@@ -68,24 +67,24 @@ class ExpandTextView @JvmOverloads constructor(
         )
         // 总计行数
         var lineCount = sl.lineCount
-        //总行数大于最大行数
+        // 总行数大于最大行数
         if (lineCount > mMaxLineCount) {
             if (mExpanded) {
                 text = mSourceText
-                //是否支持收起功能
+                // 是否支持收起功能
                 if (mCollapseEnable) {
-                    //收起文案和源文字组成的新的文字
+                    // 收起文案和源文字组成的新的文字
                     val newEndLineText = mSourceText + mCollapseText
-                    //收起文案和源文字组成的新的文字
+                    // 收起文案和源文字组成的新的文字
                     val spannableString = SpannableString(newEndLineText)
-                    //给收起设成监听
+                    // 给收起设成监听
                     spannableString.setSpan(
                         object : ClickableSpan() {
                             override fun updateDrawState(ds: TextPaint) {
                                 super.updateDrawState(ds)
-                                //给收起设置颜色
+                                // 给收起设置颜色
                                 ds.color = mCollapseTextColor
-                                //是否给收起添加下划线
+                                // 是否给收起添加下划线
                                 ds.isUnderlineText = mUnderlineEnable
                             }
 
@@ -95,7 +94,7 @@ class ExpandTextView @JvmOverloads constructor(
                                 }
                             }
                         },
-                        newEndLineText.length - mCollapseText.length,
+                        mSourceText!!.length,
                         newEndLineText.length,
                         Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
                     )
@@ -124,22 +123,25 @@ class ExpandTextView @JvmOverloads constructor(
                     }
                 }
                 // 新的文字
-                val newEndLineText = mSourceText!!.substring(0, start) + lineText.substring(
-                    0,
-                    endIndex
-                ) + mEllipsizeText + mExpandText
-                //全部文字
+                val newEndLineText = mSourceText!!.substring(0, start) +
+                        lineText.substring(
+                            0,
+                            endIndex
+                        ) +
+                        mEllipsizeText + mExpandText
+                // 全部文字
                 val spannableString = SpannableString(newEndLineText)
-                //给查看全文设成监听
+                // 给查看全文设成监听
                 spannableString.setSpan(
                     object : ClickableSpan() {
                         override fun updateDrawState(ds: TextPaint) {
                             super.updateDrawState(ds)
-                            //给查看全文设置颜色
+                            // 给查看全文设置颜色
                             ds.color = mExpandTextColor
-                            //是否给查看全文添加下划线
+                            // 是否给查看全文添加下划线
                             ds.isUnderlineText = mUnderlineEnable
                         }
+
                         override fun onClick(widget: View) {
                             if (mCallback != null) {
                                 mCallback!!.onExpandClick()
@@ -168,6 +170,20 @@ class ExpandTextView @JvmOverloads constructor(
             val lineBound = Rect()
             sl.getLineBounds(i, lineBound)
             lineHeight += lineBound.height()
+        }
+        // 展开状态下,若最后一行文字占满控件宽度,则需要增加一行显示收起文案
+        if (mExpanded) {
+            // 收起文案的宽度
+            val collapseWidth = paint.measureText(mCollapseText)
+            // 最后一行文字的宽度
+            val lastLineWidth = sl.getLineWidth(lineCount - 1)
+            if (lastLineWidth + collapseWidth >= measuredWidth - paddingLeft - paddingRight) {
+                // 收起文案的高度
+                val paint = Paint()
+                paint.textSize = textSize
+                val collapseHeight = paint.fontMetrics.descent - paint.fontMetrics.ascent
+                lineHeight += collapseHeight.toInt()
+            }
         }
         lineHeight = (paddingTop + paddingBottom + lineHeight * lineSpacingMultiplier).toInt()
         setMeasuredDimension(measuredWidth, lineHeight)
