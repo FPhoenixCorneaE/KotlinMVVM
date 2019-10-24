@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.wkz.adapter.internal.Delegation
 import com.wkz.adapter.internal.MultiTypeAdapter
 import com.wkz.adapter.wrapper.ViewHolderWrapper
-import com.wkz.framework.base.BaseFragment
+import com.wkz.framework.base.fragment.Dagger2InjectionFragment
 import com.wkz.kotlinmvvm.R
 import com.wkz.kotlinmvvm.mvvm.contract.OpenEyesHomeContract
 import com.wkz.kotlinmvvm.mvvm.model.bean.OpenEyesHomeBean
@@ -22,7 +22,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class OpenEyesHomeFragment :
-    BaseFragment<OpenEyesHomeContract.View, OpenEyesHomePresenter>(),
+    Dagger2InjectionFragment<OpenEyesHomeContract.View, OpenEyesHomePresenter>(),
     OpenEyesHomeContract.View {
 
     private val mAdapter by lazy {

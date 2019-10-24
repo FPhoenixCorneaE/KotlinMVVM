@@ -8,16 +8,16 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/open_eyes_ic_launcher"
+        android:icon="@mipmap/wan_android_ic_launcher"
         android:label="@string/wan_android_app_name"
-        android:roundIcon="@mipmap/open_eyes_ic_launcher_round"
+        android:roundIcon="@mipmap/wan_android_ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning"
         tools:replace="android:label"
         tools:targetApi="m">
-        <activity android:name=".WanAndroidHomeActivity">
+        <activity android:name=".mvvm.view.activity.WanAndroidHomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

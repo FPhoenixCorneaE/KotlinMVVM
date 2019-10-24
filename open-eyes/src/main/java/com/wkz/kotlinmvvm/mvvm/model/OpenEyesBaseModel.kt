@@ -10,7 +10,7 @@ import com.wkz.rxretrofit.network.RetrofitManager
  */
 open class OpenEyesBaseModel : IBaseUrl {
 
-    val sOpenEyesService: OpenEyesApi by lazy(LazyThreadSafetyMode.SYNCHRONIZED) {
+    protected val sOpenEyesService: OpenEyesApi by lazy(LazyThreadSafetyMode.SYNCHRONIZED) {
         RetrofitManager.getRetrofit(this).create(OpenEyesApi::class.java)
     }
 

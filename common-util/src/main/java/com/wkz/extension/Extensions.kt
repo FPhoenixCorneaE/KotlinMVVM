@@ -1,6 +1,5 @@
 package com.wkz.extension
 
-import android.content.Context
 import com.wkz.util.SizeUtil
 import com.wkz.util.ToastUtil
 

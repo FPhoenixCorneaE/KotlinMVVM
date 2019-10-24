@@ -8,7 +8,7 @@ import androidx.annotation.Keep
  */
 @Keep
 data class BaseResponse<T>(
-    val code: Int,
+    val errorCode: Int,
     val errorMsg: String,
     val data: T?
 )

@@ -37,6 +37,8 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation rootProject.ext.support.appcompat
+    implementation rootProject.ext.support.lifecycleViewmodel
+    implementation rootProject.ext.support.lifecycleExtensions
     /**
      * Kotlin
      */

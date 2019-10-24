@@ -1,4 +1,4 @@
-package com.wkz.wanandroid
+package com.wkz.wanandroid.mvvm.view.activity
 
 import androidx.appcompat.app.AppCompatActivity
 

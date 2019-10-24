@@ -10,7 +10,7 @@ import retrofit2.http.Query
 import retrofit2.http.Url
 
 /**
- * @desc: 开眼Api 接口
+ * @desc: 开眼 Api接口
  */
 interface OpenEyesApi {
 

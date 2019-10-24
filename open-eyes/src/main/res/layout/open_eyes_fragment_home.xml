@@ -8,7 +8,7 @@
     app:srlAccentColor="@color/open_eyes_color_white"
     app:srlEnableHeaderTranslationContent="false"
     app:srlEnableLoadmore="false"
-    app:srlPrimaryColor="@color/colorPrimary">
+    app:srlPrimaryColor="@color/open_eyes_colorPrimary">
 
     <com.scwang.smartrefresh.header.MaterialHeader
         android:id="@+id/mMhHeader"

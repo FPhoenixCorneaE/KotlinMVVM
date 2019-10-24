@@ -20,7 +20,7 @@ import com.shuyu.gsyvideoplayer.utils.OrientationUtils
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
 import com.shuyu.gsyvideoplayer.video.base.GSYVideoPlayer
 import com.wkz.extension.showToast
-import com.wkz.framework.base.BaseActivity
+import com.wkz.framework.base.activity.Dagger2InjectionActivity
 import com.wkz.kotlinmvvm.R
 import com.wkz.kotlinmvvm.listener.OnVideoListener
 import com.wkz.kotlinmvvm.mvvm.contract.OpenEyesVideoDetailContract
@@ -37,7 +37,7 @@ import java.util.*
  * @desc: 视频详情
  */
 class OpenEyesVideoDetailActivity :
-    BaseActivity<OpenEyesVideoDetailContract.View, OpenEyesVideoDetailPresenter>(),
+    Dagger2InjectionActivity<OpenEyesVideoDetailContract.View, OpenEyesVideoDetailPresenter>(),
     OpenEyesVideoDetailContract.View {
 
 
@@ -192,7 +192,7 @@ class OpenEyesVideoDetailActivity :
 
     }
 
-    override fun showContent() {
+     override fun showContent() {
         super.showContent()
         mRefreshLayout.finishRefresh()
     }
