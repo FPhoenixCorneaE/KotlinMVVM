@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.annotation.TargetApi
 import android.app.ActivityManager
 import android.content.Context
-import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.content.pm.PackageManager.NameNotFoundException
 import android.graphics.drawable.Drawable
@@ -32,51 +31,24 @@ class AppUtil private constructor() {
         private val DEBUG_DN = X500Principal("CN=Android Debug,O=Android,C=US")
 
         /**
+         * Get package name
+         */
+        val packageName: String
+            get() {
+                return ContextUtil.context.packageName
+            }
+
+        /**
          * Get version name
          */
         val versionName: String
-            get() {
-                val context = ContextUtil.context
-                val info: PackageInfo
-                try {
-                    info = context.getPackageManager().getPackageInfo(context.getPackageName(), 0)
-                    return info.versionName
-                } catch (e: NameNotFoundException) {
-                    Logger.e(e.toString())
-                }
-
-                return ""
-            }
+            get() = getVersionName(packageName)
 
         /**
          * Get version code
          */
         val versionCode: Long
-            get() {
-                val context = ContextUtil.context
-                val info: PackageInfo
-                try {
-                    info = context.getPackageManager().getPackageInfo(context.getPackageName(), 0)
-                    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                        info.longVersionCode
-                    } else {
-                        info.versionCode.toLong()
-                    }
-                } catch (e: NameNotFoundException) {
-                    Logger.e(e.toString())
-                }
-
-                return 0
-            }
-
-        /**
-         * Get package name
-         */
-        val packageName: String
-            get() {
-                val context = ContextUtil.context
-                return context.getPackageName()
-            }
+            get() = getVersionCode(packageName)
 
         /**
          * Get icon
@@ -85,35 +57,37 @@ class AppUtil private constructor() {
             get() = getAppIcon(packageName)
 
         /**
+         * Get app name
+         */
+        val appName: String
+            get() = getAppName(packageName)
+
+        /**
          * Get app icon
          */
-        fun getAppIcon(packageName: String): Drawable? {
+        private fun getAppIcon(packageName: String): Drawable? {
             val context = ContextUtil.context
             try {
-                val pm = context.getPackageManager()
+                val pm = context.packageManager
                 val info = pm.getApplicationInfo(packageName, 0)
                 return info.loadIcon(pm)
             } catch (e: NameNotFoundException) {
                 Logger.e(e.toString())
             }
-
             return null
         }
 
         /**
          * Get app version name
          */
-        fun getVersionName(packageName: String): String? {
-            val context = ContextUtil.context
+        fun getVersionName(packageName: String): String {
             try {
-                val pm = context.getPackageManager()
-                val packageInfo = pm.getPackageInfo(packageName, 0)
+                val packageInfo = ContextUtil.context.packageManager.getPackageInfo(packageName, 0)
                 return packageInfo.versionName
             } catch (e: NameNotFoundException) {
                 Logger.e(e.toString())
             }
-
-            return null
+            return ""
         }
 
         /**
@@ -122,52 +96,32 @@ class AppUtil private constructor() {
         fun getVersionCode(packageName: String): Long {
             val context = ContextUtil.context
             try {
-                val pm = context.getPackageManager()
+                val pm = context.packageManager
                 val packageInfo = pm.getPackageInfo(packageName, 0)
-                return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                    packageInfo.getLongVersionCode()
-                } else {
-                    packageInfo.versionCode.toLong()
+                return when {
+                    Build.VERSION.SDK_INT >= Build.VERSION_CODES.P -> packageInfo.longVersionCode
+                    else -> packageInfo.versionCode.toLong()
                 }
             } catch (e: NameNotFoundException) {
                 Logger.e(e.toString())
             }
-
-            return -1
+            return 0
         }
 
         /**
          * Get app name
          */
-        fun getAppName(packageName: String): String? {
+        fun getAppName(packageName: String): String {
             val context = ContextUtil.context
             try {
-                val pm = context.getPackageManager()
+                val pm = context.packageManager
                 val info = pm.getApplicationInfo(packageName, 0)
                 return info.loadLabel(pm).toString()
             } catch (e: NameNotFoundException) {
                 Logger.e(e.toString())
             }
-
-            return null
+            return ""
         }
-
-        /**
-         * Get app name
-         */
-        val appName: String?
-            get() {
-                val context = ContextUtil.context
-                try {
-                    val pm = context.getPackageManager()
-                    val info = pm.getApplicationInfo(packageName, 0)
-                    return info.loadLabel(pm).toString()
-                } catch (e: NameNotFoundException) {
-                    Logger.e(e.toString())
-                }
-
-                return null
-            }
 
         /**
          * Get app permission
@@ -175,30 +129,28 @@ class AppUtil private constructor() {
         fun getAppPermission(packageName: String): Array<String>? {
             val context = ContextUtil.context
             try {
-                val pm = context.getPackageManager()
+                val pm = context.packageManager
                 val packageInfo = pm.getPackageInfo(packageName, PackageManager.GET_PERMISSIONS)
                 return packageInfo.requestedPermissions
             } catch (e: NameNotFoundException) {
                 Logger.e(e.toString())
             }
-
             return null
         }
 
         /**
          * Get app signature
          */
-        fun getAppSignature(packageName: String): String? {
+        fun getAppSignature(): String {
             val context = ContextUtil.context
             try {
-                val pm = context.getPackageManager()
+                val pm = context.packageManager
                 val packageInfo = pm.getPackageInfo(packageName, PackageManager.GET_SIGNATURES)
                 return packageInfo.signatures[0].toCharsString()
             } catch (e: NameNotFoundException) {
                 Logger.e(e.toString())
             }
-
-            return null
+            return ""
         }
 
         /**
@@ -210,7 +162,10 @@ class AppUtil private constructor() {
                 var debuggable = false
                 try {
                     val packageInfo =
-                        context.getPackageManager().getPackageInfo(packageName, PackageManager.GET_SIGNATURES)
+                        context.packageManager.getPackageInfo(
+                            packageName,
+                            PackageManager.GET_SIGNATURES
+                        )
                     val signatures = packageInfo.signatures
                     for (signature in signatures) {
                         val cf = CertificateFactory.getInstance("X.509")
@@ -222,11 +177,9 @@ class AppUtil private constructor() {
                             break
                         }
                     }
-
                 } catch (e: Exception) {
                     Logger.e(e.toString())
                 }
-
                 return debuggable
             }
 
@@ -243,7 +196,7 @@ class AppUtil private constructor() {
                 taskList = am.getRunningTasks(1)
                 if (taskList != null && taskList.isNotEmpty()) {
                     val topActivity = taskList[0].topActivity
-                    return topActivity != null && topActivity.packageName != context.getPackageName()
+                    return topActivity != null && topActivity.packageName != context.packageName
                 }
                 return false
             }
@@ -285,26 +238,23 @@ class AppUtil private constructor() {
          * @return 如API 17 则返回 17
          */
         val sdkVersion: Int
-            get() = android.os.Build.VERSION.SDK_INT
+            get() = Build.VERSION.SDK_INT
 
         /**
          * 获取应用签名
-         *
-         * @param context 上下文
-         * @param pkgName 包名
          * @return 返回应用的签名
          */
         @SuppressLint("PackageManagerGetSignatures")
-        fun getSign(context: Context, pkgName: String): String? {
+        fun getSign(): String {
             return try {
-                @SuppressLint("PackageManagerGetSignatures") val pis = context.packageManager
-                    .getPackageInfo(pkgName, PackageManager.GET_SIGNATURES)
+                @SuppressLint("PackageManagerGetSignatures")
+                val pis = ContextUtil.context.packageManager
+                    .getPackageInfo(packageName, PackageManager.GET_SIGNATURES)
                 hexDigest(pis.signatures[0].toByteArray())
-            } catch (e: PackageManager.NameNotFoundException) {
-                e.printStackTrace()
-                null
+            } catch (e: NameNotFoundException) {
+                Logger.e(e.toString())
+                ""
             }
-
         }
 
         /**
@@ -350,9 +300,8 @@ class AppUtil private constructor() {
                     j++
                 }
             } catch (e: Exception) {
-                e.printStackTrace()
+                Logger.e(e.toString())
             }
-
             return ""
         }
     }

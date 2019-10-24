@@ -17,3 +17,5 @@
 /gradle
 /gradlew.bat
 /gradlew
+/wanandroid/src/test
+/wanandroid/src/androidTest

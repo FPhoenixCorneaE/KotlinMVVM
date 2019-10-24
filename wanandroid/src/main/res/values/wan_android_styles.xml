@@ -3,9 +3,9 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/open_eyes_colorPrimary</item>
-        <item name="colorPrimaryDark">@color/open_eyes_colorPrimaryDark</item>
-        <item name="colorAccent">@color/open_eyes_colorAccent</item>
+        <item name="colorPrimary">@color/wan_android_colorPrimary</item>
+        <item name="colorPrimaryDark">@color/wan_android_colorPrimaryDark</item>
+        <item name="colorAccent">@color/wan_android_colorAccent</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>

@@ -1,1 +1,1 @@
-include ':open-eyes', ':bottom-navigation-view', ':rxretrofit', ':android-util-code-ktx', ':common-util', ':framework', ':multiple-status-view', ':multi-type-adapter', ':expand-collapse-text-view'
+include ':open-eyes', ':bottom-navigation-view', ':rxretrofit', ':android-util-code-ktx', ':common-util', ':framework', ':multiple-status-view', ':multi-type-adapter', ':expand-collapse-text-view', ':wanandroid'

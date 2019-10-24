@@ -18,6 +18,13 @@ ext {
             flexbox         : "com.google.android:flexbox:1.1.0",
     ]
 
+    navigation = [
+            common  : 'androidx.navigation:navigation-common-ktx:2.0.0',
+            fragment: 'androidx.navigation:navigation-fragment-ktx:2.0.0',
+            runtime : 'androidx.navigation:navigation-runtime-ktx:2.0.0',
+            ui      : 'androidx.navigation:navigation-ui-ktx:2.0.0',
+    ]
+
     kotlin = [
             core            : "androidx.core:core-ktx:1.0.2",
             fragment        : "androidx.fragment:fragment-ktx:1.0.0",
@@ -86,6 +93,7 @@ ext {
     videoPlayer = 'com.shuyu:GSYVideoPlayer:2.1.1'
 
     supportLibs = support.values()
+    navigationLibs = navigation.values()
     kotlinLibs = kotlin.values()
     retrofit2Libs = retrofit2.values()
     rxJava2Libs = rxJava2.values()

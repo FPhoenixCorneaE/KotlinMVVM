@@ -1,6 +1,7 @@
 package com.wkz.rxretrofit.network
 
 import com.orhanobut.logger.Logger
+import com.wkz.rxretrofit.network.factory.LiveDataCallAdapterFactory
 import com.wkz.util.AppUtil
 import com.wkz.util.ContextUtil
 import com.wkz.util.NetworkUtil
@@ -17,10 +18,8 @@ import java.io.File
 import java.util.concurrent.TimeUnit
 
 /**
- * Created by xuhao on 2017/11/16.
- *
+ * @desc: Retrofit管理者
  */
-
 object RetrofitManager {
 
     private var token: String by SharedPreferencesUtil("token", "")
@@ -50,6 +49,7 @@ object RetrofitManager {
             val requestBuilder = originalRequest.newBuilder()
                 // Provide your custom header here
                 .header("token", token)
+                .header("sign", AppUtil.getSign())
                 .method(originalRequest.method(), originalRequest.body())
             val request = requestBuilder.build()
             chain.proceed(request)
@@ -123,6 +123,8 @@ object RetrofitManager {
             // 自由配置BaseUrl,Model需实现IBaseUrl接口
             .baseUrl(iBaseUrl.getBaseUrl())
             .client(getOkHttpClient())
+            // 添加LiveDataCallAdapterFactory支持LiveData
+            .addCallAdapterFactory(LiveDataCallAdapterFactory.create())
             // Retrofit接口的返回值分为两部分，一部分是前面的Call或者Observable，另一部分是泛型
             // Call类型是默认支持的(内部由DefaultCallAdapterFactory支持)，而如果要支持Observable，我们就需要自己添加RxJava2CallAdapterFactory
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

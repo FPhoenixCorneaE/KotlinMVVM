@@ -4,7 +4,7 @@ import io.reactivex.*
 import org.reactivestreams.Publisher
 
 /**
- * @desc RxJava2 5种基础相应类型
+ * @desc RxJava2 五种基础相应类型
  */
 abstract class BaseScheduler<T> protected constructor(
     private val subscribeOnScheduler: Scheduler,
