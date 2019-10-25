@@ -69,6 +69,10 @@ dependencies {
      */
     api project(':expand-collapse-text-view')
     /**
+     * magic-indicator
+     */
+    api project(':magic-indicator')
+    /**
      * Supports
      */
     api rootProject.ext.supportLibs
