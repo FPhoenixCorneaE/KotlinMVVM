@@ -10,7 +10,6 @@ import com.wkz.framework.R
 import com.wkz.rxretrofit.network.exception.ErrorStatus
 import com.wkz.rxretrofit.network.exception.ExceptionHandle
 import com.wkz.widget.MultipleStatusView
-import kotlinx.android.synthetic.main.framework_layout_base.view.*
 
 /**
  * @desc:BaseActivity基类
@@ -20,13 +19,13 @@ abstract class BaseActivity : AppCompatActivity() {
     /** 当前界面 Context 对象*/
     protected lateinit var mContext: Activity
     /** 根布局 */
-    protected lateinit var mBaseLayout: MultipleStatusView
+    protected lateinit var mMsvRoot: MultipleStatusView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mContext = this
         // 加载根布局
-        mBaseLayout = LayoutInflater.from(mContext).inflate(
+        mMsvRoot = LayoutInflater.from(mContext).inflate(
             R.layout.framework_layout_base, null, false
         ) as MultipleStatusView
         setContentView(getLayoutId())
@@ -37,15 +36,15 @@ abstract class BaseActivity : AppCompatActivity() {
 
     override fun setContentView(layoutResID: Int) {
         // 加载布局
-        val contentView =LayoutInflater.from(mContext).inflate(
-            getLayoutId(), null, false
+        val contentView = LayoutInflater.from(mContext).inflate(
+            layoutResID, null, false
         )
 
         // 将当前布局添加到根布局
-        mBaseLayout.mMsvRoot.removeAllViews()
-        mBaseLayout.mMsvRoot.addView(contentView)
+        mMsvRoot.removeAllViews()
+        mMsvRoot.addView(contentView)
 
-        super.setContentView(mBaseLayout)
+        super.setContentView(mMsvRoot)
     }
 
     protected fun initListener() {
@@ -53,23 +52,23 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     open fun showLoading() {
-        mBaseLayout.mMsvRoot.showLoading()
+        mMsvRoot.showLoading()
     }
 
     open fun showContent() {
-        mBaseLayout.mMsvRoot.showContent()
+        mMsvRoot.showContent()
     }
 
     open fun showEmpty() {
-        mBaseLayout.mMsvRoot.showEmpty()
+        mMsvRoot.showEmpty()
     }
 
     open fun showNoNetwork() {
-        mBaseLayout.mMsvRoot.showNoNetwork()
+        mMsvRoot.showNoNetwork()
     }
 
     open fun showError() {
-        mBaseLayout.mMsvRoot.showError()
+        mMsvRoot.showError()
     }
 
     open fun showErrorMsg(t: Throwable) {

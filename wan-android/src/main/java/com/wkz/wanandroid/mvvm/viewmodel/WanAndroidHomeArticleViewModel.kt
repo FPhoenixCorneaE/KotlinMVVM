@@ -2,6 +2,8 @@ package com.wkz.wanandroid.mvvm.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
+import com.orhanobut.logger.Logger
+import com.wkz.wanandroid.mvvm.model.WanAndroidPageBean
 
 /**
  *  @desc: 首页文章ViewModel
@@ -10,9 +12,15 @@ import androidx.lifecycle.Transformations
 class WanAndroidHomeArticleViewModel : WanAndroidBaseViewModel() {
 
     /* 页数 */
-    private val mPage = MutableLiveData<Int>()
+    val mPage = MutableLiveData<Int>()
     /* 文章列表 */
-    private val mArtivleList = Transformations.switchMap(mPage) {
-        sWanAndroidService.getArticleList(it)
+    val mArticleList = Transformations.switchMap(mPage) { it ->
+        Transformations.map(sWanAndroidService.getArticleList(it)) {
+            it.data ?: WanAndroidPageBean(1, ArrayList(), 0, true, 1, 20, 0)
+        }
+    }
+
+    fun autoRefresh() {
+        mPage.value = 0
     }
 }

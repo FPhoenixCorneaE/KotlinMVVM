@@ -13,7 +13,6 @@ import com.wkz.framework.R
 import com.wkz.rxretrofit.network.exception.ErrorStatus
 import com.wkz.rxretrofit.network.exception.ExceptionHandle
 import com.wkz.widget.MultipleStatusView
-import kotlinx.android.synthetic.main.framework_layout_base.view.*
 
 /**
  * @desc:BaseFragment基类
@@ -27,14 +26,14 @@ abstract class BaseFragment : Fragment() {
     /** 数据是否加载过了 */
     protected var hasLoadedData = false
     /** 根布局 */
-    protected lateinit var mBaseLayout: MultipleStatusView
+    protected lateinit var mMsvRoot: MultipleStatusView
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mContext = context as Activity
 
         // 加载根布局
-        mBaseLayout = LayoutInflater.from(mContext).inflate(
+        mMsvRoot = LayoutInflater.from(mContext).inflate(
             R.layout.framework_layout_base, null, false
         ) as MultipleStatusView
     }
@@ -50,9 +49,9 @@ abstract class BaseFragment : Fragment() {
         )
 
         // 将当前布局添加到根布局
-        mBaseLayout.mMsvRoot.removeAllViews()
-        mBaseLayout.mMsvRoot.addView(contentView)
-        return mBaseLayout
+        mMsvRoot.removeAllViews()
+        mMsvRoot.addView(contentView)
+        return mMsvRoot
     }
 
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
@@ -82,23 +81,23 @@ abstract class BaseFragment : Fragment() {
     }
 
     open fun showLoading() {
-        mBaseLayout.mMsvRoot.showLoading()
+        mMsvRoot.showLoading()
     }
 
     open fun showContent() {
-        mBaseLayout.mMsvRoot.showContent()
+        mMsvRoot.showContent()
     }
 
     open fun showEmpty() {
-        mBaseLayout.mMsvRoot.showEmpty()
+        mMsvRoot.showEmpty()
     }
 
     open fun showNoNetwork() {
-        mBaseLayout.mMsvRoot.showNoNetwork()
+        mMsvRoot.showNoNetwork()
     }
 
     open fun showError() {
-        mBaseLayout.mMsvRoot.showError()
+        mMsvRoot.showError()
     }
 
     open fun showErrorMsg(t: Throwable) {
@@ -121,7 +120,7 @@ abstract class BaseFragment : Fragment() {
     abstract fun getLayoutId(): Int
 
     /**
-     * 初始化 ViewI
+     * 初始化 View
      */
     abstract fun initView()
 

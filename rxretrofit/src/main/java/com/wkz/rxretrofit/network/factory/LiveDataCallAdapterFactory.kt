@@ -28,7 +28,7 @@ class LiveDataCallAdapterFactory : Factory() {
         //获取第一个泛型类型
         val observableType = getParameterUpperBound(0, returnType as ParameterizedType)
         val rawType = getRawType(observableType)
-        require(rawType == BaseResponse::class.java) { "type must be ApiResponse" }
+        require(rawType == BaseResponse::class.java) { "type must be BaseResponse" }
         require(observableType is ParameterizedType) { "resource must be parameterized" }
         return LiveDataCallAdapter<Any>(observableType)
     }

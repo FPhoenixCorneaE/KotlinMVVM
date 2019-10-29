@@ -194,6 +194,7 @@ object GlideUtil {
             .skipMemoryCache(false)
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .encodeFormat(Bitmap.CompressFormat.WEBP)
+            .encodeQuality(90)
             .thumbnail(0.5f)
             .transition(DrawableTransitionOptions.withCrossFade())
             .listener(requestListener)

@@ -4,9 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.wkz.wanandroid">
 
-    <dist:module dist:instant="true"/>
+    <dist:module dist:instant="true" />
 
     <application
+        android:name=".application.WanAndroidApplication"
         android:allowBackup="true"
         android:icon="@mipmap/wan_android_ic_launcher"
         android:label="@string/wan_android_app_name"
@@ -19,9 +20,9 @@
         tools:targetApi="m">
         <activity android:name=".mvvm.view.activity.WanAndroidHomeActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
     </application>

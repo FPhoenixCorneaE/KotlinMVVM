@@ -95,7 +95,7 @@ object RetrofitManager {
         httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
 
         // 设置请求的缓存的大小跟位置
-        val cacheFile = File(ContextUtil.context.cacheDir, "cache")
+        val cacheFile = File(ContextUtil.context.cacheDir, "networkCache")
         val cache = Cache(cacheFile, 1024 * 1024 * 50) //50Mb 缓存的大小
 
         return OkHttpClient.Builder()

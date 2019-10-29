@@ -8,6 +8,7 @@ import retrofit2.http.Path
 
 /**
  * @desc: WanAndroid Api接口
+ * @date: 2019-10-28 16:00
  */
 interface WanAndroidApi {
 

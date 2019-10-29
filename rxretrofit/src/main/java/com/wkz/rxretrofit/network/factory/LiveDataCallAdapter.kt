@@ -19,7 +19,8 @@ class LiveDataCallAdapter<T>(private val responseType: Type) : CallAdapter<T, Li
             private val started = AtomicBoolean(false)
             override fun onActive() {
                 super.onActive()
-                if (started.compareAndSet(false, true)) {//确保执行一次
+                // 确保执行一次
+                if (started.compareAndSet(false, true)) {
                     call.enqueue(object : Callback<T> {
                         override fun onFailure(call: Call<T>, t: Throwable) {
                             val value = BaseResponse<T>(
