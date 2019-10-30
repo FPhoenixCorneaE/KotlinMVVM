@@ -3,7 +3,6 @@ package com.wkz.wanandroid.mvvm.view.activity
 import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.orhanobut.logger.Logger
 import com.wkz.adapter.internal.MultiTypeAdapter
 import com.wkz.extension.viewModel
 import com.wkz.framework.base.activity.BaseActivity
@@ -49,18 +48,21 @@ class WanAndroidHomeActivity : BaseActivity() {
     }
 
     private fun initRecyclerView() {
-        mHomeArticleWrapper.apply {
-            setOnItemClickListener { viewHolder, position, item ->
+        mAdapter.run {
+            mHomeArticleWrapper.apply {
+                setOnItemClickListener { viewHolder, position, item ->
 
+                }
             }
+            register(mHomeArticleWrapper)
         }
-        mAdapter.register(mHomeArticleWrapper)
-        mRvArticle?.apply {
+        mRvArticle.apply {
             layoutManager = LinearLayoutManager(mContext)
             adapter = mAdapter
         }
         mHomeArticleViewModel.mArticleList.observe(this, Observer {
-            Logger.e(it.toString())
+            mAdapter.data.addAll(it.datas)
+            mAdapter.notifyDataSetChanged()
         })
     }
 }
