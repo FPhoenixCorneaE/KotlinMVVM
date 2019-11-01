@@ -37,25 +37,20 @@ class WanAndroidHomeActivity : BaseActivity() {
      */
     override fun initView() {
         initRecyclerView()
-        mHomeArticleViewModel.autoRefresh()
     }
 
     /**
      * 初始化数据
      */
     override fun initData(savedInstanceState: Bundle?) {
-
+        mHomeArticleViewModel.autoRefresh()
     }
 
     private fun initRecyclerView() {
-        mAdapter.run {
-            mHomeArticleWrapper.apply {
-                setOnItemClickListener { viewHolder, position, item ->
+        mHomeArticleWrapper.setOnItemClickListener { viewHolder, position, item ->
 
-                }
-            }
-            register(mHomeArticleWrapper)
         }
+        mAdapter.register(mHomeArticleWrapper)
         mRvArticle.apply {
             layoutManager = LinearLayoutManager(mContext)
             adapter = mAdapter

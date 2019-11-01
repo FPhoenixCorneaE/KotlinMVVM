@@ -118,4 +118,8 @@ dependencies {
      * RxPermissions,权限管理
      */
     api rootProject.ext.rxPermissions
+    /**
+     * 直接在layout文件中去创建drawable
+     */
+    api rootProject.ext.folivora
 }

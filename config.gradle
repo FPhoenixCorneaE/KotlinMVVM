@@ -82,6 +82,8 @@ ext {
             multiTypeKotlin: 'me.drakeet.multitype:multitype-kotlin:3.4.4',
     ]
 
+    folivora = 'cn.cricin:folivora:0.0.9'
+
     /** compiler */
     dataBindingCompiler = "com.android.databinding:compiler:3.1.4"
     glideCompiler = "com.github.bumptech.glide:compiler:4.9.0"

@@ -3,6 +3,7 @@ package com.wkz.wanandroid.mvvm.view.wrapper
 import com.wkz.adapter.internal.ViewHolder
 import com.wkz.adapter.wrapper.ViewHolderWrapper
 import com.wkz.framework.glide.GlideUtil
+import com.wkz.util.SizeUtil
 import com.wkz.wanandroid.R
 import com.wkz.wanandroid.mvvm.model.WanAndroidPageBean
 import kotlinx.android.synthetic.main.wan_android_item_home_article.view.*
@@ -15,7 +16,7 @@ class WanAndroidHomeArticleWrapper :
     ViewHolderWrapper<WanAndroidPageBean.ArticleBean>(R.layout.wan_android_item_home_article) {
 
     override fun onBindViewHolder(holder: ViewHolder, item: WanAndroidPageBean.ArticleBean) {
-        GlideUtil.setupImage(holder.itemView.mIvIcon, getIcon(item.link))
+        GlideUtil.setupRoundedImage(holder.itemView.mIvIcon, getIcon(item.link), SizeUtil.dp2px(4F))
         holder.itemView.mTvTitle.text = item.title
         holder.itemView.mSuperChapterName.text = item.superChapterName
         holder.itemView.mChapterName.text = item.chapterName

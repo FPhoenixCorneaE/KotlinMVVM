@@ -1,10 +1,12 @@
 package com.wkz.framework.base.activity
 
 import android.app.Activity
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
+import cn.cricin.folivora.Folivora
 import com.wkz.extension.showToast
 import com.wkz.framework.R
 import com.wkz.rxretrofit.network.exception.ErrorStatus
@@ -20,6 +22,11 @@ abstract class BaseActivity : AppCompatActivity() {
     protected lateinit var mContext: Activity
     /** 根布局 */
     protected lateinit var mMsvRoot: MultipleStatusView
+
+    override fun attachBaseContext(newBase: Context?) {
+        // 启用Folivora
+        super.attachBaseContext(Folivora.wrap(newBase))
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
