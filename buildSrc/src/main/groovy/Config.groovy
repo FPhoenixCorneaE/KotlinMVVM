@@ -1,6 +1,11 @@
 class Config {
-    static gradle_version = '3.5.1'
     static kotlin_version = '1.3.50'
+
+    static classpath = [
+            gradle: "com.android.tools.build:gradle:3.5.1",
+            kotlin: "org.jetbrains.kotlin:kotlin-gradle-plugin:$Config.kotlin_version",
+    ]
+
     static android = [
             compileSdkVersion: 29,
             buildToolsVersion: "29.0.0",
@@ -55,7 +60,7 @@ class Config {
             rximagepicker_support_wechat: 'com.github.qingmei2:rximagepicker_support_wechat:2.5.1',
     ]
 
-    static dragger2 = [
+    static dagger2 = [
             dagger              : 'com.google.dagger:dagger:2.16',
             daggerAndroid       : 'com.google.dagger:dagger-android:2.16',
             daggerandroidSupport: 'com.google.dagger:dagger-android-support:2.16',
@@ -89,7 +94,7 @@ class Config {
     /** compiler */
     static dataBindingCompiler = "com.android.databinding:compiler:3.1.4"
     static glideCompiler = "com.github.bumptech.glide:compiler:4.9.0"
-    static dragger2Compiler = [
+    static dagger2Compiler = [
             daggerCompiler        : 'com.google.dagger:dagger-compiler:2.16',
             daggerAndroidProcessor: 'com.google.dagger:dagger-android-processor:2.16',
     ]
@@ -105,7 +110,7 @@ class Config {
     static retrofit2Libs = retrofit2.values()
     static rxJava2Libs = rxJava2.values()
     static rxImagePickerLibs = rxImagePicker.values()
-    static dragger2Libs = dragger2.values()
+    static dagger2Libs = dagger2.values()
     static autoDisposeLibs = autoDispose.values()
     static glideLibs = glide.values()
     static smartRefreshLibs = smartRefresh.values()
@@ -114,5 +119,5 @@ class Config {
     /** kapt */
     static kaptDataBinding = [dataBindingCompiler]
     static kaptGlide = [glideCompiler]
-    static kaptDragger2 = dragger2Compiler.values()
+    static kaptDagger2 = dagger2Compiler.values()
 }

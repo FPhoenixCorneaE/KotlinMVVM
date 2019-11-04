@@ -67,8 +67,8 @@ dependencies {
     /**
      * Dagger2
      */
-    implementation Config.dragger2Libs
-    kapt Config.kaptDragger2
+    implementation Config.dagger2Libs
+    kapt Config.kaptDagger2
     /**
      * navigation 扩展插件
      */
