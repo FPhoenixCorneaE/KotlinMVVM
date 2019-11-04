@@ -73,6 +73,10 @@ dependencies {
      */
     api project(':magic-indicator')
     /**
+     * nb-adapter,万能RecyclerView适配器
+     */
+    api project(':nb-adapter')
+    /**
      * Supports
      */
     api Config.supportLibs

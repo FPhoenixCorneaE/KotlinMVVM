@@ -40,7 +40,7 @@ class ScreenUtil private constructor() {
             get() {
                 val windowManager = ContextUtil.context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
                 val dm = DisplayMetrics()
-                windowManager?.defaultDisplay?.getMetrics(dm)
+                windowManager.defaultDisplay?.getMetrics(dm)
                 return dm.widthPixels
             }
 
@@ -55,7 +55,7 @@ class ScreenUtil private constructor() {
             get() {
                 val windowManager = ContextUtil.context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
                 val dm = DisplayMetrics()
-                windowManager?.defaultDisplay?.getMetrics(dm)
+                windowManager.defaultDisplay?.getMetrics(dm)
                 return dm.heightPixels
             }
 
@@ -65,7 +65,7 @@ class ScreenUtil private constructor() {
          * @return `true`: 是<br></br>`false`: 否
          */
         val isLandscape: Boolean
-            get() = ContextUtil.context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE
+            get() = ContextUtil.context.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
 
         /**
          * 设置屏幕为横屏
@@ -91,7 +91,7 @@ class ScreenUtil private constructor() {
          * @return `true`: 是<br></br>`false`: 否
          */
         val isPortrait: Boolean
-            get() = ContextUtil.context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT
+            get() = ContextUtil.context.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT
 
         /**
          * 设置屏幕为竖屏
@@ -144,7 +144,7 @@ class ScreenUtil private constructor() {
         val isScreenLock: Boolean
             get() {
                 val km = ContextUtil.context.getSystemService(Context.KEYGUARD_SERVICE) as KeyguardManager
-                return km?.inKeyguardRestrictedInputMode() ?: false
+                return km.inKeyguardRestrictedInputMode()
             }
 
         /**
@@ -161,20 +161,20 @@ class ScreenUtil private constructor() {
          */
         var sleepDuration: Int
             get() {
-                try {
-                    return Settings.System.getInt(
-                        ContextUtil.context.getContentResolver(),
+                return try {
+                    Settings.System.getInt(
+                        ContextUtil.context.contentResolver,
                         Settings.System.SCREEN_OFF_TIMEOUT
                     )
                 } catch (e: Settings.SettingNotFoundException) {
                     e.printStackTrace()
-                    return -123
+                    -123
                 }
 
             }
             set(duration) {
                 Settings.System.putInt(
-                    ContextUtil.context.getContentResolver(),
+                    ContextUtil.context.contentResolver,
                     Settings.System.SCREEN_OFF_TIMEOUT,
                     duration
                 )
@@ -184,13 +184,13 @@ class ScreenUtil private constructor() {
          * Get screen density, the logical density of the display
          */
         val screenDensity: Float
-            get() = ContextUtil.context.getResources().getDisplayMetrics().density
+            get() = ContextUtil.context.resources.displayMetrics.density
 
         /**
          * Get screen density dpi, the screen density expressed as dots-per-inch
          */
         val screenDensityDpi: Int
-            get() = ContextUtil.context.getResources().getDisplayMetrics().densityDpi
+            get() = ContextUtil.context.resources.displayMetrics.densityDpi
 
         /**
          * Get titlebar height, this method cannot be used in onCreate(),onStart(),onResume(), unless it is called in the
