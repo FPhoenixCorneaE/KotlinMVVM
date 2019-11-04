@@ -9,13 +9,13 @@
     android:layout_marginTop="@dimen/dp_8"
     android:layout_marginEnd="@dimen/dp_16"
     android:layout_marginBottom="@dimen/dp_8"
-    app:cardBackgroundColor="@color/wan_android_color_white"
     app:cardCornerRadius="@dimen/dp_8"
     app:cardElevation="@dimen/dp_8">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@drawable/ripple_item_home_article">
 
         <ImageView
             android:id="@+id/mIvIcon"
