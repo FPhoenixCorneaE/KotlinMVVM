@@ -6,13 +6,13 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion rootProject.ext.android.compileSdkVersion
-    buildToolsVersion rootProject.ext.android.buildToolsVersion
+    compileSdkVersion Config.android.compileSdkVersion
+    buildToolsVersion Config.android.buildToolsVersion
 
     defaultConfig {
         applicationId "com.wkz.wanandroid"
-        minSdkVersion rootProject.ext.android.minSdkVersion
-        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        minSdkVersion Config.android.minSdkVersion
+        targetSdkVersion Config.android.targetSdkVersion
         versionCode 1
         versionName "1.0.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"

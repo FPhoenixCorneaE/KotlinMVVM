@@ -54,6 +54,7 @@
             android:paddingEnd="@dimen/dp_4"
             android:paddingBottom="@dimen/dp_2"
             android:textSize="@dimen/sp_12"
+            app:drawableId="shape_rounded_4dp"
             app:drawableType="shape"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/mIvIcon"
@@ -74,12 +75,10 @@
             android:paddingEnd="@dimen/dp_4"
             android:paddingBottom="@dimen/dp_2"
             android:textSize="@dimen/sp_12"
-            app:drawableType="shape"
+            app:drawableId="shape_rounded_4dp"
             app:layout_constraintBottom_toBottomOf="@+id/mSuperChapterName"
             app:layout_constraintStart_toEndOf="@+id/mSuperChapterName"
             app:layout_constraintTop_toTopOf="@+id/mSuperChapterName"
-            app:shapeCornerRadius="@dimen/dp_4"
-            app:shapeSolidColor="@color/wan_android_color_black_alpha10"
             tools:ignore="MissingPrefix"
             tools:text="@tools:sample/last_names" />
 

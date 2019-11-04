@@ -3,12 +3,12 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion rootProject.ext.android.compileSdkVersion
-    buildToolsVersion rootProject.ext.android.buildToolsVersion
+    compileSdkVersion Config.android.compileSdkVersion
+    buildToolsVersion Config.android.buildToolsVersion
 
     defaultConfig {
-        minSdkVersion rootProject.ext.android.minSdkVersion
-        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        minSdkVersion Config.android.minSdkVersion
+        targetSdkVersion Config.android.targetSdkVersion
         versionCode 1
         versionName "1.0.0"
     }
@@ -36,17 +36,17 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation rootProject.ext.support.appcompat
-    implementation rootProject.ext.support.lifecycleViewmodel
-    implementation rootProject.ext.support.lifecycleExtensions
+    implementation Config.support.appcompat
+    implementation Config.support.lifecycleViewmodel
+    implementation Config.support.lifecycleExtensions
     /**
      * Kotlin
      */
-    implementation rootProject.ext.kotlinLibs
+    implementation Config.kotlinLibs
     /**
      * logger
      */
-    api(rootProject.ext.logger) {
+    api(Config.logger) {
         transitive true
     }
 }

@@ -6,12 +6,12 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion rootProject.ext.android.compileSdkVersion
-    buildToolsVersion rootProject.ext.android.buildToolsVersion
+    compileSdkVersion Config.android.compileSdkVersion
+    buildToolsVersion Config.android.buildToolsVersion
 
     defaultConfig {
-        minSdkVersion rootProject.ext.android.minSdkVersion
-        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        minSdkVersion Config.android.minSdkVersion
+        targetSdkVersion Config.android.targetSdkVersion
         versionCode 1
         versionName "1.0"
     }
@@ -75,51 +75,51 @@ dependencies {
     /**
      * Supports
      */
-    api rootProject.ext.supportLibs
+    api Config.supportLibs
     /**
      * Kotlin
      */
-    api rootProject.ext.kotlinLibs
+    api Config.kotlinLibs
     /**
      * Dagger2
      */
-    implementation rootProject.ext.dragger2Libs
-    kapt rootProject.ext.kaptDragger2
+    implementation Config.dragger2Libs
+    kapt Config.kaptDragger2
     /**
      * AutoDispose,解决RxJava内存泄漏
      */
-    api rootProject.ext.autoDisposeLibs
+    api Config.autoDisposeLibs
     /**
      * SmartRefreshLayout
      */
-    api rootProject.ext.smartRefreshLibs
+    api Config.smartRefreshLibs
     /**
      * Glide
      */
-    api rootProject.ext.glideLibs
-    kapt rootProject.ext.kaptGlide
+    api Config.glideLibs
+    kapt Config.kaptGlide
     /**
      * 视屏播放器
      */
-    api rootProject.ext.videoPlayer
+    api Config.videoPlayer
     /**
      * DataBinding
      */
-    kapt rootProject.ext.kaptDataBinding
+    kapt Config.kaptDataBinding
     /**
      * MultiTypeAdapter for RecyclerView
      */
-    api rootProject.ext.multiTypeLibs
+    api Config.multiTypeLibs
     /**
      * RxImagePicker:灵活的图片选择器,知乎、微信主题，可自定义主题
      */
-    api rootProject.ext.rxImagePickerLibs
+    api Config.rxImagePickerLibs
     /**
      * RxPermissions,权限管理
      */
-    api rootProject.ext.rxPermissions
+    api Config.rxPermissions
     /**
      * 直接在layout文件中去创建drawable
      */
-    api rootProject.ext.folivora
+    api Config.folivora
 }
