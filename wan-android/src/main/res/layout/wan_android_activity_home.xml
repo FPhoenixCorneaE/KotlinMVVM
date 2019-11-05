@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/mClRoot"
+    android:id="@+id/mClActivityRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/wan_android_color_bg_default">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/mRvArticle"
+    <fragment
+        android:name="com.wkz.wanandroid.mvvm.view.fragment.WanAndroidHomeArticleFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:itemCount="10"
-        tools:listitem="@layout/wan_android_item_home_article" />
+        android:tag="WanAndroidHomeArticle" />
 </androidx.constraintlayout.widget.ConstraintLayout>

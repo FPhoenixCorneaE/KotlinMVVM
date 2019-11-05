@@ -48,6 +48,12 @@ kapt {
     generateStubs = true
 }
 
+/* ViewHolder */
+androidExtensions {
+    experimental = true
+    defaultCacheImplementation = "NONE" // HASH_MAP, SPARSE_ARRAY, NONE
+}
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     /**
@@ -58,4 +64,8 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
     implementation project(':framework')
+    /**
+     * navigation 扩展插件
+     */
+    implementation Config.navigationLibs
 }

@@ -2,6 +2,7 @@ package com.wkz.wanandroid.api
 
 import androidx.lifecycle.LiveData
 import com.wkz.rxretrofit.network.BaseResponse
+import com.wkz.wanandroid.mvvm.model.WanAndroidBannerBean
 import com.wkz.wanandroid.mvvm.model.WanAndroidPageBean
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -13,7 +14,13 @@ import retrofit2.http.Path
 interface WanAndroidApi {
 
     /**
-     * 文章列表
+     * 首页Banner
+     */
+    @GET("banner/json")
+    fun getBannerList(): LiveData<BaseResponse<List<WanAndroidBannerBean>>>
+
+    /**
+     * 首页文章列表
      */
     @GET("article/list/{page}/json")
     fun getArticleList(

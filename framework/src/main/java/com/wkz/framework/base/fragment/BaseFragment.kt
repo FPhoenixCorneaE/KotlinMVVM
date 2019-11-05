@@ -31,11 +31,6 @@ abstract class BaseFragment : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mContext = context as Activity
-
-        // 加载根布局
-        mMsvRoot = LayoutInflater.from(mContext).inflate(
-            R.layout.framework_layout_base, null, false
-        ) as MultipleStatusView
     }
 
     override fun onCreateView(
@@ -43,9 +38,13 @@ abstract class BaseFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        // 加载根布局
+        mMsvRoot = inflater.inflate(
+            R.layout.framework_layout_base, container, false
+        ) as MultipleStatusView
         // 加载布局
         val contentView = inflater.inflate(
-            getLayoutId(), container, false
+            getLayoutId(), mMsvRoot, false
         )
 
         // 将当前布局添加到根布局
@@ -69,7 +68,10 @@ abstract class BaseFragment : Fragment() {
         lazyLoadDataIfPrepared()
     }
 
-    protected fun initListener() {
+    /**
+     * 初始化监听器
+     */
+    open fun initListener() {
 
     }
 

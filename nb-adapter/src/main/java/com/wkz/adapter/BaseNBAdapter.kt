@@ -6,10 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import java.util.*
 import kotlin.math.abs
 
 /**
@@ -28,7 +28,7 @@ abstract class BaseNBAdapter<T> : RecyclerView.Adapter<RecyclerView.ViewHolder>(
     //底部储存器
     internal var footViews = ArrayList<View>()
     //数据源
-    var dataList: ArrayList<T>? = null
+    var dataList: ArrayList<T> = ArrayList()
 
 
     /*
@@ -49,6 +49,9 @@ abstract class BaseNBAdapter<T> : RecyclerView.Adapter<RecyclerView.ViewHolder>(
 
     var onItemLongClickListener: OnItemLongClickListener<T>? = null
 
+    /**
+     * 多类型布局可重写此方法以及[.getViewHolder()]
+     */
     open fun getMyViewType(position: Int): Int {
         return 0
     }
@@ -61,8 +64,10 @@ abstract class BaseNBAdapter<T> : RecyclerView.Adapter<RecyclerView.ViewHolder>(
                         //有头部，也有底部
                         when {
                             position <= headViews.size - 1 -> TYPE_HEAD - position
-                            headViews.size - 1 < position && position < headViews.size + dataList!!.size -> getMyViewType(getRealPosition(position))
-                            else -> TYPE_FOOT - position + dataList!!.size + headViews.size
+                            headViews.size - 1 < position && position < headViews.size + dataList.size -> getMyViewType(
+                                getRealPosition(position)
+                            )
+                            else -> TYPE_FOOT - position + dataList.size + headViews.size
                         }
                     }
                     else -> {
@@ -79,8 +84,8 @@ abstract class BaseNBAdapter<T> : RecyclerView.Adapter<RecyclerView.ViewHolder>(
                     footViews.size > 0 -> {
                         //没有头部，有底部的时候
                         when {
-                            position < dataList!!.size -> getMyViewType(position)
-                            else -> TYPE_FOOT - position + dataList!!.size
+                            position < dataList.size -> getMyViewType(position)
+                            else -> TYPE_FOOT - position + dataList.size
                         }
                     }
                     else -> {
@@ -92,40 +97,18 @@ abstract class BaseNBAdapter<T> : RecyclerView.Adapter<RecyclerView.ViewHolder>(
         }
     }
 
-    override fun getItemCount(): Int {
-        return when {
-            headViews.size == 0 && footViews.size == 0 -> {
-                when (dataList) {
-                    null -> 0
-                    else -> dataList!!.size
-                }
-            }
-            headViews.size == 0 && footViews.size > 0 -> {
-                when (dataList) {
-                    null -> footViews.size
-                    else -> dataList!!.size + footViews.size
-                }
-            }
-            headViews.size > 0 && footViews.size == 0 -> {
-                when (dataList) {
-                    null -> headViews.size
-                    else -> dataList!!.size + headViews.size
-                }
-            }
-            else -> {
-                when (dataList) {
-                    null -> headViews.size + footViews.size
-                    else -> dataList!!.size + headViews.size + footViews.size
-                }
-            }
-        }
+    override fun getItemCount(): Int = dataList.size + headViews.size + footViews.size
+
+    fun getResId(viewGroup: ViewGroup): View {
+        return LayoutInflater.from(viewGroup.context).inflate(getLayoutId(), viewGroup, false)
     }
 
-    fun getResId(viewGroup: ViewGroup, resId: Int): View {
-        return LayoutInflater.from(viewGroup.context).inflate(resId, viewGroup, false)
+    fun getViewHolder(viewGroup: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return NBViewHolder.create(getResId(viewGroup))
     }
 
-    abstract fun getViewHolder(viewGroup: ViewGroup, viewType: Int): RecyclerView.ViewHolder
+    @LayoutRes
+    abstract fun getLayoutId(): Int
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType <= TYPE_FOOT) {
@@ -137,7 +120,10 @@ abstract class BaseNBAdapter<T> : RecyclerView.Adapter<RecyclerView.ViewHolder>(
         }
     }
 
-    abstract fun onBindMyViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int)
+    /**
+     * 绑定数据
+     */
+    abstract fun onBindData(viewHolder: RecyclerView.ViewHolder, data: T, position: Int)
 
     override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
         //这里已经包括了TYPE_FOOT
@@ -146,17 +132,31 @@ abstract class BaseNBAdapter<T> : RecyclerView.Adapter<RecyclerView.ViewHolder>(
         }
 
         if (onItemClickListener != null) {
-            viewHolder.itemView.setOnClickListener { onItemClickListener!!.onItemClick(dataList!![getRealPosition(position)], getRealPosition(position)) }
+            viewHolder.itemView.setOnClickListener {
+                onItemClickListener!!.onItemClick(
+                    dataList[getRealPosition(
+                        position
+                    )], getRealPosition(position)
+                )
+            }
         }
 
         if (onItemLongClickListener != null) {
             viewHolder.itemView.setOnLongClickListener {
-                onItemLongClickListener!!.onItemLongClick(dataList!![getRealPosition(position)], getRealPosition(position))
+                onItemLongClickListener!!.onItemLongClick(
+                    dataList[getRealPosition(position)],
+                    getRealPosition(position)
+                )
                 true
             }
         }
 
-        onBindMyViewHolder(viewHolder, getRealPosition(position))
+        // 绑定数据
+        onBindData(
+            viewHolder,
+            dataList[getRealPosition(position)],
+            getRealPosition(position)
+        )
         addItemAnimation(viewHolder, getRealPosition(position))
     }
 
@@ -168,10 +168,14 @@ abstract class BaseNBAdapter<T> : RecyclerView.Adapter<RecyclerView.ViewHolder>(
                     val nowMillis = System.currentTimeMillis().toInt()
                     var animator: Animation? = null
                     if (animResId != 0) {
-                        animator = AnimationUtils.loadAnimation(viewHolder.itemView.context, animResId)
+                        animator =
+                            AnimationUtils.loadAnimation(viewHolder.itemView.context, animResId)
                     } else {
                         if (animationType != null) {
-                            animator = AnimationUtils.loadAnimation(viewHolder.itemView.context, animationType!!.resId)
+                            animator = AnimationUtils.loadAnimation(
+                                viewHolder.itemView.context,
+                                animationType!!.resId
+                            )
                         }
                     }
                     //这里处理的是当前页显示的item执行动画的间隔太快，看不出效果
@@ -195,7 +199,10 @@ abstract class BaseNBAdapter<T> : RecyclerView.Adapter<RecyclerView.ViewHolder>(
                     animator = AnimationUtils.loadAnimation(viewHolder.itemView.context, animResId)
                 } else {
                     if (animationType != null) {
-                        animator = AnimationUtils.loadAnimation(viewHolder.itemView.context, animationType!!.resId)
+                        animator = AnimationUtils.loadAnimation(
+                            viewHolder.itemView.context,
+                            animationType!!.resId
+                        )
                     }
                 }
                 if (nowMillis - currentMillions >= 10) {
@@ -279,7 +286,7 @@ abstract class BaseNBAdapter<T> : RecyclerView.Adapter<RecyclerView.ViewHolder>(
             footViews.size > 0 -> {
                 val dataSize: Int = when (dataList) {
                     null -> 0
-                    else -> dataList!!.size
+                    else -> dataList.size
                 }
                 val totalSize = headViews.size + dataSize + footViews.size
                 totalSize - (position + 1) < footViews.size
@@ -297,7 +304,8 @@ abstract class BaseNBAdapter<T> : RecyclerView.Adapter<RecyclerView.ViewHolder>(
         super.onViewAttachedToWindow(holder)
         val lp = holder.itemView.layoutParams
         if (lp != null && lp is StaggeredGridLayoutManager.LayoutParams
-                && holder is HeaderFooterHolder) {
+            && holder is HeaderFooterHolder
+        ) {
             lp.isFullSpan = true
         }
     }
@@ -323,8 +331,10 @@ abstract class BaseNBAdapter<T> : RecyclerView.Adapter<RecyclerView.ViewHolder>(
             recyclerView.layoutManager is StaggeredGridLayoutManager -> {
                 //这里是防止瀑布流自带动画，引起子view乱跳。第一行出现空白格
                 recyclerView.animation = null
-                val staggeredGridLayoutManager = recyclerView.layoutManager as StaggeredGridLayoutManager?
-                staggeredGridLayoutManager!!.gapStrategy = StaggeredGridLayoutManager.GAP_HANDLING_NONE
+                val staggeredGridLayoutManager =
+                    recyclerView.layoutManager as StaggeredGridLayoutManager?
+                staggeredGridLayoutManager!!.gapStrategy =
+                    StaggeredGridLayoutManager.GAP_HANDLING_NONE
             }
         }
     }
@@ -337,8 +347,14 @@ abstract class BaseNBAdapter<T> : RecyclerView.Adapter<RecyclerView.ViewHolder>(
      */
     fun setGridDivide(recyclerView: RecyclerView, divideDimen: Int) {
         when {
-            recyclerView.layoutManager is GridLayoutManager -> recyclerView.addItemDecoration(object : RecyclerView.ItemDecoration() {
-                override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
+            recyclerView.layoutManager is GridLayoutManager -> recyclerView.addItemDecoration(object :
+                RecyclerView.ItemDecoration() {
+                override fun getItemOffsets(
+                    outRect: Rect,
+                    view: View,
+                    parent: RecyclerView,
+                    state: RecyclerView.State
+                ) {
                     val padTop = recyclerView.paddingTop
                     val padBottom = recyclerView.paddingBottom
                     val padLeft = recyclerView.paddingLeft
@@ -358,17 +374,23 @@ abstract class BaseNBAdapter<T> : RecyclerView.Adapter<RecyclerView.ViewHolder>(
 
                     //获取列数
                     val spanCount = (recyclerView.layoutManager as GridLayoutManager).spanCount
-                    val position = (view.layoutParams as RecyclerView.LayoutParams).viewAdapterPosition
+                    val position =
+                        (view.layoutParams as RecyclerView.LayoutParams).viewAdapterPosition
                     when {
                         isFootView(position) -> {
                             val dataSize: Int = when (dataList) {
                                 null -> 0
-                                else -> dataList!!.size
+                                else -> dataList.size
                             }
                             val totalSize = headViews.size + dataSize + footViews.size
 
                             when {
-                                totalSize - position == footViews.size -> outRect.set(0, divideDimen, 0, 0)
+                                totalSize - position == footViews.size -> outRect.set(
+                                    0,
+                                    divideDimen,
+                                    0,
+                                    0
+                                )
                             }
 
                         }
@@ -379,26 +401,96 @@ abstract class BaseNBAdapter<T> : RecyclerView.Adapter<RecyclerView.ViewHolder>(
                                 //这里只给大家判断到 5列的情况了
                                 when (spanCount) {
                                     2 -> when {
-                                        getRealPosition(position) % 2 == 0 -> outRect.set(divideDimen, divideDimen, divideDimen / 2, 0)
-                                        else -> outRect.set(divideDimen / 2, divideDimen, divideDimen, 0)
+                                        getRealPosition(position) % 2 == 0 -> outRect.set(
+                                            divideDimen,
+                                            divideDimen,
+                                            divideDimen / 2,
+                                            0
+                                        )
+                                        else -> outRect.set(
+                                            divideDimen / 2,
+                                            divideDimen,
+                                            divideDimen,
+                                            0
+                                        )
                                     }
                                     3 -> when {
-                                        getRealPosition(position) % 3 == 0 -> outRect.set(divideDimen, divideDimen, divideDimen / 3, 0)
-                                        getRealPosition(position) % 3 == 1 -> outRect.set(divideDimen * 2 / 3, divideDimen, divideDimen * 2 / 3, 0)
-                                        else -> outRect.set(divideDimen / 3, divideDimen, divideDimen, 0)
+                                        getRealPosition(position) % 3 == 0 -> outRect.set(
+                                            divideDimen,
+                                            divideDimen,
+                                            divideDimen / 3,
+                                            0
+                                        )
+                                        getRealPosition(position) % 3 == 1 -> outRect.set(
+                                            divideDimen * 2 / 3,
+                                            divideDimen,
+                                            divideDimen * 2 / 3,
+                                            0
+                                        )
+                                        else -> outRect.set(
+                                            divideDimen / 3,
+                                            divideDimen,
+                                            divideDimen,
+                                            0
+                                        )
                                     }
                                     4 -> when {
-                                        getRealPosition(position) % 4 == 0 -> outRect.set(divideDimen, divideDimen, divideDimen / 4, 0)
-                                        getRealPosition(position) % 4 == 1 -> outRect.set(divideDimen * 3 / 4, divideDimen, divideDimen / 2, 0)
-                                        getRealPosition(position) % 4 == 2 -> outRect.set(divideDimen / 2, divideDimen, divideDimen * 3 / 4, 0)
-                                        else -> outRect.set(divideDimen / 4, divideDimen, divideDimen, 0)
+                                        getRealPosition(position) % 4 == 0 -> outRect.set(
+                                            divideDimen,
+                                            divideDimen,
+                                            divideDimen / 4,
+                                            0
+                                        )
+                                        getRealPosition(position) % 4 == 1 -> outRect.set(
+                                            divideDimen * 3 / 4,
+                                            divideDimen,
+                                            divideDimen / 2,
+                                            0
+                                        )
+                                        getRealPosition(position) % 4 == 2 -> outRect.set(
+                                            divideDimen / 2,
+                                            divideDimen,
+                                            divideDimen * 3 / 4,
+                                            0
+                                        )
+                                        else -> outRect.set(
+                                            divideDimen / 4,
+                                            divideDimen,
+                                            divideDimen,
+                                            0
+                                        )
                                     }
                                     5 -> when {
-                                        getRealPosition(position) % 5 == 0 -> outRect.set(divideDimen, divideDimen, divideDimen / 5, 0)
-                                        getRealPosition(position) % 5 == 1 -> outRect.set(divideDimen * 4 / 5, divideDimen, divideDimen * 2 / 5, 0)
-                                        getRealPosition(position) % 5 == 2 -> outRect.set(divideDimen * 3 / 5, divideDimen, divideDimen * 3 / 5, 0)
-                                        getRealPosition(position) % 5 == 3 -> outRect.set(divideDimen * 2 / 5, divideDimen, divideDimen * 4 / 5, 0)
-                                        else -> outRect.set(divideDimen / 5, divideDimen, divideDimen, 0)
+                                        getRealPosition(position) % 5 == 0 -> outRect.set(
+                                            divideDimen,
+                                            divideDimen,
+                                            divideDimen / 5,
+                                            0
+                                        )
+                                        getRealPosition(position) % 5 == 1 -> outRect.set(
+                                            divideDimen * 4 / 5,
+                                            divideDimen,
+                                            divideDimen * 2 / 5,
+                                            0
+                                        )
+                                        getRealPosition(position) % 5 == 2 -> outRect.set(
+                                            divideDimen * 3 / 5,
+                                            divideDimen,
+                                            divideDimen * 3 / 5,
+                                            0
+                                        )
+                                        getRealPosition(position) % 5 == 3 -> outRect.set(
+                                            divideDimen * 2 / 5,
+                                            divideDimen,
+                                            divideDimen * 4 / 5,
+                                            0
+                                        )
+                                        else -> outRect.set(
+                                            divideDimen / 5,
+                                            divideDimen,
+                                            divideDimen,
+                                            0
+                                        )
                                     }
                                     else -> outRect.set(divideDimen, divideDimen, divideDimen, 0)
                                 }
@@ -407,43 +499,65 @@ abstract class BaseNBAdapter<T> : RecyclerView.Adapter<RecyclerView.ViewHolder>(
 
                 }
             })
-            recyclerView.layoutManager is StaggeredGridLayoutManager -> recyclerView.addItemDecoration(object : RecyclerView.ItemDecoration() {
-                override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
-                    val padTop = recyclerView.paddingTop
-                    val padBottom = recyclerView.paddingBottom
-                    val padLeft = recyclerView.paddingLeft
-                    val padRight = recyclerView.paddingRight
-                    //为上下均等
-                    when {
-                        footViews.size <= 0 -> {
-                            recyclerView.clipToPadding = false
-                            when (padBottom) {
-                                0 -> recyclerView.setPadding(padLeft, padTop, padRight, divideDimen)
+            recyclerView.layoutManager is StaggeredGridLayoutManager -> recyclerView.addItemDecoration(
+                object : RecyclerView.ItemDecoration() {
+                    override fun getItemOffsets(
+                        outRect: Rect,
+                        view: View,
+                        parent: RecyclerView,
+                        state: RecyclerView.State
+                    ) {
+                        val padTop = recyclerView.paddingTop
+                        val padBottom = recyclerView.paddingBottom
+                        val padLeft = recyclerView.paddingLeft
+                        val padRight = recyclerView.paddingRight
+                        //为上下均等
+                        when {
+                            footViews.size <= 0 -> {
+                                recyclerView.clipToPadding = false
+                                when (padBottom) {
+                                    0 -> recyclerView.setPadding(
+                                        padLeft,
+                                        padTop,
+                                        padRight,
+                                        divideDimen
+                                    )
+                                }
+                            }
+                            else -> when (padBottom) {
+                                divideDimen -> recyclerView.setPadding(padLeft, padTop, padRight, 0)
                             }
                         }
-                        else -> when (padBottom) {
-                            divideDimen -> recyclerView.setPadding(padLeft, padTop, padRight, 0)
-                        }
-                    }
-                    val position = (view.layoutParams as RecyclerView.LayoutParams).viewAdapterPosition
-                    when {
-                        isFootView(position) -> {
-                            val dataSize: Int = when (dataList) {
-                                null -> 0
-                                else -> dataList!!.size
-                            }
-                            val totalSize = headViews.size + dataSize + footViews.size
+                        val position =
+                            (view.layoutParams as RecyclerView.LayoutParams).viewAdapterPosition
+                        when {
+                            isFootView(position) -> {
+                                val dataSize: Int = when (dataList) {
+                                    null -> 0
+                                    else -> dataList.size
+                                }
+                                val totalSize = headViews.size + dataSize + footViews.size
 
-                            when {
-                                totalSize - position == footViews.size -> outRect.set(0, divideDimen, 0, 0)
+                                when {
+                                    totalSize - position == footViews.size -> outRect.set(
+                                        0,
+                                        divideDimen,
+                                        0,
+                                        0
+                                    )
+                                }
+                            }
+                            else -> when {
+                                !isHeadView(position) -> outRect.set(
+                                    divideDimen / 2,
+                                    divideDimen,
+                                    divideDimen / 2,
+                                    0
+                                )
                             }
                         }
-                        else -> when {
-                            !isHeadView(position) -> outRect.set(divideDimen / 2, divideDimen, divideDimen / 2, 0)
-                        }
                     }
-                }
-            })
+                })
         }
     }
 

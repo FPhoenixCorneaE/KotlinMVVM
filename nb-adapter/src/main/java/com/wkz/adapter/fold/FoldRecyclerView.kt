@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
+import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kotlin.math.abs
 
@@ -13,9 +14,9 @@ import kotlin.math.abs
  * 参考https://blog.csdn.net/harvic880925/article/details/86606873
  */
 class FoldRecyclerView @JvmOverloads constructor(
-        context: Context,
-        attrs: AttributeSet? = null,
-        defStyle: Int = 0
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyle: Int = 0
 ) : RecyclerView(context, attrs, defStyle) {
     /**
      * 按下的X轴坐标
@@ -49,6 +50,13 @@ class FoldRecyclerView @JvmOverloads constructor(
         //开启重新排序
         isChildrenDrawingOrderEnabled = true
         overScrollMode = View.OVER_SCROLL_NEVER
+    }
+
+    override fun generateDefaultLayoutParams(): ViewGroup.LayoutParams {
+        return LayoutParams(
+            ViewGroup.LayoutParams.WRAP_CONTENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
     }
 
     /**
