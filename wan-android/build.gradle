@@ -42,16 +42,16 @@ android {
     lintOptions {
         abortOnError false
     }
+
+    /* 开启实验性标志 */
+    androidExtensions {
+        experimental = true
+        defaultCacheImplementation = "SPARSE_ARRAY" // HASH_MAP, SPARSE_ARRAY, NONE
+    }
 }
 
 kapt {
     generateStubs = true
-}
-
-/* ViewHolder */
-androidExtensions {
-    experimental = true
-    defaultCacheImplementation = "NONE" // HASH_MAP, SPARSE_ARRAY, NONE
 }
 
 dependencies {

@@ -6,8 +6,8 @@
     android:background="@color/wan_android_color_bg_default">
 
     <fragment
-        android:name="com.wkz.wanandroid.mvvm.view.fragment.WanAndroidHomeArticleFragment"
+        android:name="com.wkz.wanandroid.mvvm.view.fragment.WanAndroidHomeQaFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:tag="WanAndroidHomeArticle" />
+        android:tag="WanAndroidHomeQa" />
 </androidx.constraintlayout.widget.ConstraintLayout>

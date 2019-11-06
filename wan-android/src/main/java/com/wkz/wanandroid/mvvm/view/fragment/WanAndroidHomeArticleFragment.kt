@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadmoreListener
+import com.wkz.adapter.AnimationType
 import com.wkz.extension.viewModel
 import com.wkz.framework.base.fragment.BaseFragment
 import com.wkz.util.SizeUtil
@@ -60,6 +61,7 @@ class WanAndroidHomeArticleFragment : BaseFragment(), OnRefreshLoadmoreListener 
     }
 
     private fun initBannerRecyclerView() {
+        mBannerAdapter.showItemAnim(AnimationType.ALPHA)
         mRvBanner.apply {
             adapter = mBannerAdapter
             stayEnd(false)

@@ -32,6 +32,8 @@ class WanAndroidHomeArticleAdapter :
             getIcon(data.link),
             SizeUtil.dp2px(4F)
         )
+        // FROM_HTML_MODE_COMPACT：html块元素之间使用一个换行符分隔
+        // FROM_HTML_MODE_LEGACY：html块元素之间使用两个换行符分隔
         viewHolder.itemView.mTvTitle.text = Html.fromHtml(data.title, Html.FROM_HTML_MODE_LEGACY)
         viewHolder.itemView.mSuperChapterName.text = data.superChapterName
         viewHolder.itemView.mChapterName.text = data.chapterName

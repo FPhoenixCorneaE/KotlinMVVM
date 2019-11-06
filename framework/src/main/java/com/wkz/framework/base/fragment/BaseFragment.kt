@@ -122,7 +122,7 @@ abstract class BaseFragment : Fragment() {
     abstract fun getLayoutId(): Int
 
     /**
-     * 初始化 View
+     * 初始化View
      */
     abstract fun initView()
 
