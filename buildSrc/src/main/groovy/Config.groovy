@@ -24,7 +24,7 @@ class Config {
             lifecycleViewmodel : "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0-alpha02",
             lifecycleExtensions: "androidx.lifecycle:lifecycle-extensions:2.2.0-alpha02",
             flexbox            : "com.google.android:flexbox:1.1.0",
-            viewpager2         : "androidx.viewpager2:viewpager2:1.0.0-alpha02",
+            viewpager2         : "androidx.viewpager2:viewpager2:1.0.0-rc01",
     ]
 
     static navigation = [
@@ -89,7 +89,7 @@ class Config {
             multiTypeKotlin: 'me.drakeet.multitype:multitype-kotlin:3.4.4',
     ]
 
-    static folivora = 'cn.cricin:folivora:0.0.9'
+    static folivora = "cn.cricin:folivora:0.0.9"
 
     /** compiler */
     static dataBindingCompiler = "com.android.databinding:compiler:3.1.4"

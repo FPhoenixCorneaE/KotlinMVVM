@@ -1,1 +1,1 @@
-include ':open-eyes', ':bottom-navigation-view', ':rxretrofit', ':android-util-code-ktx', ':common-util', ':framework', ':multiple-status-view', ':multi-type-adapter', ':expand-collapse-text-view', ':wan-android', ':magic-indicator', ':nb-adapter'
+include ':open-eyes', ':bottom-navigation-view', ':rxretrofit', ':android-util-code-ktx', ':common-util', ':framework', ':multiple-status-view', ':multi-type-adapter', ':expand-collapse-text-view', ':wan-android', ':magic-indicator', ':nb-adapter', ':pager-adapter'

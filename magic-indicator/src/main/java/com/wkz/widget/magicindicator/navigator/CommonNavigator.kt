@@ -8,23 +8,17 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.HorizontalScrollView
 import android.widget.LinearLayout
-
-import com.wkz.widget.magicindicator.helper.NavigatorHelper
-import com.wkz.widget.magicindicator.R
-import com.wkz.widget.magicindicator.ScrollState
-import com.wkz.widget.magicindicator.IPagerNavigator
+import com.wkz.widget.magicindicator.*
 import com.wkz.widget.magicindicator.adapter.CommonNavigatorAdapter
-import com.wkz.widget.magicindicator.IMeasurablePagerTitleView
-import com.wkz.widget.magicindicator.IPagerIndicator
-import com.wkz.widget.magicindicator.IPagerTitleView
+import com.wkz.widget.magicindicator.helper.NavigatorHelper
 import com.wkz.widget.magicindicator.model.PositionData
-
-import java.util.ArrayList
+import java.util.*
 
 /**
  * 通用的ViewPager指示器，包含PagerTitle和PagerIndicator
  */
-class CommonNavigator(context: Context) : FrameLayout(context), IPagerNavigator, NavigatorHelper.OnNavigatorScrollListener {
+class CommonNavigator(context: Context) : FrameLayout(context), IPagerNavigator,
+    NavigatorHelper.OnNavigatorScrollListener {
     private var mScrollView: HorizontalScrollView? = null
     var titleContainer: LinearLayout? = null
         private set
@@ -132,13 +126,13 @@ class CommonNavigator(context: Context) : FrameLayout(context), IPagerNavigator,
 
         val root: View
         if (isAdjustMode) {
-            root = LayoutInflater.from(context).inflate(R.layout.pager_navigator_layout_no_scroll, this)
+            root = LayoutInflater.from(context)
+                .inflate(R.layout.pager_navigator_layout_no_scroll, this)
         } else {
             root = LayoutInflater.from(context).inflate(R.layout.pager_navigator_layout, this)
+            // mAdjustMode为true时，mScrollView为null
+            mScrollView = root.findViewById<View>(R.id.scroll_view) as HorizontalScrollView
         }
-
-        // mAdjustMode为true时，mScrollView为null
-        mScrollView = root.findViewById<View>(R.id.scroll_view) as HorizontalScrollView
 
         titleContainer = root.findViewById<View>(R.id.title_container) as LinearLayout
         titleContainer!!.setPadding(leftPadding, 0, rightPadding, 0)
@@ -166,7 +160,10 @@ class CommonNavigator(context: Context) : FrameLayout(context), IPagerNavigator,
                     lp = LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT)
                     lp.weight = adapter!!.getTitleWeight(context, i)
                 } else {
-                    lp = LinearLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.MATCH_PARENT)
+                    lp = LinearLayout.LayoutParams(
+                        FrameLayout.LayoutParams.WRAP_CONTENT,
+                        FrameLayout.LayoutParams.MATCH_PARENT
+                    )
                 }
                 titleContainer!!.addView(view, lp)
             }
@@ -175,7 +172,10 @@ class CommonNavigator(context: Context) : FrameLayout(context), IPagerNavigator,
         if (adapter != null) {
             pagerIndicator = adapter!!.getIndicator(context)
             if (pagerIndicator is View) {
-                val lp = FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+                val lp = FrameLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT
+                )
                 mIndicatorContainer!!.addView(pagerIndicator as View?, lp)
             }
         }
@@ -245,7 +245,10 @@ class CommonNavigator(context: Context) : FrameLayout(context), IPagerNavigator,
                     val next = mPositionDataList[nextPosition]
                     val scrollTo = current.horizontalCenter() - mScrollView!!.width * scrollPivotX
                     val nextScrollTo = next.horizontalCenter() - mScrollView!!.width * scrollPivotX
-                    mScrollView!!.scrollTo((scrollTo + (nextScrollTo - scrollTo) * positionOffset).toInt(), 0)
+                    mScrollView!!.scrollTo(
+                        (scrollTo + (nextScrollTo - scrollTo) * positionOffset).toInt(),
+                        0
+                    )
                 } else if (!isEnablePivotScroll) {
                     // TODO 实现待选中项完全显示出来
                 }

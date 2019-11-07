@@ -46,7 +46,7 @@ android {
     /* 开启实验性标志 */
     androidExtensions {
         experimental = true
-        defaultCacheImplementation = "SPARSE_ARRAY" // HASH_MAP, SPARSE_ARRAY, NONE
+        defaultCacheImplementation = "HASH_MAP" // HASH_MAP, SPARSE_ARRAY, NONE
     }
 }
 

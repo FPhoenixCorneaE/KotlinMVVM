@@ -44,58 +44,58 @@ class ResourceUtil private constructor() {
     companion object {
 
         fun getLayoutId(name: String): Int {
-            return ContextUtil.context.getResources().getIdentifier(
+            return ContextUtil.context.resources.getIdentifier(
                 name, "layout",
-                ContextUtil.context.getPackageName()
+                ContextUtil.context.packageName
             )
         }
 
         fun getStringId(name: String): Int {
-            return ContextUtil.context.getResources().getIdentifier(
+            return ContextUtil.context.resources.getIdentifier(
                 name, "string",
-                ContextUtil.context.getPackageName()
+                ContextUtil.context.packageName
             )
         }
 
         fun getDrawableId(name: String): Int {
-            return ContextUtil.context.getResources().getIdentifier(
+            return ContextUtil.context.resources.getIdentifier(
                 name, "drawable",
-                ContextUtil.context.getPackageName()
+                ContextUtil.context.packageName
             )
         }
 
         fun getMipmapId(name: String): Int {
-            return ContextUtil.context.getResources().getIdentifier(
+            return ContextUtil.context.resources.getIdentifier(
                 name, "mipmap",
-                ContextUtil.context.getPackageName()
+                ContextUtil.context.packageName
             )
         }
 
         fun getStyleId(name: String): Int {
-            return ContextUtil.context.getResources().getIdentifier(
+            return ContextUtil.context.resources.getIdentifier(
                 name, "style",
-                ContextUtil.context.getPackageName()
+                ContextUtil.context.packageName
             )
         }
 
         fun getId(name: String): Int {
-            return ContextUtil.context.getResources().getIdentifier(
+            return ContextUtil.context.resources.getIdentifier(
                 name, "id",
-                ContextUtil.context.getPackageName()
+                ContextUtil.context.packageName
             )
         }
 
         fun getColorId(name: String): Int {
-            return ContextUtil.context.getResources().getIdentifier(
+            return ContextUtil.context.resources.getIdentifier(
                 name, "color",
-                ContextUtil.context.getPackageName()
+                ContextUtil.context.packageName
             )
         }
 
         fun getArrayId(name: String): Int {
-            return ContextUtil.context.getResources().getIdentifier(
+            return ContextUtil.context.resources.getIdentifier(
                 name, "array",
-                ContextUtil.context.getPackageName()
+                ContextUtil.context.packageName
             )
         }
 
@@ -103,7 +103,7 @@ class ResourceUtil private constructor() {
          * Get raw file, ui/raw/file
          */
         fun getRaw(@RawRes resId: Int): InputStream {
-            return ContextUtil.context.getResources().openRawResource(resId)
+            return ContextUtil.context.resources.openRawResource(resId)
         }
 
         /**
@@ -111,14 +111,14 @@ class ResourceUtil private constructor() {
          * uncompressed data, which typically includes things like mp3 files and png images.
          */
         fun getRawFd(@RawRes resId: Int): AssetFileDescriptor {
-            return ContextUtil.context.getResources().openRawResourceFd(resId)
+            return ContextUtil.context.resources.openRawResourceFd(resId)
         }
 
         /**
          * Get xml file, ui/xml/file
          */
         fun getXml(@XmlRes resId: Int): XmlResourceParser {
-            return ContextUtil.context.getResources().getXml(resId)
+            return ContextUtil.context.resources.getXml(resId)
         }
 
         /**
@@ -132,21 +132,21 @@ class ResourceUtil private constructor() {
          * Get string, ui/values/__picker_strings.xml
          */
         fun getString(@StringRes resId: Int): String {
-            return ContextUtil.context.getResources().getString(resId)
+            return ContextUtil.context.resources.getString(resId)
         }
 
         /**
          * Get string array, ui/values/__picker_strings.xml
          */
         fun getStringArray(@ArrayRes resId: Int): Array<String> {
-            return ContextUtil.context.getResources().getStringArray(resId)
+            return ContextUtil.context.resources.getStringArray(resId)
         }
 
         /**
          * Get int array, ui/values/__picker_strings.xml
          */
         fun getIntArray(@ArrayRes resId: Int): IntArray {
-            return ContextUtil.context.getResources().getIntArray(resId)
+            return ContextUtil.context.resources.getIntArray(resId)
         }
 
         /**
@@ -170,7 +170,7 @@ class ResourceUtil private constructor() {
          * 获取某个dimen的值,如果是dp或sp的单位,将其乘以density,如果是px,则不乘   返回float
          */
         fun getDimension(@DimenRes resId: Int): Float {
-            return ContextUtil.context.getResources().getDimension(resId)
+            return ContextUtil.context.resources.getDimension(resId)
         }
 
         /**
@@ -180,7 +180,7 @@ class ResourceUtil private constructor() {
          * 获取某个dimen的值,如果是dp或sp的单位,将其乘以density,如果是px,则不乘  返回int
          */
         fun getDimensionPixelOffset(@DimenRes resId: Int): Int {
-            return ContextUtil.context.getResources().getDimensionPixelOffset(resId)
+            return ContextUtil.context.resources.getDimensionPixelOffset(resId)
         }
 
         /**
@@ -190,7 +190,7 @@ class ResourceUtil private constructor() {
          * 不管写的是dp还是sp还是px,都会乘以density.
          */
         fun getDimensionPixelSize(@DimenRes resId: Int): Int {
-            return ContextUtil.context.getResources().getDimensionPixelSize(resId)
+            return ContextUtil.context.resources.getDimensionPixelSize(resId)
         }
     }
 }

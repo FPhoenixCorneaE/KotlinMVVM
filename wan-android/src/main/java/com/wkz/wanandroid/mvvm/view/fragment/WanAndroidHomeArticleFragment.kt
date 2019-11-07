@@ -89,6 +89,7 @@ class WanAndroidHomeArticleFragment : BaseFragment(), OnRefreshLoadmoreListener 
     }
 
     private fun initArticleRecyclerView() {
+        mHomeArticleAdapter.showItemAnim(AnimationType.TRANSLATE_FROM_BOTTOM)
         mRvArticle.apply {
             layoutManager = LinearLayoutManager(mContext)
             adapter = mHomeArticleAdapter

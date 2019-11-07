@@ -1,11 +1,11 @@
 package com.wkz.framework.base.activity
 
-import android.app.Activity
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentActivity
 import cn.cricin.folivora.Folivora
 import com.wkz.extension.showToast
 import com.wkz.framework.R
@@ -19,7 +19,7 @@ import com.wkz.widget.MultipleStatusView
 abstract class BaseActivity : AppCompatActivity() {
 
     /** 当前界面 Context 对象*/
-    protected lateinit var mContext: Activity
+    protected lateinit var mContext: FragmentActivity
     /** 根布局 */
     protected lateinit var mMsvRoot: MultipleStatusView
 

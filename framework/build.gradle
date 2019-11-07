@@ -77,6 +77,10 @@ dependencies {
      */
     api project(':nb-adapter')
     /**
+     * pager-adapter,ViewPager适配器
+     */
+    api project(':pager-adapter')
+    /**
      * Supports
      */
     api Config.supportLibs

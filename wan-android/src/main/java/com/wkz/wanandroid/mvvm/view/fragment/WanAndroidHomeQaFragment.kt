@@ -4,6 +4,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadmoreListener
+import com.wkz.adapter.AnimationType
 import com.wkz.extension.viewModel
 import com.wkz.framework.base.fragment.BaseFragment
 import com.wkz.wanandroid.R
@@ -49,6 +50,7 @@ class WanAndroidHomeQaFragment : BaseFragment(), OnRefreshLoadmoreListener {
     }
 
     private fun initQaRecyclerView() {
+        mHomeQaAdapter.showItemAnim(AnimationType.TRANSLATE_FROM_BOTTOM)
         mRvQa.apply {
             layoutManager = LinearLayoutManager(mContext)
             adapter = mHomeQaAdapter

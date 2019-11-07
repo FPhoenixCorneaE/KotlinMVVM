@@ -1,6 +1,5 @@
 package com.wkz.framework.base.fragment
 
-import android.app.Activity
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import com.wkz.extension.showToast
 import com.wkz.framework.R
 import com.wkz.rxretrofit.network.exception.ErrorStatus
@@ -20,7 +20,7 @@ import com.wkz.widget.MultipleStatusView
 abstract class BaseFragment : Fragment() {
 
     /** 当前界面 Context 对象*/
-    protected lateinit var mContext: Activity
+    protected lateinit var mContext: FragmentActivity
     /** 视图是否加载完毕 */
     protected var isViewPrepared = false
     /** 数据是否加载过了 */
@@ -30,7 +30,7 @@ abstract class BaseFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        mContext = context as Activity
+        mContext = context as FragmentActivity
     }
 
     override fun onCreateView(
