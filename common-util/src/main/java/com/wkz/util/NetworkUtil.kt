@@ -2,16 +2,14 @@ package com.wkz.util
 
 import android.content.Context
 import android.net.ConnectivityManager
-import android.net.NetworkInfo
+import android.net.NetworkCapabilities
+import android.os.Build
 import android.text.TextUtils
-
 import java.io.IOException
 import java.net.Inet4Address
 import java.net.NetworkInterface
 import java.net.SocketException
-import java.util.Collections
-import java.util.Locale
-import java.util.Properties
+import java.util.*
 
 /**
  * 网络信息工具类
@@ -34,18 +32,28 @@ class NetworkUtil private constructor() {
         private val WLAN_MASK = "[dhcp.wlan0.mask]"
 
         /**
-         * 判断网络是否可用
-         * Judge whether current network is available
+         * 判断网络是否连接
+         * Judge whether current network is connected
          */
-        val isNetworkAvailable: Boolean
+        val isConnected: Boolean
             get() {
-                val mConnectivityManager =
+                val connectivityManager =
                     ContextUtil.context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-                var info: NetworkInfo? = null
-                if (mConnectivityManager != null) {
-                    info = mConnectivityManager.activeNetworkInfo
+                return when {
+                    Build.VERSION.SDK_INT >= Build.VERSION_CODES.M -> {
+                        // Android 6.0以上可用方法
+                        // 当NetworkCapabilities的描述中有VALIDATED这个描述时，此网络是真正可用的
+                        val networkCapabilities =
+                            connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
+                        networkCapabilities != null && networkCapabilities.hasCapability(
+                            NetworkCapabilities.NET_CAPABILITY_VALIDATED
+                        )
+                    }
+                    else -> {
+                        val info = connectivityManager.activeNetworkInfo
+                        info != null && info.isConnected
+                    }
                 }
-                return info != null && info.isAvailable
             }
 
         /**
@@ -53,13 +61,21 @@ class NetworkUtil private constructor() {
          */
         val isWifiConnected: Boolean
             get() {
-                val mConnectivityManager =
+                val connectivityManager =
                     ContextUtil.context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-                var networkInfo: NetworkInfo? = null
-                if (mConnectivityManager != null) {
-                    networkInfo = mConnectivityManager.activeNetworkInfo
+                return when {
+                    Build.VERSION.SDK_INT >= Build.VERSION_CODES.M -> {
+                        val networkCapabilities =
+                            connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
+                        networkCapabilities != null && networkCapabilities.hasTransport(
+                            NetworkCapabilities.TRANSPORT_WIFI
+                        )
+                    }
+                    else -> {
+                        val networkInfo = connectivityManager.activeNetworkInfo
+                        networkInfo != null && networkInfo.type == ConnectivityManager.TYPE_WIFI && networkInfo.isConnected
+                    }
                 }
-                return networkInfo != null && networkInfo.type == ConnectivityManager.TYPE_WIFI && networkInfo.isAvailable
             }
 
         /**
@@ -67,13 +83,21 @@ class NetworkUtil private constructor() {
          */
         val isMobileConnected: Boolean
             get() {
-                val mConnectivityManager =
+                val connectivityManager =
                     ContextUtil.context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-                var networkInfo: NetworkInfo? = null
-                if (mConnectivityManager != null) {
-                    networkInfo = mConnectivityManager.activeNetworkInfo
+                return when {
+                    Build.VERSION.SDK_INT >= Build.VERSION_CODES.M -> {
+                        val networkCapabilities =
+                            connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
+                        networkCapabilities != null && networkCapabilities.hasTransport(
+                            NetworkCapabilities.TRANSPORT_CELLULAR
+                        )
+                    }
+                    else -> {
+                        val networkInfo = connectivityManager.activeNetworkInfo
+                        networkInfo != null && networkInfo.type == ConnectivityManager.TYPE_MOBILE && networkInfo.isConnected
+                    }
                 }
-                return networkInfo != null && networkInfo.type == ConnectivityManager.TYPE_MOBILE && networkInfo.isAvailable
             }
 
         /**
@@ -83,11 +107,8 @@ class NetworkUtil private constructor() {
             get() {
                 val mConnectivityManager =
                     ContextUtil.context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-                var mNetworkInfo: NetworkInfo? = null
-                if (mConnectivityManager != null) {
-                    mNetworkInfo = mConnectivityManager.activeNetworkInfo
-                }
-                return if (mNetworkInfo != null && mNetworkInfo.isAvailable) mNetworkInfo.type else -1
+                val mNetworkInfo = mConnectivityManager.activeNetworkInfo
+                return if (mNetworkInfo != null && mNetworkInfo.isConnected) mNetworkInfo.type else -1
             }
 
         /**
@@ -160,16 +181,12 @@ class NetworkUtil private constructor() {
                             continue
                         }
                     }
-                    val mac: ByteArray?
-                    mac = intf.hardwareAddress
-                    if (mac == null) {
-                        return ""
-                    }
+                    val mac: ByteArray = intf.hardwareAddress ?: return ""
                     val buf = StringBuilder()
                     for (aMac in mac) {
                         buf.append(String.format("%02X:", aMac))
                     }
-                    if (buf.length > 0) {
+                    if (buf.isNotEmpty()) {
                         buf.deleteCharAt(buf.length - 1)
                     }
                     return buf.toString()

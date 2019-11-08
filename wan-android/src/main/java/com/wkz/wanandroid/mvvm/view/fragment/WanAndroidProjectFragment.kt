@@ -3,7 +3,7 @@ package com.wkz.wanandroid.mvvm.view.fragment
 import com.wkz.framework.base.fragment.BaseFragment
 import com.wkz.wanandroid.R
 
-class WanAndroidHomeFragment : BaseFragment() {
+class WanAndroidProjectFragment : BaseFragment() {
     /**
      * 加载布局
      */
