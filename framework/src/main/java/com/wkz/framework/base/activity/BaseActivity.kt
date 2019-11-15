@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.FragmentActivity
 import cn.cricin.folivora.Folivora
 import com.wkz.extension.showToast
@@ -17,6 +18,16 @@ import com.wkz.widget.MultipleStatusView
  * @desc:BaseActivity基类
  */
 abstract class BaseActivity : AppCompatActivity() {
+
+    companion object {
+
+        //开启这个flag后，你就可以正常使用Selector这样的DrawableContainers了。
+        //同时，你还开启了类似android:drawableLeft这样的compound drawable的使用权限，
+        //以及RadioButton的使用权限，以及ImageView’s src属性。
+        init {
+            AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
+        }
+    }
 
     /** 当前界面 Context 对象*/
     protected lateinit var mContext: FragmentActivity
@@ -98,7 +109,7 @@ abstract class BaseActivity : AppCompatActivity() {
     abstract fun getLayoutId(): Int
 
     /**
-     * 初始化 View
+     * 初始化View
      */
     abstract fun initView()
 

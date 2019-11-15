@@ -40,7 +40,7 @@ open class BaseApplication : Application() {
             // 隐藏线程信息 默认：显示
             .showThreadInfo(false)
             // 决定打印多少行（每一行代表一个方法）默认：2
-            .methodCount(0)
+            .methodCount(2)
             // (Optional) Hides internal method calls up to offset. Default 5
             .methodOffset(7)
             // (Optional) Global tag for every log. Default PRETTY_LOGGER

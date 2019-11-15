@@ -1,9 +1,12 @@
 class Config {
     static kotlin_version = '1.3.50'
+    static rePlugin_version = '2.3.3'
 
     static classpath = [
-            gradle: "com.android.tools.build:gradle:3.5.1",
-            kotlin: "org.jetbrains.kotlin:kotlin-gradle-plugin:$Config.kotlin_version",
+            gradle              : "com.android.tools.build:gradle:3.5.0",
+            kotlin              : "org.jetbrains.kotlin:kotlin-gradle-plugin:$Config.kotlin_version",
+            rePluginHostGradle  : "com.qihoo360.replugin:replugin-host-gradle:$rePlugin_version",
+            rePluginPluginGradle: "com.qihoo360.replugin:replugin-plugin-gradle:$rePlugin_version",
     ]
 
     static android = [
@@ -87,6 +90,11 @@ class Config {
     static multiType = [
             multiType      : 'me.drakeet.multitype:multitype:3.4.4',
             multiTypeKotlin: 'me.drakeet.multitype:multitype-kotlin:3.4.4',
+    ]
+
+    static rePlugin = [
+            hostLib  : "com.qihoo360.replugin:replugin-host-lib:$rePlugin_version",
+            pluginLib: "com.qihoo360.replugin:replugin-plugin-lib:$rePlugin_version",
     ]
 
     static folivora = "cn.cricin:folivora:0.0.9"

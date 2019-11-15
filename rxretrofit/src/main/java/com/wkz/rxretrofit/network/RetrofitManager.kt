@@ -1,8 +1,8 @@
 package com.wkz.rxretrofit.network
 
+import androidx.collection.ArrayMap
 import com.orhanobut.logger.Logger
 import com.wkz.rxretrofit.network.factory.LiveDataCallAdapterFactory
-import com.wkz.util.AppUtil
 import com.wkz.util.ContextUtil
 import com.wkz.util.NetworkUtil
 import com.wkz.util.SharedPreferencesUtil
@@ -23,6 +23,8 @@ import java.util.concurrent.TimeUnit
 object RetrofitManager {
 
     private var token: String by SharedPreferencesUtil("token", "")
+    private var mQueryParameterArray = ArrayMap<String, String?>()
+    private var mHeaderArray = ArrayMap<String, String>()
 
     /**
      * 设置公共参数
@@ -30,11 +32,12 @@ object RetrofitManager {
     private fun addQueryParameterInterceptor(): Interceptor {
         return Interceptor { chain ->
             val originalRequest = chain.request()
-            val modifiedUrl = originalRequest.url().newBuilder()
-                // Provide your custom parameter here
-                .addQueryParameter("udid", "d2807c895f0348a180148c9dfa6f2feeac0781b5")
-                .addQueryParameter("deviceModel", AppUtil.getMobileModel())
-                .build()
+            val builder = originalRequest.url().newBuilder()
+            // Provide your custom QueryParameter here
+            mQueryParameterArray.forEach { (name, value) ->
+                builder.addQueryParameter(name, value)
+            }
+            val modifiedUrl = builder.build()
             val request = originalRequest.newBuilder().url(modifiedUrl).build()
             chain.proceed(request)
         }
@@ -47,10 +50,11 @@ object RetrofitManager {
         return Interceptor { chain ->
             val originalRequest = chain.request()
             val requestBuilder = originalRequest.newBuilder()
-                // Provide your custom header here
-                .header("token", token)
-                .header("sign", AppUtil.getSign())
-                .method(originalRequest.method(), originalRequest.body())
+            // Provide your custom header here
+            mHeaderArray.forEach { (name, value) ->
+                requestBuilder.addHeader(name, value)
+            }
+            requestBuilder.method(originalRequest.method(), originalRequest.body())
             val request = requestBuilder.build()
             chain.proceed(request)
         }
@@ -90,14 +94,15 @@ object RetrofitManager {
 
     private fun getOkHttpClient(): OkHttpClient {
         // 添加一个log拦截器,打印所有的log
-        val httpLoggingInterceptor = HttpLoggingInterceptor { message -> Logger.i(message) }
+        val httpLoggingInterceptor = HttpLoggingInterceptor { message ->
+            Logger.i(message)
+        }
         // 可以设置请求过滤的水平,body,basic,headers
         httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
 
         // 设置请求的缓存的大小跟位置
         val cacheFile = File(ContextUtil.context.cacheDir, "networkCache")
         val cache = Cache(cacheFile, 1024 * 1024 * 50) //50Mb 缓存的大小
-
         return OkHttpClient.Builder()
             // 共同请求参数添加
             .addInterceptor(addQueryParameterInterceptor())
@@ -132,5 +137,21 @@ object RetrofitManager {
             // 添加GsonConverterFactory可以对服务器的数据进行解析
             .addConverterFactory(GsonConverterFactory.create())
             .build()
+    }
+
+    /**
+     * 添加公共参数(直接接在url后面)
+     */
+    fun addQueryParameter(name: String, value: String?): RetrofitManager {
+        mQueryParameterArray[name] = value
+        return this
+    }
+
+    /**
+     * 添加公共请求头
+     */
+    fun addHeader(name: String, value: String): RetrofitManager {
+        mHeaderArray[name] = value
+        return this
     }
 }

@@ -23,10 +23,31 @@ android {
         }
     }
 
+    signingConfigs {
+        release {
+            keyAlias 'kotlinmvvm'
+            keyPassword 'kotlinmvvm'
+            storeFile file('../kotlinmvvm.jks')
+            storePassword 'kotlinmvvm'
+        }
+        debug {
+            keyAlias 'kotlinmvvm'
+            keyPassword 'kotlinmvvm'
+            storeFile file('../kotlinmvvm.jks')
+            storePassword 'kotlinmvvm'
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.debug
         }
     }
 
@@ -41,6 +62,10 @@ android {
 
     lintOptions {
         abortOnError false
+    }
+
+    aaptOptions {
+        additionalParameters "--no-version-vectors"
     }
 
     /* 开启实验性标志 */
@@ -68,4 +93,18 @@ dependencies {
      * navigation 扩展插件
      */
     implementation Config.navigationLibs
+    /**
+     * 奇虎360插件化方案RePlugin插件lib
+     */
+    implementation Config.rePlugin.pluginLib
 }
+
+//==================================================================================================
+// 这个plugin需要放在android配置之后，因为需要读取android中的配置项
+//apply plugin: 'replugin-plugin-gradle'
+//repluginPluginConfig {
+//    pluginName = "WanAndroid"
+//    hostApplicationId = "com.wkz.kotlinmvvm"
+//    hostAppLauncherActivity = "com.wkz.kotlinmvvm.test.TestActivity"
+//}
+//==================================================================================================

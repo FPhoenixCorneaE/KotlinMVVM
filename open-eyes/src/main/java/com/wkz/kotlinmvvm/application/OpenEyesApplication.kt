@@ -8,7 +8,7 @@ import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
 import javax.inject.Inject
 
-class OpenEyesApplication : BaseApplication(), HasActivityInjector {
+open class OpenEyesApplication : BaseApplication(), HasActivityInjector {
 
     @Inject
     lateinit var dispatchingActivityInjector: DispatchingAndroidInjector<Activity>

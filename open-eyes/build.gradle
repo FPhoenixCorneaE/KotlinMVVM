@@ -23,10 +23,31 @@ android {
         }
     }
 
+    signingConfigs {
+        release {
+            keyAlias 'kotlinmvvm'
+            keyPassword 'kotlinmvvm'
+            storeFile file('../kotlinmvvm.jks')
+            storePassword 'kotlinmvvm'
+        }
+        debug {
+            keyAlias 'kotlinmvvm'
+            keyPassword 'kotlinmvvm'
+            storeFile file('../kotlinmvvm.jks')
+            storePassword 'kotlinmvvm'
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.debug
         }
     }
 
@@ -46,6 +67,16 @@ android {
 
     lintOptions {
         abortOnError false
+    }
+
+    aaptOptions {
+        additionalParameters "--no-version-vectors"
+    }
+
+    /* 开启实验性标志 */
+    androidExtensions {
+        experimental = true
+        defaultCacheImplementation = "HASH_MAP" // HASH_MAP, SPARSE_ARRAY, NONE
     }
 }
 
@@ -73,4 +104,41 @@ dependencies {
      * navigation 扩展插件
      */
     implementation Config.navigationLibs
+    /**
+     * 奇虎360插件化方案RePlugin宿主lib
+     */
+    implementation Config.rePlugin.hostLib
 }
+
+//==================================================================================================
+// apply plugins: 'replugin-host-gradle'放在 android{} 块之后，
+// 防止出现无法读取applicationId，导致生成的坑位出现异常
+apply plugin: 'replugin-host-gradle'
+/**
+ * 配置项均为可选配置，默认无需添加
+ * 更多可选配置项参见replugin-host-gradle的RepluginConfig类
+ * 可更改配置项参见 自动生成RePluginHostConfig.java
+ */
+repluginHostConfig {
+    /** 是否使用 AppCompat 库 */
+    useAppCompat = true
+
+    /** 是否使用常驻进程 */
+    persistentEnable = false
+
+    /** 背景不透明的坑的数量 */
+    countNotTranslucentStandard = 6
+    countNotTranslucentSingleTop = 2
+    countNotTranslucentSingleTask = 3
+    countNotTranslucentSingleInstance = 2
+
+    /** 背景透明的坑的数量 */
+    countTranslucentStandard = 2
+    countTranslucentSingleTop = 2
+    countTranslucentSingleTask = 2
+    countTranslucentSingleInstance = 3
+
+    /** 宿主中声明的 TaskAffinity 的组数 */
+    countTask = 2
+}
+//==================================================================================================
