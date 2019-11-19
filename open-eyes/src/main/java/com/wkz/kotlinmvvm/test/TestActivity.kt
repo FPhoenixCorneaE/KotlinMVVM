@@ -69,7 +69,8 @@ class TestActivity : AppCompatActivity() {
             TestModel().queryRebateListByUserId(body)
         }
         mTvPostForm.setOnClickListener {
-            TestModel().queryGoodsClass("233")
+//            TestModel().queryGoodsClass("233")
+            TestModel().getBindQrCode("","2f0879bde06e4dd9a62ac791817d4100")
         }
         mTvPostMultipart.setOnClickListener {
             Observable.just(1)

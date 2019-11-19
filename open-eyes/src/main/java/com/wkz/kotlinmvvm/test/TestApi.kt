@@ -20,4 +20,7 @@ interface TestApi {
     // 支持文件上传的表单
     @Multipart
     fun uploadImage(@Part("userId") userId: String, @Part("image") image: String, @Part("folder") folder: String): Observable<Any>
+
+    @GET("uat/device/qrlink")
+    fun getBindQrCode(@Query("orderId") orderId: String, @Query("deviceId") deviceId: String): Observable<Any>
 }
