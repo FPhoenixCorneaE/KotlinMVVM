@@ -11,7 +11,7 @@ import kotlin.reflect.KProperty
  * SharedPreferences操作
  * @author wkz
  */
-class SharedPreferencesUtil<T>(val keyName: String, private val default: T) {
+class SharedPreferencesUtil<T>(private val keyName: String, private val default: T) {
 
     companion object {
         private const val file_name = "kotlin_mvvm_file"

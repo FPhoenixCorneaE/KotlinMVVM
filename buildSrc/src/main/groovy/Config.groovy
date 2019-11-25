@@ -3,7 +3,7 @@ class Config {
     static rePlugin_version = '2.3.3'
 
     static classpath = [
-            gradle              : "com.android.tools.build:gradle:3.5.0",
+            gradle              : "com.android.tools.build:gradle:3.5.2",
             kotlin              : "org.jetbrains.kotlin:kotlin-gradle-plugin:$Config.kotlin_version",
             rePluginHostGradle  : "com.qihoo360.replugin:replugin-host-gradle:$rePlugin_version",
             rePluginPluginGradle: "com.qihoo360.replugin:replugin-plugin-gradle:$rePlugin_version",
