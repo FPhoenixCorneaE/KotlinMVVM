@@ -20,6 +20,7 @@ object ImgBase64Util {
      * @param path 文件路径
      * @return base64编码的字符串
      */
+    @JvmStatic
     fun imageToBase64(path: String): String {
         if (path.isBlank()) {
             return ""
@@ -59,6 +60,7 @@ object ImgBase64Util {
      * @param base64Str base64编码字符集
      * @return 是否成功
      */
+    @JvmStatic
     fun base64ToByteArray(base64Str: String): ByteArray {
         return Base64.decode(base64Str, Base64.DEFAULT)
     }

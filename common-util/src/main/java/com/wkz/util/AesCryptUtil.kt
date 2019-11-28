@@ -63,6 +63,7 @@ object AesCryptUtil {
      * @param message  the thing you want to encrypt assumed String UTF-8
      * @return Base64 encoded CipherText
      */
+    @JvmStatic
     fun encrypt(password: String, message: String): String? {
         return try {
             val key = generateKey(password)
@@ -87,6 +88,7 @@ object AesCryptUtil {
      * @param message in bytes (assumed it's already been decoded)
      * @return Encrypted cipher text (not encoded)
      */
+    @JvmStatic
     fun encrypt(
         key: SecretKeySpec?,
         iv: ByteArray?,
@@ -110,6 +112,7 @@ object AesCryptUtil {
      * @param base64EncodedCipherText the encrpyted message encoded with base64
      * @return message in Plain text (String UTF-8)
      */
+    @JvmStatic
     fun decrypt(password: String, base64EncodedCipherText: String?): String? {
         return try {
             val key = generateKey(password)
@@ -132,6 +135,7 @@ object AesCryptUtil {
      * @param decodedCipherText in bytes (assumed it's already been decoded)
      * @return Decrypted message cipher text (not encoded)
      */
+    @JvmStatic
     fun decrypt(
         key: SecretKeySpec?,
         iv: ByteArray?,
