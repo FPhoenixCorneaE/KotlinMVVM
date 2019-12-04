@@ -1,15 +1,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.wkz.ktx">
+    package="com.wkz.ktx">
 
-    <application >
+    <application>
         <provider
-                android:authorities="${applicationId}.fileprovider"
-                android:name="androidx.core.content.FileProvider"
-                android:exported="false"
-                android:grantUriPermissions="true">
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.FileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
             <meta-data
-                    android:name="android.support.FILE_PROVIDER_PATHS"
-                    android:resource="@xml/filepaths"/>
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_provider_paths" />
         </provider>
     </application>
 </manifest>
