@@ -39,12 +39,13 @@ class TimeUtil {
          *  * 时间不合法的情况全部日期和时间信息，如星期六 十月 27 14:21:20 CST 2007
          *
          */
+        @JvmStatic
         fun getFriendlyTimeSpanByNow(time: String): String {
-            try {
-                return getFriendlyTimeSpanByNow(time, SimpleDateFormat(DEFAULT_FORMAT, Locale.getDefault()))
+            return try {
+                getFriendlyTimeSpanByNow(time, SimpleDateFormat(DEFAULT_FORMAT, Locale.getDefault()))
             } catch (e: Exception) {
                 Logger.e(e.toString())
-                return time
+                time
             }
 
         }
@@ -68,6 +69,7 @@ class TimeUtil {
          *  * 时间不合法的情况全部日期和时间信息，如星期六 十月 27 14:21:20 CST 2007
          *
          */
+        @JvmStatic
         fun getFriendlyTimeSpanByNow(time: String, format: DateFormat): String {
             return getFriendlyTimeSpanByNow(string2Millis(time, format))
         }
@@ -88,6 +90,7 @@ class TimeUtil {
          *  * 时间不合法的情况全部日期和时间信息，如星期六 十月 27 14:21:20 CST 2007
          *
          */
+        @JvmStatic
         fun getFriendlyTimeSpanByNow(date: Date): String {
             return getFriendlyTimeSpanByNow(date.time)
         }
@@ -108,6 +111,7 @@ class TimeUtil {
          *  * 时间不合法的情况全部日期和时间信息，如星期六 十月 27 14:21:20 CST 2007
          *
          */
+        @JvmStatic
         fun getFriendlyTimeSpanByNow(millis: Long): String {
             val now = System.currentTimeMillis()
             val span = now - millis
@@ -139,6 +143,7 @@ class TimeUtil {
          * @param format 时间格式
          * @return 毫秒时间戳
          */
+        @JvmStatic
         fun string2Millis(time: String, format: DateFormat): Long {
             try {
                 return format.parse(time)!!.time
@@ -158,6 +163,7 @@ class TimeUtil {
          * @param format 时间格式
          * @return 时间字符串
          */
+        @JvmStatic
         fun millis2String(millis: Long, format: DateFormat): String {
             return format.format(Date(millis))
         }
@@ -169,6 +175,7 @@ class TimeUtil {
          *
          * @return 时间字符串
          */
+        @JvmStatic
         val nowString: String
             get() = millis2String(System.currentTimeMillis(), SimpleDateFormat(DEFAULT_FORMAT, Locale.getDefault()))
     }

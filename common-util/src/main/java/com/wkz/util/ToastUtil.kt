@@ -26,7 +26,8 @@ class ToastUtil private constructor() {
         private var sToast: Toast? = null
         private var gravity = Gravity.CENTER_HORIZONTAL or Gravity.BOTTOM
         private var xOffset = 0
-        private var yOffset = (64 * ContextUtil.context.getResources().getDisplayMetrics().density + 0.5).toInt()
+        private var yOffset =
+            (64 * ContextUtil.context.getResources().getDisplayMetrics().density + 0.5).toInt()
         @SuppressLint("StaticFieldLeak")
         private var customView: View? = null
         private val sHandler = Handler(Looper.getMainLooper())
@@ -50,7 +51,7 @@ class ToastUtil private constructor() {
          * @param layoutId 视图
          */
         fun setView(layoutId: Int) {
-            ToastUtil.customView = LayoutInflater.from(ContextUtil.context).inflate(layoutId, null)
+            customView = LayoutInflater.from(ContextUtil.context).inflate(layoutId, null)
         }
 
         /**
@@ -73,8 +74,9 @@ class ToastUtil private constructor() {
          *
          * @param view 视图
          */
+        @JvmStatic
         fun setView(view: View) {
-            ToastUtil.customView = view
+            customView = view
         }
 
         /**
@@ -82,6 +84,7 @@ class ToastUtil private constructor() {
          *
          * @param text 文本
          */
+        @JvmStatic
         fun showShortSafe(text: CharSequence) {
             sHandler.post { show(text, Toast.LENGTH_SHORT) }
         }
@@ -91,6 +94,7 @@ class ToastUtil private constructor() {
          *
          * @param resId 资源Id
          */
+        @JvmStatic
         fun showShortSafe(resId: Int) {
             sHandler.post { show(resId, Toast.LENGTH_SHORT) }
         }
@@ -101,6 +105,7 @@ class ToastUtil private constructor() {
          * @param resId 资源Id
          * @param args  参数
          */
+        @JvmStatic
         fun showShortSafe(resId: Int, vararg args: Any) {
             sHandler.post { show(resId, Toast.LENGTH_SHORT, *args) }
         }
@@ -111,6 +116,7 @@ class ToastUtil private constructor() {
          * @param format 格式
          * @param args   参数
          */
+        @JvmStatic
         fun showShortSafe(format: String, vararg args: Any) {
             sHandler.post { show(format, Toast.LENGTH_SHORT, *args) }
         }
@@ -120,6 +126,7 @@ class ToastUtil private constructor() {
          *
          * @param text 文本
          */
+        @JvmStatic
         fun showLongSafe(text: CharSequence) {
             sHandler.post { show(text, Toast.LENGTH_LONG) }
         }
@@ -129,6 +136,7 @@ class ToastUtil private constructor() {
          *
          * @param resId 资源Id
          */
+        @JvmStatic
         fun showLongSafe(resId: Int) {
             sHandler.post { show(resId, Toast.LENGTH_LONG) }
         }
@@ -139,6 +147,7 @@ class ToastUtil private constructor() {
          * @param resId 资源Id
          * @param args  参数
          */
+        @JvmStatic
         fun showLongSafe(resId: Int, vararg args: Any) {
             sHandler.post { show(resId, Toast.LENGTH_LONG, *args) }
         }
@@ -149,6 +158,7 @@ class ToastUtil private constructor() {
          * @param format 格式
          * @param args   参数
          */
+        @JvmStatic
         fun showLongSafe(format: String, vararg args: Any) {
             sHandler.post { show(format, Toast.LENGTH_LONG, *args) }
         }
@@ -158,6 +168,7 @@ class ToastUtil private constructor() {
          *
          * @param text 文本
          */
+        @JvmStatic
         fun showShort(text: CharSequence) {
             show(text, Toast.LENGTH_SHORT)
         }
@@ -167,6 +178,7 @@ class ToastUtil private constructor() {
          *
          * @param resId 资源Id
          */
+        @JvmStatic
         fun showShort(resId: Int) {
             show(resId, Toast.LENGTH_SHORT)
         }
@@ -177,6 +189,7 @@ class ToastUtil private constructor() {
          * @param resId 资源Id
          * @param args  参数
          */
+        @JvmStatic
         fun showShort(resId: Int, vararg args: Any) {
             show(resId, Toast.LENGTH_SHORT, *args)
         }
@@ -187,6 +200,7 @@ class ToastUtil private constructor() {
          * @param format 格式
          * @param args   参数
          */
+        @JvmStatic
         fun showShort(format: String, vararg args: Any) {
             show(format, Toast.LENGTH_SHORT, *args)
         }
@@ -196,6 +210,7 @@ class ToastUtil private constructor() {
          *
          * @param text 文本
          */
+        @JvmStatic
         fun showLong(text: CharSequence) {
             show(text, Toast.LENGTH_LONG)
         }
@@ -205,6 +220,7 @@ class ToastUtil private constructor() {
          *
          * @param resId 资源Id
          */
+        @JvmStatic
         fun showLong(resId: Int) {
             show(resId, Toast.LENGTH_LONG)
         }
@@ -215,6 +231,7 @@ class ToastUtil private constructor() {
          * @param resId 资源Id
          * @param args  参数
          */
+        @JvmStatic
         fun showLong(resId: Int, vararg args: Any) {
             show(resId, Toast.LENGTH_LONG, *args)
         }
@@ -225,6 +242,7 @@ class ToastUtil private constructor() {
          * @param format 格式
          * @param args   参数
          */
+        @JvmStatic
         fun showLong(format: String, vararg args: Any) {
             show(format, Toast.LENGTH_LONG, *args)
         }
@@ -247,7 +265,10 @@ class ToastUtil private constructor() {
          * @param args     参数
          */
         private fun show(resId: Int, duration: Int, vararg args: Any) {
-            show(String.format(ContextUtil.context.getResources().getString(resId), *args), duration)
+            show(
+                String.format(ContextUtil.context.getResources().getString(resId), *args),
+                duration
+            )
         }
 
         /**
@@ -289,7 +310,6 @@ class ToastUtil private constructor() {
                 sToast = null
             }
         }
-
 
         private fun getToast(text: CharSequence, duration: Int): Toast {
             val mToast = Toast(ContextUtil.context)
