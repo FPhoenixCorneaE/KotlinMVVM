@@ -9,7 +9,9 @@ import android.os.Build
 import android.os.Environment
 import android.provider.DocumentsContract
 import android.provider.MediaStore
+import android.text.TextUtils
 import androidx.loader.content.CursorLoader
+import java.io.*
 
 /**
  * Uri获取真正的Path工具类
@@ -27,21 +29,46 @@ object Uri2PathUtil {
     @JvmStatic
     fun getRealPathFromUri(context: Context, uri: Uri): String? {
         val sdkVersion = Build.VERSION.SDK_INT
-        if (sdkVersion < Build.VERSION_CODES.HONEYCOMB) {
-            return getRealPathFromUriBelowApi11(context, uri)
-        }
-        return if (sdkVersion < Build.VERSION_CODES.KITKAT) {
-            getRealPathFromUriApi11To18(context, uri)
-        } else {
-            getRealPathFromUriAboveApi19(context, uri)
+        return when {
+            sdkVersion < Build.VERSION_CODES.HONEYCOMB -> {
+                getRealPathFromUriBelowApi11(context, uri)
+            }
+            sdkVersion < Build.VERSION_CODES.KITKAT -> {
+                getRealPathFromUriApi11To18(context, uri)
+            }
+            sdkVersion < Build.VERSION_CODES.N -> {
+                getRealPathFromUriApi19To23(context, uri)
+            }
+            else -> {
+                getRealPathFromUriAboveApi24(context, uri)
+            }
         }
     }
 
     /**
-     * 适配api19以上,根据uri获取图片的绝对路径
+     * 适配api24以上,根据uri获取图片的绝对路径
+     */
+    @TargetApi(Build.VERSION_CODES.N)
+    private fun getRealPathFromUriAboveApi24(
+        context: Context,
+        uri: Uri
+    ): String? {
+        val rootDataDir = context.filesDir
+        val fileName = getFileName(uri)
+        if (!TextUtils.isEmpty(fileName)) {
+            val copyFile =
+                File(rootDataDir.toString() + File.separator + fileName)
+            copyFile(context, uri, copyFile)
+            return copyFile.absolutePath
+        }
+        return null
+    }
+
+    /**
+     * 适配api19-api24,根据uri获取图片的绝对路径
      */
     @TargetApi(Build.VERSION_CODES.KITKAT)
-    private fun getRealPathFromUriAboveApi19(
+    private fun getRealPathFromUriApi19To23(
         context: Context,
         uri: Uri
     ): String? {
@@ -126,6 +153,90 @@ object Uri2PathUtil {
             cursor.close()
         }
         return filePath
+    }
+
+    /**
+     * 获取文件名
+     */
+    private fun getFileName(uri: Uri?): String? {
+        if (uri == null) {
+            return null
+        }
+        var fileName: String? = null
+        val path = uri.path
+        if (path != null) {
+            val cut = path.lastIndexOf('/')
+            if (cut != -1) {
+                fileName = path.substring(cut + 1)
+            }
+        }
+        return fileName
+    }
+
+    /**
+     * 复制文件
+     */
+    private fun copyFile(
+        context: Context,
+        srcUri: Uri,
+        dstFile: File
+    ) {
+        var inputStream: InputStream? = null
+        var outputStream: OutputStream? = null
+        try {
+            inputStream = context.contentResolver.openInputStream(srcUri)
+            if (inputStream == null) {
+                return
+            }
+            outputStream = FileOutputStream(dstFile)
+            copyStream(inputStream, outputStream)
+        } catch (e: java.lang.Exception) {
+            e.printStackTrace()
+        } finally {
+            try {
+                inputStream?.close()
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+            try {
+                outputStream?.close()
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+        }
+    }
+
+    /**
+     * 复制文件流
+     */
+    private fun copyStream(input: InputStream, output: OutputStream): Int {
+        val BUFFER_SIZE = 1024 * 2
+        val buffer = ByteArray(BUFFER_SIZE)
+        val `in` = BufferedInputStream(input, BUFFER_SIZE)
+        val out = BufferedOutputStream(output, BUFFER_SIZE)
+        var count = 0
+        var n = 0
+        try {
+            while (`in`.read(buffer, 0, BUFFER_SIZE).also { n = it } != -1) {
+                out.write(buffer, 0, n)
+                count += n
+            }
+            out.flush()
+        } catch (e: java.lang.Exception) {
+            e.printStackTrace()
+        } finally {
+            try {
+                out.close()
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+            try {
+                `in`.close()
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+        }
+        return count
     }
 
     /**

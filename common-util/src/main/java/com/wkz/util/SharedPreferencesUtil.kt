@@ -8,8 +8,9 @@ import java.io.*
 import kotlin.reflect.KProperty
 
 /**
- * SharedPreferences操作
+ * SharedPreferences 偏好设定工具类
  * @author wkz
+ * @date 2019-12-05 10:14
  */
 class SharedPreferencesUtil<T>(private val keyName: String, private val default: T) {
 
@@ -23,14 +24,14 @@ class SharedPreferencesUtil<T>(private val keyName: String, private val default:
             ContextUtil.context.getSharedPreferences(file_name, Context.MODE_PRIVATE)
         }
 
-
         /**
          * Get SharedPreferences by name
          */
         private fun getSharedPreferences(name: String?): SharedPreferences {
             var sharedPreferences = sharedPreferences
             if (!TextUtils.isEmpty(name)) {
-                sharedPreferences = ContextUtil.context.getSharedPreferences(name, Context.MODE_PRIVATE)
+                sharedPreferences =
+                    ContextUtil.context.getSharedPreferences(name, Context.MODE_PRIVATE)
             }
             return sharedPreferences
         }
@@ -38,28 +39,29 @@ class SharedPreferencesUtil<T>(private val keyName: String, private val default:
         /**
          * Put SharedPreferences, the method may set a string/boolean/int/float/long value in the preferences editor
          */
-        fun put(key: String, value: Any): Boolean {
-            return put(null, key, value)
-        }
-
-        /**
-         * Put SharedPreferences, the method may set a string/boolean/int/float/long value in the preferences editor
-         */
-        fun put(name: String?, key: String, value: Any?): Boolean {
+        @JvmStatic
+        @JvmOverloads
+        fun put(key: String, value: Any?, name: String? = null): Boolean {
             if (TextUtils.isEmpty(key) || null == value) {
                 throw RuntimeException("key or value cannot be null.")
             }
             val editor = getSharedPreferences(name).edit()
-            if (value is String) {
-                editor.putString(key, value.toString())
-            } else if (value is Boolean) {
-                editor.putBoolean(key, java.lang.Boolean.parseBoolean(value.toString()))
-            } else if (value is Float) {
-                editor.putFloat(key, (value as Float?)!!)
-            } else if (value is Int) {
-                editor.putInt(key, (value as Int?)!!)
-            } else if (value is Long) {
-                editor.putLong(key, (value as Long?)!!)
+            when (value) {
+                is String -> {
+                    editor.putString(key, value.toString())
+                }
+                is Boolean -> {
+                    editor.putBoolean(key, java.lang.Boolean.parseBoolean(value.toString()))
+                }
+                is Float -> {
+                    editor.putFloat(key, (value as Float?)!!)
+                }
+                is Int -> {
+                    editor.putInt(key, (value as Int?)!!)
+                }
+                is Long -> {
+                    editor.putLong(key, (value as Long?)!!)
+                }
             }
             return editor.commit()
         }
@@ -67,38 +69,39 @@ class SharedPreferencesUtil<T>(private val keyName: String, private val default:
         /**
          * Put all SharedPreferences, all the data will be maked a list.
          */
-        fun putAll(key: String, list: List<*>): Boolean {
-            return putAll(null, key, list)
-        }
-
-        /**
-         * Put all SharedPreferences, all the data will be maked a list.
-         */
-        fun putAll(name: String?, key: String, list: List<*>): Boolean {
+        @JvmStatic
+        @JvmOverloads
+        fun putAll(key: String, list: List<*>, name: String? = null): Boolean {
             if (TextUtils.isEmpty(key) || list.isEmpty()) {
                 throw RuntimeException("key or list cannot be null.")
             }
             val editor = getSharedPreferences(name).edit()
             val size = list.size
-            if (list[0] is String) {
-                for (i in 0 until size) {
-                    editor.putString(key + i, list[i] as String)
+            when {
+                list[0] is String -> {
+                    for (i in 0 until size) {
+                        editor.putString(key + i, list[i] as String)
+                    }
                 }
-            } else if (list[0] is Long) {
-                for (i in 0 until size) {
-                    editor.putLong(key + i, list[i] as Long)
+                list[0] is Long -> {
+                    for (i in 0 until size) {
+                        editor.putLong(key + i, list[i] as Long)
+                    }
                 }
-            } else if (list[0] is Float) {
-                for (i in 0 until size) {
-                    editor.putFloat(key + i, list[i] as Float)
+                list[0] is Float -> {
+                    for (i in 0 until size) {
+                        editor.putFloat(key + i, list[i] as Float)
+                    }
                 }
-            } else if (list[0] is Int) {
-                for (i in 0 until size) {
-                    editor.putLong(key + i, (list[i] as Int).toLong())
+                list[0] is Int -> {
+                    for (i in 0 until size) {
+                        editor.putLong(key + i, (list[i] as Int).toLong())
+                    }
                 }
-            } else if (list[0] is Boolean) {
-                for (i in 0 until size) {
-                    editor.putBoolean(key + i, list[i] as Boolean)
+                list[0] is Boolean -> {
+                    for (i in 0 until size) {
+                        editor.putBoolean(key + i, list[i] as Boolean)
+                    }
                 }
             }
             return editor.commit()
@@ -109,114 +112,89 @@ class SharedPreferencesUtil<T>(private val keyName: String, private val default:
          *
          * @return Returns a map containing a list of pairs key/value representing the preferences.
          */
-        val all: Map<String, *>
-            get() = getAll(null)
-
-        /**
-         * Retrieve all values from the preferences.
-         *
-         * @return Returns a map containing a list of pairs key/value representing the preferences.
-         */
-        fun getAll(name: String?): Map<String, *> {
+        @JvmStatic
+        @JvmOverloads
+        fun getAll(name: String? = null): Map<String, *> {
             return getSharedPreferences(name).all
         }
 
         /**
          * Retrieve a boolean value from the preferences.
          */
-        fun getBoolean(key: String): Boolean {
-            return getBoolean(null, key)
-        }
-
-        /**
-         * Retrieve a boolean value from the preferences.
-         */
-        fun getBoolean(name: String?, key: String): Boolean {
-            return getSharedPreferences(name).getBoolean(key, false)
+        @JvmStatic
+        @JvmOverloads
+        fun getBoolean(key: String, defValue: Boolean = false, name: String? = null): Boolean {
+            return getSharedPreferences(name).getBoolean(key, defValue)
         }
 
         /**
          * Retrieve a long value from the preferences.
          */
-        fun getLong(key: String): Long {
-            return getLong(null, key)
-        }
-
-        /**
-         * Retrieve a long value from the preferences.
-         */
-        fun getLong(name: String?, key: String): Long {
-            return getSharedPreferences(name).getLong(key, 0L)
+        @JvmStatic
+        @JvmOverloads
+        fun getLong(key: String, defValue: Long = 0L, name: String? = null): Long {
+            return getSharedPreferences(name).getLong(key, defValue)
         }
 
         /**
          * Retrieve a float value from the preferences.
          */
-        fun getFloat(key: String): Float {
-            return getFloat(null, key)
-        }
-
-        /**
-         * Retrieve a float value from the preferences.
-         */
-        fun getFloat(name: String?, key: String): Float {
-            return getSharedPreferences(name).getFloat(key, 0f)
+        @JvmStatic
+        @JvmOverloads
+        fun getFloat(key: String, defValue: Float = 0F, name: String? = null): Float {
+            return getSharedPreferences(name).getFloat(key, defValue)
         }
 
         /**
          * Retrieve a int value from the preferences.
          */
-        fun getInt(key: String): Int {
-            return getInt(null, key)
-        }
-
-        /**
-         * Retrieve a int value from the preferences.
-         */
-        fun getInt(name: String?, key: String): Int {
-            return getSharedPreferences(name).getInt(key, 0)
+        @JvmStatic
+        @JvmOverloads
+        fun getInt(key: String, defValue: Int = 0, name: String? = null): Int {
+            return getSharedPreferences(name).getInt(key, defValue)
         }
 
         /**
          * Retrieve a String value from the preferences.
          */
-        fun getString(key: String): String {
-            return getString(null, key)
-        }
-
-        /**
-         * Retrieve a String value from the preferences.
-         */
-        fun getString(name: String?, key: String): String {
-            return getSharedPreferences(name).getString(key, null).toString()
+        @JvmStatic
+        @JvmOverloads
+        fun getString(key: String, defValue: String = "", name: String? = null): String {
+            return getSharedPreferences(name).getString(key, defValue).toString()
         }
 
         /**
          * Mark in the editor that a preference value should be removed.
          */
-        fun remove(key: String): Boolean {
-            return remove(null, key)
-        }
-
-        /**
-         * Mark in the editor that a preference value should be removed.
-         */
-        fun remove(name: String?, key: String): Boolean {
+        @JvmStatic
+        @JvmOverloads
+        fun remove(key: String, name: String? = null): Boolean {
             val editor = getSharedPreferences(name).edit()
             editor.remove(key)
             return editor.commit()
         }
 
         /**
+         * 查询某个key是否已经存在
+         *
+         * @param key
+         * @return
+         */
+        @JvmStatic
+        fun contains(key: String): Boolean {
+            return sharedPreferences.contains(key)
+        }
+
+        /**
          * Mark in the editor to remove all values from the preferences.
          */
+        @JvmStatic
         @JvmOverloads
         fun clear(name: String? = null): Boolean {
             val editor = getSharedPreferences(name).edit()
             editor.clear()
             return editor.commit()
         }
-
     }
 
     operator fun getValue(thisRef: Any?, property: KProperty<*>): T {
@@ -301,16 +279,5 @@ class SharedPreferencesUtil<T>(private val keyName: String, private val default:
         objectInputStream.close()
         byteArrayInputStream.close()
         return obj
-    }
-
-
-    /**
-     * 查询某个key是否已经存在
-     *
-     * @param key
-     * @return
-     */
-    fun contains(key: String): Boolean {
-        return sharedPreferences.contains(key)
     }
 }

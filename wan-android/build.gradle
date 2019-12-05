@@ -89,18 +89,6 @@ dependencies {
      * navigation 扩展插件
      */
     implementation Config.navigationLibs
-    /**
-     * 奇虎360插件化方案RePlugin插件lib
-     */
-    implementation Config.rePlugin.pluginLib
 }
 
-//==================================================================================================
-// 这个plugin需要放在android配置之后，因为需要读取android中的配置项
-//apply plugin: 'replugin-plugin-gradle'
-//repluginPluginConfig {
-//    pluginName = "WanAndroid"
-//    hostApplicationId = "com.wkz.kotlinmvvm"
-//    hostAppLauncherActivity = "com.wkz.kotlinmvvm.test.TestActivity"
-//}
-//==================================================================================================
+
