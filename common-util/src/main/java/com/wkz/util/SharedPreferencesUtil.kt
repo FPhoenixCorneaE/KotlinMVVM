@@ -8,7 +8,22 @@ import java.io.*
 import kotlin.reflect.KProperty
 
 /**
- * SharedPreferences 偏好设定工具类
+ * SharedPreferences 偏好设定工具类,轻量级的存储
+ * 1、每次添加键值对时,会重新写入整个文件数据,所以不适合大量数据存储;
+ * 2、commit()提交到硬盘是同步过程;apply()先提交到内存后异步提交到硬盘,无返回值;主线程使用commit()需考虑ANR问题;
+ *    不关心提交结果是否成功的情况下,优先考虑apply()方法;
+ * 3、多线程场景下效率较低,get()操作会锁定SharedPreferencesImpl里的对象,互斥其他操作,而当put()、commit()和
+ *    apply()操作时会锁住Editor对象;
+ * 4、由于每次都会把整个文件加载到内存中,因此,如果SharedPreferences文件过大,或者其中的键值对是大对象的JSON
+ *    数据则会占用大量内存,读取较慢是一方面,同时也会引发程序频繁GC,导致界面卡顿。
+ *
+ * 建议:
+ * 1、频繁修改的数据修改后统一提交,而不是修改过后马上提交;
+ * 2、在跨进程通讯中不去使用SharedPreferences;
+ * 3、获取SharedPreferences对象时会读取SharedPreferences文件,如果文件没有读取完,就执行get()和put()操作,可能
+ *    会出现需要等待的情况,因此最好提交获取SharedPreferences对象;
+ * 4、每次调用edit()方法都会创建一个新的EditorImpl对象,不要频繁调用edit()方法。
+ *
  * @author wkz
  * @date 2019-12-05 10:14
  */

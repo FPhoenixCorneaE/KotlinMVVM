@@ -39,6 +39,26 @@ class FragmentUtil private constructor() {
         }
 
         /**
+         * Replace an existing child fragment that was added to a container.
+         */
+        fun replaceChildFragment(
+            fragment: Fragment, containerViewId: Int,
+            newFragment: Fragment?, bundle: Bundle,
+            canBack: Boolean
+        ) {
+            if (newFragment == null) {
+                return
+            }
+            val mFragmentTransaction = fragment.childFragmentManager.beginTransaction()
+            newFragment.arguments = bundle
+            mFragmentTransaction.replace(containerViewId, newFragment, newFragment.javaClass.name)
+            if (canBack) {
+                mFragmentTransaction.addToBackStack(null)
+            }
+            mFragmentTransaction.commit()
+        }
+
+        /**
          * Add a fragment to the activity state. This fragment may optionally also have its view (if
          * [Fragment.onCreateView] returns non-null) into a container view of the activity.
          */
