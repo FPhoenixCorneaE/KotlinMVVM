@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
 import android.text.TextUtils
+import com.orhanobut.logger.Logger
 import java.io.*
 import kotlin.reflect.KProperty
 
@@ -261,11 +262,16 @@ class SharedPreferencesUtil<T>(private val keyName: String, private val default:
         val objectOutputStream = ObjectOutputStream(
             byteArrayOutputStream
         )
-        objectOutputStream.writeObject(obj)
-        var serStr = byteArrayOutputStream.toString("ISO-8859-1")
-        serStr = java.net.URLEncoder.encode(serStr, "UTF-8")
-        objectOutputStream.close()
-        byteArrayOutputStream.close()
+        var serStr = ""
+        try {
+            objectOutputStream.writeObject(obj)
+            serStr = byteArrayOutputStream.toString("ISO-8859-1")
+            serStr = java.net.URLEncoder.encode(serStr, "UTF-8")
+        } catch (e: Exception) {
+            Logger.e(e.toString())
+        } finally {
+            CloseUtil.closeIOQuietly(objectOutputStream, byteArrayOutputStream)
+        }
         return serStr
     }
 
@@ -291,8 +297,7 @@ class SharedPreferencesUtil<T>(private val keyName: String, private val default:
             byteArrayInputStream
         )
         val obj = objectInputStream.readObject() as A
-        objectInputStream.close()
-        byteArrayInputStream.close()
+        CloseUtil.closeIOQuietly(objectInputStream, byteArrayInputStream)
         return obj
     }
 }

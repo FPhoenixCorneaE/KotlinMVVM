@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 
 /**
- * 尺寸相关工具类
+ * 尺寸相关工具类,必须先初始化ContextUtil
  * @author wkz
  */
 class SizeUtil private constructor() {
@@ -18,7 +18,7 @@ class SizeUtil private constructor() {
     /**
      * 获取到View尺寸的监听
      */
-    interface onGetSizeListener {
+    interface OnGetSizeListener {
         fun onGetSize(view: View)
     }
 
@@ -53,7 +53,7 @@ class SizeUtil private constructor() {
          * @return px值
          */
         fun sp2px(spValue: Float): Int {
-            val fontScale = ContextUtil.context.getResources().getDisplayMetrics().scaledDensity
+            val fontScale = ContextUtil.context.resources.displayMetrics.scaledDensity
             return (spValue * fontScale + 0.5f).toInt()
         }
 
@@ -64,7 +64,7 @@ class SizeUtil private constructor() {
          * @return sp值
          */
         fun px2sp(pxValue: Float): Int {
-            val fontScale = ContextUtil.context.getResources().getDisplayMetrics().scaledDensity
+            val fontScale = ContextUtil.context.resources.displayMetrics.scaledDensity
             return (pxValue / fontScale + 0.5f).toInt()
         }
 
@@ -108,7 +108,7 @@ class SizeUtil private constructor() {
          * @param view     视图
          * @param listener 监听器
          */
-        fun forceGetViewSize(view: View, listener: onGetSizeListener?) {
+        fun forceGetViewSize(view: View, listener: OnGetSizeListener?) {
             view.post {
                 listener?.onGetSize(view)
             }
@@ -131,10 +131,13 @@ class SizeUtil private constructor() {
             val widthSpec = ViewGroup.getChildMeasureSpec(0, 0, lp.width)
             val lpHeight = lp.height
             val heightSpec: Int
-            if (lpHeight > 0) {
-                heightSpec = View.MeasureSpec.makeMeasureSpec(lpHeight, View.MeasureSpec.EXACTLY)
-            } else {
-                heightSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
+            heightSpec = when {
+                lpHeight > 0 -> {
+                    View.MeasureSpec.makeMeasureSpec(lpHeight, View.MeasureSpec.EXACTLY)
+                }
+                else -> {
+                    View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
+                }
             }
             view.measure(widthSpec, heightSpec)
             return intArrayOf(view.measuredWidth, view.measuredHeight)

@@ -1,7 +1,12 @@
 package com.wkz.extension
 
+import com.wkz.util.CloseUtil
+import com.wkz.util.ContextUtil
 import com.wkz.util.SizeUtil
 import com.wkz.util.ToastUtil
+import java.io.BufferedReader
+import java.io.InputStreamReader
+import java.nio.charset.Charset
 
 /**
  * @desc: 扩展
@@ -19,41 +24,30 @@ fun px2dp(pxValue: Float): Int {
 }
 
 /**
- * 持续时间格式化
+ * 读取assets文件夹下文件
+ * @param fileName 文件名称
+ * @return Json String
  */
-fun durationFormat(duration: Long?): String {
-    val minute = duration!! / 60
-    val second = duration % 60
-    return if (minute <= 9) {
-        if (second <= 9) {
-            "0$minute' 0$second''"
-        } else {
-            "0$minute' $second''"
+fun readFileFromAssets(fileName: String): String {
+    val stringBuilder = StringBuilder()
+    //获得assets资源管理器
+    //使用IO流读取json文件内容
+    var bufferedReader: BufferedReader? = null
+    try {
+        val assetManager = ContextUtil.context.assets
+        bufferedReader = BufferedReader(
+            InputStreamReader(assetManager.open(fileName), Charset.defaultCharset())
+        )
+        var line: String?
+        while (bufferedReader.readLine().also { line = it } != null) {
+            stringBuilder.append(line)
         }
-    } else {
-        if (second <= 9) {
-            "$minute' 0$second''"
-        } else {
-            "$minute' $second''"
-        }
+    } catch (e: Exception) {
+        e.printStackTrace()
+    } finally {
+        CloseUtil.closeIOQuietly(bufferedReader)
+        return stringBuilder.toString()
     }
 }
-
-/**
- * 数据流量格式化
- */
-fun dataFormat(total: Long): String {
-    val result: String
-    val speedReal: Int = (total / (1024)).toInt()
-    result = if (speedReal < 512) {
-        speedReal.toString() + " KB"
-    } else {
-        val mSpeed = speedReal / 1024.0
-        (Math.round(mSpeed * 100) / 100.0).toString() + " MB"
-    }
-    return result
-}
-
-
 
 

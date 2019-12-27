@@ -17,6 +17,7 @@ package com.wkz.rxretrofit.network.ssl
 
 import android.annotation.SuppressLint
 import com.orhanobut.logger.Logger
+import com.wkz.util.CloseUtil
 import java.io.IOException
 import java.io.InputStream
 import java.security.KeyManagementException
@@ -168,12 +169,7 @@ object SslSocketUtils {
                 val cert = certificateFactory.generateCertificate(certStream)
                 // 将 cert 作为可信证书放入到keyStore中
                 keyStore.setCertificateEntry(certificateAlias, cert)
-                try {
-                    certStream.close()
-                } catch (e: IOException) {
-                    Logger.e(e.toString())
-                }
-
+                CloseUtil.closeIOQuietly(certStream)
             }
             //我们创建一个默认类型的TrustManagerFactory
             val tmf = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm())

@@ -37,7 +37,7 @@ class ContextUtil private constructor() {
         val context: Context
             get() {
                 if (sContext == null) {
-                    throw NullPointerException("U should call init method first!")
+                    throw NullPointerException("U should call ContextUtil.init(context: Context) first!")
                 }
                 return sContext as Context
             }

@@ -1,5 +1,6 @@
 package com.wkz.util
 
+import com.orhanobut.logger.Logger
 import java.io.Closeable
 import java.io.IOException
 
@@ -27,7 +28,7 @@ class CloseUtil private constructor() {
                 try {
                     closeable.close()
                 } catch (e: IOException) {
-                    e.printStackTrace()
+                    Logger.e(e.toString())
                 }
             }
         }
@@ -37,12 +38,12 @@ class CloseUtil private constructor() {
          *
          * @param closeables closeables
          */
-        fun closeIOQuietly(vararg closeables: Closeable) {
+        fun closeIOQuietly(vararg closeables: Closeable?) {
             for (closeable in closeables) {
                 try {
-                    closeable.close()
+                    closeable?.close()
                 } catch (e: IOException) {
-                    e.printStackTrace()
+                    Logger.e(e.toString())
                 }
             }
         }

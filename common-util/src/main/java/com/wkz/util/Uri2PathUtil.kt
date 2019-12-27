@@ -131,7 +131,7 @@ object Uri2PathUtil {
         if (cursor != null) {
             cursor.moveToFirst()
             filePath = cursor.getString(cursor.getColumnIndex(projection[0]))
-            cursor.close()
+            CloseUtil.closeIOQuietly(cursor)
         }
         return filePath
     }
@@ -150,7 +150,7 @@ object Uri2PathUtil {
             context.contentResolver.query(uri, projection, null, null, null)
         if (cursor != null && cursor.moveToFirst()) {
             filePath = cursor.getString(cursor.getColumnIndex(projection[0]))
-            cursor.close()
+            CloseUtil.closeIOQuietly(cursor)
         }
         return filePath
     }
@@ -193,16 +193,7 @@ object Uri2PathUtil {
         } catch (e: java.lang.Exception) {
             e.printStackTrace()
         } finally {
-            try {
-                inputStream?.close()
-            } catch (e: IOException) {
-                e.printStackTrace()
-            }
-            try {
-                outputStream?.close()
-            } catch (e: IOException) {
-                e.printStackTrace()
-            }
+            CloseUtil.closeIOQuietly(inputStream, outputStream)
         }
     }
 
@@ -222,19 +213,10 @@ object Uri2PathUtil {
                 count += n
             }
             out.flush()
-        } catch (e: java.lang.Exception) {
+        } catch (e: Exception) {
             e.printStackTrace()
         } finally {
-            try {
-                out.close()
-            } catch (e: IOException) {
-                e.printStackTrace()
-            }
-            try {
-                `in`.close()
-            } catch (e: IOException) {
-                e.printStackTrace()
-            }
+            CloseUtil.closeIOQuietly(out, `in`)
         }
         return count
     }
@@ -269,7 +251,7 @@ object Uri2PathUtil {
         } catch (e: Exception) {
             e.printStackTrace()
         } finally {
-            cursor?.close()
+            CloseUtil.closeIOQuietly(cursor)
         }
         return null
     }

@@ -27,7 +27,7 @@ object ImgBase64Util {
         }
         var `is`: InputStream? = null
         val data: ByteArray?
-        var result: String
+        var result = ""
         try {
             `is` = FileInputStream(path)
             //创建一个字符流大小的数组。
@@ -35,21 +35,13 @@ object ImgBase64Util {
             //写入数组
             `is`.read(data)
             //用默认的编码格式进行编码
-            result = Base64.encodeToString(data, Base64.DEFAULT)
+            result = Base64.encodeToString(data, Base64.NO_WRAP)
         } catch (e: IOException) {
             Logger.e(e.toString())
-            result = ""
         } catch (e: FileNotFoundException) {
             Logger.e(e.toString())
-            result = ""
         } finally {
-            if (null != `is`) {
-                try {
-                    `is`.close()
-                } catch (e: IOException) {
-                    Logger.e(e.toString())
-                }
-            }
+            CloseUtil.closeIOQuietly(`is`)
         }
         return result
     }
@@ -62,6 +54,6 @@ object ImgBase64Util {
      */
     @JvmStatic
     fun base64ToByteArray(base64Str: String): ByteArray {
-        return Base64.decode(base64Str, Base64.DEFAULT)
+        return Base64.decode(base64Str, Base64.NO_WRAP)
     }
 }
