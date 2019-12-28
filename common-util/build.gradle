@@ -49,4 +49,12 @@ dependencies {
     api(Config.logger) {
         transitive true
     }
+    /**
+     * RxPermissions,权限管理
+     */
+    implementation Config.rxPermissions
+    /**
+     * RxJava2
+     */
+    implementation Config.rxJava2Libs
 }

@@ -8,8 +8,6 @@ buildscript {
     dependencies {
         classpath Config.classpath.gradle
         classpath Config.classpath.kotlin
-        classpath Config.classpath.rePluginHostGradle
-//        classpath Config.classpath.rePluginPluginGradle
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }

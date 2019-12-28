@@ -20,3 +20,5 @@
 /wanandroid/src/test
 /wanandroid/src/androidTest
 /magic-indicator/build
+/standalone/standalone-common-util/src/test
+/standalone/standalone-common-util/src/androidTest

@@ -8,9 +8,14 @@ import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.nio.charset.Charset
 
-/**
- * @desc: 扩展
- */
+fun Any?.isNull(): Boolean {
+    return this == null
+}
+
+fun Any?.isNonNull(): Boolean {
+    return this != null
+}
+
 fun showToast(content: CharSequence) {
     ToastUtil.showShort(content)
 }

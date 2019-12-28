@@ -122,7 +122,7 @@ class OpenEyesVideoDetailAdapter(mContext: Context, data: ArrayList<OpenEyesHome
         //视频简介
         data.data?.description?.let { holder.setText(R.id.expandable_text, it) }
         //标签
-        holder.setText(R.id.tv_tag, "#${data.data?.category} / ${durationFormat(data.data?.duration)}")
+        holder.setText(R.id.tv_tag, "#${data.data?.category} / ${durationFormat(data.data?.duration?:0)}")
         //喜欢
         holder.setText(R.id.tv_action_favorites, data.data?.consumption?.collectionCount.toString())
         //分享

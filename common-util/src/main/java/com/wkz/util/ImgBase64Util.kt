@@ -8,8 +8,8 @@ import java.io.IOException
 import java.io.InputStream
 
 /**
- * @author wkz
  * @desc: 图片、Base64字符集转换工具类
+ * @author wkz
  * @date 2019/4/23 16:44
  */
 object ImgBase64Util {
