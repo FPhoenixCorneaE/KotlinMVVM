@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <Button
+        android:id="@+id/mBtnHasShortcut"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:text="是否存在快捷方式"
+        android:textColor="#123456"
+        android:textSize="12sp"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ButtonStyle,HardcodedText" />
+
+    <Button
+        android:id="@+id/mBtnCreateShortcut"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:text="创建快捷方式"
+        android:textColor="#123456"
+        android:textSize="12sp"
+        app:layout_constraintTop_toBottomOf="@+id/mBtnHasShortcut"
+        tools:ignore="ButtonStyle,HardcodedText" />
+
+    <Button
+        android:id="@+id/mBtnDeleteShortcut"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:text="删除快捷方式"
+        android:textColor="#123456"
+        android:textSize="12sp"
+        app:layout_constraintTop_toBottomOf="@+id/mBtnCreateShortcut"
+        tools:ignore="ButtonStyle,HardcodedText" />
+</androidx.constraintlayout.widget.ConstraintLayout>

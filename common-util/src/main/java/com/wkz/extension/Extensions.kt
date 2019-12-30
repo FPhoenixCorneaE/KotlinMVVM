@@ -1,5 +1,6 @@
 package com.wkz.extension
 
+import android.text.TextUtils
 import com.wkz.util.CloseUtil
 import com.wkz.util.ContextUtil
 import com.wkz.util.SizeUtil
@@ -14,6 +15,10 @@ fun Any?.isNull(): Boolean {
 
 fun Any?.isNonNull(): Boolean {
     return this != null
+}
+
+fun CharSequence?.equals(charSequence: CharSequence?): Boolean {
+    return TextUtils.equals(this, charSequence)
 }
 
 fun showToast(content: CharSequence) {

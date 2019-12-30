@@ -1,6 +1,7 @@
 package com.wkz.standalone_common_util
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.BlurMaskFilter
 import android.graphics.Color
 import android.os.Bundle
@@ -8,6 +9,7 @@ import android.text.Layout
 import androidx.appcompat.app.AppCompatActivity
 import com.wkz.extension.isNonNull
 import com.wkz.extension.isNull
+import com.wkz.extension.showToast
 import com.wkz.util.ContextUtil
 import com.wkz.util.PermissionCallBack
 import com.wkz.util.PermissionUtil
@@ -20,7 +22,126 @@ class StandaloneMainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.standalone_activity_main)
         ContextUtil.init(this)
+        iniListener()
         initData()
+    }
+
+    private fun iniListener() {
+        // 申请权限
+        mBtnApplyLocation.setOnClickListener {
+            PermissionUtil.requestLocationPermission(this, object : PermissionCallBack {
+                /**
+                 * 申请权限成功
+                 *
+                 * @param context 上下文
+                 */
+                override fun onPermissionGranted(context: Context?) {
+                    showToast("申请定位权限成功")
+                }
+
+                /**
+                 * 申请权限失败
+                 *
+                 * @param context 上下文
+                 * @param type    类型，1是拒绝权限，2是申请失败
+                 */
+                override fun onPermissionDenied(context: Context?, type: Int) {
+                    showToast("申请定位权限失败,Type:$type")
+                }
+            })
+        }
+        mBtnApplyPhone.setOnClickListener {
+            PermissionUtil.requestPhonePermission(this, object : PermissionCallBack {
+                /**
+                 * 申请权限成功
+                 *
+                 * @param context 上下文
+                 */
+                override fun onPermissionGranted(context: Context?) {
+                    showToast("申请电话权限成功")
+                }
+
+                /**
+                 * 申请权限失败
+                 *
+                 * @param context 上下文
+                 * @param type    类型，1是拒绝权限，2是申请失败
+                 */
+                override fun onPermissionDenied(context: Context?, type: Int) {
+                    showToast("申请电话权限失败,Type:$type")
+                }
+            })
+        }
+        mBtnApplyWrite.setOnClickListener {
+            PermissionUtil.requestWritePermission(this, object : PermissionCallBack {
+                /**
+                 * 申请权限成功
+                 *
+                 * @param context 上下文
+                 */
+                override fun onPermissionGranted(context: Context?) {
+                    showToast("申请读写权限成功")
+                }
+
+                /**
+                 * 申请权限失败
+                 *
+                 * @param context 上下文
+                 * @param type    类型，1是拒绝权限，2是申请失败
+                 */
+                override fun onPermissionDenied(context: Context?, type: Int) {
+                    showToast("申请读写权限失败,Type:$type")
+                }
+            })
+        }
+        mBtnApplySms.setOnClickListener {
+            PermissionUtil.requestSmsPermission(this, object : PermissionCallBack {
+                /**
+                 * 申请权限成功
+                 *
+                 * @param context 上下文
+                 */
+                override fun onPermissionGranted(context: Context?) {
+                    showToast("申请短信权限成功")
+                }
+
+                /**
+                 * 申请权限失败
+                 *
+                 * @param context 上下文
+                 * @param type    类型，1是拒绝权限，2是申请失败
+                 */
+                override fun onPermissionDenied(context: Context?, type: Int) {
+                    showToast("申请短信权限失败,Type:$type")
+                }
+            })
+        }
+        mBtnApplyCamera.setOnClickListener {
+            PermissionUtil.requestCameraPermission(this, object : PermissionCallBack {
+                /**
+                 * 申请权限成功
+                 *
+                 * @param context 上下文
+                 */
+                override fun onPermissionGranted(context: Context?) {
+                    showToast("申请相机权限成功")
+                }
+
+                /**
+                 * 申请权限失败
+                 *
+                 * @param context 上下文
+                 * @param type    类型，1是拒绝权限，2是申请失败
+                 */
+                override fun onPermissionDenied(context: Context?, type: Int) {
+                    showToast("申请相机权限失败,Type:$type")
+                }
+            })
+        }
+
+        mBtnShortcut.setOnClickListener {
+            startActivity(Intent(this, StandaloneShortcutActivity::class.java))
+        }
     }
 
     private fun initData() {
@@ -59,40 +180,7 @@ class StandaloneMainActivity : AppCompatActivity() {
 
         // 判断是否为null
         val isNull: String? = null
-        mTvIsNullOrNonNull.text = "isNull:${isNull.isNull()}  isNonNull:${isNull.isNonNull()}"
-
-        // 申请权限
-        mTvApplyLocation.setOnClickListener {
-            PermissionUtil.checkLocationPermission(this, object : PermissionCallBack {
-                /**
-                 * 申请权限成功
-                 *
-                 * @param context 上下文
-                 */
-                override fun onPermissionGranted(context: Context?) {
-                }
-
-                /**
-                 * 申请权限失败
-                 *
-                 * @param context 上下文
-                 * @param type    类型，1是拒绝权限，2是申请失败
-                 */
-                override fun onPermissionDenied(context: Context?, type: Int) {
-                }
-            })
-        }
-        mTvApplyPhone.setOnClickListener {
-            PermissionUtil.checkPhonePermissions(this)
-        }
-        mTvApplyWrite.setOnClickListener {
-            PermissionUtil.checkWritePermissionsRequest(this)
-        }
-        mTvApplySms.setOnClickListener {
-            PermissionUtil.checkSmsPermissions(this)
-        }
-        mTvApplyCamera.setOnClickListener {
-            PermissionUtil.checkCameraPermissions(this)
-        }
+        mTvIsNullOrNonNull.text =
+            "${isNull}--isNull:${isNull.isNull()}  --isNonNull:${isNull.isNonNull()}"
     }
 }

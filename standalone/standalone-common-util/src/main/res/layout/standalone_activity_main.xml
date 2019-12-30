@@ -2,13 +2,15 @@
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mNsvRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/mClChild"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="15dp"
+        android:padding="16dp"
         tools:context=".StandaloneMainActivity">
 
         <TextView
@@ -33,16 +35,17 @@
             tools:text="1234567890" />
 
         <LinearLayout
+            android:id="@+id/mLlRequestPermissions"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical"
             app:layout_constraintTop_toBottomOf="@+id/mTvIsNullOrNonNull">
 
             <Button
-                android:id="@+id/mTvApplyLocation"
-                android:layout_width="0dp"
+                android:id="@+id/mBtnApplyLocation"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:gravity="center"
                 android:text="申请定位"
                 android:textColor="#123456"
@@ -50,10 +53,9 @@
                 tools:ignore="ButtonStyle,HardcodedText" />
 
             <Button
-                android:id="@+id/mTvApplyPhone"
-                android:layout_width="0dp"
+                android:id="@+id/mBtnApplyPhone"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:gravity="center"
                 android:text="申请电话"
                 android:textColor="#123456"
@@ -61,10 +63,9 @@
                 tools:ignore="ButtonStyle,HardcodedText" />
 
             <Button
-                android:id="@+id/mTvApplyWrite"
-                android:layout_width="0dp"
+                android:id="@+id/mBtnApplyWrite"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:gravity="center"
                 android:text="申请读写"
                 android:textColor="#123456"
@@ -72,10 +73,9 @@
                 tools:ignore="ButtonStyle,HardcodedText" />
 
             <Button
-                android:id="@+id/mTvApplySms"
-                android:layout_width="0dp"
+                android:id="@+id/mBtnApplySms"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:gravity="center"
                 android:text="申请短信"
                 android:textColor="#123456"
@@ -83,15 +83,26 @@
                 tools:ignore="ButtonStyle,HardcodedText" />
 
             <Button
-                android:id="@+id/mTvApplyCamera"
-                android:layout_width="0dp"
+                android:id="@+id/mBtnApplyCamera"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:gravity="center"
                 android:text="申请相机"
                 android:textColor="#123456"
                 android:textSize="12sp"
                 tools:ignore="ButtonStyle,HardcodedText" />
         </LinearLayout>
+
+        <Button
+            android:id="@+id/mBtnShortcut"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:text="生成快捷方式"
+            android:textColor="#123456"
+            android:textSize="12sp"
+            app:layout_constraintTop_toBottomOf="@+id/mLlRequestPermissions"
+            tools:ignore="ButtonStyle,HardcodedText" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>
