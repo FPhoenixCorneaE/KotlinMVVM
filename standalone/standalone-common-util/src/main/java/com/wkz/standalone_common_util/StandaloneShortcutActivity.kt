@@ -13,6 +13,7 @@ class StandaloneShortcutActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.standalone_activity_shortcut)
         iniListener()
+        initData()
     }
 
     private fun iniListener() {
@@ -30,5 +31,14 @@ class StandaloneShortcutActivity : AppCompatActivity() {
         mBtnDeleteShortcut.setOnClickListener {
             ShortcutUtil.deleteShortcut(this, "快捷方式")
         }
+    }
+
+    private fun initData() {
+        showToast(
+            "Bundle数据${intent.getBooleanExtra(
+                "Boolean",
+                false
+            )}  ${intent.getStringExtra("String")}  ${intent.getStringExtra("String1")}"
+        )
     }
 }

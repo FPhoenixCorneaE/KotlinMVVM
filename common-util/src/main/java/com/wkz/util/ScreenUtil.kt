@@ -109,12 +109,12 @@ class ScreenUtil private constructor() {
          * @return 屏幕旋转角度
          */
         fun getScreenRotation(activity: Activity): Int {
-            when (activity.windowManager.defaultDisplay.rotation) {
-                Surface.ROTATION_0 -> return 0
-                Surface.ROTATION_90 -> return 90
-                Surface.ROTATION_180 -> return 180
-                Surface.ROTATION_270 -> return 270
-                else -> return 0
+            return when (activity.windowManager.defaultDisplay.rotation) {
+                Surface.ROTATION_0 -> 0
+                Surface.ROTATION_90 -> 90
+                Surface.ROTATION_180 -> 180
+                Surface.ROTATION_270 -> 270
+                else -> 0
             }
         }
 

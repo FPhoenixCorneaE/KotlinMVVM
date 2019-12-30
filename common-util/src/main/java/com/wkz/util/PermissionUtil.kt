@@ -351,36 +351,6 @@ object PermissionUtil {
                 }
             }
     }
-
-    /**
-     * 拨打电话
-     *
-     * @param activity        上下文
-     * @param telephoneNumber 电话
-     */
-    fun callPhone(
-        activity: FragmentActivity?,
-        telephoneNumber: String?
-    ) {
-        if (activity.isNull() || telephoneNumber.isNullOrEmpty()) {
-            return
-        }
-        requestPhonePermission(activity, object : PermissionCallBack {
-            @SuppressLint("MissingPermission")
-            override fun onPermissionGranted(context: Context?) {
-                val intent =
-                    Intent(Intent.ACTION_CALL, Uri.parse("tel:$telephoneNumber"))
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                activity?.startActivity(intent)
-            }
-
-            override fun onPermissionDenied(
-                context: Context?,
-                type: Int
-            ) {
-            }
-        })
-    }
 }
 
 /**

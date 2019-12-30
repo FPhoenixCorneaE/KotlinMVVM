@@ -1,4 +1,4 @@
-package com.wkz.util
+package com.wkz.util.encryption
 
 import android.util.Base64
 import java.security.MessageDigest
@@ -7,10 +7,8 @@ import javax.crypto.spec.IvParameterSpec
 import javax.crypto.spec.SecretKeySpec
 
 /**
- * AES加密、解密工具类
- *
- * @author wkz
- * @date 2019-11-28 13:34
+ * AES对称加密:
+ * Advanced Encryption Standard，高级数据加密标准，AES算法可以有效抵制针对DES的攻击算法，对称加密算法
  */
 object AesCryptUtil {
     private const val AES_MODE = "AES/CBC/PKCS7Padding"
@@ -119,7 +117,11 @@ object AesCryptUtil {
             val decodedCipherText =
                 Base64.decode(base64EncodedCipherText, Base64.NO_WRAP)
             val decryptedBytes =
-                decrypt(key, IV_BYTES, decodedCipherText)
+                decrypt(
+                    key,
+                    IV_BYTES,
+                    decodedCipherText
+                )
             String(decryptedBytes!!, charset(CHARSET))
         } catch (e: Exception) {
             e.printStackTrace()

@@ -24,20 +24,6 @@ class FileUtil private constructor() {
             charArrayOf('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F')
 
         /**
-         * @return 创建缓存目录
-         */
-        fun getCacheDirectory(child: String): File {
-            val file = File(ContextUtil.context.getExternalCacheDir(), child)
-            if (!file.exists()) {
-                val b = file.mkdirs()
-                Logger.i(child + "缓存文件夹不存在，创建" + if (b) "成功" else "失败")
-            } else {
-                Logger.i(child + "缓存文件夹已存在，无需创建")
-            }
-            return file
-        }
-
-        /**
          * 根据文件路径获取文件
          *
          * @param filePath 文件路径
