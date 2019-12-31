@@ -34,7 +34,7 @@
     <application>
         <!--Android 7.0适配-应用之间共享文件-->
         <provider
-            android:name="androidx.core.content.FileProvider"
+            android:name="com.wkz.CommonUtilFileProvider"
             android:authorities="${applicationId}.FileProvider"
             android:exported="false"
             android:grantUriPermissions="true">

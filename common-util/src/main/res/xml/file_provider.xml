@@ -4,7 +4,7 @@
         <!--代表外部存储区域的根目录下的文件 Environment.getExternalStorageDirectory()/DCIM/目录-->
         <!--name="" URI路径段，取值会隐藏你分享的目录的名字-->
         <!--path="" 你分享的目录的名字-->
-        <!--fr_DCIM 替代/storage/emulated/0/DCIM/-->
+        <!--DCIM 替代/storage/emulated/0/DCIM/-->
         <external-path
             name="DCIM"
             path="DCIM" />

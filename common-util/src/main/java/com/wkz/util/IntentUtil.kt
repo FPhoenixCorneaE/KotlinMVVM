@@ -207,12 +207,16 @@ object IntentUtil {
              * @param context 上下文
              */
             override fun onPermissionGranted(context: Context?) {
-                // 移动运营商允许每次发送的字节数据有限，我们可以使用Android给我们提供的短信工具
-                val sms = SmsManager.getDefault()
-                // 如果短信没有超过限制长度，则返回一个长度的List
-                val texts = sms.divideMessage(textMessage)
-                texts.forEach {
-                    sms.sendTextMessage(destinationAddress, null, it, null, null)
+                when {
+                    destinationAddress.isNotBlank() -> {
+                        // 移动运营商允许每次发送的字节数据有限，我们可以使用Android给我们提供的短信工具
+                        val sms = SmsManager.getDefault()
+                        // 如果短信没有超过限制长度，则返回一个长度的List
+                        val texts = sms.divideMessage(textMessage)
+                        texts.forEach {
+                            sms.sendTextMessage(destinationAddress, null, it, null, null)
+                        }
+                    }
                 }
             }
 

@@ -4,8 +4,9 @@ import android.annotation.SuppressLint
 import android.content.Context
 
 /**
- * 上下文工具类,very important：必须首先在Application的onCreate()中进行初始化！
- *
+ * 上下文工具类,very important：必须首先初始化！
+ * 1、在Application的onCreate()中进行初始化！
+ * 2、在ContentProvider的onCreate()中进行初始化,然后在AndroidManifest.xml中配置Provider！
  * @author wkz
  * @date 2019/06/20 21:33
  */
