@@ -47,7 +47,7 @@ class StandaloneMainActivity : AppCompatActivity() {
             })
         }
         mBtnApplyPhone.setOnClickListener {
-            IntentUtil.callPhone(this,"13104871646")
+            IntentUtil.callPhone(this, "13104871646")
         }
         mBtnApplyWrite.setOnClickListener {
             PermissionUtil.requestWritePermission(this, object : PermissionCallBack {
@@ -91,6 +91,13 @@ class StandaloneMainActivity : AppCompatActivity() {
                 android.R.anim.slide_out_right,
                 200
             )
+        }
+
+        mBtnVibrateOneShot.setOnClickListener {
+            VibrateUtil.vibrate(1000)
+        }
+        mBtnVibrateWaveform.setOnClickListener {
+            VibrateUtil.vibrate(arrayOf(100L, 200L, 100L, 200L, 100L, 200L).toLongArray(), 1)
         }
     }
 

@@ -104,5 +104,33 @@
             android:textSize="12sp"
             app:layout_constraintTop_toBottomOf="@+id/mLlRequestPermissions"
             tools:ignore="ButtonStyle,HardcodedText" />
+
+        <Button
+            android:id="@+id/mBtnVibrateOneShot"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:text="一次性震动"
+            android:textColor="#123456"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mBtnShortcut"
+            app:layout_constraintWidth_percent="0.5"
+            tools:ignore="ButtonStyle,HardcodedText" />
+
+        <Button
+            android:id="@+id/mBtnVibrateWaveform"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:text="波形震动"
+            android:textColor="#123456"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mBtnShortcut"
+            app:layout_constraintWidth_percent="0.5"
+            tools:ignore="ButtonStyle,HardcodedText" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

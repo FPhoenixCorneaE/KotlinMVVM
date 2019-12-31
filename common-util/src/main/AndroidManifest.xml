@@ -30,6 +30,8 @@
     <!--  查询快捷方式兼容权限  -->
     <uses-permission android:name="com.bbk.launcher2.permission.READ_SETTINGS" />
     <uses-permission android:name="com.bbk.launcher2.permission.WRITE_SETTINGS" />
+    <!--  震动  -->
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application>
         <!--Android 7.0适配-应用之间共享文件-->
