@@ -1,17 +1,23 @@
 package com.wkz.standalone_common_util
 
+import android.Manifest
 import android.content.Context
 import android.content.Intent
 import android.graphics.BlurMaskFilter
 import android.graphics.Color
 import android.os.Bundle
+import android.os.Environment
+import android.provider.Settings
 import android.text.Layout
+import android.widget.SeekBar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentActivity
 import com.wkz.extension.isNonNull
 import com.wkz.extension.isNull
 import com.wkz.extension.showToast
 import com.wkz.util.*
 import kotlinx.android.synthetic.main.standalone_activity_main.*
+import java.io.File
 
 class StandaloneMainActivity : AppCompatActivity() {
 
@@ -94,11 +100,50 @@ class StandaloneMainActivity : AppCompatActivity() {
         }
 
         mBtnVibrateOneShot.setOnClickListener {
-            VibrateUtil.vibrate(1000)
+            VibrateUtil.vibrate(200)
         }
         mBtnVibrateWaveform.setOnClickListener {
-            VibrateUtil.vibrate(arrayOf(100L, 200L, 100L, 200L, 100L, 200L).toLongArray(), 1)
+            VibrateUtil.vibrate(arrayOf(1000L, 200L, 1000L, 200L, 1000L, 200L).toLongArray(), 1)
         }
+        mBtnZipFile.setOnClickListener {
+            val srcFilePath = File(Environment.getExternalStorageDirectory(), "周报/")
+            if (srcFilePath.exists()) {
+                showToast("源文件存在！")
+                val zipFilePath =
+                    File(Environment.getExternalStorageDirectory(), "周报.zip")
+                if (!zipFilePath.exists()) {
+                    zipFilePath.createNewFile()
+                }
+            }
+        }
+
+        // 申请"android.permission.WRITE_SETTINGS"权限
+        PermissionUtil.requestPermission(
+            ActivityUtil.topActivity as FragmentActivity,
+            object : PermissionCallBack {
+                override fun onPermissionGranted(context: Context?) {
+                    BrightnessUtil.setAutoBrightnessEnabled(true)
+                }
+
+                override fun onPermissionDenied(context: Context?, type: Int) {
+                    IntentUtil.openSettings(context, Settings.ACTION_MANAGE_WRITE_SETTINGS)
+                }
+            },
+            Manifest.permission.WRITE_SETTINGS
+        )
+
+        mSbBrightness.setProgress(BrightnessUtil.brightness,true)
+        mSbBrightness.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(p0: SeekBar?, progress: Int, fromUser: Boolean) {
+                BrightnessUtil.setBrightness(progress)
+            }
+
+            override fun onStartTrackingTouch(p0: SeekBar?) {
+            }
+
+            override fun onStopTrackingTouch(p0: SeekBar?) {
+            }
+        })
     }
 
     private fun initData() {
@@ -148,5 +193,10 @@ class StandaloneMainActivity : AppCompatActivity() {
                 showToast("requestCode:$requestCode")
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        VibrateUtil.cancel()
     }
 }

@@ -1,7 +1,5 @@
 package com.wkz.annotation
 
-import kotlin.math.pow
-
 /**
  * @desc 内存单位
  * @author wkz
@@ -14,58 +12,58 @@ annotation class MemoryUnit {
         /**
          * Byte与Byte的倍数
          */
-        val BYTE: Long = 1024.0.pow(0.0).toLong()
+        const val BYTE: Long = 1
         /**
          * KB与Byte的倍数
          */
-        val KB: Long = 1024.0.pow(1.0).toLong()
+        const val KB: Long = BYTE * 1024
         /**
          * MB与Byte的倍数
          */
-        val MB: Long = 1024.0.pow(2.0).toLong()
+        const val MB: Long = KB * 1024
         /**
          * GB与Byte的倍数
          */
-        val GB: Long = 1024.0.pow(3.0).toLong()
+        const val GB: Long = MB * 1024
         /**
          * TB与Byte的倍数
          */
-        val TB: Long = 1024.0.pow(4.0).toLong()
+        const val TB: Long = GB * 1024
         /**
          * PB与Byte的倍数
          */
-        val PB: Long = 1024.0.pow(5.0).toLong()
+        const val PB: Long = TB * 1024
         /**
          * EB与Byte的倍数
          */
-        val EB: Long = 1024.0.pow(6.0).toLong()
+        const val EB: Long = PB * 1024
         /**
          * ZB与Byte的倍数
          */
-        val ZB: Long = 1024.0.pow(7.0).toLong()
+        const val ZB: Long = EB * 1024
         /**
          * YB与Byte的倍数
          */
-        val YB: Long = 1024.0.pow(8.0).toLong()
+        const val YB: Long = ZB * 1024
         /**
          * BB与Byte的倍数
          */
-        val BB: Long = 1024.0.pow(9.0).toLong()
+        const val BB: Long = YB * 1024
         /**
          * NB与Byte的倍数
          */
-        val NB: Long = 1024.0.pow(10.0).toLong()
+        const val NB: Long = BB * 1024
         /**
          * DB与Byte的倍数
          */
-        val DB: Long = 1024.0.pow(11.0).toLong()
+        const val DB: Long = NB * 1024
         /**
          * CB与Byte的倍数
          */
-        val CB: Long = 1024.0.pow(12.0).toLong()
+        const val CB: Long = DB * 1024
         /**
          * XB与Byte的倍数
          */
-        val XB: Long = 1024.0.pow(13.0).toLong()
+        const val XB: Long = CB * 1024
     }
 }

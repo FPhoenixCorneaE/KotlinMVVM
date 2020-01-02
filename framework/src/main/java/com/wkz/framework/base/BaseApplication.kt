@@ -1,9 +1,8 @@
 package com.wkz.framework.base
 
-import android.app.Activity
 import android.app.Application
-import android.os.Bundle
 import com.orhanobut.logger.Logger
+import com.wkz.util.AppUtil
 import io.reactivex.plugins.RxJavaPlugins
 
 /**
@@ -13,50 +12,11 @@ open class BaseApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        // 注册应用生命周期回调
-        registerActivityLifecycleCallbacks(mActivityLifecycleCallbacks)
-
         // RxJava OnErrorNotImplementedException 的处理
         RxJavaPlugins.setErrorHandler {
             Logger.d("onRxJavaErrorHandler ---->: $it")
-        }
-    }
-
-    /**
-     * 每一个Activity的生命周期都会回调到这里的对应方法。
-     * 可以统计Activity的个数等
-     */
-    private val mActivityLifecycleCallbacks = object : ActivityLifecycleCallbacks {
-        override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
-            logActivityLifecycle("onCreated(): ", activity)
-        }
-
-        override fun onActivityStarted(activity: Activity) {
-            logActivityLifecycle("onStarted(): ", activity)
-        }
-
-        override fun onActivityResumed(activity: Activity) {
-            logActivityLifecycle("onResumed(): ", activity)
-        }
-
-        override fun onActivityPaused(activity: Activity) {
-            logActivityLifecycle("onPaused(): ", activity)
-        }
-
-        override fun onActivityStopped(activity: Activity) {
-            logActivityLifecycle("onStopped(): ", activity)
-        }
-
-        override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {
-            logActivityLifecycle("onSaveInstanceState(): ", activity)
-        }
-
-        override fun onActivityDestroyed(activity: Activity) {
-            logActivityLifecycle("onDestroyed(): ", activity)
-        }
-
-        private fun logActivityLifecycle(message: String, activity: Activity) {
-            Logger.t("ActivityLifecycle").d(message + activity.componentName.className)
+            // 重新启动App
+            AppUtil.relaunchApp()
         }
     }
 }

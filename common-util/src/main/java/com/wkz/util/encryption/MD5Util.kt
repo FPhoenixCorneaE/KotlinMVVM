@@ -8,6 +8,7 @@ import java.security.NoSuchAlgorithmException
  * 不可逆（Message Digest，消息摘要算法）
  */
 class MD5Util private constructor() {
+
     companion object {
         /**
          * MD5加密
@@ -36,6 +37,6 @@ class MD5Util private constructor() {
     }
 
     init {
-        throw UnsupportedOperationException("cannot be instantiated")
+        throw UnsupportedOperationException("U can't initialize me...")
     }
 }

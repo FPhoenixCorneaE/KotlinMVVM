@@ -26,7 +26,7 @@ object FileProviderUtil {
     private fun getUriForFile24(file: File): Uri {
         return FileProvider.getUriForFile(
             context,
-            context.packageName + ".FileProvider",
+            "${AppUtil.packageName}.FileProvider",
             file
         )
     }

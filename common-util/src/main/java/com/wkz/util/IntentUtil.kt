@@ -5,6 +5,7 @@ import android.annotation.SuppressLint
 import android.annotation.TargetApi
 import android.app.Activity
 import android.app.SearchManager
+import android.content.ComponentName
 import android.content.Context
 import android.content.ContextWrapper
 import android.content.Intent
@@ -20,9 +21,11 @@ import android.telephony.SmsManager
 import android.util.Size
 import android.util.SizeF
 import android.util.SparseArray
+import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import com.wkz.extension.isNull
+import java.io.File
 import java.io.Serializable
 import java.util.*
 
@@ -68,18 +71,6 @@ object IntentUtil {
     }
 
     /**
-     * 通过包名打开软件
-     */
-    fun startAppByPackageName(context: Context?, appPackageName: String?) {
-        if (context.isNull() || appPackageName.isNullOrEmpty()) {
-            return
-        }
-        val intent = context!!.packageManager.getLaunchIntentForPackage(appPackageName)
-        intent!!.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-        context.startActivity(intent)
-    }
-
-    /**
      * 启动服务
      *
      * @param context     上下文
@@ -95,6 +86,69 @@ object IntentUtil {
         intent.setClass(context, serviceName)
         intent.putExtras(BundleBuilder.of(bundle).get())
         context.startService(intent)
+    }
+
+    /**
+     * 通过包名打开软件
+     */
+    fun startAppByPackageName(context: Context?, appPackageName: String?) {
+        if (context.isNull() || appPackageName.isNullOrEmpty()) {
+            return
+        }
+        val intent = context!!.packageManager.getLaunchIntentForPackage(appPackageName)
+        intent!!.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        context.startActivity(intent)
+    }
+
+    @JvmOverloads
+    fun getInstallAppIntent(
+        file: File,
+        isNewTask: Boolean = false
+    ): Intent? {
+        val intent = Intent(Intent.ACTION_VIEW)
+        val data: Uri
+        val type = "application/vnd.android.package-archive"
+        val context = ContextUtil.context
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+            data = Uri.fromFile(file)
+        } else {
+            val authority = "${AppUtil.packageName}.FileProvider"
+            data = FileProvider.getUriForFile(context, authority, file)
+            intent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
+        }
+        context.grantUriPermission(
+            AppUtil.packageName,
+            data,
+            Intent.FLAG_GRANT_READ_URI_PERMISSION
+        )
+        intent.setDataAndType(data, type)
+        return if (isNewTask) intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK) else intent
+    }
+
+    @JvmOverloads
+    fun getUninstallAppIntent(
+        packageName: String,
+        isNewTask: Boolean = false
+    ): Intent? {
+        val intent = Intent(Intent.ACTION_DELETE)
+        intent.data = Uri.parse("package:$packageName")
+        return if (isNewTask) intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK) else intent
+    }
+
+    @JvmOverloads
+    fun getLaunchAppIntent(
+        packageName: String,
+        isNewTask: Boolean = false
+    ): Intent? {
+        val launcherActivity: String = ActivityUtil.getLauncherActivity(packageName)
+        if (launcherActivity.isNotEmpty()) {
+            val intent = Intent(Intent.ACTION_MAIN)
+            intent.addCategory(Intent.CATEGORY_LAUNCHER)
+            val cn = ComponentName(packageName, launcherActivity)
+            intent.component = cn
+            return if (isNewTask) intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK) else intent
+        }
+        return null
     }
 
     /**
@@ -256,7 +310,8 @@ object IntentUtil {
         context: Context?,
         action: String? = Settings.ACTION_SETTINGS
     ) {
-        val intent = Intent(action)
+        val intent = Intent(action, Uri.parse("package:" + AppUtil.packageName))
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         context?.startActivity(intent)
     }
 

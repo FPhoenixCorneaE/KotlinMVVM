@@ -2,6 +2,7 @@ package com.wkz.util
 
 import android.content.Context
 import android.view.View
+import android.view.Window
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import java.util.concurrent.Executors
@@ -96,5 +97,32 @@ object KeyboardUtil {
         val imm =
             editText.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         return imm.isActive
+    }
+
+    /**
+     * Fix the leaks of soft input.
+     *
+     * @param window The window.
+     */
+    fun fixSoftInputLeaks(window: Window) {
+        val imm =
+            ContextUtil.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val leakViews = arrayOf("mLastSrvView", "mCurRootView", "mServedView", "mNextServedView")
+        for (leakView in leakViews) {
+            try {
+                val leakViewField =
+                    InputMethodManager::class.java.getDeclaredField(
+                        leakView
+                    )
+                if (!leakViewField.isAccessible) {
+                    leakViewField.isAccessible = true
+                }
+                val obj = leakViewField[imm] as? View ?: continue
+                if (obj.rootView === window.decorView.rootView) {
+                    leakViewField[imm] = null
+                }
+            } catch (ignore: Throwable) {
+            }
+        }
     }
 }

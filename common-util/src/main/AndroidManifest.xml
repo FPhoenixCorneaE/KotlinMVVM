@@ -1,4 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.wkz.util">
 
     <!--  网络  -->
@@ -32,6 +33,14 @@
     <uses-permission android:name="com.bbk.launcher2.permission.WRITE_SETTINGS" />
     <!--  震动  -->
     <uses-permission android:name="android.permission.VIBRATE" />
+    <!--  设置  -->
+    <uses-permission
+        android:name="android.permission.WRITE_SETTINGS"
+        tools:ignore="ProtectedPermissions" />
+    <!--  使用记录  -->
+    <uses-permission
+        android:name="android.permission.PACKAGE_USAGE_STATS"
+        tools:ignore="ProtectedPermissions" />
 
     <application>
         <!--Android 7.0适配-应用之间共享文件-->

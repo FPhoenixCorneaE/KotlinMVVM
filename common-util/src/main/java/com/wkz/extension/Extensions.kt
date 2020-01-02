@@ -9,6 +9,21 @@ import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.nio.charset.Charset
 
+fun String?.isSpace(): Boolean {
+    if (this.isNull()) {
+        return true
+    }
+    var i = 0
+    val len = this!!.length
+    while (i < len) {
+        if (!Character.isWhitespace(this[i])) {
+            return false
+        }
+        ++i
+    }
+    return true
+}
+
 fun Any?.isNull(): Boolean {
     return this == null
 }

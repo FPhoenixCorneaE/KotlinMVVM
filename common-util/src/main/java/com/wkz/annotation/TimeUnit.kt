@@ -12,30 +12,30 @@ annotation class TimeUnit {
         /**
          * 毫秒与毫秒的倍数
          */
-        const val MILLISECOND: Long = 1L
+        const val MILLISECOND: Long = 1
         /**
          * 秒与毫秒的倍数
          */
-        const val SECOND: Long = 1000L
+        const val SECOND: Long = MILLISECOND * 1000
         /**
          * 分与毫秒的倍数
          */
-        const val MINUTE: Long = 60 * 1000L
+        const val MINUTE: Long = SECOND * 60
         /**
          * 时与毫秒的倍数
          */
-        const val HOUR: Long = 60 * 60 * 1000L
+        const val HOUR: Long = MINUTE * 60
         /**
          * 天与毫秒的倍数
          */
-        const val DAY: Long = 24 * 60 * 60 * 1000L
+        const val DAY: Long = HOUR * 24
         /**
          * 月与毫秒的倍数
          */
-        const val MONTH: Long = 30 * 24 * 60 * 60 * 1000L
+        const val MONTH: Long = DAY * 30
         /**
          * 年与毫秒的倍数
          */
-        const val YEAR: Long = 365 * 24 * 60 * 60 * 1000L
+        const val YEAR: Long = DAY * 365
     }
 }

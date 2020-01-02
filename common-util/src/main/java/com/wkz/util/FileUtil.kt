@@ -1,8 +1,8 @@
 package com.wkz.util
 
 import android.annotation.SuppressLint
-import com.orhanobut.logger.Logger
 import com.wkz.annotation.MemoryUnit
+import com.wkz.extension.isSpace
 import java.io.*
 import java.security.DigestInputStream
 import java.security.MessageDigest
@@ -21,7 +21,24 @@ class FileUtil private constructor() {
     companion object {
 
         private val hexDigits =
-            charArrayOf('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F')
+            charArrayOf(
+                '0',
+                '1',
+                '2',
+                '3',
+                '4',
+                '5',
+                '6',
+                '7',
+                '8',
+                '9',
+                'A',
+                'B',
+                'C',
+                'D',
+                'E',
+                'F'
+            )
 
         /**
          * 根据文件路径获取文件
@@ -30,7 +47,7 @@ class FileUtil private constructor() {
          * @return 文件
          */
         fun getFileByPath(filePath: String): File? {
-            return if (isSpace(filePath)) null else File(filePath)
+            return if (filePath.isSpace()) null else File(filePath)
         }
 
         /**
@@ -81,7 +98,7 @@ class FileUtil private constructor() {
                 return false
             }
             // 新的文件名为空返回false
-            if (isSpace(newName)) {
+            if (newName.isSpace()) {
                 return false
             }
             // 如果文件名没有改变返回true
@@ -234,7 +251,11 @@ class FileUtil private constructor() {
          * @param isMove      是否移动
          * @return `true`: 复制或移动成功<br></br>`false`: 复制或移动失败
          */
-        private fun copyOrMoveDir(srcDirPath: String, destDirPath: String, isMove: Boolean): Boolean {
+        private fun copyOrMoveDir(
+            srcDirPath: String,
+            destDirPath: String,
+            isMove: Boolean
+        ): Boolean {
             return copyOrMoveDir(getFileByPath(srcDirPath), getFileByPath(destDirPath), isMove)
         }
 
@@ -293,7 +314,11 @@ class FileUtil private constructor() {
          * @param isMove       是否移动
          * @return `true`: 复制或移动成功<br></br>`false`: 复制或移动失败
          */
-        private fun copyOrMoveFile(srcFilePath: String, destFilePath: String, isMove: Boolean): Boolean {
+        private fun copyOrMoveFile(
+            srcFilePath: String,
+            destFilePath: String,
+            isMove: Boolean
+        ): Boolean {
             return copyOrMoveFile(getFileByPath(srcFilePath), getFileByPath(destFilePath), isMove)
         }
 
@@ -322,7 +347,11 @@ class FileUtil private constructor() {
                 return false
             }
             try {
-                return writeFileFromIS(destFile, FileInputStream(srcFile), false) && !(isMove && !deleteFile(srcFile))
+                return writeFileFromIS(
+                    destFile,
+                    FileInputStream(srcFile),
+                    false
+                ) && !(isMove && !deleteFile(srcFile))
             } catch (e: FileNotFoundException) {
                 e.printStackTrace()
                 return false
@@ -610,7 +639,11 @@ class FileUtil private constructor() {
          * @param isRecursive 是否递归进子目录
          * @return 文件链表
          */
-        fun listFilesInDirWithFilter(dirPath: String, suffix: String, isRecursive: Boolean): List<File>? {
+        fun listFilesInDirWithFilter(
+            dirPath: String,
+            suffix: String,
+            isRecursive: Boolean
+        ): List<File>? {
             return listFilesInDirWithFilter(getFileByPath(dirPath), suffix, isRecursive)
         }
 
@@ -624,7 +657,11 @@ class FileUtil private constructor() {
          * @param isRecursive 是否递归进子目录
          * @return 文件链表
          */
-        fun listFilesInDirWithFilter(dir: File?, suffix: String, isRecursive: Boolean): List<File>? {
+        fun listFilesInDirWithFilter(
+            dir: File?,
+            suffix: String,
+            isRecursive: Boolean
+        ): List<File>? {
             if (isRecursive) {
                 return listFilesInDirWithFilter(dir, suffix)
             }
@@ -692,7 +729,11 @@ class FileUtil private constructor() {
          * @param isRecursive 是否递归进子目录
          * @return 文件链表
          */
-        fun listFilesInDirWithFilter(dirPath: String, filter: FilenameFilter, isRecursive: Boolean): List<File>? {
+        fun listFilesInDirWithFilter(
+            dirPath: String,
+            filter: FilenameFilter,
+            isRecursive: Boolean
+        ): List<File>? {
             return listFilesInDirWithFilter(getFileByPath(dirPath), filter, isRecursive)
         }
 
@@ -704,7 +745,11 @@ class FileUtil private constructor() {
          * @param isRecursive 是否递归进子目录
          * @return 文件链表
          */
-        fun listFilesInDirWithFilter(dir: File?, filter: FilenameFilter, isRecursive: Boolean): List<File>? {
+        fun listFilesInDirWithFilter(
+            dir: File?,
+            filter: FilenameFilter,
+            isRecursive: Boolean
+        ): List<File>? {
             if (isRecursive) {
                 return listFilesInDirWithFilter(dir, filter)
             }
@@ -854,7 +899,12 @@ class FileUtil private constructor() {
          * @param charsetName 编码格式
          * @return `true`: 写入成功<br></br>`false`: 写入失败
          */
-        fun writeFileFromString(filePath: String, content: String, append: Boolean, charsetName: String): Boolean {
+        fun writeFileFromString(
+            filePath: String,
+            content: String,
+            append: Boolean,
+            charsetName: String
+        ): Boolean {
             return writeFileFromString(getFileByPath(filePath), content, append, charsetName)
         }
 
@@ -867,7 +917,12 @@ class FileUtil private constructor() {
          * @param charsetName 编码格式
          * @return `true`: 写入成功<br></br>`false`: 写入失败
          */
-        fun writeFileFromString(file: File?, content: String?, append: Boolean, charsetName: String): Boolean {
+        fun writeFileFromString(
+            file: File?,
+            content: String?,
+            append: Boolean,
+            charsetName: String
+        ): Boolean {
             if (file == null || content == null) {
                 return false
             }
@@ -944,7 +999,7 @@ class FileUtil private constructor() {
                 var line: String? = null
                 var curLine = 1
                 val list = ArrayList<String?>()
-                if (isSpace(charsetName)) {
+                if (charsetName.isSpace()) {
                     reader = BufferedReader(FileReader(file))
                 } else {
                     reader = BufferedReader(InputStreamReader(FileInputStream(file), charsetName))
@@ -992,17 +1047,20 @@ class FileUtil private constructor() {
             var reader: BufferedReader? = null
             try {
                 val sb = StringBuilder()
-                if (isSpace(charsetName)) {
-                    reader = BufferedReader(InputStreamReader(FileInputStream(file)))
-                } else {
-                    reader = BufferedReader(InputStreamReader(FileInputStream(file), charsetName))
+                reader = when {
+                    charsetName.isSpace() -> {
+                        BufferedReader(InputStreamReader(FileInputStream(file)))
+                    }
+                    else -> {
+                        BufferedReader(InputStreamReader(FileInputStream(file), charsetName))
+                    }
                 }
                 var line: String? = null
                 while ({ line = reader.readLine(); line }() != null) {
                     sb.append(line).append("\r\n")// windows系统换行为\r\n，Linux为\n
                 }
                 // 要去除最后的换行符
-                return if (sb.length > 0) {
+                return if (sb.isNotEmpty()) {
                     sb.delete(sb.length - 2, sb.length).toString()
                 } else {
                     sb.toString()
@@ -1242,7 +1300,7 @@ class FileUtil private constructor() {
          * @return 文件的MD5校验码
          */
         fun getFileMD5ToString(filePath: String): String? {
-            val file = if (isSpace(filePath)) null else File(filePath)
+            val file = if (filePath.isSpace()) null else File(filePath)
             return getFileMD5ToString(file)
         }
 
@@ -1253,7 +1311,7 @@ class FileUtil private constructor() {
          * @return 文件的MD5校验码
          */
         fun getFileMD5(filePath: String): ByteArray? {
-            val file = if (isSpace(filePath)) null else File(filePath)
+            val file = if (filePath.isSpace()) null else File(filePath)
             return getFileMD5(file)
         }
 
@@ -1319,7 +1377,7 @@ class FileUtil private constructor() {
          * @return filePath最长目录
          */
         fun getDirName(filePath: String): String? {
-            if (isSpace(filePath)) {
+            if (filePath.isSpace()) {
                 return filePath
             }
             val lastSep = filePath.lastIndexOf(File.separator)
@@ -1345,7 +1403,7 @@ class FileUtil private constructor() {
          * @return 文件名
          */
         fun getFileName(filePath: String): String? {
-            if (isSpace(filePath)) {
+            if (filePath.isSpace()) {
                 return filePath
             }
             val lastSep = filePath.lastIndexOf(File.separator)
@@ -1371,7 +1429,7 @@ class FileUtil private constructor() {
          * @return 不带拓展名的文件名
          */
         fun getFileNameNoExtension(filePath: String): String? {
-            if (isSpace(filePath)) {
+            if (filePath.isSpace()) {
                 return filePath
             }
             val lastPoi = filePath.lastIndexOf('.')
@@ -1397,7 +1455,7 @@ class FileUtil private constructor() {
         }
 
         ///////////////////////////////////////////////////////////////////////////
-        // copy from ConvertUtils
+        // copy from ConvertUtil
         ///////////////////////////////////////////////////////////////////////////
 
         /**
@@ -1407,7 +1465,7 @@ class FileUtil private constructor() {
          * @return 文件拓展名
          */
         fun getFileExtension(filePath: String): String? {
-            if (isSpace(filePath)) {
+            if (filePath.isSpace()) {
                 return filePath
             }
             val lastPoi = filePath.lastIndexOf('.')
@@ -1493,32 +1551,23 @@ class FileUtil private constructor() {
          */
         @SuppressLint("DefaultLocale")
         private fun byte2FitMemorySize(byteNum: Long): String {
-            return if (byteNum < 0) {
-                "shouldn't be less than zero!"
-            } else if (byteNum < MemoryUnit.KB) {
-                String.format("%.3fB", byteNum.toDouble() + 0.0005)
-            } else if (byteNum < MemoryUnit.MB) {
-                String.format("%.3fKB", byteNum.toDouble() / MemoryUnit.KB + 0.0005)
-            } else if (byteNum < MemoryUnit.GB) {
-                String.format("%.3fMB", byteNum.toDouble() / MemoryUnit.MB + 0.0005)
-            } else {
-                String.format("%.3fGB", byteNum.toDouble() / MemoryUnit.GB + 0.0005)
-            }
-        }
-
-        private fun isSpace(s: String?): Boolean {
-            if (s == null) {
-                return true
-            }
-            var i = 0
-            val len = s.length
-            while (i < len) {
-                if (!Character.isWhitespace(s[i])) {
-                    return false
+            return when {
+                byteNum < 0 -> {
+                    "shouldn't be less than zero!"
                 }
-                ++i
+                byteNum < MemoryUnit.KB -> {
+                    String.format("%.3fB", byteNum.toDouble() + 0.0005)
+                }
+                byteNum < MemoryUnit.MB -> {
+                    String.format("%.3fKB", byteNum.toDouble() / MemoryUnit.KB + 0.0005)
+                }
+                byteNum < MemoryUnit.GB -> {
+                    String.format("%.3fMB", byteNum.toDouble() / MemoryUnit.MB + 0.0005)
+                }
+                else -> {
+                    String.format("%.3fGB", byteNum.toDouble() / MemoryUnit.GB + 0.0005)
+                }
             }
-            return true
         }
     }
 }

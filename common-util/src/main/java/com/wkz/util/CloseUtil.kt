@@ -23,10 +23,10 @@ class CloseUtil private constructor() {
          *
          * @param closeables closeables
          */
-        fun closeIO(vararg closeables: Closeable) {
+        fun closeIO(vararg closeables: Closeable?) {
             for (closeable in closeables) {
                 try {
-                    closeable.close()
+                    closeable?.close()
                 } catch (e: IOException) {
                     Logger.e(e.toString())
                 }
@@ -43,7 +43,7 @@ class CloseUtil private constructor() {
                 try {
                     closeable?.close()
                 } catch (e: IOException) {
-                    Logger.e(e.toString())
+                    // do nothing
                 }
             }
         }

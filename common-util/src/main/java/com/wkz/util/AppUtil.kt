@@ -2,18 +2,31 @@ package com.wkz.util
 
 import android.annotation.SuppressLint
 import android.annotation.TargetApi
+import android.app.Activity
 import android.app.ActivityManager
+import android.app.ActivityManager.RunningAppProcessInfo
+import android.app.AppOpsManager
+import android.app.usage.UsageStats
+import android.app.usage.UsageStatsManager
 import android.content.Context
+import android.content.Intent
+import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
 import android.content.pm.PackageManager.NameNotFoundException
 import android.graphics.drawable.Drawable
 import android.os.Build
+import android.os.Process
+import android.provider.Settings
 import com.orhanobut.logger.Logger
+import com.wkz.extension.isNull
+import com.wkz.extension.isSpace
 import java.io.ByteArrayInputStream
 import java.security.MessageDigest
+import java.security.NoSuchAlgorithmException
 import java.security.cert.CertificateFactory
 import java.security.cert.X509Certificate
 import javax.security.auth.x500.X500Principal
+import kotlin.system.exitProcess
 
 /**
  * App 相关信息，包括版本名称、版本号、包名等等
@@ -141,12 +154,12 @@ class AppUtil private constructor() {
         /**
          * Get app signature
          */
-        fun getAppSignature(): String {
+        fun getAppSignature(pkgName: String = packageName): String {
             val context = ContextUtil.context
             try {
                 val pm = context.packageManager
-                val packageInfo = pm.getPackageInfo(packageName, PackageManager.GET_SIGNATURES)
-                return packageInfo.signatures[0].toCharsString()
+                val packageInfo = pm.getPackageInfo(pkgName, PackageManager.GET_SIGNATURES)
+                return packageInfo.signatures[0].toString()
             } catch (e: NameNotFoundException) {
                 Logger.e(e.toString())
             }
@@ -154,7 +167,74 @@ class AppUtil private constructor() {
         }
 
         /**
-         * Judge whether an app is dubuggable
+         * Return the application's signature for SHA1 value.
+         *
+         * @param pkgName The name of the package.
+         * @return the application's signature for SHA1 value
+         */
+        fun getAppSignatureSHA1(pkgName: String = packageName): String? {
+            return getAppSignatureHash(pkgName, "SHA1")
+        }
+
+        /**
+         * Return the application's signature for SHA256 value.
+         *
+         * @param pkgName The name of the package.
+         * @return the application's signature for SHA256 value
+         */
+        fun getAppSignatureSHA256(pkgName: String = packageName): String? {
+            return getAppSignatureHash(pkgName, "SHA256")
+        }
+
+        /**
+         * Return the application's signature for MD5 value.
+         *
+         * @param pkgName The name of the package.
+         * @return the application's signature for MD5 value
+         */
+        fun getAppSignatureMD5(pkgName: String = packageName): String? {
+            return getAppSignatureHash(pkgName, "MD5")
+        }
+
+        /**
+         * Return the application's user-ID.
+         *
+         * @param pkgName The name of the package.
+         * @return the application's signature for MD5 value
+         */
+        fun getAppUid(pkgName: String = packageName): Int {
+            try {
+                val applicationInfo: ApplicationInfo =
+                    ContextUtil.context.packageManager.getApplicationInfo(pkgName, 0)
+                return applicationInfo.uid
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+            return -1
+        }
+
+        /**
+         * Return the application's path.
+         *
+         * @param pkgName The name of the package.
+         * @return the application's path
+         */
+        fun getAppPath(pkgName: String = packageName): String? {
+            return when {
+                pkgName.isSpace() -> ""
+                else -> try {
+                    val pm: PackageManager = ContextUtil.context.packageManager
+                    val pi = pm.getPackageInfo(pkgName, 0)
+                    pi?.applicationInfo?.sourceDir
+                } catch (e: NameNotFoundException) {
+                    e.printStackTrace()
+                    ""
+                }
+            }
+        }
+
+        /**
+         * Judge whether an app is debuggable
          */
         val isDebuggable: Boolean
             get() {
@@ -184,6 +264,26 @@ class AppUtil private constructor() {
             }
 
         /**
+         * Return whether it is a system application.
+         *
+         * @param pkgName The name of the package.
+         * @return `true`: yes<br></br>`false`: no
+         */
+        fun isSystemApp(pkgName: String? = packageName): Boolean {
+            return when {
+                pkgName.isNullOrBlank() -> false
+                else -> try {
+                    val pm: PackageManager = ContextUtil.context.packageManager
+                    val ai = pm.getApplicationInfo(pkgName, 0)
+                    ai.flags and ApplicationInfo.FLAG_SYSTEM != 0
+                } catch (e: NameNotFoundException) {
+                    e.printStackTrace()
+                    false
+                }
+            }
+        }
+
+        /**
          * Judge whether an app is in background
          */
         val isAppInBackground: Boolean
@@ -202,6 +302,157 @@ class AppUtil private constructor() {
             }
 
         /**
+         * Judge whether an app is in foreground
+         */
+        val isAppInForeground: Boolean
+            get() {
+                val context = ContextUtil.context
+                val am =
+                    context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+                val info = am.runningAppProcesses
+                if (info == null || info.size == 0) return false
+                for (aInfo in info) {
+                    if (aInfo.importance == RunningAppProcessInfo.IMPORTANCE_FOREGROUND) {
+                        if (aInfo.processName == context.packageName) {
+                            return true
+                        }
+                    }
+                }
+                return false
+            }
+
+        /**
+         * Return whether application is foreground.
+         *
+         * Target APIs greater than 21 must hold
+         * `<uses-permission android:name="android.permission.PACKAGE_USAGE_STATS" />`
+         *
+         * @param packageName The name of the package.
+         * @return `true`: yes<br></br>`false`: no
+         */
+        fun isAppInForeground(packageName: String): Boolean {
+            return !packageName.isBlank() && packageName == getForegroundProcessName()
+        }
+
+        /**
+         * Return whether application is running.
+         *
+         * @param pkgName The name of the package.
+         * @return `true`: yes<br></br>`false`: no
+         */
+        @SuppressLint("NewApi")
+        fun isAppRunning(pkgName: String): Boolean {
+            val context = ContextUtil.context
+            val uid: Int
+            val packageManager: PackageManager = context.getPackageManager()
+            uid = try {
+                val ai = packageManager.getApplicationInfo(pkgName, 0) ?: return false
+                ai.uid
+            } catch (e: NameNotFoundException) {
+                e.printStackTrace()
+                return false
+            }
+            val am =
+                context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+            val taskInfo =
+                am.getRunningTasks(Int.MAX_VALUE)
+            if (taskInfo != null && taskInfo.size > 0) {
+                for (aInfo in taskInfo) {
+                    if (pkgName == aInfo.baseActivity!!.packageName) {
+                        return true
+                    }
+                }
+            }
+            val serviceInfo =
+                am.getRunningServices(Int.MAX_VALUE)
+            if (serviceInfo != null && serviceInfo.size > 0) {
+                for (aInfo in serviceInfo) {
+                    if (uid == aInfo.uid) {
+                        return true
+                    }
+                }
+            }
+            return false
+        }
+
+        /**
+         * Launch the application.
+         *
+         * @param pkgName The name of the package.
+         */
+        fun launchApp(pkgName: String = packageName) {
+            if (pkgName.isSpace()) return
+            val launchAppIntent: Intent? =
+                IntentUtil.getLaunchAppIntent(pkgName, true)
+            if (launchAppIntent.isNull()) {
+                Logger.e("Launcher activity isn't exist.")
+                return
+            }
+            ContextUtil.context.startActivity(launchAppIntent)
+        }
+
+        /**
+         * Launch the application.
+         *
+         * @param activity    The activity.
+         * @param pkgName The name of the package.
+         * @param requestCode If &gt;= 0, this code will be returned in
+         * onActivityResult() when the activity exits.
+         */
+        fun launchApp(
+            activity: Activity,
+            pkgName: String,
+            requestCode: Int
+        ) {
+            if (pkgName.isSpace()) return
+            val launchAppIntent: Intent? =
+                IntentUtil.getLaunchAppIntent(pkgName)
+            if (launchAppIntent.isNull()) {
+                Logger.e("Launcher activity isn't exist.")
+                return
+            }
+            activity.startActivityForResult(launchAppIntent, requestCode)
+        }
+
+        /**
+         * Relaunch the application.
+         *
+         * @param isKillProcess True to kill the process, false otherwise.
+         */
+        fun relaunchApp(isKillProcess: Boolean = true) {
+            val intent: Intent? = IntentUtil.getLaunchAppIntent(
+                packageName,
+                true
+            )
+            if (intent.isNull()) {
+                Logger.e("Launcher activity isn't exist.")
+                return
+            }
+            intent!!.addFlags(
+                Intent.FLAG_ACTIVITY_NEW_TASK
+                        or Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            )
+            ContextUtil.context.startActivity(intent)
+            if (!isKillProcess) return
+            Process.killProcess(Process.myPid())
+            exitProcess(0)
+        }
+
+        /**
+         * Exit the application.
+         */
+        fun exitApp() {
+            val activityList: List<Activity> = ContextUtil.getActivityList()
+            for (i in activityList.indices.reversed()) {
+                // remove from top
+                val activity = activityList[i]
+                // sActivityList remove the index activity at onActivityDestroyed
+                activity.finish()
+            }
+            exitProcess(0)
+        }
+
+        /**
          * 获取应用运行的最大内存
          *
          * @return 最大内存
@@ -215,10 +466,10 @@ class AppUtil private constructor() {
          * @param context 应用上下文对象context
          * @return 当前内存大小
          */
-        fun getDeviceUsableMemory(context: Context): Int {
-            val am = context.getSystemService(
-                Context.ACTIVITY_SERVICE
-            ) as ActivityManager
+        fun getDeviceUsableMemory(): Int {
+            val context = ContextUtil.context
+            val am =
+                context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
             val mi = ActivityManager.MemoryInfo()
             am.getMemoryInfo(mi)
             // 返回当前系统的可用内存
@@ -303,6 +554,133 @@ class AppUtil private constructor() {
                 Logger.e(e.toString())
             }
             return ""
+        }
+
+        private fun getAppSignatureHash(
+            packageName: String,
+            algorithm: String
+        ): String? {
+            if (packageName.isSpace()) return ""
+            val signature = getAppSignature(packageName)
+            return when {
+                signature.isEmpty() -> ""
+                else -> ConvertUtil.bytes2HexString(
+                    hashTemplate(
+                        signature.toByteArray(),
+                        algorithm
+                    )
+                )
+                    .replace("(?<=[0-9A-F]{2})[0-9A-F]{2}".toRegex(), ":$0")
+            }
+        }
+
+        private fun hashTemplate(
+            data: ByteArray?,
+            algorithm: String
+        ): ByteArray? {
+            return when {
+                data.isNull() || data!!.isEmpty() -> null
+                else -> try {
+                    val md =
+                        MessageDigest.getInstance(algorithm)
+                    md.update(data)
+                    md.digest()
+                } catch (e: NoSuchAlgorithmException) {
+                    e.printStackTrace()
+                    null
+                }
+            }
+        }
+
+        private fun getForegroundProcessName(): String? {
+            val context = ContextUtil.context
+            val am =
+                context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+            val pInfo = am.runningAppProcesses
+            if (pInfo != null && pInfo.size > 0) {
+                for (aInfo in pInfo) {
+                    if (aInfo.importance
+                        == RunningAppProcessInfo.IMPORTANCE_FOREGROUND
+                    ) {
+                        return aInfo.processName
+                    }
+                }
+            }
+            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
+                val pm: PackageManager = context.packageManager
+                val intent = Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS)
+                val list =
+                    pm.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)
+                Logger.i(list.toString())
+                if (list.size <= 0) {
+                    Logger.i("getForegroundProcessName: noun of access to usage information.")
+                    return ""
+                }
+                try { // Access to usage information.
+                    val info =
+                        pm.getApplicationInfo(context.packageName, 0)
+                    val aom =
+                        context.getSystemService(Context.APP_OPS_SERVICE) as AppOpsManager
+                    if (aom.checkOpNoThrow(
+                            AppOpsManager.OPSTR_GET_USAGE_STATS,
+                            info.uid,
+                            info.packageName
+                        ) != AppOpsManager.MODE_ALLOWED
+                    ) {
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        context.startActivity(intent)
+                    }
+                    if (aom.checkOpNoThrow(
+                            AppOpsManager.OPSTR_GET_USAGE_STATS,
+                            info.uid,
+                            info.packageName
+                        ) != AppOpsManager.MODE_ALLOWED
+                    ) {
+                        Logger.i("getForegroundProcessName: refuse to device usage stats.")
+                        return ""
+                    }
+                    val usageStatsManager =
+                        context.getSystemService(Context.USAGE_STATS_SERVICE) as UsageStatsManager
+                    val endTime = System.currentTimeMillis()
+                    val beginTime = endTime - 86400000 * 7
+                    val usageStatsList = usageStatsManager
+                        .queryUsageStats(
+                            UsageStatsManager.INTERVAL_BEST,
+                            beginTime, endTime
+                        )
+                    if (usageStatsList == null || usageStatsList.isEmpty()) return null
+                    var recentStats: UsageStats? = null
+                    for (usageStats in usageStatsList) {
+                        if (recentStats == null
+                            || usageStats.lastTimeUsed > recentStats.lastTimeUsed
+                        ) {
+                            recentStats = usageStats
+                        }
+                    }
+                    return recentStats?.packageName
+                } catch (e: NameNotFoundException) {
+                    e.printStackTrace()
+                }
+            }
+            return ""
+        }
+
+        /**
+         * Register the status of application changed listener.
+         *
+         * @param listener The status of application changed listener
+         */
+        fun registerAppStatusChangedListener(listener: OnAppStatusChangedListener?) {
+            ContextUtil.getActivityLifecycle().addOnAppStatusChangedListener(listener)
+        }
+
+        /**
+         * Unregister the status of application changed listener.
+         *
+         * @param listener The status of application changed listener
+         */
+        fun unregisterAppStatusChangedListener(listener: OnAppStatusChangedListener?) {
+            ContextUtil.getActivityLifecycle().removeOnAppStatusChangedListener(listener)
         }
     }
 }

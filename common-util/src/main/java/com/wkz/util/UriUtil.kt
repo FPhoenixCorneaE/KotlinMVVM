@@ -10,6 +10,7 @@ import android.os.Environment
 import android.provider.DocumentsContract
 import android.provider.MediaStore
 import android.text.TextUtils
+import androidx.core.content.FileProvider
 import androidx.loader.content.CursorLoader
 import java.io.*
 
@@ -18,7 +19,23 @@ import java.io.*
  *
  * @date 2019-12-04 13:37
  */
-object Uri2PathUtil {
+object UriUtil {
+
+    /**
+     * File to uri.
+     *
+     * @param file The file.
+     * @return uri
+     */
+    fun file2Uri(file: File): Uri {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            val authority = "${AppUtil.packageName}.FileProvider"
+            FileProvider.getUriForFile(ContextUtil.context, authority, file)
+        } else {
+            Uri.fromFile(file)
+        }
+    }
+
     /**
      * 复杂版处理  (适配多种API)
      *
@@ -92,14 +109,19 @@ object Uri2PathUtil {
                 val split = docId.split(":").toTypedArray()
                 val type = split[0]
                 val contentUri: Uri
-                contentUri = if ("image" == type) {
-                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI
-                } else if ("video" == type) {
-                    MediaStore.Video.Media.EXTERNAL_CONTENT_URI
-                } else if ("audio" == type) {
-                    MediaStore.Audio.Media.EXTERNAL_CONTENT_URI
-                } else {
-                    MediaStore.Files.getContentUri("external")
+                contentUri = when (type) {
+                    "image" -> {
+                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+                    }
+                    "video" -> {
+                        MediaStore.Video.Media.EXTERNAL_CONTENT_URI
+                    }
+                    "audio" -> {
+                        MediaStore.Audio.Media.EXTERNAL_CONTENT_URI
+                    }
+                    else -> {
+                        MediaStore.Files.getContentUri("external")
+                    }
                 }
                 val selection = "_id=?"
                 val selectionArgs =
