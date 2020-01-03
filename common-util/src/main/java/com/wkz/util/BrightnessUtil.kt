@@ -34,6 +34,7 @@ class BrightnessUtil private constructor() {
          * Enable or disable automatic brightness mode.
          *
          * Must hold `<uses-permission android:name="android.permission.WRITE_SETTINGS" />`
+         * 并且需要打开允许修改系统设置
          *
          * @param enabled True to enabled, false otherwise.
          * @return `true`: success<br></br>`false`: fail
@@ -77,7 +78,7 @@ class BrightnessUtil private constructor() {
          * 设置屏幕亮度
          *
          * 需添加权限 `<uses-permission android:name="android.permission.WRITE_SETTINGS" />`
-         * 并得到授权
+         * 并且需要打开允许修改系统设置
          *
          * @param brightness 亮度值
          */

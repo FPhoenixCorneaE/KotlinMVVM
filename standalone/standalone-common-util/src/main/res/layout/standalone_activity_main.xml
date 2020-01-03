@@ -178,5 +178,17 @@
             android:thumb="@drawable/standalone_sb_thumb_brightness"
             android:thumbOffset="0dp"
             app:layout_constraintTop_toBottomOf="@+id/mBtnUnzipFile" />
+
+        <Button
+            android:id="@+id/mBtnKillAllBackgroundProcesses"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:text="杀死所有后台进程"
+            android:textColor="#123456"
+            android:textSize="12sp"
+            app:layout_constraintTop_toBottomOf="@+id/mSbBrightness"
+            tools:ignore="ButtonStyle,HardcodedText" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

@@ -1,6 +1,7 @@
 package com.wkz.standalone_common_util
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.graphics.BlurMaskFilter
@@ -12,6 +13,7 @@ import android.text.Layout
 import android.widget.SeekBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentActivity
+import com.orhanobut.logger.Logger
 import com.wkz.extension.isNonNull
 import com.wkz.extension.isNull
 import com.wkz.extension.showToast
@@ -28,6 +30,7 @@ class StandaloneMainActivity : AppCompatActivity() {
         initData()
     }
 
+    @SuppressLint("NewApi")
     private fun iniListener() {
         // 申请权限
         mBtnApplyLocation.setOnClickListener {
@@ -84,6 +87,7 @@ class StandaloneMainActivity : AppCompatActivity() {
             IntentUtil.openCamera(this@StandaloneMainActivity)
         }
 
+        // 生成快捷方式
         mBtnShortcut.setOnClickListener {
             IntentUtil.startActivity(
                 this,
@@ -99,12 +103,15 @@ class StandaloneMainActivity : AppCompatActivity() {
             )
         }
 
+        // 震动
         mBtnVibrateOneShot.setOnClickListener {
             VibrateUtil.vibrate(200)
         }
         mBtnVibrateWaveform.setOnClickListener {
             VibrateUtil.vibrate(arrayOf(1000L, 200L, 1000L, 200L, 1000L, 200L).toLongArray(), 1)
         }
+
+        // 压缩、解压
         mBtnZipFile.setOnClickListener {
             val srcFilePath = File(Environment.getExternalStorageDirectory(), "周报/")
             if (srcFilePath.exists()) {
@@ -131,8 +138,8 @@ class StandaloneMainActivity : AppCompatActivity() {
             },
             Manifest.permission.WRITE_SETTINGS
         )
-
-        mSbBrightness.setProgress(BrightnessUtil.brightness,true)
+        // 亮度
+        mSbBrightness.setProgress(BrightnessUtil.brightness, true)
         mSbBrightness.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(p0: SeekBar?, progress: Int, fromUser: Boolean) {
                 BrightnessUtil.setBrightness(progress)
@@ -144,6 +151,13 @@ class StandaloneMainActivity : AppCompatActivity() {
             override fun onStopTrackingTouch(p0: SeekBar?) {
             }
         })
+
+        // 杀死后台进程
+        Logger.t("ProcessUtil").d(ProcessUtil.foregroundProcessName)
+        Logger.t("ProcessUtil").d(ProcessUtil.currentProcessName)
+        mBtnKillAllBackgroundProcesses.setOnClickListener {
+            ProcessUtil.killAllBackgroundProcesses()
+        }
     }
 
     private fun initData() {
