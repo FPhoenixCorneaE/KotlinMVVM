@@ -4,6 +4,7 @@ import android.graphics.BitmapFactory
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.wkz.extension.showToast
+import com.wkz.util.BundleBuilder
 import com.wkz.util.ShortcutUtil
 import kotlinx.android.synthetic.main.standalone_activity_shortcut.*
 
@@ -25,7 +26,12 @@ class StandaloneShortcutActivity : AppCompatActivity() {
                 this,
                 "快捷方式",
                 "111",
-                BitmapFactory.decodeResource(resources, R.mipmap.standalone_ic_launcher)
+                BitmapFactory.decodeResource(resources, R.mipmap.standalone_ic_launcher),
+                BundleBuilder.of()
+                    .putBoolean("Boolean", true)
+                    .putString("String", "String")
+                    .putString("String1", "String1")
+                    .get()
             )
         }
         mBtnDeleteShortcut.setOnClickListener {

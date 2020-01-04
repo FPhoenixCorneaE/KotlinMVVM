@@ -223,7 +223,7 @@ object IntentUtil {
             override fun onPermissionDenied(context: Context?, type: Int) {
                 when (type) {
                     PermissionCallBack.STOP_ASKING_AFTER_PROHIBITION -> {
-                        openApplicationDetailsSettings(context)
+                        openApplicationDetailsSettings()
                     }
                 }
             }
@@ -283,7 +283,7 @@ object IntentUtil {
             override fun onPermissionDenied(context: Context?, type: Int) {
                 when (type) {
                     PermissionCallBack.STOP_ASKING_AFTER_PROHIBITION -> {
-                        openApplicationDetailsSettings(context)
+                        openApplicationDetailsSettings()
                     }
                 }
             }
@@ -305,14 +305,59 @@ object IntentUtil {
     /**
      * Open system settings
      */
-    @JvmOverloads
-    fun openSettings(
-        context: Context?,
-        action: String? = Settings.ACTION_SETTINGS
-    ) {
-        val intent = Intent(action, Uri.parse("package:" + AppUtil.packageName))
+    fun openSettings(action: String? = Settings.ACTION_SETTINGS) {
+        val intent = Intent(action)
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        context?.startActivity(intent)
+        ContextUtil.context.startActivity(intent)
+    }
+
+    /**
+     * 打开悬浮窗设置页面
+     */
+    @SuppressLint("InlinedApi")
+    fun openSettingsCanDrawOverlays() {
+        val intent = Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION)
+        intent.data = Uri.parse("package:${AppUtil.packageName}")
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        ContextUtil.context.startActivity(intent)
+    }
+
+    /**
+     * 打开应用修改系统设置页面
+     */
+    @SuppressLint("InlinedApi")
+    fun openApplicationManageWriteSettings() {
+        val intent = Intent(
+            Settings.ACTION_MANAGE_WRITE_SETTINGS,
+            Uri.parse("package:${AppUtil.packageName}")
+        )
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        ContextUtil.context.startActivity(intent)
+    }
+
+    /**
+     * Open App Detail page
+     */
+    fun openApplicationDetailsSettings() {
+        val intent = Intent()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
+            intent.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
+            intent.data = Uri.fromParts("package", AppUtil.packageName, null)
+        } else {
+            val appPkgName =
+                when (Build.VERSION.SDK_INT) {
+                    Build.VERSION_CODES.FROYO -> "pkg"
+                    else -> "com.android.settings.ApplicationPkgName"
+                }
+            intent.action = Intent.ACTION_VIEW
+            intent.setClassName(
+                "com.android.settings",
+                "com.android.settings.InstalledAppDetails"
+            )
+            intent.putExtra(appPkgName, AppUtil.packageName)
+        }
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        ContextUtil.context.startActivity(intent)
     }
 
     /**
@@ -338,7 +383,7 @@ object IntentUtil {
             override fun onPermissionDenied(context: Context?, type: Int) {
                 when (type) {
                     PermissionCallBack.STOP_ASKING_AFTER_PROHIBITION -> {
-                        openApplicationDetailsSettings(context)
+                        openApplicationDetailsSettings()
                     }
                 }
             }
@@ -360,28 +405,6 @@ object IntentUtil {
         val intent = Intent(Intent.ACTION_GET_CONTENT)
         intent.type = "image/*"
         activity.startActivityForResult(intent, requestCode)
-    }
-
-    /**
-     * Open App Detail page
-     */
-    fun openApplicationDetailsSettings(context: Context?) {
-        val intent = Intent()
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
-            intent.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
-            intent.data = Uri.fromParts("package", AppUtil.packageName, null)
-        } else {
-            val appPkgName =
-                when (Build.VERSION.SDK_INT) {
-                    Build.VERSION_CODES.FROYO -> "pkg"
-                    else -> "com.android.settings.ApplicationPkgName"
-                }
-            intent.action = Intent.ACTION_VIEW
-            intent.setClassName("com.android.settings", "com.android.settings.InstalledAppDetails")
-            intent.putExtra(appPkgName, AppUtil.packageName)
-        }
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        context?.startActivity(intent)
     }
 
     /**

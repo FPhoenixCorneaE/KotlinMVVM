@@ -14,6 +14,7 @@ import android.graphics.Bitmap
 import android.graphics.drawable.Icon
 import android.net.Uri
 import android.os.Build
+import android.os.Bundle
 import androidx.fragment.app.FragmentActivity
 import com.wkz.util.CloseUtil.Companion.closeIOQuietly
 
@@ -131,6 +132,7 @@ class ShortcutUtil private constructor() {
 
         /**
          * 为程序创建桌面快捷方式
+         * 添加权限"com.android.launcher.permission.INSTALL_SHORTCUT"
          * 需要在权限管理里边将桌面快捷方式权限打开
          *
          * @param activity     Activity
@@ -140,7 +142,8 @@ class ShortcutUtil private constructor() {
             activity: FragmentActivity,
             shortcutName: String?,
             id: String = "",
-            shortcutBitmap: Bitmap? = null
+            shortcutBitmap: Bitmap? = null,
+            bundle: Bundle? = null
         ) {
             when {
                 Build.VERSION.SDK_INT >= Build.VERSION_CODES.O -> {
@@ -149,9 +152,11 @@ class ShortcutUtil private constructor() {
                     when {
                         shortcutManager.isRequestPinShortcutSupported -> {
                             val shortcutIntent = Intent()
-                            shortcutIntent.component = ComponentName(activity, activity::class.java)
+                            shortcutIntent.component =
+                                ComponentName(activity, activity::class.java)
                             //action 必须设置,不然报错
                             shortcutIntent.action = Intent.ACTION_VIEW
+                            shortcutIntent.putExtras(BundleBuilder.of(bundle).get())
                             val shortcutInfo = ShortcutInfo.Builder(activity, id)
                                 .setShortLabel(shortcutName.toString())
                                 .setIcon(Icon.createWithBitmap(shortcutBitmap))
@@ -183,6 +188,7 @@ class ShortcutUtil private constructor() {
                     shortcutIntent.setClassName(activity, activity.javaClass.name)
                     // 添加category:CATEGORY_LAUNCHER 应用被卸载时快捷方式也随之删除
                     shortcutIntent.addCategory(Intent.CATEGORY_LAUNCHER)
+                    shortcutIntent.putExtras(BundleBuilder.of(bundle).get())
                     shortcut.putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcutIntent)
                     activity.sendBroadcast(shortcut)
                 }
@@ -191,6 +197,7 @@ class ShortcutUtil private constructor() {
 
         /**
          * 删除程序的快捷方式
+         * 添加权限"com.android.launcher.permission.UNINSTALL_SHORTCUT"
          *
          * @param activity     Activity
          * @param shortcutName 快捷方式的名称

@@ -6,17 +6,21 @@ import com.orhanobut.logger.Logger
 import com.orhanobut.logger.PrettyFormatStrategy
 import com.wkz.util.BuildConfig
 import com.wkz.util.ContextUtil
+import com.wkz.util.toast.ToastUtil
 
 /**
  * 工具集文件提供者:
- * 1、初始化上下文工具类;
- * 2、初始化日志打印配置;
+ * 1、初始化ContextUtil;
+ * 2、初始化ToastUtil;
+ * 3、初始化日志打印配置;
  */
 class CommonUtilFileProvider : FileProvider() {
 
     override fun onCreate(): Boolean {
-        // 初始化上下文
+        // 初始化ContextUtil
         ContextUtil.init(context!!)
+        // 初始化ToastUtil
+        ToastUtil.init(ContextUtil.context)
         // 初始化日志打印配置
         initLoggerConfig()
         return true

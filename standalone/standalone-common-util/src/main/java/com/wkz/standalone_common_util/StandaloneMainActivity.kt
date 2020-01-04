@@ -10,6 +10,8 @@ import android.os.Bundle
 import android.os.Environment
 import android.provider.Settings
 import android.text.Layout
+import android.view.Gravity
+import android.view.View
 import android.widget.SeekBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentActivity
@@ -18,6 +20,9 @@ import com.wkz.extension.isNonNull
 import com.wkz.extension.isNull
 import com.wkz.extension.showToast
 import com.wkz.util.*
+import com.wkz.util.xtoast.XToast
+import com.wkz.util.xtoast.draggable.SpringDraggable
+import com.wkz.util.xtoast.listener.OnClickListener
 import kotlinx.android.synthetic.main.standalone_activity_main.*
 import java.io.File
 
@@ -77,6 +82,11 @@ class StandaloneMainActivity : AppCompatActivity() {
                  */
                 override fun onPermissionDenied(context: Context?, type: Int) {
                     showToast("申请读写权限失败,Type:$type")
+                    when (type) {
+                        PermissionCallBack.STOP_ASKING_AFTER_PROHIBITION -> {
+                            IntentUtil.openApplicationDetailsSettings()
+                        }
+                    }
                 }
             })
         }
@@ -133,7 +143,9 @@ class StandaloneMainActivity : AppCompatActivity() {
                 }
 
                 override fun onPermissionDenied(context: Context?, type: Int) {
-                    IntentUtil.openSettings(context, Settings.ACTION_MANAGE_WRITE_SETTINGS)
+                    if (!Settings.System.canWrite(context)) {
+                        IntentUtil.openApplicationManageWriteSettings()
+                    }
                 }
             },
             Manifest.permission.WRITE_SETTINGS
@@ -157,6 +169,66 @@ class StandaloneMainActivity : AppCompatActivity() {
         Logger.t("ProcessUtil").d(ProcessUtil.currentProcessName)
         mBtnKillAllBackgroundProcesses.setOnClickListener {
             ProcessUtil.killAllBackgroundProcesses()
+        }
+
+        var xToast: XToast? = null
+        // 全局可拖拽的Toast
+        mBtnDraggableToast.setOnClickListener {
+            if (Settings.canDrawOverlays(this)) {
+                if (xToast.isNull()) {
+                    xToast = XToast(ContextUtil.context)
+                        .setView(R.layout.standalone_floating_toast)
+                        .setGravity(Gravity.END or Gravity.BOTTOM)
+                        .setXOffset(100)
+                        .setYOffset(100)
+                        // 设置指定的拖拽规则
+                        .setDraggable(SpringDraggable())
+                        .setOnClickListener(object : OnClickListener {
+                            override fun onClick(toast: XToast?, view: View) {
+                                // 点击后跳转到拨打电话界面
+                                val intent = Intent(Intent.ACTION_DIAL)
+                                startActivity(intent)
+                            }
+                        })
+                        .show()
+                } else {
+                    xToast!!.cancel()
+                    xToast = null
+                }
+            } else {
+                PermissionUtil.requestPermission(this, object : PermissionCallBack {
+                    override fun onPermissionGranted(context: Context?) {
+                        if (xToast.isNull()) {
+                            xToast = XToast(ContextUtil.context)
+                                .setView(R.layout.standalone_floating_toast)
+                                .setGravity(Gravity.END or Gravity.BOTTOM)
+                                .setXOffset(100)
+                                .setYOffset(100)
+                                // 设置指定的拖拽规则
+                                .setDraggable(SpringDraggable())
+                                .setOnClickListener(object : OnClickListener {
+                                    override fun onClick(toast: XToast?, view: View) {
+                                        // 点击后跳转到拨打电话界面
+                                        val intent = Intent(Intent.ACTION_DIAL)
+                                        startActivity(intent)
+                                    }
+                                })
+                                .show()
+                        } else {
+                            xToast!!.cancel()
+                            xToast = null
+                        }
+                    }
+
+                    override fun onPermissionDenied(context: Context?, type: Int) {
+                        when (type) {
+                            PermissionCallBack.STOP_ASKING_AFTER_PROHIBITION -> {
+                                IntentUtil.openSettingsCanDrawOverlays()
+                            }
+                        }
+                    }
+                }, Manifest.permission.SYSTEM_ALERT_WINDOW)
+            }
         }
     }
 

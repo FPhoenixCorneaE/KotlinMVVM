@@ -4,7 +4,7 @@ import android.text.TextUtils
 import com.wkz.util.CloseUtil
 import com.wkz.util.ContextUtil
 import com.wkz.util.SizeUtil
-import com.wkz.util.ToastUtil
+import com.wkz.util.toast.ToastUtil
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.nio.charset.Charset
@@ -36,8 +36,8 @@ fun CharSequence?.equals(charSequence: CharSequence?): Boolean {
     return TextUtils.equals(this, charSequence)
 }
 
-fun showToast(content: CharSequence) {
-    ToastUtil.showShort(content)
+fun showToast(content: CharSequence?) {
+    ToastUtil.show(content)
 }
 
 fun dp2px(dipValue: Float): Int {
