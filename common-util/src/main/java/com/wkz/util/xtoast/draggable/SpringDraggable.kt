@@ -14,16 +14,14 @@ class SpringDraggable : BaseDraggable() {
     private var mScreenWidth = 0f
     private var mViewDownX = 0f
     private var mViewDownY = 0f
+
     override fun start(toast: XToast) {
         super.start(toast)
         mScreenWidth = screenWidth.toFloat()
     }
 
     @SuppressLint("ClickableViewAccessibility")
-    override fun onTouch(
-        v: View,
-        event: MotionEvent
-    ): Boolean {
+    override fun onTouch(v: View, event: MotionEvent): Boolean {
         // 获取当前触摸点在 屏幕 的位置
         val rawMoveX = event.rawX
         val rawMoveY = event.rawY - statusBarHeight
@@ -32,12 +30,16 @@ class SpringDraggable : BaseDraggable() {
                 // 获取当前触摸点在 View 的位置
                 mViewDownX = event.x
                 mViewDownY = event.y
+                mWhetherMove = false
                 return true
             }
-            MotionEvent.ACTION_MOVE ->  // 更新移动的位置
+            MotionEvent.ACTION_MOVE -> {
+                // 更新移动的位置
+                mWhetherMove = true
                 updateLocation(rawMoveX - mViewDownX, rawMoveY - mViewDownY)
+            }
             MotionEvent.ACTION_UP -> {
-                if (Math.abs(mViewDownX - event.x) <= mTouchSlop && Math.abs(mViewDownY - event.y) <= mTouchSlop) {
+                if (!mWhetherMove) {
                     onClickListener?.onClick(xToast, v)
                 } else {
                     // 自动回弹吸附
@@ -55,7 +57,7 @@ class SpringDraggable : BaseDraggable() {
                         rawFinalX - mViewDownX,
                         rawMoveY - mViewDownY
                     )
-//                    return mViewDownX != event.x || mViewDownY != event.y
+                    return true
                 }
             }
             else -> {

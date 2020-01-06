@@ -23,6 +23,7 @@ abstract class BaseDraggable : View.OnTouchListener {
     protected var windowParams: WindowManager.LayoutParams? = null
         private set
     protected var mTouchSlop: Int = 0
+    protected var mWhetherMove: Boolean = false
 
     /**
      * Toast 显示后回调这个类

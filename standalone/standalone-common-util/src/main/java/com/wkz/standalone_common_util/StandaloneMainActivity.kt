@@ -21,7 +21,7 @@ import com.wkz.extension.isNull
 import com.wkz.extension.showToast
 import com.wkz.util.*
 import com.wkz.util.xtoast.XToast
-import com.wkz.util.xtoast.draggable.SpringDraggable
+import com.wkz.util.xtoast.draggable.MovingDraggable
 import com.wkz.util.xtoast.listener.OnClickListener
 import kotlinx.android.synthetic.main.standalone_activity_main.*
 import java.io.File
@@ -182,7 +182,7 @@ class StandaloneMainActivity : AppCompatActivity() {
                         .setXOffset(100)
                         .setYOffset(100)
                         // 设置指定的拖拽规则
-                        .setDraggable(SpringDraggable())
+                        .setDraggable(MovingDraggable())
                         .setOnClickListener(object : OnClickListener {
                             override fun onClick(toast: XToast?, view: View) {
                                 // 点击后跳转到拨打电话界面
@@ -205,7 +205,7 @@ class StandaloneMainActivity : AppCompatActivity() {
                                 .setXOffset(100)
                                 .setYOffset(100)
                                 // 设置指定的拖拽规则
-                                .setDraggable(SpringDraggable())
+                                .setDraggable(MovingDraggable())
                                 .setOnClickListener(object : OnClickListener {
                                     override fun onClick(toast: XToast?, view: View) {
                                         // 点击后跳转到拨打电话界面
