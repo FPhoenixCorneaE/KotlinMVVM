@@ -230,6 +230,12 @@ class StandaloneMainActivity : AppCompatActivity() {
                 }, Manifest.permission.SYSTEM_ALERT_WINDOW)
             }
         }
+
+        // 崩溃重启
+        mBtnCrash.setOnClickListener {
+            val mArrays = ArrayList<Long>()
+            Logger.d(mArrays[1])
+        }
     }
 
     private fun initData() {

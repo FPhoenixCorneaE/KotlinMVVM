@@ -181,7 +181,7 @@ class ConvertUtil private constructor() {
             var len = hexString.length
             if (len % 2 != 0) {
                 hexString = "0$hexString"
-                len = len + 1
+                len += 1
             }
             val hexBytes = hexString.toUpperCase().toCharArray()
             val ret = ByteArray(len shr 1)
@@ -197,9 +197,9 @@ class ConvertUtil private constructor() {
         }
 
         private fun hex2Int(hexChar: Char): Int {
-            return if (hexChar >= '0' && hexChar <= '9') {
+            return if (hexChar in '0'..'9') {
                 hexChar - '0'
-            } else if (hexChar >= 'A' && hexChar <= 'F') {
+            } else if (hexChar in 'A'..'F') {
                 hexChar - 'A' + 10
             } else {
                 throw IllegalArgumentException()
@@ -260,16 +260,22 @@ class ConvertUtil private constructor() {
          */
         @SuppressLint("DefaultLocale")
         fun byte2FitMemorySize(byteSize: Long): String {
-            return if (byteSize < 0) {
-                "shouldn't be less than zero!"
-            } else if (byteSize < MemoryUnit.KB) {
-                String.format("%.3fB", byteSize.toDouble())
-            } else if (byteSize < MemoryUnit.MB) {
-                String.format("%.3fKB", byteSize.toDouble() / MemoryUnit.KB)
-            } else if (byteSize < MemoryUnit.GB) {
-                String.format("%.3fMB", byteSize.toDouble() / MemoryUnit.MB)
-            } else {
-                String.format("%.3fGB", byteSize.toDouble() / MemoryUnit.GB)
+            return when {
+                byteSize < 0 -> {
+                    "shouldn't be less than zero!"
+                }
+                byteSize < MemoryUnit.KB -> {
+                    String.format("%.3fB", byteSize.toDouble())
+                }
+                byteSize < MemoryUnit.MB -> {
+                    String.format("%.3fKB", byteSize.toDouble() / MemoryUnit.KB)
+                }
+                byteSize < MemoryUnit.GB -> {
+                    String.format("%.3fMB", byteSize.toDouble() / MemoryUnit.MB)
+                }
+                else -> {
+                    String.format("%.3fGB", byteSize.toDouble() / MemoryUnit.GB)
+                }
             }
         }
 
@@ -400,7 +406,7 @@ class ConvertUtil private constructor() {
          * @return input stream
          */
         fun bytes2InputStream(bytes: ByteArray?): InputStream? {
-            return if (bytes == null || bytes.size <= 0) {
+            return if (bytes == null || bytes.isEmpty()) {
                 null
             } else ByteArrayInputStream(bytes)
         }
@@ -424,7 +430,7 @@ class ConvertUtil private constructor() {
          * @return output stream
          */
         fun bytes2OutputStream(bytes: ByteArray?): OutputStream? {
-            if (bytes == null || bytes.size <= 0) {
+            if (bytes == null || bytes.isEmpty()) {
                 return null
             }
             var os: ByteArrayOutputStream? = null
@@ -460,7 +466,7 @@ class ConvertUtil private constructor() {
             } else try {
                 val baos =
                     input2OutputStream(`is`) ?: return ""
-                baos.toString(charsetName)
+                baos.toString(charsetName!!)
             } catch (e: UnsupportedEncodingException) {
                 e.printStackTrace()
                 ""
@@ -727,8 +733,8 @@ class ConvertUtil private constructor() {
         }
 
         ///////////////////////////////////////////////////////////////////////////
-// other utils methods
-///////////////////////////////////////////////////////////////////////////
+        // other utils methods
+        ///////////////////////////////////////////////////////////////////////////
         private fun isSpace(s: String?): Boolean {
             if (s == null) {
                 return true

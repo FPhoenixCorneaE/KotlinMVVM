@@ -26,7 +26,7 @@ class CrashUtil private constructor() {
         private var versionCode: Long = 0
         private val FILE_SEP = System.getProperty("file.separator")
         @SuppressLint("SimpleDateFormat")
-        private val FORMAT: Format = SimpleDateFormat("MM-dd_HH-mm-ss")
+        private val FORMAT: Format = SimpleDateFormat("YYYY-MM-dd HH:mm:ss")
         private var DEFAULT_UNCAUGHT_EXCEPTION_HANDLER: Thread.UncaughtExceptionHandler? =
             null
         private var UNCAUGHT_EXCEPTION_HANDLER: Thread.UncaughtExceptionHandler? = null
@@ -100,24 +100,31 @@ class CrashUtil private constructor() {
          */
         @RequiresPermission(permission.WRITE_EXTERNAL_STORAGE)
         fun init(crashDirPath: String, onCrashListener: OnCrashListener?) {
-            dir = if (isSpace(crashDirPath)) {
-                null
-            } else {
-                if (crashDirPath.endsWith(FILE_SEP!!)) crashDirPath else crashDirPath + FILE_SEP
+            dir = when {
+                isSpace(crashDirPath) -> {
+                    null
+                }
+                else -> {
+                    if (crashDirPath.endsWith(FILE_SEP!!)) crashDirPath else crashDirPath + FILE_SEP
+                }
             }
             defaultDir =
-                if (Environment.MEDIA_MOUNTED == Environment.getExternalStorageState() && context.externalCacheDir != null) {
-                    context.externalCacheDir.toString() + FILE_SEP + "crash" + FILE_SEP
-                } else {
-                    context.cacheDir.toString() + FILE_SEP + "crash" + FILE_SEP
+                when {
+                    Environment.MEDIA_MOUNTED == Environment.getExternalStorageState()
+                            && context.externalCacheDir != null -> {
+                        context.externalCacheDir.toString() + FILE_SEP + "crash" + FILE_SEP
+                    }
+                    else -> {
+                        context.cacheDir.toString() + FILE_SEP + "crash" + FILE_SEP
+                    }
                 }
             sOnCrashListener = onCrashListener
             Thread.setDefaultUncaughtExceptionHandler(UNCAUGHT_EXCEPTION_HANDLER)
         }
 
         ///////////////////////////////////////////////////////////////////////////
-// other utils methods
-///////////////////////////////////////////////////////////////////////////
+        // other utils methods
+        ///////////////////////////////////////////////////////////////////////////
         private fun input2File(input: String, filePath: String) {
             val submit =
                 Executors.newSingleThreadExecutor()
@@ -162,13 +169,18 @@ class CrashUtil private constructor() {
             if (file.exists()) {
                 return file.isFile
             }
-            return if (!createOrExistsDir(file.parentFile)) {
-                false
-            } else try {
-                file.createNewFile()
-            } catch (e: IOException) {
-                e.printStackTrace()
-                false
+            return when {
+                !createOrExistsDir(file.parentFile) -> {
+                    false
+                }
+                else -> {
+                    try {
+                        file.createNewFile()
+                    } catch (e: IOException) {
+                        e.printStackTrace()
+                        false
+                    }
+                }
             }
         }
 
@@ -233,7 +245,7 @@ class CrashUtil private constructor() {
 
 
     interface OnCrashListener {
-        fun onCrash(crashInfo: String?, e: Throwable?)
+        fun onCrash(crashInfo: String, e: Throwable?)
     }
 
     init {

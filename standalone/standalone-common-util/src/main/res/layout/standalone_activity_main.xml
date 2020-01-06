@@ -202,5 +202,17 @@
             android:textSize="12sp"
             app:layout_constraintTop_toBottomOf="@+id/mBtnKillAllBackgroundProcesses"
             tools:ignore="ButtonStyle,HardcodedText" />
+
+        <Button
+            android:id="@+id/mBtnCrash"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:gravity="center"
+            android:text="崩溃重启"
+            android:textColor="#123456"
+            android:textSize="12sp"
+            app:layout_constraintTop_toBottomOf="@+id/mBtnDraggableToast"
+            tools:ignore="ButtonStyle,HardcodedText" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

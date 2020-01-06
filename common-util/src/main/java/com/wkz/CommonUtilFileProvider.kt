@@ -37,7 +37,8 @@ class CommonUtilFileProvider : FileProvider() {
      */
     private fun initCrashUtil() {
         CrashUtil.init(object : CrashUtil.OnCrashListener {
-            override fun onCrash(crashInfo: String?, e: Throwable?) {
+            override fun onCrash(crashInfo: String, e: Throwable?) {
+                Logger.d(crashInfo)
                 // 重启应用
                 AppUtil.relaunchApp()
             }
