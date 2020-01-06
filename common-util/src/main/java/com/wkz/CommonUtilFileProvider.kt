@@ -4,8 +4,10 @@ import androidx.core.content.FileProvider
 import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
 import com.orhanobut.logger.PrettyFormatStrategy
+import com.wkz.util.AppUtil
 import com.wkz.util.BuildConfig
 import com.wkz.util.ContextUtil
+import com.wkz.util.CrashUtil
 import com.wkz.util.toast.ToastUtil
 
 /**
@@ -21,9 +23,25 @@ class CommonUtilFileProvider : FileProvider() {
         ContextUtil.init(context!!)
         // 初始化ToastUtil
         ToastUtil.init(ContextUtil.context)
+        // 初始化CrashUtil
+        initCrashUtil()
         // 初始化日志打印配置
         initLoggerConfig()
+
+        // 返回true表示初始化成功,返回false则初始化失败.
         return true
+    }
+
+    /**
+     * 初始化崩溃处理工具
+     */
+    private fun initCrashUtil() {
+        CrashUtil.init(object : CrashUtil.OnCrashListener {
+            override fun onCrash(crashInfo: String?, e: Throwable?) {
+                // 重启应用
+                AppUtil.relaunchApp()
+            }
+        })
     }
 
     /**

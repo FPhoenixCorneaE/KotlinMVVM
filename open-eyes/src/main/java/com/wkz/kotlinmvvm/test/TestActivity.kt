@@ -14,13 +14,13 @@ import com.qingmei2.rximagepicker_extension_wechat.ui.WechatImagePickerFragment
 import com.tbruyelle.rxpermissions2.RxPermissions
 import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
 import com.uber.autodispose.autoDisposable
+import com.wkz.extension.showToast
 import com.wkz.framework.imagepicker.WeChatImagePicker
 import com.wkz.kotlinmvvm.R
 import com.wkz.kotlinmvvm.mvvm.viewmodel.activity.OpenEyesHomeActivity
 import com.wkz.rxretrofit.scheduler.SchedulerManager
 import com.wkz.util.ImgBase64Util
 import com.wkz.util.SharedPreferencesUtil
-import com.wkz.util.ToastUtil
 import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_test.*
@@ -117,7 +117,7 @@ class TestActivity : AppCompatActivity() {
                         "android/pics"
                     )
                 }, {
-                    ToastUtil.showShort("Failed:$it")
+                    showToast("Failed:$it")
                 })
         }
         mTvGoToHome.setOnClickListener {

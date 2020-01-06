@@ -9,6 +9,9 @@ import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.nio.charset.Charset
 
+/**
+ * 判断任意一个字符串是否为空
+ */
 fun String?.isSpace(): Boolean {
     if (this.isNull()) {
         return true
@@ -24,14 +27,23 @@ fun String?.isSpace(): Boolean {
     return true
 }
 
+/**
+ * 判断任意一个对象是否为null
+ */
 fun Any?.isNull(): Boolean {
     return this == null
 }
 
+/**
+ * 判断任意一个对象是否为非null
+ */
 fun Any?.isNonNull(): Boolean {
     return this != null
 }
 
+/**
+ * 字符序列比较
+ */
 fun CharSequence?.equals(charSequence: CharSequence?): Boolean {
     return TextUtils.equals(this, charSequence)
 }
