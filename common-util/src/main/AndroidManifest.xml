@@ -45,6 +45,9 @@
     <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
     <!--  系统警告窗口  -->
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <!--  定位  -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application>
         <!--Android 7.0适配-应用之间共享文件-->
