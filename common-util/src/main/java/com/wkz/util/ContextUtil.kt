@@ -314,3 +314,7 @@ interface OnAppStatusChangedListener {
 interface OnActivityDestroyedListener {
     fun onActivityDestroyed(activity: Activity?)
 }
+
+interface Func1<Ret, Par> {
+    fun call(param: Par): Ret
+}

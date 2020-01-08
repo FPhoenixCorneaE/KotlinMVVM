@@ -20,12 +20,12 @@ class Config {
             appcompat          : "androidx.appcompat:appcompat:1.0.2",
             constraintLayout   : "androidx.constraintlayout:constraintlayout:1.1.3",
             material           : "com.google.android.material:material:1.0.0",
-            recyclerView       : "androidx.recyclerview:recyclerview:1.0.0",
+            recyclerView       : "androidx.recyclerview:recyclerview:1.1.0",
             cardView           : "androidx.cardview:cardview:1.0.0",
             lifecycleViewmodel : "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0-alpha02",
             lifecycleExtensions: "androidx.lifecycle:lifecycle-extensions:2.2.0-alpha02",
             flexbox            : "com.google.android:flexbox:1.1.0",
-            viewpager2         : "androidx.viewpager2:viewpager2:1.0.0-rc01",
+            viewpager2         : "androidx.viewpager2:viewpager2:1.0.0",
     ]
 
     static navigation = [

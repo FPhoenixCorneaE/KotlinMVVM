@@ -1,5 +1,6 @@
 package com.wkz.util
 
+import android.Manifest
 import android.app.Activity
 import android.app.KeyguardManager
 import android.content.Context
@@ -13,6 +14,7 @@ import android.view.Surface
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
+import androidx.annotation.RequiresPermission
 
 import com.orhanobut.logger.Logger
 
@@ -38,7 +40,8 @@ class ScreenUtil private constructor() {
         // 给白纸设置宽高
         val screenWidth: Int
             get() {
-                val windowManager = ContextUtil.context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+                val windowManager =
+                    ContextUtil.context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
                 val dm = DisplayMetrics()
                 windowManager.defaultDisplay?.getMetrics(dm)
                 return dm.widthPixels
@@ -53,7 +56,8 @@ class ScreenUtil private constructor() {
         // 给白纸设置宽高
         val screenHeight: Int
             get() {
-                val windowManager = ContextUtil.context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+                val windowManager =
+                    ContextUtil.context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
                 val dm = DisplayMetrics()
                 windowManager.defaultDisplay?.getMetrics(dm)
                 return dm.heightPixels
@@ -143,7 +147,8 @@ class ScreenUtil private constructor() {
          */
         val isScreenLock: Boolean
             get() {
-                val km = ContextUtil.context.getSystemService(Context.KEYGUARD_SERVICE) as KeyguardManager
+                val km =
+                    ContextUtil.context.getSystemService(Context.KEYGUARD_SERVICE) as KeyguardManager
                 return km.inKeyguardRestrictedInputMode()
             }
 
@@ -159,6 +164,7 @@ class ScreenUtil private constructor() {
          *
          * @param duration 时长
          */
+        @get:RequiresPermission(Manifest.permission.WRITE_SETTINGS)
         var sleepDuration: Int
             get() {
                 return try {
@@ -223,7 +229,8 @@ class ScreenUtil private constructor() {
                 try {
                     localClass = Class.forName("com.android.internal.R\$dimen")
                     val localObject = localClass.newInstance()
-                    val id = Integer.parseInt(localClass.getField("status_bar_height").get(localObject)!!.toString())
+                    val id =
+                        Integer.parseInt(localClass.getField("status_bar_height").get(localObject)!!.toString())
                     statusBarHeight = activity.resources.getDimensionPixelSize(id)
                 } catch (e: Exception) {
                     Logger.e(e.toString())
