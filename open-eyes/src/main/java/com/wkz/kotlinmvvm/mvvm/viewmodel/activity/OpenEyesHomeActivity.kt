@@ -1,7 +1,6 @@
 package com.wkz.kotlinmvvm.mvvm.viewmodel.activity
 
 import android.os.Bundle
-import androidx.fragment.app.FragmentActivity
 import com.wkz.framework.base.activity.Dagger2InjectionActivity
 import com.wkz.kotlinmvvm.R
 import com.wkz.kotlinmvvm.mvvm.contract.OpenEyesHomeContract
@@ -15,7 +14,11 @@ class OpenEyesHomeActivity :
     override fun getLayoutId(): Int = R.layout.open_eyes_activity_home
 
     override fun initView() {
-        FragmentUtil.addFragment(mContext as FragmentActivity, R.id.mFlContainer, OpenEyesHomeFragment.getInstance(), Bundle(), false)
+        FragmentUtil.with(this)
+            .setContainerViewId(R.id.mFlContainer)
+            .setCustomAnimations(R.anim.bottom_in, R.anim.bottom_out)
+            .addFragment(OpenEyesHomeFragment.getInstance())
+            .commit()
     }
 
     override fun initData(savedInstanceState: Bundle?) {

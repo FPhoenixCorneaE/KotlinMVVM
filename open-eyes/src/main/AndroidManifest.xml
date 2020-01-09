@@ -18,19 +18,17 @@
         tools:ignore="AllowBackup,GoogleAppIndexingWarning"
         tools:replace="android:label"
         tools:targetApi="m">
+        <activity android:name=".test.TestActivity" />
         <activity
-            android:name=".test.TestActivity"
-            android:theme="@style/AppTheme">
+            android:name=".mvvm.viewmodel.activity.OpenEyesHomeActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/open_eyes_app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".mvvm.viewmodel.activity.OpenEyesHomeActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/open_eyes_app_name" />
         <!-- 视频播放详情页面 -->
         <activity
             android:name=".mvvm.viewmodel.activity.OpenEyesVideoDetailActivity"
