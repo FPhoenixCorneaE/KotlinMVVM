@@ -351,8 +351,8 @@ object NotificationUtil {
 
         companion object {
             val DEFAULT_CHANNEL_CONFIG = ChannelConfig(
-                ContextUtil.context.getPackageName(),
-                ContextUtil.context.getPackageName(),
+                ContextUtil.context.packageName,
+                ContextUtil.context.packageName,
                 IMPORTANCE_DEFAULT
             )
         }

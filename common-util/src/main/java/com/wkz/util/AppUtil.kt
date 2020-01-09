@@ -25,6 +25,7 @@ import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 import java.security.cert.CertificateFactory
 import java.security.cert.X509Certificate
+import java.util.*
 import javax.security.auth.x500.X500Principal
 import kotlin.system.exitProcess
 
@@ -442,7 +443,7 @@ class AppUtil private constructor() {
          * Exit the application.
          */
         fun exitApp() {
-            val activityList: List<Activity> = ContextUtil.getActivityList()
+            val activityList: LinkedList<Activity> = ContextUtil.getActivityList()
             for (i in activityList.indices.reversed()) {
                 // remove from top
                 val activity = activityList[i]

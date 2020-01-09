@@ -3,8 +3,8 @@ class Config {
     static kotlin_version = '1.3.61'
 
     static classpath = [
-            gradle              : "com.android.tools.build:gradle:$Config.gradle_version",
-            kotlin              : "org.jetbrains.kotlin:kotlin-gradle-plugin:$Config.kotlin_version",
+            gradle: "com.android.tools.build:gradle:$Config.gradle_version",
+            kotlin: "org.jetbrains.kotlin:kotlin-gradle-plugin:$Config.kotlin_version",
     ]
 
     static android = [
@@ -104,6 +104,7 @@ class Config {
     static logger = "com.orhanobut:logger:2.2.0"
     static rxPermissions = 'com.github.tbruyelle:rxpermissions:0.10.2'
     static videoPlayer = 'com.shuyu:GSYVideoPlayer:2.1.1'
+    static gson = 'com.google.code.gson:gson:2.8.6'
 
     static supportLibs = support.values()
     static navigationLibs = navigation.values()

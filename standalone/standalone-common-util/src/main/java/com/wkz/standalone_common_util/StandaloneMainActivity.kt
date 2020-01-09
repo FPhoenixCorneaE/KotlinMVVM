@@ -20,6 +20,7 @@ import com.wkz.extension.isNonNull
 import com.wkz.extension.isNull
 import com.wkz.extension.showToast
 import com.wkz.util.*
+import com.wkz.util.gson.GsonUtil
 import com.wkz.util.xtoast.XToast
 import com.wkz.util.xtoast.draggable.MovingDraggable
 import com.wkz.util.xtoast.listener.OnClickListener
@@ -235,6 +236,27 @@ class StandaloneMainActivity : AppCompatActivity() {
         mBtnCrash.setOnClickListener {
             val mArrays = ArrayList<Long>()
             Logger.d(mArrays[1])
+        }
+
+        // Gson解析
+        mBtnGsonParse.setOnClickListener {
+            val testJson = "{\n" +
+                    "    \"like\": \"0\",\n" +
+                    "    \"favorite\": \"1\",\n" +
+                    "    \"width\": \"\",\n" +
+                    "    \"height\": \"null\",\n" +
+                    "    \"originalPrice\": \"\",\n" +
+                    "    \"realPrice\": \"null\",\n" +
+                    "    \"originalCount\": \"\",\n" +
+                    "    \"realCount\": \"null\",\n" +
+                    "    \"originalTime\": \"\",\n" +
+                    "    \"realTime\": \"null\",\n" +
+                    "    \"content\": \"null\"\n" +
+                    "}"
+            val parseResult = GsonUtil.fromJson(testJson, StandaloneGsonParseBean::class.java)
+            Logger.d(testJson)
+            Logger.d(parseResult)
+            showToast(parseResult.toString())
         }
     }
 

@@ -7,6 +7,7 @@ import com.wkz.rxretrofit.network.ssl.SslSocketUtils
 import com.wkz.util.ContextUtil
 import com.wkz.util.NetworkUtil
 import com.wkz.util.SharedPreferencesUtil
+import com.wkz.util.gson.GsonUtil
 import okhttp3.Cache
 import okhttp3.CacheControl
 import okhttp3.Interceptor
@@ -143,7 +144,7 @@ object RetrofitManager {
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             // Retrofit只支持返回值的第二部分是ResponseBody.class和Void.class类型的或者请求参数为ResponseBody.class
             // 添加GsonConverterFactory可以对服务器的数据进行解析
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(GsonUtil.gson))
             .build()
     }
 

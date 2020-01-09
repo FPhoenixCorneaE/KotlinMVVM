@@ -214,5 +214,17 @@
             android:textSize="12sp"
             app:layout_constraintTop_toBottomOf="@+id/mBtnDraggableToast"
             tools:ignore="ButtonStyle,HardcodedText" />
+
+        <Button
+            android:id="@+id/mBtnGsonParse"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:gravity="center"
+            android:text="Gson解析"
+            android:textColor="#123456"
+            android:textSize="12sp"
+            app:layout_constraintTop_toBottomOf="@+id/mBtnCrash"
+            tools:ignore="ButtonStyle,HardcodedText" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>
