@@ -19,7 +19,7 @@ class TimeUtil {
 
     companion object {
 
-        private val DEFAULT_FORMAT = "yyyy-MM-dd HH:mm:ss"
+        const val DEFAULT_FORMAT = "yyyy-MM-dd HH:mm:ss"
 
         /**
          * 获取友好型与当前时间的差
