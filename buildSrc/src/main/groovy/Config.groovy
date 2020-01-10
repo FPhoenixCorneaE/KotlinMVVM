@@ -7,6 +7,7 @@ class Config {
             kotlin: "org.jetbrains.kotlin:kotlin-gradle-plugin:$Config.kotlin_version",
     ]
 
+    /** Android */
     static android = [
             compileSdkVersion: 29,
             buildToolsVersion: "29.0.0",
@@ -16,6 +17,7 @@ class Config {
             versionName      : "1.0.0.0"
     ]
 
+    /** Supports */
     static support = [
             appcompat          : "androidx.appcompat:appcompat:1.0.2",
             constraintLayout   : "androidx.constraintlayout:constraintlayout:1.1.3",
@@ -28,6 +30,7 @@ class Config {
             viewpager2         : "androidx.viewpager2:viewpager2:1.0.0",
     ]
 
+    /** navigation 扩展插件 */
     static navigation = [
             common  : 'androidx.navigation:navigation-common-ktx:2.0.0',
             fragment: 'androidx.navigation:navigation-fragment-ktx:2.0.0',
@@ -35,12 +38,14 @@ class Config {
             ui      : 'androidx.navigation:navigation-ui-ktx:2.0.0',
     ]
 
+    /** Kotlin */
     static kotlin = [
             core            : "androidx.core:core-ktx:1.0.2",
             fragment        : "androidx.fragment:fragment-ktx:1.0.0",
             kotlinStdlibJdk7: "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$Config.kotlin_version",
     ]
 
+    /** Retrofit2 */
     static retrofit2 = [
             retrofit                 : "com.squareup.retrofit2:retrofit:2.3.0",
             retrofitConverterGson    : "com.squareup.retrofit2:converter-gson:2.3.0",
@@ -48,12 +53,14 @@ class Config {
             okhttp3LoggingInterceptor: 'com.squareup.okhttp3:logging-interceptor:3.4.1',
     ]
 
+    /** RxJava2 */
     static rxJava2 = [
             rxJava   : "io.reactivex.rxjava2:rxjava:2.2.0",
             rxAndroid: "io.reactivex.rxjava2:rxandroid:2.1.0",
             rxKotlin : "io.reactivex.rxjava2:rxkotlin:2.2.0",
     ]
 
+    /** 灵活的图片选择器,知乎、微信主题，可自定义主题 */
     static rxImagePicker = [
             rximagepicker               : 'com.github.qingmei2:rximagepicker:2.5.1',
             rximagepicker_support       : 'com.github.qingmei2:rximagepicker_support:2.5.1',
@@ -61,12 +68,14 @@ class Config {
             rximagepicker_support_wechat: 'com.github.qingmei2:rximagepicker_support_wechat:2.5.1',
     ]
 
+    /** Dagger2 */
     static dagger2 = [
             dagger              : 'com.google.dagger:dagger:2.16',
             daggerAndroid       : 'com.google.dagger:dagger-android:2.16',
             daggerandroidSupport: 'com.google.dagger:dagger-android-support:2.16',
     ]
 
+    /** AutoDispose,解决RxJava内存泄漏 */
     static autoDispose = [
             autoDisposeAndroid                 : 'com.uber.autodispose:autodispose-android:1.1.0',
             autoDisposeKtx                     : 'com.uber.autodispose:autodispose-ktx:1.1.0',
@@ -75,22 +84,43 @@ class Config {
                     'com.uber.autodispose:autodispose-android-archcomponents-ktx:1.1.0',
     ]
 
+    /** Glide */
     static glide = [
             glide      : "com.github.bumptech.glide:glide:4.9.0",
             glideOkhttp: "com.github.bumptech.glide:okhttp3-integration:4.9.0",
     ]
 
+    /** 下拉刷新、上拉加载、二级刷新、淘宝二楼、RefreshLayout、OverScroll，Android智能下拉刷新框架，
+     * 支持越界回弹、越界拖动，具有极强的扩展性，集成了几十种炫酷的Header和 Footer */
     static smartRefresh = [
-            smartRefreshLayout: "com.scwang.smartrefresh:SmartRefreshLayout:1.0.3",
-            smartRefreshHeader: "com.scwang.smartrefresh:SmartRefreshHeader:1.0.3",
+            smartRefreshLayout: "com.scwang.smartrefresh:SmartRefreshLayout:1.1.0",
+            smartRefreshHeader: "com.scwang.smartrefresh:SmartRefreshHeader:1.1.0",
     ]
 
+    /** MultiTypeAdapter for RecyclerView */
     static multiType = [
             multiType      : 'me.drakeet.multitype:multitype:3.4.4',
             multiTypeKotlin: 'me.drakeet.multitype:multitype-kotlin:3.4.4',
     ]
 
+    /** 侧滑 */
+    static smartSwipe = [
+            smartSwipe : 'com.billy.android:smart-swipe:1.1.2',
+            smartSwipeX: 'com.billy.android:smart-swipe-x:1.1.0',
+    ]
+
+
+    /** 直接在layout文件中去创建drawable */
     static folivora = "cn.cricin:folivora:0.0.9"
+    /** logger */
+    static logger = "com.orhanobut:logger:2.2.0"
+    /** 权限管理 */
+    static rxPermissions = 'com.github.tbruyelle:rxpermissions:0.10.2'
+    /** 视屏播放器 */
+    static videoPlayer = 'com.shuyu:GSYVideoPlayer:2.1.1'
+    /** Gson */
+    static gson = 'com.google.code.gson:gson:2.8.6'
+
 
     /** compiler */
     static dataBindingCompiler = "com.android.databinding:compiler:3.1.4"
@@ -101,10 +131,11 @@ class Config {
     ]
 
 
-    static logger = "com.orhanobut:logger:2.2.0"
-    static rxPermissions = 'com.github.tbruyelle:rxpermissions:0.10.2'
-    static videoPlayer = 'com.shuyu:GSYVideoPlayer:2.1.1'
-    static gson = 'com.google.code.gson:gson:2.8.6'
+    /** kapt */
+    static kaptDataBinding = [dataBindingCompiler]
+    static kaptGlide = [glideCompiler]
+    static kaptDagger2 = dagger2Compiler.values()
+
 
     static supportLibs = support.values()
     static navigationLibs = navigation.values()
@@ -117,9 +148,4 @@ class Config {
     static glideLibs = glide.values()
     static smartRefreshLibs = smartRefresh.values()
     static multiTypeLibs = multiType.values()
-
-    /** kapt */
-    static kaptDataBinding = [dataBindingCompiler]
-    static kaptGlide = [glideCompiler]
-    static kaptDagger2 = dagger2Compiler.values()
 }

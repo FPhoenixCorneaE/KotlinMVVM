@@ -6,7 +6,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.scwang.smartrefresh.layout.api.RefreshLayout
-import com.scwang.smartrefresh.layout.listener.OnRefreshLoadmoreListener
+import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener
 import com.wkz.adapter.AnimationType
 import com.wkz.extension.viewModel
 import com.wkz.framework.base.fragment.BaseFragment
@@ -22,7 +22,7 @@ import kotlinx.android.synthetic.main.wan_android_fragment_home_article.*
  * @desc: 首页文章Fragment
  * @date: 2019-10-24 15:51
  */
-class WanAndroidHomeArticleFragment : BaseFragment(), OnRefreshLoadmoreListener {
+class WanAndroidHomeArticleFragment : BaseFragment(), OnRefreshLoadMoreListener {
     private val mBannerAdapter by lazy(LazyThreadSafetyMode.NONE) {
         WanAndroidHomeBannerAdapter()
     }
@@ -47,7 +47,7 @@ class WanAndroidHomeArticleFragment : BaseFragment(), OnRefreshLoadmoreListener 
     }
 
     override fun initListener() {
-        mSrlRefresh.setOnRefreshLoadmoreListener(this)
+        mSrlRefresh.setOnRefreshLoadMoreListener(this)
         mHomeArticleViewModel.mRefreshing.observe(this, Observer {
             when {
                 !it -> mSrlRefresh.finishRefresh(1500)
@@ -55,7 +55,7 @@ class WanAndroidHomeArticleFragment : BaseFragment(), OnRefreshLoadmoreListener 
         })
         mHomeArticleViewModel.mLoadingMore.observe(this, Observer {
             when {
-                !it -> mSrlRefresh.finishLoadmore(1500)
+                !it -> mSrlRefresh.finishLoadMore(1500)
             }
         })
     }
@@ -111,7 +111,7 @@ class WanAndroidHomeArticleFragment : BaseFragment(), OnRefreshLoadmoreListener 
         mSrlRefresh.autoRefresh()
     }
 
-    override fun onLoadmore(refreshlayout: RefreshLayout) {
+    override fun onLoadMore(refreshlayout: RefreshLayout) {
         mHomeArticleViewModel.loadMore()
     }
 

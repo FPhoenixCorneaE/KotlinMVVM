@@ -82,22 +82,12 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    /**
-     * test
-     */
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
     implementation project(':framework')
-
-    /**
-     * Dagger2
-     */
     implementation Config.dagger2Libs
     kapt Config.kaptDagger2
-    /**
-     * navigation 扩展插件
-     */
     implementation Config.navigationLibs
 }

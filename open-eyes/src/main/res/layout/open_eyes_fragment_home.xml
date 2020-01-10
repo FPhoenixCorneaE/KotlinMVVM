@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     app:srlAccentColor="@color/open_eyes_color_white"
     app:srlEnableHeaderTranslationContent="false"
-    app:srlEnableLoadmore="false"
+    app:srlEnableLoadMore="false"
     app:srlPrimaryColor="@color/open_eyes_colorPrimary">
 
     <com.scwang.smartrefresh.header.MaterialHeader

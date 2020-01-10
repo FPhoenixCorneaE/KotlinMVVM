@@ -14,11 +14,17 @@ android {
         targetSdkVersion Config.android.targetSdkVersion
         versionCode 1
         versionName "1.0"
+
+        consumerProguardFiles 'consumer-rules.pro'
     }
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -44,86 +50,26 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    /**
-     * common-util
-     */
     api project(':common-util')
-    /**
-     * RxRetrofit
-     */
     api project(':rxretrofit')
-    /**
-     * multiple-status-view
-     */
     api project(':multiple-status-view')
-    /**
-     * multi-type-adapter
-     */
     api project(':multi-type-adapter')
-    /**
-     * expand-collapse-text-view
-     */
     api project(':expand-collapse-text-view')
-    /**
-     * magic-indicator
-     */
     api project(':magic-indicator')
-    /**
-     * nb-adapter,万能RecyclerView适配器
-     */
     api project(':nb-adapter')
-    /**
-     * pager-adapter,ViewPager适配器
-     */
     api project(':pager-adapter')
-    /**
-     * Supports
-     */
     api Config.supportLibs
-    /**
-     * Kotlin
-     */
     api Config.kotlinLibs
-    /**
-     * Dagger2
-     */
     implementation Config.dagger2Libs
     kapt Config.kaptDagger2
-    /**
-     * AutoDispose,解决RxJava内存泄漏
-     */
     api Config.autoDisposeLibs
-    /**
-     * SmartRefreshLayout
-     */
     api Config.smartRefreshLibs
-    /**
-     * Glide
-     */
     api Config.glideLibs
     kapt Config.kaptGlide
-    /**
-     * 视屏播放器
-     */
     api Config.videoPlayer
-    /**
-     * DataBinding
-     */
     kapt Config.kaptDataBinding
-    /**
-     * MultiTypeAdapter for RecyclerView
-     */
     api Config.multiTypeLibs
-    /**
-     * RxImagePicker:灵活的图片选择器,知乎、微信主题，可自定义主题
-     */
     api Config.rxImagePickerLibs
-    /**
-     * RxPermissions,权限管理
-     */
     api Config.rxPermissions
-    /**
-     * 直接在layout文件中去创建drawable
-     */
     api Config.folivora
 }

@@ -39,26 +39,11 @@ dependencies {
     implementation Config.support.appcompat
     implementation Config.support.lifecycleViewmodel
     implementation Config.support.lifecycleExtensions
-    /**
-     * Kotlin
-     */
     implementation Config.kotlinLibs
-    /**
-     * logger
-     */
+    implementation Config.rxPermissions
+    implementation Config.rxJava2Libs
+    implementation Config.gson
     api(Config.logger) {
         transitive true
     }
-    /**
-     * RxPermissions,权限管理
-     */
-    implementation Config.rxPermissions
-    /**
-     * RxJava2
-     */
-    implementation Config.rxJava2Libs
-    /**
-     * Gson
-     */
-    implementation Config.gson
 }
