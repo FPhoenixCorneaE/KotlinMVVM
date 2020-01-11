@@ -1,4 +1,4 @@
-include ':open-eyes'
+include ':open-eyes', ':common-titlebar'
 include ':bottom-navigation-view'
 include ':rxretrofit'
 include ':android-util-code-ktx'

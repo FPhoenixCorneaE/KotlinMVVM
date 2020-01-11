@@ -19,7 +19,7 @@ class Config {
 
     /** Supports */
     static support = [
-            appcompat          : "androidx.appcompat:appcompat:1.0.2",
+            appcompat          : "androidx.appcompat:appcompat:1.1.0",
             constraintLayout   : "androidx.constraintlayout:constraintlayout:1.1.3",
             material           : "com.google.android.material:material:1.0.0",
             recyclerView       : "androidx.recyclerview:recyclerview:1.1.0",

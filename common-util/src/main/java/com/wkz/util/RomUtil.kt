@@ -390,7 +390,7 @@ class RomUtil private constructor() {
                 try {
                     val manufacturer = Build.MANUFACTURER
                     if (!TextUtils.isEmpty(manufacturer)) {
-                        return manufacturer.toLowerCase()
+                        return manufacturer.toLowerCase(Locale.getDefault())
                     }
                 } catch (ignore: Throwable) { /**/
                 }
@@ -403,7 +403,7 @@ class RomUtil private constructor() {
                 try {
                     val brand = Build.BRAND
                     if (!TextUtils.isEmpty(brand)) {
-                        return brand.toLowerCase()
+                        return brand.toLowerCase(Locale.getDefault())
                     }
                 } catch (ignore: Throwable) { /**/
                 }
@@ -419,7 +419,7 @@ class RomUtil private constructor() {
                 try {
                     val display = Build.DISPLAY
                     if (!TextUtils.isEmpty(display)) {
-                        ret = display.toLowerCase()
+                        ret = display.toLowerCase(Locale.getDefault())
                     }
                 } catch (ignore: Throwable) { /**/
                 }
@@ -455,32 +455,31 @@ class RomUtil private constructor() {
                 }
             } catch (ignore: IOException) {
             } finally {
-                if (input != null) {
-                    try {
-                        input.close()
-                    } catch (ignore: IOException) { /**/
-                    }
-                }
+                CloseUtil.closeIOQuietly(input)
             }
             return ""
         }
 
         private fun getSystemPropertyByStream(key: String): String {
+            var `is`: FileInputStream? = null
             try {
                 val prop = Properties()
-                val `is` = FileInputStream(
+                `is` = FileInputStream(
                     File(Environment.getRootDirectory(), "build.prop")
                 )
                 prop.load(`is`)
                 return prop.getProperty(key, "")
             } catch (ignore: Exception) { /**/
+            } finally {
+                CloseUtil.closeIOQuietly(`is`)
             }
             return ""
         }
 
         private fun getSystemPropertyByReflect(key: String): String {
             try {
-                @SuppressLint("PrivateApi") val clz =
+                @SuppressLint("PrivateApi")
+                val clz =
                     Class.forName("android.os.SystemProperties")
                 val getMethod =
                     clz.getMethod("get", String::class.java, String::class.java)

@@ -27,7 +27,6 @@ import com.wkz.kotlinmvvm.mvvm.contract.OpenEyesVideoDetailContract
 import com.wkz.kotlinmvvm.mvvm.model.bean.OpenEyesHomeBean
 import com.wkz.kotlinmvvm.mvvm.presenter.OpenEyesVideoDetailPresenter
 import com.wkz.kotlinmvvm.mvvm.viewmodel.adapter.OpenEyesVideoDetailAdapter
-import com.wkz.util.StatusBarUtil
 import kotlinx.android.synthetic.main.open_eyes_activity_video_detail.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -84,9 +83,9 @@ class OpenEyesVideoDetailActivity :
         //设置相关视频 Item 的点击事件
         mAdapter.setOnItemDetailClick { mPresenter.loadVideoInfo(it) }
 
-        //状态栏透明和间距处理
-        StatusBarUtil.immersive(this)
-        StatusBarUtil.setPaddingSmart(this, mVideoView)
+//        //状态栏透明和间距处理
+//        StatusBarUtil.immersive(this)
+//        StatusBarUtil.setPaddingSmart(this, mVideoView)
 
         /***  下拉刷新  ***/
         //内容跟随偏移

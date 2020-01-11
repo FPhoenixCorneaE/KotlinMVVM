@@ -16,7 +16,6 @@ import com.wkz.kotlinmvvm.mvvm.viewmodel.wrapper.OpenEyesHomeBannerWrapper
 import com.wkz.kotlinmvvm.mvvm.viewmodel.wrapper.OpenEyesHomeDateWrapper
 import com.wkz.kotlinmvvm.mvvm.viewmodel.wrapper.OpenEyesHomeVideoWrapper
 import com.wkz.util.ResourceUtil
-import com.wkz.util.StatusBarUtil
 import kotlinx.android.synthetic.main.open_eyes_fragment_home.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -69,11 +68,11 @@ class OpenEyesHomeFragment :
 
         initRecyclerView()
 
-        // 状态栏透明和间距处理
-        activity?.let {
-            StatusBarUtil.darkMode(it)
-            StatusBarUtil.setPaddingSmart(it, mTbToolbar)
-        }
+//        // 状态栏透明和间距处理
+//        activity?.let {
+//            StatusBarUtil.darkMode(it)
+//            StatusBarUtil.setPaddingSmart(it, mTbToolbar)
+//        }
     }
 
     private fun initRecyclerView() {
