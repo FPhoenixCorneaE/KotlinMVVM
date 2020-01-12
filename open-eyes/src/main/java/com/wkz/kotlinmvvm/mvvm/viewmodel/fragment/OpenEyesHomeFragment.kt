@@ -1,9 +1,14 @@
 package com.wkz.kotlinmvvm.mvvm.viewmodel.fragment
 
+import android.graphics.Color
 import android.os.Bundle
 import android.text.TextUtils
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.orhanobut.logger.Logger
+import com.scwang.smartrefresh.layout.api.RefreshLayout
+import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener
 import com.wkz.adapter.internal.Delegation
 import com.wkz.adapter.internal.MultiTypeAdapter
 import com.wkz.adapter.wrapper.ViewHolderWrapper
@@ -15,10 +20,11 @@ import com.wkz.kotlinmvvm.mvvm.presenter.OpenEyesHomePresenter
 import com.wkz.kotlinmvvm.mvvm.viewmodel.wrapper.OpenEyesHomeBannerWrapper
 import com.wkz.kotlinmvvm.mvvm.viewmodel.wrapper.OpenEyesHomeDateWrapper
 import com.wkz.kotlinmvvm.mvvm.viewmodel.wrapper.OpenEyesHomeVideoWrapper
-import com.wkz.util.ResourceUtil
+import com.wkz.util.ScreenUtil
 import kotlinx.android.synthetic.main.open_eyes_fragment_home.*
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.math.abs
 
 class OpenEyesHomeFragment :
     Dagger2InjectionFragment<OpenEyesHomeContract.View, OpenEyesHomePresenter>(),
@@ -55,9 +61,15 @@ class OpenEyesHomeFragment :
     override fun initView() {
         // 内容跟随偏移
         mSrlRefresh.setEnableHeaderTranslationContent(true)
-        mSrlRefresh.setOnRefreshListener {
-            mPresenter.requestHomeData(1)
-        }
+        mSrlRefresh.setOnRefreshLoadMoreListener(object : OnRefreshLoadMoreListener {
+            override fun onLoadMore(refreshLayout: RefreshLayout) {
+                mPresenter.loadMoreData()
+            }
+
+            override fun onRefresh(refreshLayout: RefreshLayout) {
+                mPresenter.requestHomeData(1)
+            }
+        })
         // 打开下拉刷新区域块背景:
         mMhHeader.setShowBezierWave(true)
         // 设置下拉刷新主题颜色
@@ -103,18 +115,6 @@ class OpenEyesHomeFragment :
         mRvRecycler.adapter = mAdapter
         mRvRecycler.layoutManager = mLinearLayoutManager
         mRvRecycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                super.onScrollStateChanged(recyclerView, newState)
-                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                    val childCount = mRvRecycler.childCount
-                    val itemCount = mRvRecycler.layoutManager?.itemCount
-                    val firstVisibleItem =
-                        (mRvRecycler.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
-                    if (firstVisibleItem + childCount == itemCount) {
-                        mPresenter.loadMoreData()
-                    }
-                }
-            }
 
             /**
              * RecyclerView滚动的时候调用
@@ -123,22 +123,41 @@ class OpenEyesHomeFragment :
                 super.onScrolled(recyclerView, dx, dy)
                 val currentVisibleItemPosition = mLinearLayoutManager.findFirstVisibleItemPosition()
                 if (currentVisibleItemPosition == 0) {
-                    //背景设置为透明
-                    mTbToolbar.setBackgroundColor(ResourceUtil.getColor(R.color.open_eyes_color_translucent))
-                    mTvToolbar.text = ""
+                    mTbTitleBar.centerTextView?.text = getString(R.string.open_eyes_home_choiceness)
+                    // 根据索引来获取对应的itemView
+                    val firstVisibleChildView: View? =
+                        mLinearLayoutManager.findViewByPosition(currentVisibleItemPosition)
+                    // 获取当前item偏移量
+                    val firstVisibleChildViewTop: Int = firstVisibleChildView?.top ?: 0
+                    val firstVisibleChildViewHeight =
+                        firstVisibleChildView?.measuredHeight ?: ScreenUtil.screenHeight / 3
+                    // 设置背景透明度
+                    if (abs(firstVisibleChildViewTop) <= firstVisibleChildViewHeight) {
+                        val alpha: Int =
+                            ((1f - abs(firstVisibleChildViewTop).toFloat() / firstVisibleChildViewHeight) * 255).toInt()
+                        Logger.d("onScrolled,alpha:$alpha")
+                        if (alpha > 255 || alpha < 80) return
+                        var alphaHex =
+                            alpha.toString(16).toUpperCase(Locale.getDefault())
+                        if (alphaHex.length == 1) {
+                            alphaHex = "0$alphaHex"
+                        }
+                        val color = "#" + alphaHex + "ffffff"
+                        mTbTitleBar.setBackgroundColor(Color.parseColor(color))
+                    }
                 } else {
+                    mTbTitleBar.setBackgroundColor(Color.parseColor("#50ffffff"))
                     if (mAdapter.data.size > 1 && currentVisibleItemPosition < mAdapter.data.size) {
-                        mTbToolbar.setBackgroundColor(ResourceUtil.getColor(R.color.open_eyes_color_bg_title))
                         val itemList = mAdapter.data
                         val item =
                             itemList[currentVisibleItemPosition] as OpenEyesHomeBean.Issue.Item
                         val title: String?
-                        title = when {
-                            item.type == "textHeader" -> item.data?.text
+                        title = when (item.type) {
+                            "textHeader" -> item.data?.text
                             else -> mSimpleDateFormat.format(item.data?.date)
                         }
-                        if (!TextUtils.equals(mTvToolbar.text, title)) {
-                            mTvToolbar.text = title
+                        if (!TextUtils.equals(mTbTitleBar.centerTextView?.text, title)) {
+                            mTbTitleBar.centerTextView?.text = title
                         }
                     }
                 }
@@ -172,6 +191,7 @@ class OpenEyesHomeFragment :
     }
 
     override fun setMoreData(itemList: ArrayList<OpenEyesHomeBean.Issue.Item>) {
+        mSrlRefresh.finishLoadMore()
         mAdapter.data.addAll(itemList)
         mAdapter.notifyDataSetChanged()
     }

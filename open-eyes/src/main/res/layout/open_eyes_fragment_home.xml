@@ -7,7 +7,6 @@
     android:layout_height="match_parent"
     app:srlAccentColor="@color/open_eyes_color_white"
     app:srlEnableHeaderTranslationContent="false"
-    app:srlEnableLoadMore="false"
     app:srlPrimaryColor="@color/open_eyes_colorPrimary">
 
     <com.scwang.smartrefresh.header.MaterialHeader
@@ -31,40 +30,15 @@
             tools:itemCount="10"
             tools:listitem="@layout/open_eyes_item_home_video" />
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/mTbToolbar"
+        <com.wkz.titlebar.widget.CommonTitleBar
+            android:id="@+id/mTbTitleBar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:contentInsetStart="0dp">
-
-            <RelativeLayout
-                android:id="@+id/mRlToolbar"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/mTvToolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:gravity="center"
-                    android:textColor="@color/open_eyes_color_title_0x222222"
-                    android:textSize="@dimen/sp_18"
-                    android:textStyle="bold"
-                    tools:ignore="RelativeOverlap" />
-
-                <ImageView
-                    android:id="@+id/mIvSearch"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginEnd="@dimen/dp_15"
-                    android:transitionName="@string/open_eyes_transition_name_search"
-                    tools:ignore="ContentDescription"
-                    tools:src="@drawable/open_eyes_ic_search"
-                    tools:targetApi="lollipop" />
-            </RelativeLayout>
-        </androidx.appcompat.widget.Toolbar>
+            app:centerText=""
+            app:centerTextColor="@color/open_eyes_color_title_0x222222"
+            app:centerTextSize="@dimen/sp_18"
+            app:centerType="textView"
+            app:rightImageResource="@mipmap/open_eyes_ic_search"
+            app:rightType="imageButton" />
     </FrameLayout>
 </com.scwang.smartrefresh.layout.SmartRefreshLayout>

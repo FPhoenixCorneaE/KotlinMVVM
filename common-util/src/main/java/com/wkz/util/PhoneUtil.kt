@@ -188,7 +188,8 @@ class PhoneUtil private constructor() {
 
         private fun getSystemPropertyByReflect(key: String): String {
             try {
-                @SuppressLint("PrivateApi") val clz =
+                @SuppressLint("PrivateApi")
+                val clz =
                     Class.forName("android.os.SystemProperties")
                 val getMethod =
                     clz.getMethod("get", String::class.java, String::class.java)
@@ -366,37 +367,38 @@ class PhoneUtil private constructor() {
             val list =
                 ArrayList<HashMap<String, String>>()
             // 1.获取内容解析者
-            val resolver: ContentResolver = ContextUtil.context.getContentResolver()
+            val resolver: ContentResolver = ContextUtil.context.contentResolver
             // 2.获取内容提供者的地址:com.android.contacts
             // raw_contacts表的地址 :raw_contacts
             // view_data表的地址 : data
             // 3.生成查询地址
-            val raw_uri =
+            val rawUri =
                 Uri.parse("content://com.android.contacts/raw_contacts")
-            val date_uri =
+            val dateUri =
                 Uri.parse("content://com.android.contacts/data")
             // 4.查询操作,先查询raw_contacts,查询contact_id
             // projection : 查询的字段
             val cursor =
-                resolver.query(raw_uri, arrayOf("contact_id"), null, null, null)
-            try { // 5.解析cursor
-                if (cursor != null) {
-                    while (cursor.moveToNext()) { // 6.获取查询的数据
-                        val contact_id = cursor.getString(0)
+                resolver.query(rawUri, arrayOf("contact_id"), null, null, null)
+            cursor.use {
+                // 5.解析cursor
+                if (it != null) {
+                    while (it.moveToNext()) { // 6.获取查询的数据
+                        val contactId = it.getString(0)
                         // cursor.getString(cursor.getColumnIndex("contact_id"));//getColumnIndex
                         // : 查询字段在cursor中索引值,一般都是用在查询字段比较多的时候
                         // 判断contact_id是否为空
-                        if (contact_id.isNotEmpty()) { //null   ""
+                        if (contactId.isNotEmpty()) { //null   ""
                             // 7.根据contact_id查询view_data表中的数据
                             // selection : 查询条件
                             // selectionArgs :查询条件的参数
                             // sortOrder : 排序
                             // 空指针: 1.null.方法 2.参数为null
                             val c = resolver.query(
-                                date_uri, arrayOf(
+                                dateUri, arrayOf(
                                     "data1",
                                     "mimetype"
-                                ), "raw_contact_id=?", arrayOf(contact_id), null
+                                ), "raw_contact_id=?", arrayOf(contactId), null
                             )
                             val map =
                                 HashMap<String, String>()
@@ -420,8 +422,6 @@ class PhoneUtil private constructor() {
                         }
                     }
                 }
-            } finally { // 12.关闭cursor
-                cursor?.close()
             }
             return list
         }
@@ -468,7 +468,7 @@ class PhoneUtil private constructor() {
          */
         fun getAllSMS() { // 1.获取短信
             // 1.1获取内容解析者
-            val resolver: ContentResolver = ContextUtil.context.getContentResolver()
+            val resolver: ContentResolver = ContextUtil.context.contentResolver
             // 1.2获取内容提供者地址   sms,sms表的地址:null  不写
             // 1.3获取查询路径
             val uri = Uri.parse("content://sms")
@@ -534,6 +534,8 @@ class PhoneUtil private constructor() {
                 xmlSerializer.flush()
             } catch (e: java.lang.Exception) {
                 e.printStackTrace()
+            } finally {
+                CloseUtil.closeIOQuietly(cursor)
             }
         }
 

@@ -22,8 +22,6 @@ import com.wkz.util.StatusBarUtil.setDarkMode
 import com.wkz.util.StatusBarUtil.setLightMode
 import com.wkz.util.StatusBarUtil.supportTransparentStatusBar
 import com.wkz.util.StatusBarUtil.transparentStatusBar
-import java.lang.annotation.Retention
-import java.lang.annotation.RetentionPolicy
 
 /**
  * 通用标题栏
@@ -485,174 +483,190 @@ class CommonTitleBar(
      * @param context 上下文
      */
     private fun initMainCenterViews(context: Context) {
-        if (centerType == TYPE_CENTER_TEXT_VIEW) { // 初始化中间子布局
-            centerLayout = LinearLayout(context)
-            centerLayout!!.id = StatusBarUtil.generateViewId()
-            centerLayout!!.gravity = Gravity.CENTER
-            centerLayout!!.orientation = LinearLayout.VERTICAL
-            centerLayout!!.setOnClickListener(this)
-            val centerParams =
-                LayoutParams(WRAP_CONTENT, MATCH_PARENT)
-            centerParams.marginStart = PADDING_12
-            centerParams.marginEnd = PADDING_12
-            centerParams.addRule(CENTER_IN_PARENT)
-            rlMain!!.addView(centerLayout, centerParams)
-            // 初始化标题栏TextView
-            centerTextView = TextView(context)
-            centerTextView!!.text = centerText
-            centerTextView!!.setTextColor(centerTextColor)
-            centerTextView!!.setTextSize(TypedValue.COMPLEX_UNIT_PX, centerTextSize)
-            centerTextView!!.gravity = Gravity.CENTER
-            centerTextView!!.isSingleLine = true
-            // 设置跑马灯效果
-            centerTextView!!.maxWidth =
-                (ScreenUtil.screenWidth * 3 / 5.0).toInt()
-            if (centerTextMarquee) {
-                centerTextView!!.ellipsize = TextUtils.TruncateAt.MARQUEE
-                centerTextView!!.marqueeRepeatLimit = -1
-                centerTextView!!.requestFocus()
-                centerTextView!!.isSelected = true
-            }
-            val centerTextParams =
-                LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT)
-            centerLayout!!.addView(centerTextView, centerTextParams)
-            // 初始化进度条, 显示于标题栏左边
-            progressCenter = ProgressBar(context)
-            progressCenter!!.indeterminateDrawable =
-                resources.getDrawable(R.drawable.common_titlebar_progress_draw)
-            progressCenter!!.visibility = View.GONE
-            val progressWidth = SizeUtil.dp2px(18f)
-            val progressParams =
-                LayoutParams(progressWidth, progressWidth)
-            progressParams.addRule(CENTER_VERTICAL)
-            progressParams.addRule(START_OF, centerLayout!!.id)
-            rlMain!!.addView(progressCenter, progressParams)
-            // 初始化副标题栏
-            centerSubTextView = TextView(context)
-            centerSubTextView!!.text = centerSubText
-            centerSubTextView!!.setTextColor(centerSubTextColor)
-            centerSubTextView!!.setTextSize(TypedValue.COMPLEX_UNIT_PX, centerSubTextSize)
-            centerSubTextView!!.gravity = Gravity.CENTER
-            centerSubTextView!!.isSingleLine = true
-            if (TextUtils.isEmpty(centerSubText)) {
-                centerSubTextView!!.visibility = View.GONE
-            }
-            val centerSubTextParams =
-                LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT)
-            centerLayout!!.addView(centerSubTextView, centerSubTextParams)
-        } else if (centerType == TYPE_CENTER_SEARCH_VIEW) { // 初始化通用搜索框
-            centerSearchView = RelativeLayout(context)
-            centerSearchView!!.setBackgroundResource(centerSearchBgResource)
-            val centerParams =
-                LayoutParams(MATCH_PARENT, MATCH_PARENT)
-            // 设置边距
-            centerParams.topMargin = SizeUtil.dp2px(7f)
-            centerParams.bottomMargin = SizeUtil.dp2px(7f)
-            // 根据左边的布局类型来设置边距,布局依赖规则
-            if (leftType == TYPE_LEFT_TEXT_VIEW) {
-                centerParams.addRule(END_OF, leftTextView!!.id)
-                centerParams.marginStart = PADDING_5
-            } else if (leftType == TYPE_LEFT_IMAGE_BUTTON) {
-                centerParams.addRule(END_OF, leftImageButton!!.id)
-                centerParams.marginStart = PADDING_5
-            } else if (leftType == TYPE_LEFT_CUSTOM_VIEW) {
-                centerParams.addRule(END_OF, leftCustomView!!.id)
-                centerParams.marginStart = PADDING_5
-            } else {
+        when (centerType) {
+            TYPE_CENTER_TEXT_VIEW -> {
+                // 初始化中间子布局
+                centerLayout = LinearLayout(context)
+                centerLayout!!.id = StatusBarUtil.generateViewId()
+                centerLayout!!.gravity = Gravity.CENTER
+                centerLayout!!.orientation = LinearLayout.VERTICAL
+                centerLayout!!.setOnClickListener(this)
+                val centerParams =
+                    LayoutParams(WRAP_CONTENT, MATCH_PARENT)
                 centerParams.marginStart = PADDING_12
-            }
-            // 根据右边的布局类型来设置边距,布局依赖规则
-            if (rightType == TYPE_RIGHT_TEXT_VIEW) {
-                centerParams.addRule(START_OF, rightTextView!!.id)
-                centerParams.marginEnd = PADDING_5
-            } else if (rightType == TYPE_RIGHT_IMAGE_BUTTON) {
-                centerParams.addRule(START_OF, rightImageButton!!.id)
-                centerParams.marginEnd = PADDING_5
-            } else if (rightType == TYPE_RIGHT_CUSTOM_VIEW) {
-                centerParams.addRule(START_OF, rightCustomView!!.id)
-                centerParams.marginEnd = PADDING_5
-            } else {
                 centerParams.marginEnd = PADDING_12
-            }
-            rlMain!!.addView(centerSearchView, centerParams)
-            // 初始化搜索框搜索ImageView
-            centerSearchLeftImageView = ImageView(context)
-            centerSearchLeftImageView!!.id = StatusBarUtil.generateViewId()
-            centerSearchLeftImageView!!.setOnClickListener(this)
-            val searchIconWidth = SizeUtil.dp2px(15f)
-            val searchParams =
-                LayoutParams(searchIconWidth, searchIconWidth)
-            searchParams.addRule(CENTER_VERTICAL)
-            searchParams.addRule(ALIGN_PARENT_START)
-            searchParams.marginStart = PADDING_12
-            centerSearchView!!.addView(centerSearchLeftImageView, searchParams)
-            centerSearchLeftImageView!!.setImageResource(R.drawable.common_titlebar_search_normal)
-            // 初始化搜索框语音ImageView
-            centerSearchRightImageView = ImageView(context)
-            centerSearchRightImageView!!.id = StatusBarUtil.generateViewId()
-            centerSearchRightImageView!!.setOnClickListener(this)
-            val voiceParams =
-                LayoutParams(WRAP_CONTENT, WRAP_CONTENT)
-            voiceParams.addRule(CENTER_VERTICAL)
-            voiceParams.addRule(ALIGN_PARENT_END)
-            voiceParams.marginEnd = PADDING_12
-            centerSearchView!!.addView(centerSearchRightImageView, voiceParams)
-            if (centerSearchRightType == TYPE_CENTER_SEARCH_RIGHT_VOICE) {
-                centerSearchRightImageView!!.setImageResource(R.drawable.common_titlebar_voice)
-            } else {
-                centerSearchRightImageView!!.setImageResource(R.drawable.common_titlebar_delete_normal)
-                centerSearchRightImageView!!.visibility = View.GONE
-            }
-            // 初始化文字输入框
-            centerSearchEditText = EditText(context)
-            centerSearchEditText!!.setBackgroundColor(Color.TRANSPARENT)
-            centerSearchEditText!!.gravity = Gravity.START or Gravity.CENTER_VERTICAL
-            centerSearchEditText!!.hint = resources.getString(R.string.titlebar_search_hint)
-            centerSearchEditText!!.setTextColor(Color.parseColor("#666666"))
-            centerSearchEditText!!.setHintTextColor(Color.parseColor("#999999"))
-            centerSearchEditText!!.setTextSize(
-                TypedValue.COMPLEX_UNIT_PX,
-                SizeUtil.dp2px(14f).toFloat()
-            )
-            centerSearchEditText!!.setPadding(PADDING_5, 0, PADDING_5, 0)
-            if (!centerSearchEditable) {
-                centerSearchEditText!!.isCursorVisible = false
-                centerSearchEditText!!.clearFocus()
-                centerSearchEditText!!.isFocusable = false
-                centerSearchEditText!!.setOnClickListener(this)
-            }
-            centerSearchEditText!!.isCursorVisible = false
-            centerSearchEditText!!.isSingleLine = true
-            centerSearchEditText!!.ellipsize = TextUtils.TruncateAt.END
-            centerSearchEditText!!.imeOptions = EditorInfo.IME_ACTION_SEARCH
-            centerSearchEditText!!.addTextChangedListener(centerSearchWatcher)
-            centerSearchEditText!!.onFocusChangeListener = focusChangeListener
-            centerSearchEditText!!.setOnEditorActionListener(editorActionListener)
-            centerSearchEditText!!.setOnClickListener {
-                centerSearchEditText!!.isCursorVisible = true
-            }
-            val searchHintParams =
-                LayoutParams(MATCH_PARENT, MATCH_PARENT)
-            searchHintParams.addRule(END_OF, centerSearchLeftImageView!!.id)
-            searchHintParams.addRule(START_OF, centerSearchRightImageView!!.id)
-            searchHintParams.addRule(CENTER_VERTICAL)
-            searchHintParams.marginStart = PADDING_5
-            searchHintParams.marginEnd = PADDING_5
-            centerSearchView!!.addView(centerSearchEditText, searchHintParams)
-        } else if (centerType == TYPE_CENTER_CUSTOM_VIEW) { // 初始化中间自定义布局
-            centerCustomView =
-                LayoutInflater.from(context).inflate(centerCustomViewRes, rlMain, false)
-            centerCustomView?.apply {
-                if (id == View.NO_ID) {
-                    id = StatusBarUtil.generateViewId()
+                centerParams.addRule(CENTER_IN_PARENT)
+                rlMain!!.addView(centerLayout, centerParams)
+                // 初始化标题栏TextView
+                centerTextView = TextView(context)
+                centerTextView!!.text = centerText
+                centerTextView!!.setTextColor(centerTextColor)
+                centerTextView!!.setTextSize(TypedValue.COMPLEX_UNIT_PX, centerTextSize)
+                centerTextView!!.gravity = Gravity.CENTER
+                centerTextView!!.isSingleLine = true
+                // 设置跑马灯效果
+                centerTextView!!.maxWidth =
+                    (ScreenUtil.screenWidth * 3 / 5.0).toInt()
+                if (centerTextMarquee) {
+                    centerTextView!!.ellipsize = TextUtils.TruncateAt.MARQUEE
+                    centerTextView!!.marqueeRepeatLimit = -1
+                    centerTextView!!.requestFocus()
+                    centerTextView!!.isSelected = true
                 }
+                val centerTextParams =
+                    LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT)
+                centerLayout!!.addView(centerTextView, centerTextParams)
+                // 初始化进度条, 显示于标题栏左边
+                progressCenter = ProgressBar(context)
+                progressCenter!!.indeterminateDrawable =
+                    resources.getDrawable(R.drawable.common_titlebar_progress_draw)
+                progressCenter!!.visibility = View.GONE
+                val progressWidth = SizeUtil.dp2px(18f)
+                val progressParams =
+                    LayoutParams(progressWidth, progressWidth)
+                progressParams.addRule(CENTER_VERTICAL)
+                progressParams.addRule(START_OF, centerLayout!!.id)
+                rlMain!!.addView(progressCenter, progressParams)
+                // 初始化副标题栏
+                centerSubTextView = TextView(context)
+                centerSubTextView!!.text = centerSubText
+                centerSubTextView!!.setTextColor(centerSubTextColor)
+                centerSubTextView!!.setTextSize(TypedValue.COMPLEX_UNIT_PX, centerSubTextSize)
+                centerSubTextView!!.gravity = Gravity.CENTER
+                centerSubTextView!!.isSingleLine = true
+                if (TextUtils.isEmpty(centerSubText)) {
+                    centerSubTextView!!.visibility = View.GONE
+                }
+                val centerSubTextParams =
+                    LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT)
+                centerLayout!!.addView(centerSubTextView, centerSubTextParams)
             }
-            val centerCustomParams =
-                LayoutParams(WRAP_CONTENT, MATCH_PARENT)
-            centerCustomParams.marginStart = PADDING_12
-            centerCustomParams.marginEnd = PADDING_12
-            centerCustomParams.addRule(CENTER_IN_PARENT)
-            rlMain!!.addView(centerCustomView, centerCustomParams)
+            TYPE_CENTER_SEARCH_VIEW -> {
+                // 初始化通用搜索框
+                centerSearchView = RelativeLayout(context)
+                centerSearchView!!.setBackgroundResource(centerSearchBgResource)
+                val centerParams =
+                    LayoutParams(MATCH_PARENT, MATCH_PARENT)
+                // 设置边距
+                centerParams.topMargin = SizeUtil.dp2px(7f)
+                centerParams.bottomMargin = SizeUtil.dp2px(7f)
+                // 根据左边的布局类型来设置边距,布局依赖规则
+                when (leftType) {
+                    TYPE_LEFT_TEXT_VIEW -> {
+                        centerParams.addRule(END_OF, leftTextView!!.id)
+                        centerParams.marginStart = PADDING_5
+                    }
+                    TYPE_LEFT_IMAGE_BUTTON -> {
+                        centerParams.addRule(END_OF, leftImageButton!!.id)
+                        centerParams.marginStart = PADDING_5
+                    }
+                    TYPE_LEFT_CUSTOM_VIEW -> {
+                        centerParams.addRule(END_OF, leftCustomView!!.id)
+                        centerParams.marginStart = PADDING_5
+                    }
+                    else -> {
+                        centerParams.marginStart = PADDING_12
+                    }
+                }
+                // 根据右边的布局类型来设置边距,布局依赖规则
+                when (rightType) {
+                    TYPE_RIGHT_TEXT_VIEW -> {
+                        centerParams.addRule(START_OF, rightTextView!!.id)
+                        centerParams.marginEnd = PADDING_5
+                    }
+                    TYPE_RIGHT_IMAGE_BUTTON -> {
+                        centerParams.addRule(START_OF, rightImageButton!!.id)
+                        centerParams.marginEnd = PADDING_5
+                    }
+                    TYPE_RIGHT_CUSTOM_VIEW -> {
+                        centerParams.addRule(START_OF, rightCustomView!!.id)
+                        centerParams.marginEnd = PADDING_5
+                    }
+                    else -> {
+                        centerParams.marginEnd = PADDING_12
+                    }
+                }
+                rlMain!!.addView(centerSearchView, centerParams)
+                // 初始化搜索框搜索ImageView
+                centerSearchLeftImageView = ImageView(context)
+                centerSearchLeftImageView!!.id = StatusBarUtil.generateViewId()
+                centerSearchLeftImageView!!.setOnClickListener(this)
+                val searchIconWidth = SizeUtil.dp2px(15f)
+                val searchParams =
+                    LayoutParams(searchIconWidth, searchIconWidth)
+                searchParams.addRule(CENTER_VERTICAL)
+                searchParams.addRule(ALIGN_PARENT_START)
+                searchParams.marginStart = PADDING_12
+                centerSearchView!!.addView(centerSearchLeftImageView, searchParams)
+                centerSearchLeftImageView!!.setImageResource(R.drawable.common_titlebar_search_normal)
+                // 初始化搜索框语音ImageView
+                centerSearchRightImageView = ImageView(context)
+                centerSearchRightImageView!!.id = StatusBarUtil.generateViewId()
+                centerSearchRightImageView!!.setOnClickListener(this)
+                val voiceParams =
+                    LayoutParams(WRAP_CONTENT, WRAP_CONTENT)
+                voiceParams.addRule(CENTER_VERTICAL)
+                voiceParams.addRule(ALIGN_PARENT_END)
+                voiceParams.marginEnd = PADDING_12
+                centerSearchView!!.addView(centerSearchRightImageView, voiceParams)
+                if (centerSearchRightType == TYPE_CENTER_SEARCH_RIGHT_VOICE) {
+                    centerSearchRightImageView!!.setImageResource(R.drawable.common_titlebar_voice)
+                } else {
+                    centerSearchRightImageView!!.setImageResource(R.drawable.common_titlebar_delete_normal)
+                    centerSearchRightImageView!!.visibility = View.GONE
+                }
+                // 初始化文字输入框
+                centerSearchEditText = EditText(context)
+                centerSearchEditText!!.setBackgroundColor(Color.TRANSPARENT)
+                centerSearchEditText!!.gravity = Gravity.START or Gravity.CENTER_VERTICAL
+                centerSearchEditText!!.hint = resources.getString(R.string.titlebar_search_hint)
+                centerSearchEditText!!.setTextColor(Color.parseColor("#666666"))
+                centerSearchEditText!!.setHintTextColor(Color.parseColor("#999999"))
+                centerSearchEditText!!.setTextSize(
+                    TypedValue.COMPLEX_UNIT_PX,
+                    SizeUtil.dp2px(14f).toFloat()
+                )
+                centerSearchEditText!!.setPadding(PADDING_5, 0, PADDING_5, 0)
+                if (!centerSearchEditable) {
+                    centerSearchEditText!!.isCursorVisible = false
+                    centerSearchEditText!!.clearFocus()
+                    centerSearchEditText!!.isFocusable = false
+                    centerSearchEditText!!.setOnClickListener(this)
+                }
+                centerSearchEditText!!.isCursorVisible = false
+                centerSearchEditText!!.isSingleLine = true
+                centerSearchEditText!!.ellipsize = TextUtils.TruncateAt.END
+                centerSearchEditText!!.imeOptions = EditorInfo.IME_ACTION_SEARCH
+                centerSearchEditText!!.addTextChangedListener(centerSearchWatcher)
+                centerSearchEditText!!.onFocusChangeListener = focusChangeListener
+                centerSearchEditText!!.setOnEditorActionListener(editorActionListener)
+                centerSearchEditText!!.setOnClickListener {
+                    centerSearchEditText!!.isCursorVisible = true
+                }
+                val searchHintParams =
+                    LayoutParams(MATCH_PARENT, MATCH_PARENT)
+                searchHintParams.addRule(END_OF, centerSearchLeftImageView!!.id)
+                searchHintParams.addRule(START_OF, centerSearchRightImageView!!.id)
+                searchHintParams.addRule(CENTER_VERTICAL)
+                searchHintParams.marginStart = PADDING_5
+                searchHintParams.marginEnd = PADDING_5
+                centerSearchView!!.addView(centerSearchEditText, searchHintParams)
+            }
+            TYPE_CENTER_CUSTOM_VIEW -> { // 初始化中间自定义布局
+                centerCustomView =
+                    LayoutInflater.from(context).inflate(centerCustomViewRes, rlMain, false)
+                centerCustomView?.apply {
+                    if (id == View.NO_ID) {
+                        id = StatusBarUtil.generateViewId()
+                    }
+                }
+                val centerCustomParams =
+                    LayoutParams(WRAP_CONTENT, MATCH_PARENT)
+                centerCustomParams.marginStart = PADDING_12
+                centerCustomParams.marginEnd = PADDING_12
+                centerCustomParams.addRule(CENTER_IN_PARENT)
+                rlMain!!.addView(centerCustomView, centerCustomParams)
+            }
         }
     }
 
@@ -674,7 +688,7 @@ class CommonTitleBar(
     }
 
     private val window: Window?
-        private get() {
+        get() {
             val context = context
             val activity: Activity
             activity = if (context is Activity) {
@@ -682,7 +696,7 @@ class CommonTitleBar(
             } else {
                 (context as ContextWrapper).baseContext as Activity
             }
-            return activity?.window
+            return activity.window
         }
 
     private val centerSearchWatcher: TextWatcher = object : TextWatcher {
@@ -702,18 +716,25 @@ class CommonTitleBar(
         ) {
         }
 
-        override fun afterTextChanged(s: Editable) {
-            if (centerSearchRightType == TYPE_CENTER_SEARCH_RIGHT_VOICE) {
-                if (TextUtils.isEmpty(s)) {
-                    centerSearchRightImageView!!.setImageResource(R.drawable.common_titlebar_voice)
-                } else {
-                    centerSearchRightImageView!!.setImageResource(R.drawable.common_titlebar_delete_normal)
+        override fun afterTextChanged(s: Editable) = when (centerSearchRightType) {
+            TYPE_CENTER_SEARCH_RIGHT_VOICE -> {
+                when {
+                    TextUtils.isEmpty(s) -> {
+                        centerSearchRightImageView!!.setImageResource(R.drawable.common_titlebar_voice)
+                    }
+                    else -> {
+                        centerSearchRightImageView!!.setImageResource(R.drawable.common_titlebar_delete_normal)
+                    }
                 }
-            } else {
-                if (TextUtils.isEmpty(s)) {
-                    centerSearchRightImageView!!.visibility = View.GONE
-                } else {
-                    centerSearchRightImageView!!.visibility = View.VISIBLE
+            }
+            else -> {
+                when {
+                    TextUtils.isEmpty(s) -> {
+                        centerSearchRightImageView!!.visibility = View.GONE
+                    }
+                    else -> {
+                        centerSearchRightImageView!!.visibility = View.VISIBLE
+                    }
                 }
             }
         }
@@ -747,31 +768,40 @@ class CommonTitleBar(
         if (listener == null) {
             return
         }
-        if (v == centerLayout && doubleClickListener != null) {
-            val currentClickMillis = System.currentTimeMillis()
-            if (currentClickMillis - lastClickMillis < 500) {
-                doubleClickListener!!.onDoubleClicked(v)
+        when {
+            v == centerLayout && doubleClickListener != null -> {
+                val currentClickMillis = System.currentTimeMillis()
+                if (currentClickMillis - lastClickMillis < 500) {
+                    doubleClickListener!!.onDoubleClicked(v)
+                }
+                lastClickMillis = currentClickMillis
             }
-            lastClickMillis = currentClickMillis
-        } else if (v == leftTextView) {
-            listener!!.onClicked(v, MotionAction.ACTION_LEFT_TEXT, null)
-        } else if (v == leftImageButton) {
-            listener!!.onClicked(v, MotionAction.ACTION_LEFT_BUTTON, null)
-        } else if (v == rightTextView) {
-            listener!!.onClicked(v, MotionAction.ACTION_RIGHT_TEXT, null)
-        } else if (v == rightImageButton) {
-            listener!!.onClicked(v, MotionAction.ACTION_RIGHT_BUTTON, null)
-        } else if (v == centerSearchEditText || v == centerSearchLeftImageView) {
-            listener!!.onClicked(v, MotionAction.ACTION_SEARCH, null)
-        } else if (v == centerSearchRightImageView) {
-            centerSearchEditText!!.setText("")
-            if (centerSearchRightType == TYPE_CENTER_SEARCH_RIGHT_VOICE) { // 语音按钮被点击
-                listener!!.onClicked(v, MotionAction.ACTION_SEARCH_VOICE, null)
-            } else {
-                listener!!.onClicked(v, MotionAction.ACTION_SEARCH_DELETE, null)
+            v == leftTextView -> {
+                listener!!.onClicked(v, MotionAction.ACTION_LEFT_TEXT, null)
             }
-        } else if (v == centerTextView) {
-            listener!!.onClicked(v, MotionAction.ACTION_CENTER_TEXT, null)
+            v == leftImageButton -> {
+                listener!!.onClicked(v, MotionAction.ACTION_LEFT_BUTTON, null)
+            }
+            v == rightTextView -> {
+                listener!!.onClicked(v, MotionAction.ACTION_RIGHT_TEXT, null)
+            }
+            v == rightImageButton -> {
+                listener!!.onClicked(v, MotionAction.ACTION_RIGHT_BUTTON, null)
+            }
+            v == centerSearchEditText || v == centerSearchLeftImageView -> {
+                listener!!.onClicked(v, MotionAction.ACTION_SEARCH, null)
+            }
+            v == centerSearchRightImageView -> {
+                centerSearchEditText!!.setText("")
+                if (centerSearchRightType == TYPE_CENTER_SEARCH_RIGHT_VOICE) { // 语音按钮被点击
+                    listener!!.onClicked(v, MotionAction.ACTION_SEARCH_VOICE, null)
+                } else {
+                    listener!!.onClicked(v, MotionAction.ACTION_SEARCH_DELETE, null)
+                }
+            }
+            v == centerTextView -> {
+                listener!!.onClicked(v, MotionAction.ACTION_CENTER_TEXT, null)
+            }
         }
     }
 
@@ -947,7 +977,7 @@ class CommonTitleBar(
         AnnotationTarget.CLASS,
         AnnotationTarget.VALUE_PARAMETER
     )
-    @Retention(RetentionPolicy.SOURCE)
+    @kotlin.annotation.Retention(AnnotationRetention.SOURCE)
     annotation class MotionAction {
         companion object {
             /**

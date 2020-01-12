@@ -26,7 +26,7 @@ class CrashUtil private constructor() {
         private var versionCode: Long = 0
         private val FILE_SEP = System.getProperty("file.separator")
         @SuppressLint("SimpleDateFormat")
-        private val FORMAT: Format = SimpleDateFormat("YYYY-MM-dd HH:mm:ss")
+        private val FORMAT: Format = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
         private var DEFAULT_UNCAUGHT_EXCEPTION_HANDLER: Thread.UncaughtExceptionHandler? =
             null
         private var UNCAUGHT_EXCEPTION_HANDLER: Thread.UncaughtExceptionHandler? = null
@@ -145,11 +145,7 @@ class CrashUtil private constructor() {
                             e.printStackTrace()
                             return@Callable false
                         } finally {
-                            try {
-                                bw?.close()
-                            } catch (e: IOException) {
-                                e.printStackTrace()
-                            }
+                            CloseUtil.closeIOQuietly(bw)
                         }
                     })
             try {
