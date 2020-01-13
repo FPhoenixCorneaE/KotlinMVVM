@@ -66,7 +66,7 @@ class ActivityUtil private constructor() {
         }
 
         private val topActivityByReflect: Activity?
-            private get() {
+            get() {
                 try {
                     @SuppressLint("PrivateApi") val activityThreadClass =
                         Class.forName("android.app.ActivityThread")

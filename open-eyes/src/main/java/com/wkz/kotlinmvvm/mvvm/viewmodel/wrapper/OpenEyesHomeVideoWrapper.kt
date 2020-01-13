@@ -2,15 +2,18 @@ package com.wkz.kotlinmvvm.mvvm.viewmodel.wrapper
 
 import android.annotation.SuppressLint
 import android.graphics.Color
+import android.graphics.drawable.GradientDrawable
 import com.wkz.adapter.internal.ViewHolder
 import com.wkz.adapter.wrapper.ViewHolderWrapper
 import com.wkz.framework.glide.GlideUtil
 import com.wkz.kotlinmvvm.R
 import com.wkz.kotlinmvvm.mvvm.model.bean.OpenEyesHomeBean
+import com.wkz.util.ColorUtil
 import com.wkz.util.ResourceUtil
 import com.wkz.util.SizeUtil
 import com.wkz.widget.Callback
 import kotlinx.android.synthetic.main.open_eyes_item_home_video.view.*
+
 
 /**
  * @desc: 首页精选视频 Wrapper
@@ -21,15 +24,20 @@ class OpenEyesHomeVideoWrapper :
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, item: OpenEyesHomeBean.Issue.Item) {
         // cover
+        val placeholder = GradientDrawable()
+        placeholder.setColor(ColorUtil.randomColor)
+        placeholder.cornerRadius = SizeUtil.dp2px(8F).toFloat()
         GlideUtil.setupRoundedImage(
             holder.itemView.mIvCoverFeed,
             item.data?.cover?.feed,
-            SizeUtil.dp2px(8F)
+            SizeUtil.dp2px(8F),
+            placeholder
         )
         // avatar
-        GlideUtil.setupCircleImage(
+        GlideUtil.setupCircleImagePlaceDrawableRes(
             holder.itemView.mIvAvatar,
-            item.data?.author?.icon ?: item.data?.provider?.icon
+            item.data?.author?.icon ?: item.data?.provider?.icon,
+            R.drawable.open_eyes_ic_avatar_default
         )
         // title
         holder.itemView.mTvTitle.text = item.data?.title

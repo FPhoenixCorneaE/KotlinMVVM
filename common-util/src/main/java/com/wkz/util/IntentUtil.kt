@@ -21,7 +21,11 @@ import android.telephony.SmsManager
 import android.util.Size
 import android.util.SizeF
 import android.util.SparseArray
+import android.view.View
+import androidx.annotation.AnimRes
+import androidx.core.app.ActivityOptionsCompat
 import androidx.core.content.FileProvider
+import androidx.core.util.Pair
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import com.wkz.extension.isNull
@@ -34,14 +38,13 @@ import java.util.*
  */
 object IntentUtil {
 
-    @JvmOverloads
     fun startActivity(
         context: Context,
         className: Class<*>,
         bundle: Bundle? = null,
-        enterAnim: Int = 0,
-        exitAnim: Int = 0,
-        requestCode: Int = -1
+        requestCode: Int = -1,
+        @AnimRes enterAnim: Int = 0,
+        @AnimRes exitAnim: Int = 0
     ) {
         val intent = Intent()
         intent.setClass(context, className)
@@ -54,7 +57,37 @@ object IntentUtil {
         scanForActivity(context)?.overridePendingTransition(enterAnim, exitAnim)
     }
 
-    @JvmOverloads
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    fun startActivity(
+        activity: Activity,
+        className: Class<*>,
+        bundle: Bundle? = null,
+        requestCode: Int = -1,
+        vararg views: View
+    ) {
+        val intent = Intent()
+        intent.setClass(activity, className)
+        intent.putExtras(BundleBuilder.of(bundle).get())
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            val pairs = arrayOf<Pair<View, String>>()
+            for ((index, view) in views.withIndex()) {
+                pairs[index] = Pair.create(view, view.transitionName)
+            }
+            if (requestCode < 0) {
+                activity.startActivity(
+                    intent,
+                    ActivityOptionsCompat.makeSceneTransitionAnimation(activity, *pairs).toBundle()
+                )
+            } else {
+                activity.startActivityForResult(
+                    intent,
+                    requestCode,
+                    ActivityOptionsCompat.makeSceneTransitionAnimation(activity, *pairs).toBundle()
+                )
+            }
+        }
+    }
+
     fun startActivity(
         context: Context?,
         action: String?,
@@ -76,7 +109,6 @@ object IntentUtil {
      * @param context     上下文
      * @param serviceName 服务名字
      */
-    @JvmOverloads
     fun startService(
         context: Context,
         serviceName: Class<*>,
@@ -100,7 +132,6 @@ object IntentUtil {
         context.startActivity(intent)
     }
 
-    @JvmOverloads
     fun getInstallAppIntent(
         file: File,
         isNewTask: Boolean = false
@@ -125,7 +156,7 @@ object IntentUtil {
         return if (isNewTask) intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK) else intent
     }
 
-    @JvmOverloads
+
     fun getUninstallAppIntent(
         packageName: String,
         isNewTask: Boolean = false
@@ -135,7 +166,6 @@ object IntentUtil {
         return if (isNewTask) intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK) else intent
     }
 
-    @JvmOverloads
     fun getLaunchAppIntent(
         packageName: String,
         isNewTask: Boolean = false
@@ -297,13 +327,11 @@ object IntentUtil {
         val intent = Intent(Intent.ACTION_VIEW, ContactsContract.Contacts.CONTENT_URI)
         context.startActivity(intent)
     }
+
     /**
      * Open system settings
      *
      * @param action The action contains global system-level device preferences.
-     */
-    /**
-     * Open system settings
      */
     fun openSettings(action: String? = Settings.ACTION_SETTINGS) {
         val intent = Intent(action)
