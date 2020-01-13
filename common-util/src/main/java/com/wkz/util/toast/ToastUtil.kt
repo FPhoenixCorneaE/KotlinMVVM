@@ -63,7 +63,8 @@ object ToastUtil {
             } else {
                 BaseToast(application)
             }
-        } else { // 解决关闭通知栏权限后 Toast 不显示的问题
+        } else {
+            // 解决关闭通知栏权限后 Toast 不显示的问题
             SupportToast(application)
         }
         // 初始化布局
@@ -93,13 +94,15 @@ object ToastUtil {
      */
     fun show(id: Int) {
         checkToastState()
-        try { // 如果这是一个资源 id
+        try {
+            // 如果这是一个资源 id
             show(
                 sToast!!.view.context.resources.getText(
                     id
                 )
             )
-        } catch (ignored: Resources.NotFoundException) { // 如果这是一个 int 数据
+        } catch (ignored: Resources.NotFoundException) {
+            // 如果这是一个 int 数据
             show(id.toString())
         }
     }
@@ -270,6 +273,7 @@ object ToastUtil {
         drawable.cornerRadius = sStyle!!.cornerRadius.toFloat()
         val textView = TextView(context)
         textView.id = R.id.message
+        textView.gravity = Gravity.CENTER
         textView.setTextColor(sStyle!!.textColor)
         textView.setTextSize(
             TypedValue.COMPLEX_UNIT_PX,

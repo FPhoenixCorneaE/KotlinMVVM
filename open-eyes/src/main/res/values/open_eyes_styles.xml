@@ -6,6 +6,7 @@
         <item name="colorPrimary">@color/open_eyes_colorPrimary</item>
         <item name="colorPrimaryDark">@color/open_eyes_colorPrimaryDark</item>
         <item name="colorAccent">@color/open_eyes_colorAccent</item>
+        <item name="actionBarSize">@dimen/dp_44</item>
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowBackground">@android:color/white</item>
         <item name="android:fitsSystemWindows">false</item>

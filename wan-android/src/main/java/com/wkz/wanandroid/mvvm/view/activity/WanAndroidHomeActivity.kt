@@ -106,4 +106,6 @@ class WanAndroidHomeActivity : BaseActivity() {
     override fun initData(savedInstanceState: Bundle?) {
 
     }
+
+    override fun isAlreadyLoadedData(): Boolean = true
 }

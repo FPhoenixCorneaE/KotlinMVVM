@@ -196,6 +196,8 @@ class OpenEyesVideoDetailActivity :
         mRefreshLayout.finishRefresh()
     }
 
+    override fun isAlreadyLoadedData(): Boolean = true
+
     /**
      * 设置播放视频 URL
      */

@@ -1,44 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.scwang.smartrefresh.layout.SmartRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/mSrlRefresh"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:srlAccentColor="@color/open_eyes_color_white"
-    app:srlEnableHeaderTranslationContent="false"
-    app:srlPrimaryColor="@color/open_eyes_colorPrimary">
+    android:layout_height="match_parent">
 
-    <com.scwang.smartrefresh.header.MaterialHeader
-        android:id="@+id/mMhHeader"
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/mSrlRefresh"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent"
+        app:srlAccentColor="@color/open_eyes_color_white"
+        app:srlEnableHeaderTranslationContent="false"
+        app:srlPrimaryColor="@color/open_eyes_colorPrimary">
 
-    <FrameLayout
-        android:id="@+id/mFlContent"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        <com.scwang.smartrefresh.header.MaterialHeader
+            android:id="@+id/mMhHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
         <!-- 当设置RecyclerView的paddingTop属性时,滑动时内容是滑动不到paddingTop的区域,
-        设置clipToPadding为false就可以滑动到paddingTop区域-->
+            设置clipToPadding为false就可以滑动到paddingTop区域-->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/mRvRecycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToPadding="false"
-            android:paddingTop="?attr/actionBarSize"
+            android:paddingTop="@dimen/dp_68"
             tools:itemCount="10"
             tools:listitem="@layout/open_eyes_item_home_video" />
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
-        <com.wkz.titlebar.widget.CommonTitleBar
-            android:id="@+id/mTbTitleBar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:centerText=""
-            app:centerTextColor="@color/open_eyes_color_title_0x222222"
-            app:centerTextSize="@dimen/sp_18"
-            app:centerType="textView"
-            app:rightImageResource="@mipmap/open_eyes_ic_search"
-            app:rightType="imageButton" />
-    </FrameLayout>
-</com.scwang.smartrefresh.layout.SmartRefreshLayout>
+    <com.wkz.titlebar.widget.CommonTitleBar
+        android:id="@+id/mTbTitleBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:centerText=""
+        app:centerTextColor="@color/open_eyes_color_title_0x222222"
+        app:centerTextSize="@dimen/sp_18"
+        app:centerType="textView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:rightImageResource="@mipmap/open_eyes_ic_search"
+        app:rightType="imageButton"
+        app:showBottomLine="false"
+        app:titleBarHeight="?attr/actionBarSize" />
+</androidx.constraintlayout.widget.ConstraintLayout>

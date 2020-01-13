@@ -91,10 +91,20 @@ abstract class BaseActivity : AppCompatActivity() {
 
     open fun showErrorMsg(t: Throwable) {
         ExceptionHandle.handleException(t)
-        if (ExceptionHandle.errorCode == ErrorStatus.NETWORK_ERROR) {
-            showNoNetwork()
-        } else {
-            showError()
+        when {
+            isAlreadyLoadedData() -> {
+                showErrorMsg(getString(R.string.framework_tips_no_network))
+            }
+            else -> {
+                when (ExceptionHandle.errorCode) {
+                    ErrorStatus.NETWORK_ERROR -> {
+                        showNoNetwork()
+                    }
+                    else -> {
+                        showError()
+                    }
+                }
+            }
         }
     }
 
@@ -103,7 +113,7 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     /**
-     *  加载布局
+     * 加载布局
      */
     @LayoutRes
     abstract fun getLayoutId(): Int
@@ -117,4 +127,9 @@ abstract class BaseActivity : AppCompatActivity() {
      * 初始化数据
      */
     abstract fun initData(savedInstanceState: Bundle?)
+
+    /**
+     * 已经载入数据
+     */
+    abstract fun isAlreadyLoadedData(): Boolean
 }

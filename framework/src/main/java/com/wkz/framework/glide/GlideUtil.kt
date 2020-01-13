@@ -196,7 +196,7 @@ object GlideUtil {
             .encodeFormat(Bitmap.CompressFormat.WEBP)
             .encodeQuality(90)
             .thumbnail(0.5f)
-            .transition(DrawableTransitionOptions.withCrossFade())
+            .transition(DrawableTransitionOptions.withCrossFade(200))
             .listener(requestListener)
     }
 }

@@ -273,25 +273,25 @@ class MultipleStatusView @JvmOverloads constructor(
             LayoutParams.MATCH_PARENT
         )
 
-        val STATUS_CONTENT = 0x00
+        const val STATUS_CONTENT = 0x00
         /**
          * 显示加载中视图
          */
-        val STATUS_LOADING = 0x01
+        const val STATUS_LOADING = 0x01
         /**
          * 显示空视图
          */
-        val STATUS_EMPTY = 0x02
+        const val STATUS_EMPTY = 0x02
         /**
          * 显示错误视图
          */
-        val STATUS_ERROR = 0x03
+        const val STATUS_ERROR = 0x03
         /**
          * 显示无网络视图
          */
-        val STATUS_NO_NETWORK = 0x04
+        const val STATUS_NO_NETWORK = 0x04
 
-        private val NULL_RESOURCE_ID = -1
+        private const val NULL_RESOURCE_ID = -1
     }
 }
 

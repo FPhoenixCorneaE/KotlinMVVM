@@ -78,4 +78,6 @@ class WanAndroidHomeQaFragment : BaseFragment(), OnRefreshLoadMoreListener {
     override fun onRefresh(refreshlayout: RefreshLayout) {
         mHomeQaViewModel.autoRefresh()
     }
+
+    override fun isAlreadyLoadedData(): Boolean = true
 }

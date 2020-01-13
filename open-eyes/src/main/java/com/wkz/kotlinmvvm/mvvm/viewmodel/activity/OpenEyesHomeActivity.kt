@@ -25,4 +25,6 @@ class OpenEyesHomeActivity :
 
     }
 
+    override fun isAlreadyLoadedData(): Boolean = true
+
 }

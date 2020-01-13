@@ -118,4 +118,6 @@ class WanAndroidHomeArticleFragment : BaseFragment(), OnRefreshLoadMoreListener 
     override fun onRefresh(refreshlayout: RefreshLayout) {
         mHomeArticleViewModel.autoRefresh()
     }
+
+    override fun isAlreadyLoadedData(): Boolean = true
 }

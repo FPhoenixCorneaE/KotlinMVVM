@@ -22,4 +22,6 @@ class WanAndroidProjectFragment : BaseFragment() {
     override fun lazyLoadData() {
 
     }
+
+    override fun isAlreadyLoadedData(): Boolean = true
 }

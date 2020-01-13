@@ -3,6 +3,7 @@ package com.wkz.titlebar.widget
 import android.app.Activity
 import android.content.Context
 import android.content.ContextWrapper
+import android.content.pm.PackageManager
 import android.graphics.Color
 import android.os.Build
 import android.text.Editable
@@ -22,6 +23,7 @@ import com.wkz.util.StatusBarUtil.setDarkMode
 import com.wkz.util.StatusBarUtil.setLightMode
 import com.wkz.util.StatusBarUtil.supportTransparentStatusBar
 import com.wkz.util.StatusBarUtil.transparentStatusBar
+import kotlin.math.max
 
 /**
  * 通用标题栏
@@ -37,7 +39,7 @@ class CommonTitleBar(
      *
      * @return
      */
-    var buttomLine // 分隔线视图
+    var bottomLine // 分隔线视图
             : View? = null
         private set
     private var viewBottomShadow // 底部阴影
@@ -179,7 +181,7 @@ class CommonTitleBar(
         TYPE_CENTER_SEARCH_RIGHT_VOICE// 搜索框右边按钮类型  0: voice 1: delete = 0
     private var centerCustomViewRes = 0// 中间自定义布局资源 = 0
     private var PADDING_5 = 0
-    private var PADDING_12 = 0
+    private var PADDING_16 = 0
     private var listener: OnTitleBarClickListener? = null
     private var doubleClickListener: OnTitleBarDoubleClickListener? = null
 
@@ -188,9 +190,10 @@ class CommonTitleBar(
         attrs: AttributeSet
     ) {
         PADDING_5 = SizeUtil.dp2px(5f)
-        PADDING_12 = SizeUtil.dp2px(12f)
+        PADDING_16 = SizeUtil.dp2px(16f)
         val array = context.obtainStyledAttributes(attrs, R.styleable.CommonTitleBar)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) { // notice 未引入沉浸式标题栏之前,隐藏标题栏撑起布局
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            // notice 未引入沉浸式标题栏之前,隐藏标题栏撑起布局
             fillStatusBar = array.getBoolean(R.styleable.CommonTitleBar_fillStatusBar, true)
         }
         titleBarColor =
@@ -215,85 +218,121 @@ class CommonTitleBar(
             R.styleable.CommonTitleBar_leftType,
             TYPE_LEFT_NONE
         )
-        if (leftType == TYPE_LEFT_TEXT_VIEW) {
-            leftText = array.getString(R.styleable.CommonTitleBar_leftText)
-            leftTextColor = array.getColor(
-                R.styleable.CommonTitleBar_leftTextColor,
-                ResourceUtil.getColor(R.color.common_titlebar_text_selector)
-            )
-            leftTextSize = array.getDimension(
-                R.styleable.CommonTitleBar_leftTextSize,
-                SizeUtil.dp2px(16f).toFloat()
-            )
-            leftDrawable = array.getResourceId(R.styleable.CommonTitleBar_leftDrawable, 0)
-            leftDrawablePadding =
-                array.getDimension(R.styleable.CommonTitleBar_leftDrawablePadding, 5f)
-        } else if (leftType == TYPE_LEFT_IMAGE_BUTTON) {
-            leftImageResource = array.getResourceId(
-                R.styleable.CommonTitleBar_leftImageResource,
-                R.drawable.common_titlebar_reback_selector
-            )
-        } else if (leftType == TYPE_LEFT_CUSTOM_VIEW) {
-            leftCustomViewRes = array.getResourceId(R.styleable.CommonTitleBar_leftCustomView, 0)
+        when (leftType) {
+            TYPE_LEFT_TEXT_VIEW -> {
+                leftText = array.getString(R.styleable.CommonTitleBar_leftText)
+                leftTextColor = array.getColor(
+                    R.styleable.CommonTitleBar_leftTextColor,
+                    ResourceUtil.getColor(R.color.common_titlebar_text_selector)
+                )
+                leftTextSize = array.getDimension(
+                    R.styleable.CommonTitleBar_leftTextSize,
+                    SizeUtil.dp2px(16f).toFloat()
+                )
+                leftDrawable = array.getResourceId(R.styleable.CommonTitleBar_leftDrawable, 0)
+                leftDrawablePadding =
+                    array.getDimension(R.styleable.CommonTitleBar_leftDrawablePadding, 5f)
+            }
+            TYPE_LEFT_IMAGE_BUTTON -> {
+                leftImageResource = array.getResourceId(
+                    R.styleable.CommonTitleBar_leftImageResource,
+                    R.drawable.common_titlebar_reback_selector
+                )
+            }
+            TYPE_LEFT_CUSTOM_VIEW -> {
+                leftCustomViewRes =
+                    array.getResourceId(R.styleable.CommonTitleBar_leftCustomView, 0)
+            }
         }
         rightType = array.getInt(
             R.styleable.CommonTitleBar_rightType,
             TYPE_RIGHT_NONE
         )
-        if (rightType == TYPE_RIGHT_TEXT_VIEW) {
-            rightText = array.getString(R.styleable.CommonTitleBar_rightText)
-            rightTextColor = array.getColor(
-                R.styleable.CommonTitleBar_rightTextColor,
-                ResourceUtil.getColor(R.color.common_titlebar_text_selector)
-            )
-            rightTextSize = array.getDimension(
-                R.styleable.CommonTitleBar_rightTextSize,
-                SizeUtil.dp2px(16f).toFloat()
-            )
-        } else if (rightType == TYPE_RIGHT_IMAGE_BUTTON) {
-            rightImageResource =
-                array.getResourceId(R.styleable.CommonTitleBar_rightImageResource, 0)
-        } else if (rightType == TYPE_RIGHT_CUSTOM_VIEW) {
-            rightCustomViewRes = array.getResourceId(R.styleable.CommonTitleBar_rightCustomView, 0)
+        when (rightType) {
+            TYPE_RIGHT_TEXT_VIEW -> {
+                rightText = array.getString(R.styleable.CommonTitleBar_rightText)
+                rightTextColor = array.getColor(
+                    R.styleable.CommonTitleBar_rightTextColor,
+                    ResourceUtil.getColor(R.color.common_titlebar_text_selector)
+                )
+                rightTextSize = array.getDimension(
+                    R.styleable.CommonTitleBar_rightTextSize,
+                    SizeUtil.dp2px(16f).toFloat()
+                )
+            }
+            TYPE_RIGHT_IMAGE_BUTTON -> {
+                rightImageResource =
+                    array.getResourceId(R.styleable.CommonTitleBar_rightImageResource, 0)
+            }
+            TYPE_RIGHT_CUSTOM_VIEW -> {
+                rightCustomViewRes =
+                    array.getResourceId(R.styleable.CommonTitleBar_rightCustomView, 0)
+            }
         }
         centerType = array.getInt(
             R.styleable.CommonTitleBar_centerType,
             TYPE_CENTER_NONE
         )
-        if (centerType == TYPE_CENTER_TEXT_VIEW) {
-            centerText = array.getString(R.styleable.CommonTitleBar_centerText)
-            centerTextColor = array.getColor(
-                R.styleable.CommonTitleBar_centerTextColor,
-                Color.parseColor("#333333")
-            )
-            centerTextSize = array.getDimension(
-                R.styleable.CommonTitleBar_centerTextSize,
-                SizeUtil.dp2px(18f).toFloat()
-            )
-            centerTextMarquee = array.getBoolean(R.styleable.CommonTitleBar_centerTextMarquee, true)
-            centerSubText = array.getString(R.styleable.CommonTitleBar_centerSubText)
-            centerSubTextColor = array.getColor(
-                R.styleable.CommonTitleBar_centerSubTextColor,
-                Color.parseColor("#666666")
-            )
-            centerSubTextSize = array.getDimension(
-                R.styleable.CommonTitleBar_centerSubTextSize,
-                SizeUtil.dp2px(11f).toFloat()
-            )
-        } else if (centerType == TYPE_CENTER_SEARCH_VIEW) {
-            centerSearchEditable =
-                array.getBoolean(R.styleable.CommonTitleBar_centerSearchEditable, true)
-            centerSearchBgResource = array.getResourceId(
-                R.styleable.CommonTitleBar_centerSearchBg,
-                R.drawable.common_titlebar_search_gray_shape
-            )
-            centerSearchRightType = array.getInt(
-                R.styleable.CommonTitleBar_centerSearchRightType,
-                TYPE_CENTER_SEARCH_RIGHT_VOICE
-            )
-        } else if (centerType == TYPE_CENTER_CUSTOM_VIEW) {
-            centerCustomViewRes =
-                array.getResourceId(R.styleable.CommonTitleBar_centerCustomView, 0)
+        when (centerType) {
+            TYPE_CENTER_TEXT_VIEW -> {
+                centerText = array.getString(R.styleable.CommonTitleBar_centerText)
+                // 如果当前上下文对象是Activity，就获取Activity的标题
+                if (centerText.isNullOrBlank() && getContext() is Activity) {
+                    // 获取清单文件中的 android:label 属性值
+                    val label = (getContext() as Activity).title
+                    if (!label.isNullOrBlank()) {
+                        try {
+                            val packageManager = getContext().packageManager
+                            val packageInfo =
+                                packageManager.getPackageInfo(getContext().packageName, 0)
+                            // 如果当前 Activity 没有设置 android:label 属性，则默认会返回 APP 名称，则需要过滤掉
+                            if (label.toString() != packageInfo.applicationInfo.loadLabel(
+                                    packageManager
+                                ).toString()
+                            ) {
+                                // 设置标题
+                                centerText = label.toString()
+                            }
+                        } catch (ignored: PackageManager.NameNotFoundException) {
+                        }
+                    }
+                }
+                centerTextColor = array.getColor(
+                    R.styleable.CommonTitleBar_centerTextColor,
+                    Color.parseColor("#333333")
+                )
+                centerTextSize = array.getDimension(
+                    R.styleable.CommonTitleBar_centerTextSize,
+                    SizeUtil.dp2px(18f).toFloat()
+                )
+                centerTextMarquee =
+                    array.getBoolean(R.styleable.CommonTitleBar_centerTextMarquee, true)
+                centerSubText = array.getString(R.styleable.CommonTitleBar_centerSubText)
+                centerSubTextColor = array.getColor(
+                    R.styleable.CommonTitleBar_centerSubTextColor,
+                    Color.parseColor("#666666")
+                )
+                centerSubTextSize = array.getDimension(
+                    R.styleable.CommonTitleBar_centerSubTextSize,
+                    SizeUtil.dp2px(11f).toFloat()
+                )
+            }
+            TYPE_CENTER_SEARCH_VIEW -> {
+                centerSearchEditable =
+                    array.getBoolean(R.styleable.CommonTitleBar_centerSearchEditable, true)
+                centerSearchBgResource = array.getResourceId(
+                    R.styleable.CommonTitleBar_centerSearchBg,
+                    R.drawable.common_titlebar_search_gray_shape
+                )
+                centerSearchRightType = array.getInt(
+                    R.styleable.CommonTitleBar_centerSearchRightType,
+                    TYPE_CENTER_SEARCH_RIGHT_VOICE
+                )
+            }
+            TYPE_CENTER_CUSTOM_VIEW -> {
+                centerCustomViewRes =
+                    array.getResourceId(R.styleable.CommonTitleBar_centerCustomView, 0)
+            }
         }
         array.recycle()
     }
@@ -335,21 +374,22 @@ class CommonTitleBar(
         // 计算主布局高度
         if (showBottomLine) {
             mainParams.height =
-                titleBarHeight - Math.max(1, SizeUtil.dp2px(0.4f))
+                titleBarHeight - max(1, SizeUtil.dp2px(0.4f))
         } else {
             mainParams.height = titleBarHeight
         }
         addView(rlMain, mainParams)
         // 构建分割线视图
-        if (showBottomLine) { // 已设置显示标题栏分隔线,5.0以下机型,显示分隔线
-            buttomLine = View(context)
-            buttomLine!!.setBackgroundColor(bottomLineColor)
+        if (showBottomLine) {
+            // 已设置显示标题栏分隔线,5.0以下机型,显示分隔线
+            bottomLine = View(context)
+            bottomLine!!.setBackgroundColor(bottomLineColor)
             val bottomLineParams = LayoutParams(
                 MATCH_PARENT,
-                Math.max(1, SizeUtil.dp2px(0.4f))
+                max(1, SizeUtil.dp2px(0.5f))
             )
             bottomLineParams.addRule(BELOW, rlMain!!.id)
-            addView(buttomLine, bottomLineParams)
+            addView(bottomLine, bottomLineParams)
         } else if (bottomShadowHeight != 0f) {
             viewBottomShadow = View(context)
             viewBottomShadow!!.setBackgroundResource(R.drawable.common_titlebar_bottom_shadow)
@@ -390,47 +430,57 @@ class CommonTitleBar(
             LayoutParams(WRAP_CONTENT, MATCH_PARENT)
         leftInnerParams.addRule(ALIGN_PARENT_START)
         leftInnerParams.addRule(CENTER_VERTICAL)
-        if (leftType == TYPE_LEFT_TEXT_VIEW) { // 初始化左边TextView
-            leftTextView = TextView(context)
-            leftTextView!!.id = StatusBarUtil.generateViewId()
-            leftTextView!!.text = leftText
-            leftTextView!!.setTextColor(leftTextColor)
-            leftTextView!!.setTextSize(TypedValue.COMPLEX_UNIT_PX, leftTextSize)
-            leftTextView!!.gravity = Gravity.START or Gravity.CENTER_VERTICAL
-            leftTextView!!.isSingleLine = true
-            leftTextView!!.setOnClickListener(this)
-            // 设置DrawableLeft及DrawablePadding
-            if (leftDrawable != 0) {
-                leftTextView!!.compoundDrawablePadding = leftDrawablePadding.toInt()
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-                    leftTextView!!.setCompoundDrawablesRelativeWithIntrinsicBounds(
-                        leftDrawable,
-                        0,
-                        0,
-                        0
-                    )
-                } else {
-                    leftTextView!!.setCompoundDrawablesWithIntrinsicBounds(leftDrawable, 0, 0, 0)
+        when (leftType) {
+            TYPE_LEFT_TEXT_VIEW -> { // 初始化左边TextView
+                leftTextView = TextView(context)
+                leftTextView!!.id = StatusBarUtil.generateViewId()
+                leftTextView!!.text = leftText
+                leftTextView!!.setTextColor(leftTextColor)
+                leftTextView!!.setTextSize(TypedValue.COMPLEX_UNIT_PX, leftTextSize)
+                leftTextView!!.gravity = Gravity.START or Gravity.CENTER_VERTICAL
+                leftTextView!!.isSingleLine = true
+                leftTextView!!.setOnClickListener(this)
+                // 设置DrawableLeft及DrawablePadding
+                if (leftDrawable != 0) {
+                    leftTextView!!.compoundDrawablePadding = leftDrawablePadding.toInt()
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                        leftTextView!!.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                            leftDrawable,
+                            0,
+                            0,
+                            0
+                        )
+                    } else {
+                        leftTextView!!.setCompoundDrawablesWithIntrinsicBounds(
+                            leftDrawable,
+                            0,
+                            0,
+                            0
+                        )
+                    }
                 }
+                leftTextView!!.setPadding(PADDING_16, 0, PADDING_16, 0)
+                rlMain!!.addView(leftTextView, leftInnerParams)
             }
-            leftTextView!!.setPadding(PADDING_12, 0, PADDING_12, 0)
-            rlMain!!.addView(leftTextView, leftInnerParams)
-        } else if (leftType == TYPE_LEFT_IMAGE_BUTTON) { // 初始化左边ImageButton
-            leftImageButton = ImageButton(context)
-            leftImageButton!!.id = StatusBarUtil.generateViewId()
-            leftImageButton!!.setBackgroundColor(Color.TRANSPARENT)
-            leftImageButton!!.setImageResource(leftImageResource)
-            leftImageButton!!.setPadding(PADDING_12, 0, PADDING_12, 0)
-            leftImageButton!!.setOnClickListener(this)
-            rlMain!!.addView(leftImageButton, leftInnerParams)
-        } else if (leftType == TYPE_LEFT_CUSTOM_VIEW) { // 初始化自定义View
-            leftCustomView = LayoutInflater.from(context).inflate(leftCustomViewRes, rlMain, false)
-            leftCustomView?.apply {
-                if (id == View.NO_ID) {
-                    id = StatusBarUtil.generateViewId()
+            TYPE_LEFT_IMAGE_BUTTON -> { // 初始化左边ImageButton
+                leftImageButton = ImageButton(context)
+                leftImageButton!!.id = StatusBarUtil.generateViewId()
+                leftImageButton!!.setBackgroundColor(Color.TRANSPARENT)
+                leftImageButton!!.setImageResource(leftImageResource)
+                leftImageButton!!.setPadding(PADDING_16, 0, PADDING_16, 0)
+                leftImageButton!!.setOnClickListener(this)
+                rlMain!!.addView(leftImageButton, leftInnerParams)
+            }
+            TYPE_LEFT_CUSTOM_VIEW -> { // 初始化自定义View
+                leftCustomView =
+                    LayoutInflater.from(context).inflate(leftCustomViewRes, rlMain, false)
+                leftCustomView?.apply {
+                    if (id == View.NO_ID) {
+                        id = StatusBarUtil.generateViewId()
+                    }
                 }
+                rlMain!!.addView(leftCustomView, leftInnerParams)
             }
-            rlMain!!.addView(leftCustomView, leftInnerParams)
         }
     }
 
@@ -445,35 +495,39 @@ class CommonTitleBar(
             LayoutParams(WRAP_CONTENT, MATCH_PARENT)
         rightInnerParams.addRule(ALIGN_PARENT_END)
         rightInnerParams.addRule(CENTER_VERTICAL)
-        if (rightType == TYPE_RIGHT_TEXT_VIEW) { // 初始化右边TextView
-            rightTextView = TextView(context)
-            rightTextView!!.id = StatusBarUtil.generateViewId()
-            rightTextView!!.text = rightText
-            rightTextView!!.setTextColor(rightTextColor)
-            rightTextView!!.setTextSize(TypedValue.COMPLEX_UNIT_PX, rightTextSize)
-            rightTextView!!.gravity = Gravity.END or Gravity.CENTER_VERTICAL
-            rightTextView!!.isSingleLine = true
-            rightTextView!!.setPadding(PADDING_12, 0, PADDING_12, 0)
-            rightTextView!!.setOnClickListener(this)
-            rlMain!!.addView(rightTextView, rightInnerParams)
-        } else if (rightType == TYPE_RIGHT_IMAGE_BUTTON) { // 初始化右边ImageBtn
-            rightImageButton = ImageButton(context)
-            rightImageButton!!.id = StatusBarUtil.generateViewId()
-            rightImageButton!!.setImageResource(rightImageResource)
-            rightImageButton!!.setBackgroundColor(Color.TRANSPARENT)
-            rightImageButton!!.scaleType = ImageView.ScaleType.CENTER_INSIDE
-            rightImageButton!!.setPadding(PADDING_12, 0, PADDING_12, 0)
-            rightImageButton!!.setOnClickListener(this)
-            rlMain!!.addView(rightImageButton, rightInnerParams)
-        } else if (rightType == TYPE_RIGHT_CUSTOM_VIEW) { // 初始化自定义view
-            rightCustomView =
-                LayoutInflater.from(context).inflate(rightCustomViewRes, rlMain, false)
-            rightCustomView?.apply {
-                if (id == View.NO_ID) {
-                    id = StatusBarUtil.generateViewId()
-                }
+        when (rightType) {
+            TYPE_RIGHT_TEXT_VIEW -> { // 初始化右边TextView
+                rightTextView = TextView(context)
+                rightTextView!!.id = StatusBarUtil.generateViewId()
+                rightTextView!!.text = rightText
+                rightTextView!!.setTextColor(rightTextColor)
+                rightTextView!!.setTextSize(TypedValue.COMPLEX_UNIT_PX, rightTextSize)
+                rightTextView!!.gravity = Gravity.END or Gravity.CENTER_VERTICAL
+                rightTextView!!.isSingleLine = true
+                rightTextView!!.setPadding(PADDING_16, 0, PADDING_16, 0)
+                rightTextView!!.setOnClickListener(this)
+                rlMain!!.addView(rightTextView, rightInnerParams)
             }
-            rlMain!!.addView(rightCustomView, rightInnerParams)
+            TYPE_RIGHT_IMAGE_BUTTON -> { // 初始化右边ImageBtn
+                rightImageButton = ImageButton(context)
+                rightImageButton!!.id = StatusBarUtil.generateViewId()
+                rightImageButton!!.setImageResource(rightImageResource)
+                rightImageButton!!.setBackgroundColor(Color.TRANSPARENT)
+                rightImageButton!!.scaleType = ImageView.ScaleType.CENTER_INSIDE
+                rightImageButton!!.setPadding(PADDING_16, 0, PADDING_16, 0)
+                rightImageButton!!.setOnClickListener(this)
+                rlMain!!.addView(rightImageButton, rightInnerParams)
+            }
+            TYPE_RIGHT_CUSTOM_VIEW -> { // 初始化自定义view
+                rightCustomView =
+                    LayoutInflater.from(context).inflate(rightCustomViewRes, rlMain, false)
+                rightCustomView?.apply {
+                    if (id == View.NO_ID) {
+                        id = StatusBarUtil.generateViewId()
+                    }
+                }
+                rlMain!!.addView(rightCustomView, rightInnerParams)
+            }
         }
     }
 
@@ -493,8 +547,8 @@ class CommonTitleBar(
                 centerLayout!!.setOnClickListener(this)
                 val centerParams =
                     LayoutParams(WRAP_CONTENT, MATCH_PARENT)
-                centerParams.marginStart = PADDING_12
-                centerParams.marginEnd = PADDING_12
+                centerParams.marginStart = PADDING_16
+                centerParams.marginEnd = PADDING_16
                 centerParams.addRule(CENTER_IN_PARENT)
                 rlMain!!.addView(centerLayout, centerParams)
                 // 初始化标题栏TextView
@@ -504,6 +558,8 @@ class CommonTitleBar(
                 centerTextView!!.setTextSize(TypedValue.COMPLEX_UNIT_PX, centerTextSize)
                 centerTextView!!.gravity = Gravity.CENTER
                 centerTextView!!.isSingleLine = true
+                // 字体加粗
+                centerTextView!!.paint.isFakeBoldText = true
                 // 设置跑马灯效果
                 centerTextView!!.maxWidth =
                     (ScreenUtil.screenWidth * 3 / 5.0).toInt()
@@ -565,7 +621,7 @@ class CommonTitleBar(
                         centerParams.marginStart = PADDING_5
                     }
                     else -> {
-                        centerParams.marginStart = PADDING_12
+                        centerParams.marginStart = PADDING_16
                     }
                 }
                 // 根据右边的布局类型来设置边距,布局依赖规则
@@ -583,7 +639,7 @@ class CommonTitleBar(
                         centerParams.marginEnd = PADDING_5
                     }
                     else -> {
-                        centerParams.marginEnd = PADDING_12
+                        centerParams.marginEnd = PADDING_16
                     }
                 }
                 rlMain!!.addView(centerSearchView, centerParams)
@@ -596,7 +652,7 @@ class CommonTitleBar(
                     LayoutParams(searchIconWidth, searchIconWidth)
                 searchParams.addRule(CENTER_VERTICAL)
                 searchParams.addRule(ALIGN_PARENT_START)
-                searchParams.marginStart = PADDING_12
+                searchParams.marginStart = PADDING_16
                 centerSearchView!!.addView(centerSearchLeftImageView, searchParams)
                 centerSearchLeftImageView!!.setImageResource(R.drawable.common_titlebar_search_normal)
                 // 初始化搜索框语音ImageView
@@ -607,7 +663,7 @@ class CommonTitleBar(
                     LayoutParams(WRAP_CONTENT, WRAP_CONTENT)
                 voiceParams.addRule(CENTER_VERTICAL)
                 voiceParams.addRule(ALIGN_PARENT_END)
-                voiceParams.marginEnd = PADDING_12
+                voiceParams.marginEnd = PADDING_16
                 centerSearchView!!.addView(centerSearchRightImageView, voiceParams)
                 if (centerSearchRightType == TYPE_CENTER_SEARCH_RIGHT_VOICE) {
                     centerSearchRightImageView!!.setImageResource(R.drawable.common_titlebar_voice)
@@ -662,8 +718,8 @@ class CommonTitleBar(
                 }
                 val centerCustomParams =
                     LayoutParams(WRAP_CONTENT, MATCH_PARENT)
-                centerCustomParams.marginStart = PADDING_12
-                centerCustomParams.marginEnd = PADDING_12
+                centerCustomParams.marginStart = PADDING_16
+                centerCustomParams.marginEnd = PADDING_16
                 centerCustomParams.addRule(CENTER_IN_PARENT)
                 rlMain!!.addView(centerCustomView, centerCustomParams)
             }

@@ -6,12 +6,13 @@ import android.text.TextUtils
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.orhanobut.logger.Logger
 import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener
 import com.wkz.adapter.internal.Delegation
 import com.wkz.adapter.internal.MultiTypeAdapter
 import com.wkz.adapter.wrapper.ViewHolderWrapper
+import com.wkz.extension.gone
+import com.wkz.extension.visible
 import com.wkz.framework.base.fragment.Dagger2InjectionFragment
 import com.wkz.kotlinmvvm.R
 import com.wkz.kotlinmvvm.mvvm.contract.OpenEyesHomeContract
@@ -61,6 +62,7 @@ class OpenEyesHomeFragment :
     override fun initView() {
         // 内容跟随偏移
         mSrlRefresh.setEnableHeaderTranslationContent(true)
+        // 下拉刷新、上拉加载监听
         mSrlRefresh.setOnRefreshLoadMoreListener(object : OnRefreshLoadMoreListener {
             override fun onLoadMore(refreshLayout: RefreshLayout) {
                 mPresenter.loadMoreData()
@@ -70,21 +72,15 @@ class OpenEyesHomeFragment :
                 mPresenter.requestHomeData(1)
             }
         })
-        // 打开下拉刷新区域块背景:
+        // 打开下拉刷新区域块背景
         mMhHeader.setShowBezierWave(true)
         // 设置下拉刷新主题颜色
         mSrlRefresh.setPrimaryColorsId(
-            R.color.open_eyes_color_black,
+            R.color.open_eyes_color_bg_default,
             R.color.open_eyes_color_bg_default
         )
 
         initRecyclerView()
-
-//        // 状态栏透明和间距处理
-//        activity?.let {
-//            StatusBarUtil.darkMode(it)
-//            StatusBarUtil.setPaddingSmart(it, mTbToolbar)
-//        }
     }
 
     private fun initRecyclerView() {
@@ -102,20 +98,16 @@ class OpenEyesHomeFragment :
             mVideoWrapper,
             delegation = object : Delegation<OpenEyesHomeBean.Issue.Item> {
                 override fun getWrapperType(item: OpenEyesHomeBean.Issue.Item): Class<out ViewHolderWrapper<OpenEyesHomeBean.Issue.Item>> {
-                    return when {
-                        item.type == "textHeader" ->
-                            OpenEyesHomeDateWrapper::class.java
-                        item.type == "video" ->
-                            OpenEyesHomeVideoWrapper::class.java
-                        else ->
-                            OpenEyesHomeBannerWrapper::class.java
+                    return when (item.type) {
+                        "textHeader" -> OpenEyesHomeDateWrapper::class.java
+                        "video" -> OpenEyesHomeVideoWrapper::class.java
+                        else -> OpenEyesHomeBannerWrapper::class.java
                     }
                 }
             })
         mRvRecycler.adapter = mAdapter
         mRvRecycler.layoutManager = mLinearLayoutManager
         mRvRecycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-
             /**
              * RecyclerView滚动的时候调用
              */
@@ -135,7 +127,6 @@ class OpenEyesHomeFragment :
                     if (abs(firstVisibleChildViewTop) <= firstVisibleChildViewHeight) {
                         val alpha: Int =
                             ((1f - abs(firstVisibleChildViewTop).toFloat() / firstVisibleChildViewHeight) * 255).toInt()
-                        Logger.d("onScrolled,alpha:$alpha")
                         if (alpha > 255 || alpha < 80) return
                         var alphaHex =
                             alpha.toString(16).toUpperCase(Locale.getDefault())
@@ -166,10 +157,18 @@ class OpenEyesHomeFragment :
     }
 
     override fun lazyLoadData() {
+        showContent()
+        mTbTitleBar.gone()
         mSrlRefresh.autoRefresh()
     }
 
+    override fun isAlreadyLoadedData(): Boolean {
+        return !mAdapter.data.isNullOrEmpty()
+    }
+
     override fun setHomeData(homeBean: OpenEyesHomeBean) {
+        mTbTitleBar.visible()
+        mTbTitleBar.centerTextView?.text = getString(R.string.open_eyes_home_choiceness)
         mSrlRefresh.finishRefresh()
 
 //        val bannerItemData: ArrayList<OpenEyesHomeBean.Issue.Item> =
@@ -194,5 +193,11 @@ class OpenEyesHomeFragment :
         mSrlRefresh.finishLoadMore()
         mAdapter.data.addAll(itemList)
         mAdapter.notifyDataSetChanged()
+    }
+
+    override fun showErrorMsg(t: Throwable) {
+        mSrlRefresh.finishRefresh()
+        mSrlRefresh.finishLoadMore()
+        super.showErrorMsg(t)
     }
 }

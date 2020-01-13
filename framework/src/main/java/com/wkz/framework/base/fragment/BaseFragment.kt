@@ -17,7 +17,7 @@ import com.wkz.widget.MultipleStatusView
 /**
  * @desc:BaseFragment基类
  */
-abstract class BaseFragment : Fragment() {
+abstract class BaseFragment : Fragment(), View.OnClickListener {
 
     /** 当前界面 Context 对象*/
     protected lateinit var mContext: FragmentActivity
@@ -50,6 +50,7 @@ abstract class BaseFragment : Fragment() {
         // 将当前布局添加到根布局
         mMsvRoot.removeAllViews()
         mMsvRoot.addView(contentView)
+        mMsvRoot.setOnRetryClickListener(this)
         return mMsvRoot
     }
 
@@ -104,15 +105,29 @@ abstract class BaseFragment : Fragment() {
 
     open fun showErrorMsg(t: Throwable) {
         ExceptionHandle.handleException(t)
-        if (ExceptionHandle.errorCode == ErrorStatus.NETWORK_ERROR) {
-            showNoNetwork()
-        } else {
-            showError()
+        when {
+            isAlreadyLoadedData() -> {
+                showErrorMsg(getString(R.string.framework_tips_no_network))
+            }
+            else -> {
+                when (ExceptionHandle.errorCode) {
+                    ErrorStatus.NETWORK_ERROR -> {
+                        showNoNetwork()
+                    }
+                    else -> {
+                        showError()
+                    }
+                }
+            }
         }
     }
 
     open fun showErrorMsg(errorMsg: CharSequence) {
         showToast(errorMsg)
+    }
+
+    override fun onClick(v: View) {
+        lazyLoadData()
     }
 
     /**
@@ -130,4 +145,10 @@ abstract class BaseFragment : Fragment() {
      * 懒加载数据
      */
     abstract fun lazyLoadData()
+
+    /**
+     * 已经载入数据
+     */
+    abstract fun isAlreadyLoadedData(): Boolean
+
 }
