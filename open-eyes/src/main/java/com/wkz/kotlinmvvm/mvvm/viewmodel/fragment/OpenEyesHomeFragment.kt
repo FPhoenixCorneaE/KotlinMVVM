@@ -24,6 +24,7 @@ import com.wkz.kotlinmvvm.mvvm.viewmodel.wrapper.OpenEyesHomeBannerWrapper
 import com.wkz.kotlinmvvm.mvvm.viewmodel.wrapper.OpenEyesHomeDateWrapper
 import com.wkz.kotlinmvvm.mvvm.viewmodel.wrapper.OpenEyesHomeVideoWrapper
 import com.wkz.util.BundleBuilder
+import com.wkz.util.ColorUtil
 import com.wkz.util.IntentUtil
 import com.wkz.util.ScreenUtil
 import kotlinx.android.synthetic.main.open_eyes_fragment_home.*
@@ -32,6 +33,9 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.abs
 
+/**
+ * 首页-精选Fragment
+ */
 class OpenEyesHomeFragment :
     Dagger2InjectionFragment<OpenEyesHomeContract.View, OpenEyesHomePresenter>(),
     OpenEyesHomeContract.View {
@@ -65,6 +69,11 @@ class OpenEyesHomeFragment :
     override fun getLayoutId(): Int = R.layout.open_eyes_fragment_home
 
     override fun initView() {
+        initSmartRefreshLayout()
+        initRecyclerView()
+    }
+
+    private fun initSmartRefreshLayout() {
         // 内容跟随偏移
         mSrlRefresh.setEnableHeaderTranslationContent(true)
         // 下拉刷新、上拉加载监听
@@ -84,8 +93,6 @@ class OpenEyesHomeFragment :
             R.color.open_eyes_color_bg_default,
             R.color.open_eyes_color_bg_default
         )
-
-        initRecyclerView()
     }
 
     private fun initRecyclerView() {
@@ -128,42 +135,53 @@ class OpenEyesHomeFragment :
              */
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                val currentVisibleItemPosition = mLinearLayoutManager.findFirstVisibleItemPosition()
-                if (currentVisibleItemPosition == 0) {
-                    mTbTitleBar.centerTextView?.text = getString(R.string.open_eyes_home_choiceness)
-                    // 根据索引来获取对应的itemView
-                    val firstVisibleChildView: View? =
-                        mLinearLayoutManager.findViewByPosition(currentVisibleItemPosition)
-                    // 获取当前item偏移量
-                    val firstVisibleChildViewTop: Int = firstVisibleChildView?.top ?: 0
-                    val firstVisibleChildViewHeight =
-                        firstVisibleChildView?.measuredHeight ?: ScreenUtil.screenHeight / 3
-                    // 设置背景透明度
-                    if (abs(firstVisibleChildViewTop) <= firstVisibleChildViewHeight) {
-                        val alpha: Int =
-                            ((1f - abs(firstVisibleChildViewTop).toFloat() / firstVisibleChildViewHeight) * 255).toInt()
-                        if (alpha > 255 || alpha < 80) return
-                        var alphaHex =
-                            alpha.toString(16).toUpperCase(Locale.getDefault())
-                        if (alphaHex.length == 1) {
-                            alphaHex = "0$alphaHex"
+                when (val currentVisibleItemPosition =
+                    mLinearLayoutManager.findFirstVisibleItemPosition()) {
+                    0 -> {
+                        mTbTitleBar.centerTextView?.text =
+                            getString(R.string.open_eyes_home_choiceness)
+                        // 根据索引来获取对应的itemView
+                        val firstVisibleChildView: View? =
+                            mLinearLayoutManager.findViewByPosition(currentVisibleItemPosition)
+                        // 获取当前item偏移量
+                        val firstVisibleChildViewTop: Int = firstVisibleChildView?.top ?: 0
+                        val firstVisibleChildViewHeight =
+                            firstVisibleChildView?.measuredHeight ?: ScreenUtil.screenHeight / 3
+                        // 设置标题栏背景透明度
+                        if (abs(firstVisibleChildViewTop) <= firstVisibleChildViewHeight) {
+                            val alpha: Int =
+                                ((1f - abs(firstVisibleChildViewTop).toFloat() / firstVisibleChildViewHeight) * 255).toInt()
+                            if (alpha > 255 || alpha < 80) {
+                                return
+                            }
+                            mTbTitleBar.setBackgroundColor(
+                                ColorUtil.setAlphaComponent(
+                                    Color.WHITE,
+                                    alpha
+                                )
+                            )
                         }
-                        val color = "#" + alphaHex + "ffffff"
-                        mTbTitleBar.setBackgroundColor(Color.parseColor(color))
                     }
-                } else {
-                    mTbTitleBar.setBackgroundColor(Color.parseColor("#50ffffff"))
-                    if (mAdapter.data.size > 1 && currentVisibleItemPosition < mAdapter.data.size) {
-                        val itemList = mAdapter.data
-                        val item =
-                            itemList[currentVisibleItemPosition] as OpenEyesHomeBean.Issue.Item
-                        val title: String?
-                        title = when (item.type) {
-                            "textHeader" -> item.data?.text
-                            else -> mSimpleDateFormat.format(item.data?.date)
-                        }
-                        if (!TextUtils.equals(mTbTitleBar.centerTextView?.text, title)) {
-                            mTbTitleBar.centerTextView?.text = title
+                    else -> {
+                        // 设置标题栏背景透明度
+                        mTbTitleBar.setBackgroundColor(
+                            ColorUtil.setAlphaComponent(
+                                Color.WHITE,
+                                80
+                            )
+                        )
+                        if (mAdapter.data.size > 1 && currentVisibleItemPosition < mAdapter.data.size) {
+                            val itemList = mAdapter.data
+                            val item =
+                                itemList[currentVisibleItemPosition] as OpenEyesHomeBean.Issue.Item
+                            val title: String?
+                            title = when (item.type) {
+                                "textHeader" -> item.data?.text
+                                else -> mSimpleDateFormat.format(item.data?.date)
+                            }
+                            if (!TextUtils.equals(mTbTitleBar.centerTextView?.text, title)) {
+                                mTbTitleBar.centerTextView?.text = title
+                            }
                         }
                     }
                 }

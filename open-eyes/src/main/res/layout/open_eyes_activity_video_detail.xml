@@ -11,7 +11,7 @@
         <com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
             android:id="@+id/mVpVideo"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_250" />
+            android:layout_height="@dimen/dp_200" />
 
         <ImageView
             android:id="@+id/mIvVideoBackground"

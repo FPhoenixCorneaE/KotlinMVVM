@@ -32,9 +32,9 @@ import com.wkz.kotlinmvvm.mvvm.presenter.OpenEyesVideoDetailPresenter
 import com.wkz.kotlinmvvm.mvvm.viewmodel.adapter.OpenEyesVideoDetailAdapter
 import com.wkz.util.ColorUtil
 import com.wkz.util.ImageUtil
+import com.wkz.util.ScreenUtil
 import com.wkz.util.statusbar.StatusBarUtil
 import kotlinx.android.synthetic.main.open_eyes_activity_video_detail.*
-import java.text.SimpleDateFormat
 import java.util.*
 
 /**
@@ -44,24 +44,18 @@ class OpenEyesVideoDetailActivity :
     Dagger2InjectionActivity<OpenEyesVideoDetailContract.View, OpenEyesVideoDetailPresenter>(),
     OpenEyesVideoDetailContract.View {
 
+    private var mVideoList = ArrayList<OpenEyesHomeBean.Issue.Item>()
     private val mVideoDetailAdapter by lazy {
-        OpenEyesVideoDetailAdapter(mContext, itemList)
+        OpenEyesVideoDetailAdapter(mContext, mVideoList)
     }
-    private val mFormat by lazy {
-        SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault())
-    }
-
     /**
-     * Item 详细数据
+     * 视频详细数据
      */
-    private lateinit var itemData: OpenEyesHomeBean.Issue.Item
-    private var orientationUtils: OrientationUtils? = null
-
-    private var itemList = ArrayList<OpenEyesHomeBean.Issue.Item>()
-
-    private var isPlay: Boolean = false
-    private var isPause: Boolean = false
-    private var transition: Transition? = null
+    private lateinit var mVideoDetailData: OpenEyesHomeBean.Issue.Item
+    private var mOrientationUtils: OrientationUtils? = null
+    private var mIsPlay: Boolean = false
+    private var mIsPause: Boolean = false
+    private var mSharedElementEnterTransition: Transition? = null
 
     override fun getLayoutId(): Int = R.layout.open_eyes_activity_video_detail
 
@@ -74,8 +68,11 @@ class OpenEyesVideoDetailActivity :
         // RecyclerView
         initRecyclerView()
         // 状态栏透明和间距处理
-        StatusBarUtil.transparentStatusBar(window)
-        StatusBarUtil.setSmartPadding(mContext, mVpVideo)
+        initStatusBar()
+        mVpVideo.also {
+            val layoutParams = it.layoutParams
+            layoutParams.height = ScreenUtil.screenHeight / 3
+        }
     }
 
     /**
@@ -104,12 +101,27 @@ class OpenEyesVideoDetailActivity :
         mRvVideo.adapter = mVideoDetailAdapter
     }
 
+    private fun initStatusBar() {
+        StatusBarUtil.transparentStatusBar(window)
+        StatusBarUtil.setSmartPadding(mContext, mVpVideo)
+    }
+
+    /**
+     * 初始化数据
+     */
+    override fun initData(savedInstanceState: Bundle?) {
+        mVideoDetailData =
+            intent.getSerializableExtra(OpenEyesConstants.EXTRA_KEY_VIDEO_DATA)
+                    as OpenEyesHomeBean.Issue.Item
+        initVideoViewConfig()
+    }
+
     /**
      * 初始化 VideoView 的配置
      */
     private fun initVideoViewConfig() {
         // 设置旋转
-        orientationUtils = OrientationUtils(mContext, mVpVideo)
+        mOrientationUtils = OrientationUtils(mContext, mVpVideo)
         // 是否旋转
         mVpVideo.isRotateViewAuto = false
         // 是否可以滑动调整
@@ -120,7 +132,7 @@ class OpenEyesVideoDetailActivity :
         imageView.scaleType = ImageView.ScaleType.CENTER_CROP
         GlideUtil.setupImage(
             imageView,
-            itemData.data?.cover?.feed,
+            mVideoDetailData.data?.cover?.feed,
             ColorDrawable(ColorUtil.randomColor)
         )
         mVpVideo.thumbImageView = imageView
@@ -130,8 +142,8 @@ class OpenEyesVideoDetailActivity :
             override fun onPrepared(url: String, vararg objects: Any) {
                 super.onPrepared(url, *objects)
                 // 开始播放了才能旋转和全屏
-                orientationUtils?.isEnable = true
-                isPlay = true
+                mOrientationUtils?.isEnable = true
+                mIsPlay = true
             }
 
             override fun onAutoComplete(url: String, vararg objects: Any) {
@@ -153,7 +165,7 @@ class OpenEyesVideoDetailActivity :
                 super.onQuitFullscreen(url, *objects)
                 Logger.d("***** onQuitFullscreen **** ")
                 // 列表返回的样式判断
-                orientationUtils?.backToProtVideo()
+                mOrientationUtils?.backToProtVideo()
             }
         })
         // 设置返回按键功能
@@ -161,25 +173,15 @@ class OpenEyesVideoDetailActivity :
         // 设置全屏按键功能
         mVpVideo.fullscreenButton.setOnClickListener {
             // 直接横屏
-            orientationUtils?.resolveByClick()
+            mOrientationUtils?.resolveByClick()
             // 第一个true是否需要隐藏actionbar，第二个true是否需要隐藏statusbar
             mVpVideo.startWindowFullscreen(this, true, true)
         }
         // 锁屏事件
-        mVpVideo.setLockClickListener { view, lock ->
+        mVpVideo.setLockClickListener { _, lock ->
             // 配合下方的onConfigurationChanged
-            orientationUtils?.isEnable = !lock
+            mOrientationUtils?.isEnable = !lock
         }
-    }
-
-    /**
-     * 初始化数据
-     */
-    override fun initData(savedInstanceState: Bundle?) {
-        itemData =
-            intent.getSerializableExtra(OpenEyesConstants.EXTRA_KEY_VIDEO_DATA)
-                    as OpenEyesHomeBean.Issue.Item
-        initVideoViewConfig()
     }
 
     override fun isAlreadyLoadedData(): Boolean = true
@@ -198,7 +200,7 @@ class OpenEyesVideoDetailActivity :
      * 设置视频信息
      */
     override fun setVideoInfo(itemInfo: OpenEyesHomeBean.Issue.Item) {
-        itemData = itemInfo
+        mVideoDetailData = itemInfo
         mVideoDetailAdapter.addData(itemInfo)
         // 请求相关的最新等视频
         mPresenter.requestRelatedVideo(itemInfo.data?.id ?: 0)
@@ -210,7 +212,7 @@ class OpenEyesVideoDetailActivity :
      */
     override fun setRecentRelatedVideo(itemList: ArrayList<OpenEyesHomeBean.Issue.Item>) {
         mVideoDetailAdapter.addData(itemList)
-        this.itemList = itemList
+        mVideoList = itemList
     }
 
     /**
@@ -259,8 +261,8 @@ class OpenEyesVideoDetailActivity :
 
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
-        if (isPlay && !isPause) {
-            mVpVideo.onConfigurationChanged(mContext, newConfig, orientationUtils)
+        if (mIsPlay && !mIsPause) {
+            mVpVideo.onConfigurationChanged(mContext, newConfig, mOrientationUtils)
         }
     }
 
@@ -268,14 +270,14 @@ class OpenEyesVideoDetailActivity :
      * 1.加载视频信息
      */
     fun loadVideoInfo() {
-        mPresenter.loadVideoInfo(itemData)
+        mPresenter.loadVideoInfo(mVideoDetailData)
     }
 
     /**
      * 监听返回键
      */
     override fun onBackPressed() {
-        orientationUtils?.backToProtVideo()
+        mOrientationUtils?.backToProtVideo()
         if (StandardGSYVideoPlayer.backFromWindowFull(mContext)) {
             return
         }
@@ -292,19 +294,19 @@ class OpenEyesVideoDetailActivity :
     override fun onResume() {
         super.onResume()
         getCurPlay().onVideoResume()
-        isPause = false
+        mIsPause = false
     }
 
     override fun onPause() {
         super.onPause()
         getCurPlay().onVideoPause()
-        isPause = true
+        mIsPause = true
     }
 
     override fun onDestroy() {
         super.onDestroy()
         GSYVideoPlayer.releaseAllVideos()
-        orientationUtils?.releaseListener()
+        mOrientationUtils?.releaseListener()
     }
 
     private fun getCurPlay(): GSYVideoPlayer {
@@ -316,8 +318,8 @@ class OpenEyesVideoDetailActivity :
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private fun addTransitionListener() {
-        transition = window.sharedElementEnterTransition
-        transition?.addListener(object : Transition.TransitionListener {
+        mSharedElementEnterTransition = window.sharedElementEnterTransition
+        mSharedElementEnterTransition?.addListener(object : Transition.TransitionListener {
             override fun onTransitionResume(p0: Transition?) {
             }
 
@@ -332,7 +334,7 @@ class OpenEyesVideoDetailActivity :
 
             override fun onTransitionEnd(p0: Transition?) {
                 loadVideoInfo()
-                transition?.removeListener(this)
+                mSharedElementEnterTransition?.removeListener(this)
             }
         })
     }
