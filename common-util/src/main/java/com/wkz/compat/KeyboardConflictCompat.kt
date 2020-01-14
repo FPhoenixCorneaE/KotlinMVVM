@@ -6,7 +6,7 @@ import android.os.Build
 import android.view.View
 import android.view.Window
 import android.widget.FrameLayout
-import com.wkz.util.StatusBarUtil
+import com.wkz.util.statusbar.StatusBarUtil
 
 /**
  * 解决沉浸式标题栏下，键盘兼容问题

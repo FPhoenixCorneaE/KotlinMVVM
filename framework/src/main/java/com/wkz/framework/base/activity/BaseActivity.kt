@@ -61,7 +61,6 @@ abstract class BaseActivity : AppCompatActivity() {
         // 将当前布局添加到根布局
         mMsvRoot.removeAllViews()
         mMsvRoot.addView(contentView)
-
         super.setContentView(mMsvRoot)
     }
 

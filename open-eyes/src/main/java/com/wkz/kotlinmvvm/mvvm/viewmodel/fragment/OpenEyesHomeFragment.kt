@@ -15,14 +15,19 @@ import com.wkz.extension.gone
 import com.wkz.extension.visible
 import com.wkz.framework.base.fragment.Dagger2InjectionFragment
 import com.wkz.kotlinmvvm.R
+import com.wkz.kotlinmvvm.constant.OpenEyesConstants
 import com.wkz.kotlinmvvm.mvvm.contract.OpenEyesHomeContract
 import com.wkz.kotlinmvvm.mvvm.model.bean.OpenEyesHomeBean
 import com.wkz.kotlinmvvm.mvvm.presenter.OpenEyesHomePresenter
+import com.wkz.kotlinmvvm.mvvm.viewmodel.activity.OpenEyesVideoDetailActivity
 import com.wkz.kotlinmvvm.mvvm.viewmodel.wrapper.OpenEyesHomeBannerWrapper
 import com.wkz.kotlinmvvm.mvvm.viewmodel.wrapper.OpenEyesHomeDateWrapper
 import com.wkz.kotlinmvvm.mvvm.viewmodel.wrapper.OpenEyesHomeVideoWrapper
+import com.wkz.util.BundleBuilder
+import com.wkz.util.IntentUtil
 import com.wkz.util.ScreenUtil
 import kotlinx.android.synthetic.main.open_eyes_fragment_home.*
+import kotlinx.android.synthetic.main.open_eyes_item_home_video.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.abs
@@ -84,8 +89,18 @@ class OpenEyesHomeFragment :
     }
 
     private fun initRecyclerView() {
-        mVideoWrapper.setOnItemClickListener { viewHolder, position, item ->
-
+        mVideoWrapper.setOnItemClickListener { viewHolder, _, item ->
+            // 跳转到视频详情页面
+            IntentUtil.startActivity(
+                mContext,
+                OpenEyesVideoDetailActivity::class.java,
+                BundleBuilder.of().putSerializable(
+                    OpenEyesConstants.EXTRA_KEY_VIDEO_DATA,
+                    item
+                ).get(),
+                -1,
+                viewHolder.itemView.mIvCoverFeed
+            )
         }
         mVideoWrapper.setOnItemLongClickListener { viewHolder, position, item ->
 

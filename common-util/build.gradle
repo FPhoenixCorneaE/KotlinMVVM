@@ -46,4 +46,5 @@ dependencies {
     api(Config.logger) {
         transitive true
     }
+    implementation 'androidx.palette:palette-ktx:1.0.0'
 }

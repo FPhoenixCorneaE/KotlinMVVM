@@ -7,6 +7,6 @@ class OpenEyesConstants private constructor() {
 
     companion object {
 
-        val BUNDLE_VIDEO_DATA = "video_data"
+        val EXTRA_KEY_VIDEO_DATA = "video_data"
     }
 }

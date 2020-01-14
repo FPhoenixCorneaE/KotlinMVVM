@@ -1,49 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.scwang.smartrefresh.layout.SmartRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/mRefreshLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@android:color/white"
-    app:srlAccentColor="@android:color/white"
-    app:srlEnableHeaderTranslationContent="false"
-    app:srlEnableLoadMore="false"
-    app:srlPrimaryColor="@color/open_eyes_colorPrimary">
-
-    <com.scwang.smartrefresh.header.MaterialHeader
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+    android:layout_height="match_parent">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
-            android:id="@+id/mVideoView"
+            android:id="@+id/mVpVideo"
             android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:background="@android:color/black" />
+            android:layout_height="@dimen/dp_250" />
 
         <ImageView
-            android:id="@+id/mVideoBackground"
+            android:id="@+id/mIvVideoBackground"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/mVideoView"
+            android:layout_below="@+id/mVpVideo"
             tools:ignore="ContentDescription" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@id/mVideoView"
-            android:background="@color/open_eyes_color_black_alpha50" />
-
-
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/mRecyclerView"
+            android:id="@+id/mRvVideo"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/mVideoView" />
-
+            android:layout_below="@+id/mVpVideo" />
     </RelativeLayout>
-</com.scwang.smartrefresh.layout.SmartRefreshLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

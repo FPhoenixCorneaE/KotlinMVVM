@@ -1,4 +1,4 @@
-package com.wkz.util
+package com.wkz.util.statusbar
 
 import android.annotation.SuppressLint
 import android.annotation.TargetApi
@@ -6,17 +6,18 @@ import android.content.Context
 import android.graphics.Color
 import android.os.Build
 import android.view.View
+import android.view.ViewGroup
 import android.view.Window
 import android.view.WindowManager
 import androidx.annotation.ColorInt
-import java.util.*
+import androidx.annotation.FloatRange
+import com.wkz.util.RomUtil
 
 /**
  * 状态栏工具类
  */
 object StatusBarUtil {
 
-    @JvmStatic
     fun supportTransparentStatusBar(): Boolean {
         return (RomUtil.isXiaomi
                 || RomUtil.isMeizu
@@ -29,13 +30,14 @@ object StatusBarUtil {
      *
      * @param window
      */
-    @JvmStatic
     fun transparentStatusBar(window: Window) {
         when {
             RomUtil.isXiaomi || RomUtil.isMeizu -> {
                 when {
                     Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP -> {
-                        transparentStatusBarAbove21(window)
+                        transparentStatusBarAbove21(
+                            window
+                        )
                     }
                     Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT -> {
                         window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
@@ -43,10 +45,14 @@ object StatusBarUtil {
                 }
             }
             RomUtil.isOppo && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP -> {
-                transparentStatusBarAbove21(window)
+                transparentStatusBarAbove21(
+                    window
+                )
             }
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.M -> {
-                transparentStatusBarAbove21(window)
+                transparentStatusBarAbove21(
+                    window
+                )
             }
         }
     }
@@ -65,20 +71,31 @@ object StatusBarUtil {
      *
      * @param window
      */
-    @JvmStatic
     fun setLightMode(window: Window) {
         when {
             RomUtil.isXiaomi -> {
-                setMIUIStatusBarDarkMode(window, false)
+                setMIUIStatusBarDarkMode(
+                    window,
+                    false
+                )
             }
             RomUtil.isMeizu -> {
-                setFlymeStatusBarDarkMode(window, false)
+                setFlymeStatusBarDarkMode(
+                    window,
+                    false
+                )
             }
             RomUtil.isOppo -> {
-                setOppoStatusBarDarkMode(window, false)
+                setOppoStatusBarDarkMode(
+                    window,
+                    false
+                )
             }
             else -> {
-                setStatusBarDarkMode(window, false)
+                setStatusBarDarkMode(
+                    window,
+                    false
+                )
             }
         }
     }
@@ -88,7 +105,6 @@ object StatusBarUtil {
      *
      * @param window
      */
-    @JvmStatic
     fun setDarkMode(window: Window) {
         when {
             RomUtil.isXiaomi -> {
@@ -147,7 +163,10 @@ object StatusBarUtil {
             } catch (e: Exception) {
             }
         }
-        setStatusBarDarkMode(window, darkMode)
+        setStatusBarDarkMode(
+            window,
+            darkMode
+        )
     }
 
     private fun setFlymeStatusBarDarkMode(
@@ -189,18 +208,81 @@ object StatusBarUtil {
     }
 
     /**
+     * 沉浸式状态栏
      * 设置状态栏颜色和透明度
-     *
-     * @param window
-     * @param color
-     * @param alpha
+     * @param color 颜色
+     * @param alpha 透明度
      */
     fun setStatusBarColor(
-        window: Window, @ColorInt color: Int,
-        alpha: Int
+        window: Window,
+        @ColorInt color: Int,
+        @FloatRange(from = 0.0, to = 1.0) alpha: Float = 1f
+    ) {
+        if (Build.VERSION.SDK_INT >= 21) {
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+            window.statusBarColor = calculateStatusColor(color, alpha)
+            var systemUiVisibility = window.decorView.systemUiVisibility
+            systemUiVisibility = systemUiVisibility or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+            systemUiVisibility = systemUiVisibility or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+            window.decorView.systemUiVisibility = systemUiVisibility
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+            setTranslucentView(window.decorView as ViewGroup, color, alpha)
+        }
+    }
+
+    /**
+     * 创建假的透明栏
+     */
+    private fun setTranslucentView(
+        container: ViewGroup,
+        @ColorInt color: Int,
+        @FloatRange(from = 0.0, to = 1.0) alpha: Float
     ) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            window.statusBarColor = calculateStatusColor(color, alpha)
+            val mixtureColor = calculateStatusColor(color, alpha)
+            var translucentView: View? = container.findViewById(android.R.id.custom)
+            if (translucentView == null && mixtureColor != 0) {
+                translucentView = View(container.context)
+                translucentView.id = android.R.id.custom
+                val lp = ViewGroup.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT, getStatusBarHeight(container.context)
+                )
+                container.addView(translucentView, lp)
+            }
+            translucentView?.setBackgroundColor(mixtureColor)
+        }
+    }
+
+    /**
+     * 增加View的高度以及paddingTop,增加的值为状态栏高度.一般是在沉浸式全屏给ToolBar用的
+     */
+    fun setSmartPadding(context: Context, view: View) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            val lp = view.layoutParams
+            if (lp != null && lp.height > 0) {
+                // 增高
+                lp.height += getStatusBarHeight(context)
+            }
+            view.setPadding(
+                view.paddingLeft, view.paddingTop + getStatusBarHeight(context),
+                view.paddingRight, view.paddingBottom
+            )
+        }
+    }
+
+    /**
+     * 增加View上边距（MarginTop）一般是给高度为 WARP_CONTENT 的小控件用的
+     */
+    fun setSmartMargin(context: Context, view: View) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            val lp = view.layoutParams
+            if (lp is ViewGroup.MarginLayoutParams) {
+                // 增高
+                lp.topMargin += getStatusBarHeight(context)
+            }
+            view.layoutParams = lp
         }
     }
 
@@ -211,18 +293,15 @@ object StatusBarUtil {
      * @param alpha alpha值
      * @return 最终的状态栏颜色
      */
-    private fun calculateStatusColor(@ColorInt color: Int, alpha: Int): Int {
-        if (alpha == 0) {
-            return color
+    private fun calculateStatusColor(
+        @ColorInt color: Int,
+        @FloatRange(from = 0.0, to = 1.0) alpha: Float
+    ): Int {
+        val a = when {
+            color and -0x1000000 == 0 -> 0xff
+            else -> color.ushr(24)
         }
-        val a = 1 - alpha / 255f
-        var red = color shr 16 and 0xff
-        var green = color shr 8 and 0xff
-        var blue = color and 0xff
-        red = (red * a + 0.5).toInt()
-        green = (green * a + 0.5).toInt()
-        blue = (blue * a + 0.5).toInt()
-        return 0xff shl 24 or (red shl 16) or (green shl 8) or blue
+        return color and 0x00ffffff or ((a * alpha).toInt() shl 24)
     }
 
     /**
@@ -280,22 +359,5 @@ object StatusBarUtil {
             e.printStackTrace()
         }
         return hasNavigationBar
-    }
-
-    /**
-     * 计算View Id
-     *
-     * @return
-     */
-    @JvmStatic
-    fun generateViewId(): Int {
-        return when {
-            Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1 -> {
-                View.generateViewId()
-            }
-            else -> {
-                UUID.randomUUID().hashCode()
-            }
-        }
     }
 }

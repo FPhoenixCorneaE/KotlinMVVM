@@ -23,6 +23,7 @@ import android.util.SizeF
 import android.util.SparseArray
 import android.view.View
 import androidx.annotation.AnimRes
+import androidx.core.app.ActivityCompat
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.content.FileProvider
 import androidx.core.util.Pair
@@ -31,13 +32,16 @@ import androidx.fragment.app.FragmentActivity
 import com.wkz.extension.isNull
 import java.io.File
 import java.io.Serializable
-import java.util.*
 
 /**
  * Intent操作
  */
 object IntentUtil {
 
+    /**
+     * @param enterAnim 进入动画
+     * @param exitAnim  退出动画
+     */
     fun startActivity(
         context: Context,
         className: Class<*>,
@@ -49,15 +53,27 @@ object IntentUtil {
         val intent = Intent()
         intent.setClass(context, className)
         intent.putExtras(BundleBuilder.of(bundle).get())
+        val optionsBundle =
+            ActivityOptionsCompat.makeCustomAnimation(context, enterAnim, exitAnim).toBundle()
         if (requestCode < 0) {
-            context.startActivity(intent)
+            ActivityCompat.startActivity(
+                context,
+                intent,
+                optionsBundle
+            )
         } else {
-            scanForActivity(context)?.startActivityForResult(intent, requestCode)
+            scanForActivity(context)?.startActivityForResult(
+                intent, requestCode,
+                optionsBundle
+            )
         }
         scanForActivity(context)?.overridePendingTransition(enterAnim, exitAnim)
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    /**
+     * 添加共享元素
+     * @param views 共享元素,必须设置"android:transitionName"属性
+     */
     fun startActivity(
         activity: Activity,
         className: Class<*>,
@@ -68,26 +84,39 @@ object IntentUtil {
         val intent = Intent()
         intent.setClass(activity, className)
         intent.putExtras(BundleBuilder.of(bundle).get())
+        var optionsBundle: Bundle? = null
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            val pairs = arrayOf<Pair<View, String>>()
+            val sharedElements = ArrayList<Pair<View, String>>(views.size)
             for ((index, view) in views.withIndex()) {
-                pairs[index] = Pair.create(view, view.transitionName)
+                sharedElements.add(Pair.create(view, view.transitionName))
             }
-            if (requestCode < 0) {
-                activity.startActivity(
-                    intent,
-                    ActivityOptionsCompat.makeSceneTransitionAnimation(activity, *pairs).toBundle()
+            optionsBundle =
+                ActivityOptionsCompat.makeSceneTransitionAnimation(
+                    activity,
+                    *sharedElements.toTypedArray()
                 )
-            } else {
-                activity.startActivityForResult(
-                    intent,
-                    requestCode,
-                    ActivityOptionsCompat.makeSceneTransitionAnimation(activity, *pairs).toBundle()
-                )
-            }
+                    .toBundle()
+        }
+        if (requestCode < 0) {
+            ActivityCompat.startActivity(
+                activity,
+                intent,
+                optionsBundle
+            )
+        } else {
+            ActivityCompat.startActivityForResult(
+                activity,
+                intent,
+                requestCode,
+                optionsBundle
+            )
         }
     }
 
+    /**
+     * 根据action启动activity
+     * @param action 动作
+     */
     fun startActivity(
         context: Context?,
         action: String?,
@@ -105,7 +134,6 @@ object IntentUtil {
 
     /**
      * 启动服务
-     *
      * @param context     上下文
      * @param serviceName 服务名字
      */

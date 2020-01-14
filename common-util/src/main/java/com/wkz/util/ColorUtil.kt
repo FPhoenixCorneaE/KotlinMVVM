@@ -1,10 +1,12 @@
 package com.wkz.util
 
+import android.graphics.Bitmap
 import android.graphics.Color
 import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.annotation.FloatRange
 import androidx.annotation.IntRange
+import androidx.palette.graphics.Palette
 
 /**
  * 颜色工具类
@@ -191,6 +193,23 @@ class ColorUtil private constructor() {
                 color = "f$color"
             }
             return "#$color"
+        }
+
+        /**
+         * 根据图片提取颜色
+         */
+        fun getColorFromBitmap(bitmap: Bitmap?): Int {
+            return when {
+                bitmap != null -> {
+                    val p: Palette = Palette.from(bitmap).generate()
+                    val darkMuted = p.darkMutedSwatch
+                    val darkVibrant = p.darkVibrantSwatch
+                    darkMuted?.rgb ?: darkVibrant?.rgb ?: Color.TRANSPARENT
+                }
+                else -> {
+                    Color.TRANSPARENT
+                }
+            }
         }
 
         /**

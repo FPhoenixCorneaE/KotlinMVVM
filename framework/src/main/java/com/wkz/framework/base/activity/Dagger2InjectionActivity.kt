@@ -34,9 +34,9 @@ abstract class Dagger2InjectionActivity<V : IView, P : IPresenter<V>> : AutoDisp
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
-        super.onCreate(savedInstanceState)
         // 设置生命周期作用域提供者
         mPresenter.setLifecycleScopeProvider(this as V, mScopeProvider)
+        super.onCreate(savedInstanceState)
     }
 
     override fun supportFragmentInjector(): AndroidInjector<Fragment> {

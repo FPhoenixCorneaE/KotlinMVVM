@@ -8,6 +8,7 @@ import android.graphics.Canvas
 import android.graphics.Matrix
 import android.graphics.Paint
 import android.graphics.drawable.BitmapDrawable
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -16,6 +17,7 @@ import android.view.ViewGroup
 import android.view.ViewGroup.MarginLayoutParams
 import android.widget.PopupWindow
 import android.widget.TextView
+import java.util.*
 
 /**
  * 视图工具类
@@ -23,6 +25,20 @@ import android.widget.TextView
 class ViewUtil private constructor() {
 
     companion object {
+
+        /**
+         * 生成View Id
+         */
+        fun generateViewId(): Int {
+            return when {
+                Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1 -> {
+                    View.generateViewId()
+                }
+                else -> {
+                    UUID.randomUUID().hashCode()
+                }
+            }
+        }
 
         /**
          * 设置某个View的margin

@@ -1,4 +1,4 @@
-package com.wkz.util
+package com.wkz.util.statusbar
 
 import android.app.Activity
 import android.os.Build
@@ -57,12 +57,23 @@ object FlymeStatusBarUtil {
             } catch (e: InvocationTargetException) {
             }
         } else {
-            val whiteColor = isBlackColor(color, 50)
+            val whiteColor =
+                isBlackColor(color, 50)
             if (mStatusBarColorFiled != null) {
-                setStatusBarDarkIcon(activity, whiteColor, whiteColor)
-                setStatusBarDarkIcon(activity.window, color)
+                setStatusBarDarkIcon(
+                    activity,
+                    whiteColor,
+                    whiteColor
+                )
+                setStatusBarDarkIcon(
+                    activity.window,
+                    color
+                )
             } else {
-                setStatusBarDarkIcon(activity, whiteColor)
+                setStatusBarDarkIcon(
+                    activity,
+                    whiteColor
+                )
             }
         }
     }
@@ -75,9 +86,15 @@ object FlymeStatusBarUtil {
      */
     fun setStatusBarDarkIcon(window: Window, color: Int) {
         try {
-            setStatusBarColor(window, color)
+            setStatusBarColor(
+                window,
+                color
+            )
             if (Build.VERSION.SDK_INT > 22) {
-                setStatusBarDarkIcon(window.decorView, true)
+                setStatusBarDarkIcon(
+                    window.decorView,
+                    true
+                )
             }
         } catch (e: Exception) {
         }
@@ -90,7 +107,11 @@ object FlymeStatusBarUtil {
      * @param dark     是否深色 true为深色 false 为白色
      */
     fun setStatusBarDarkIcon(activity: Activity, dark: Boolean) {
-        setStatusBarDarkIcon(activity, dark, true)
+        setStatusBarDarkIcon(
+            activity,
+            dark,
+            true
+        )
     }
 
     private fun changeMeizuFlag(
@@ -178,8 +199,14 @@ object FlymeStatusBarUtil {
         } else {
             val decorView = window.decorView
             if (decorView != null) {
-                setStatusBarDarkIcon(decorView, dark)
-                setStatusBarColor(window, 0)
+                setStatusBarDarkIcon(
+                    decorView,
+                    dark
+                )
+                setStatusBarColor(
+                    window,
+                    0
+                )
             }
         }
     }
@@ -197,7 +224,10 @@ object FlymeStatusBarUtil {
             }
         } else {
             if (flag) {
-                setStatusBarDarkIcon(activity.window, dark)
+                setStatusBarDarkIcon(
+                    activity.window,
+                    dark
+                )
             }
         }
     }

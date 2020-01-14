@@ -30,7 +30,7 @@
             tools:listitem="@layout/open_eyes_item_home_video" />
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
-    <com.wkz.titlebar.widget.CommonTitleBar
+    <com.wkz.titlebar.CommonTitleBar
         android:id="@+id/mTbTitleBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -1,4 +1,4 @@
-package com.wkz.titlebar.widget
+package com.wkz.titlebar
 
 import android.app.Activity
 import android.content.Context
@@ -16,13 +16,12 @@ import android.view.View.OnFocusChangeListener
 import android.view.inputmethod.EditorInfo
 import android.widget.*
 import android.widget.TextView.OnEditorActionListener
-import com.wkz.titlebar.R
 import com.wkz.util.*
-import com.wkz.util.StatusBarUtil.getStatusBarHeight
-import com.wkz.util.StatusBarUtil.setDarkMode
-import com.wkz.util.StatusBarUtil.setLightMode
-import com.wkz.util.StatusBarUtil.supportTransparentStatusBar
-import com.wkz.util.StatusBarUtil.transparentStatusBar
+import com.wkz.util.statusbar.StatusBarUtil.getStatusBarHeight
+import com.wkz.util.statusbar.StatusBarUtil.setDarkMode
+import com.wkz.util.statusbar.StatusBarUtil.setLightMode
+import com.wkz.util.statusbar.StatusBarUtil.supportTransparentStatusBar
+import com.wkz.util.statusbar.StatusBarUtil.transparentStatusBar
 import kotlin.math.max
 
 /**
@@ -147,7 +146,8 @@ class CommonTitleBar(
     private var showBottomLine: Boolean = true // 是否显示底部分割线 = false
     private var bottomLineColor: Int = Color.parseColor("#dddddd")// 分割线颜色 = 0
     private var bottomShadowHeight: Float = SizeUtil.dp2px(0f).toFloat() // 底部阴影高度 = 0f
-    private var leftType = TYPE_LEFT_NONE// 左边视图类型 = 0
+    private var leftType =
+        TYPE_LEFT_NONE// 左边视图类型 = 0
     private var leftText // 左边TextView文字
             : String? = null
     private var leftTextColor =
@@ -157,7 +157,8 @@ class CommonTitleBar(
     private var leftDrawablePadding = 5f // 左边TextView drawablePadding = 0f
     private var leftImageResource = R.drawable.common_titlebar_reback_selector // 左边图片资源 = 0
     private var leftCustomViewRes = 0// 左边自定义视图布局资源 = 0
-    private var rightType = TYPE_RIGHT_NONE // 右边视图类型 = 0
+    private var rightType =
+        TYPE_RIGHT_NONE // 右边视图类型 = 0
     private var rightText // 右边TextView文字
             : String? = null
     private var rightTextColor =
@@ -165,7 +166,8 @@ class CommonTitleBar(
     private var rightTextSize = SizeUtil.dp2px(16f).toFloat()// 右边TextView文字大小 = 0f
     private var rightImageResource = 0// 右边图片资源 = 0
     private var rightCustomViewRes = 0// 右边自定义视图布局资源 = 0
-    private var centerType = TYPE_CENTER_NONE // 中间视图类型 = 0
+    private var centerType =
+        TYPE_CENTER_NONE // 中间视图类型 = 0
     private var centerText // 中间TextView文字
             : String? = null
     private var centerTextColor = Color.parseColor("#333333")// 中间TextView字体颜色 = 0
@@ -180,8 +182,8 @@ class CommonTitleBar(
     private var centerSearchRightType =
         TYPE_CENTER_SEARCH_RIGHT_VOICE// 搜索框右边按钮类型  0: voice 1: delete = 0
     private var centerCustomViewRes = 0// 中间自定义布局资源 = 0
-    private var PADDING_5 = 0
-    private var PADDING_16 = 0
+    private var PADDING_5 = SizeUtil.dp2px(5f)
+    private var PADDING_16 = SizeUtil.dp2px(16f)
     private var listener: OnTitleBarClickListener? = null
     private var doubleClickListener: OnTitleBarDoubleClickListener? = null
 
@@ -189,8 +191,6 @@ class CommonTitleBar(
         context: Context,
         attrs: AttributeSet
     ) {
-        PADDING_5 = SizeUtil.dp2px(5f)
-        PADDING_16 = SizeUtil.dp2px(16f)
         val array = context.obtainStyledAttributes(attrs, R.styleable.CommonTitleBar)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             // notice 未引入沉浸式标题栏之前,隐藏标题栏撑起布局
@@ -353,7 +353,7 @@ class CommonTitleBar(
         if (fillStatusBar && transparentStatusBar) {
             val statusBarHeight = getStatusBarHeight(context)
             viewStatusBarFill = View(context)
-            viewStatusBarFill!!.id = StatusBarUtil.generateViewId()
+            viewStatusBarFill!!.id = ViewUtil.generateViewId()
             viewStatusBarFill!!.setBackgroundColor(statusBarColor)
             val statusBarParams =
                 LayoutParams(MATCH_PARENT, statusBarHeight)
@@ -362,7 +362,7 @@ class CommonTitleBar(
         }
         // 构建主视图
         rlMain = RelativeLayout(context)
-        rlMain!!.id = StatusBarUtil.generateViewId()
+        rlMain!!.id = ViewUtil.generateViewId()
         rlMain!!.setBackgroundColor(titleBarColor)
         val mainParams =
             LayoutParams(MATCH_PARENT, titleBarHeight)
@@ -386,7 +386,7 @@ class CommonTitleBar(
             bottomLine!!.setBackgroundColor(bottomLineColor)
             val bottomLineParams = LayoutParams(
                 MATCH_PARENT,
-                max(1, SizeUtil.dp2px(0.5f))
+                max(1, SizeUtil.dp2px(0.4f))
             )
             bottomLineParams.addRule(BELOW, rlMain!!.id)
             addView(bottomLine, bottomLineParams)
@@ -433,7 +433,7 @@ class CommonTitleBar(
         when (leftType) {
             TYPE_LEFT_TEXT_VIEW -> { // 初始化左边TextView
                 leftTextView = TextView(context)
-                leftTextView!!.id = StatusBarUtil.generateViewId()
+                leftTextView!!.id = ViewUtil.generateViewId()
                 leftTextView!!.text = leftText
                 leftTextView!!.setTextColor(leftTextColor)
                 leftTextView!!.setTextSize(TypedValue.COMPLEX_UNIT_PX, leftTextSize)
@@ -464,7 +464,7 @@ class CommonTitleBar(
             }
             TYPE_LEFT_IMAGE_BUTTON -> { // 初始化左边ImageButton
                 leftImageButton = ImageButton(context)
-                leftImageButton!!.id = StatusBarUtil.generateViewId()
+                leftImageButton!!.id = ViewUtil.generateViewId()
                 leftImageButton!!.setBackgroundColor(Color.TRANSPARENT)
                 leftImageButton!!.setImageResource(leftImageResource)
                 leftImageButton!!.setPadding(PADDING_16, 0, PADDING_16, 0)
@@ -476,7 +476,7 @@ class CommonTitleBar(
                     LayoutInflater.from(context).inflate(leftCustomViewRes, rlMain, false)
                 leftCustomView?.apply {
                     if (id == View.NO_ID) {
-                        id = StatusBarUtil.generateViewId()
+                        id = ViewUtil.generateViewId()
                     }
                 }
                 rlMain!!.addView(leftCustomView, leftInnerParams)
@@ -498,7 +498,7 @@ class CommonTitleBar(
         when (rightType) {
             TYPE_RIGHT_TEXT_VIEW -> { // 初始化右边TextView
                 rightTextView = TextView(context)
-                rightTextView!!.id = StatusBarUtil.generateViewId()
+                rightTextView!!.id = ViewUtil.generateViewId()
                 rightTextView!!.text = rightText
                 rightTextView!!.setTextColor(rightTextColor)
                 rightTextView!!.setTextSize(TypedValue.COMPLEX_UNIT_PX, rightTextSize)
@@ -510,7 +510,7 @@ class CommonTitleBar(
             }
             TYPE_RIGHT_IMAGE_BUTTON -> { // 初始化右边ImageBtn
                 rightImageButton = ImageButton(context)
-                rightImageButton!!.id = StatusBarUtil.generateViewId()
+                rightImageButton!!.id = ViewUtil.generateViewId()
                 rightImageButton!!.setImageResource(rightImageResource)
                 rightImageButton!!.setBackgroundColor(Color.TRANSPARENT)
                 rightImageButton!!.scaleType = ImageView.ScaleType.CENTER_INSIDE
@@ -523,7 +523,7 @@ class CommonTitleBar(
                     LayoutInflater.from(context).inflate(rightCustomViewRes, rlMain, false)
                 rightCustomView?.apply {
                     if (id == View.NO_ID) {
-                        id = StatusBarUtil.generateViewId()
+                        id = ViewUtil.generateViewId()
                     }
                 }
                 rlMain!!.addView(rightCustomView, rightInnerParams)
@@ -541,7 +541,7 @@ class CommonTitleBar(
             TYPE_CENTER_TEXT_VIEW -> {
                 // 初始化中间子布局
                 centerLayout = LinearLayout(context)
-                centerLayout!!.id = StatusBarUtil.generateViewId()
+                centerLayout!!.id = ViewUtil.generateViewId()
                 centerLayout!!.gravity = Gravity.CENTER
                 centerLayout!!.orientation = LinearLayout.VERTICAL
                 centerLayout!!.setOnClickListener(this)
@@ -645,7 +645,7 @@ class CommonTitleBar(
                 rlMain!!.addView(centerSearchView, centerParams)
                 // 初始化搜索框搜索ImageView
                 centerSearchLeftImageView = ImageView(context)
-                centerSearchLeftImageView!!.id = StatusBarUtil.generateViewId()
+                centerSearchLeftImageView!!.id = ViewUtil.generateViewId()
                 centerSearchLeftImageView!!.setOnClickListener(this)
                 val searchIconWidth = SizeUtil.dp2px(15f)
                 val searchParams =
@@ -657,7 +657,7 @@ class CommonTitleBar(
                 centerSearchLeftImageView!!.setImageResource(R.drawable.common_titlebar_search_normal)
                 // 初始化搜索框语音ImageView
                 centerSearchRightImageView = ImageView(context)
-                centerSearchRightImageView!!.id = StatusBarUtil.generateViewId()
+                centerSearchRightImageView!!.id = ViewUtil.generateViewId()
                 centerSearchRightImageView!!.setOnClickListener(this)
                 val voiceParams =
                     LayoutParams(WRAP_CONTENT, WRAP_CONTENT)
@@ -713,7 +713,7 @@ class CommonTitleBar(
                     LayoutInflater.from(context).inflate(centerCustomViewRes, rlMain, false)
                 centerCustomView?.apply {
                     if (id == View.NO_ID) {
-                        id = StatusBarUtil.generateViewId()
+                        id = ViewUtil.generateViewId()
                     }
                 }
                 val centerCustomParams =
@@ -833,30 +833,54 @@ class CommonTitleBar(
                 lastClickMillis = currentClickMillis
             }
             v == leftTextView -> {
-                listener!!.onClicked(v, MotionAction.ACTION_LEFT_TEXT, null)
+                listener!!.onClicked(
+                    v,
+                    MotionAction.ACTION_LEFT_TEXT, null
+                )
             }
             v == leftImageButton -> {
-                listener!!.onClicked(v, MotionAction.ACTION_LEFT_BUTTON, null)
+                listener!!.onClicked(
+                    v,
+                    MotionAction.ACTION_LEFT_BUTTON, null
+                )
             }
             v == rightTextView -> {
-                listener!!.onClicked(v, MotionAction.ACTION_RIGHT_TEXT, null)
+                listener!!.onClicked(
+                    v,
+                    MotionAction.ACTION_RIGHT_TEXT, null
+                )
             }
             v == rightImageButton -> {
-                listener!!.onClicked(v, MotionAction.ACTION_RIGHT_BUTTON, null)
+                listener!!.onClicked(
+                    v,
+                    MotionAction.ACTION_RIGHT_BUTTON, null
+                )
             }
             v == centerSearchEditText || v == centerSearchLeftImageView -> {
-                listener!!.onClicked(v, MotionAction.ACTION_SEARCH, null)
+                listener!!.onClicked(
+                    v,
+                    MotionAction.ACTION_SEARCH, null
+                )
             }
             v == centerSearchRightImageView -> {
                 centerSearchEditText!!.setText("")
                 if (centerSearchRightType == TYPE_CENTER_SEARCH_RIGHT_VOICE) { // 语音按钮被点击
-                    listener!!.onClicked(v, MotionAction.ACTION_SEARCH_VOICE, null)
+                    listener!!.onClicked(
+                        v,
+                        MotionAction.ACTION_SEARCH_VOICE, null
+                    )
                 } else {
-                    listener!!.onClicked(v, MotionAction.ACTION_SEARCH_DELETE, null)
+                    listener!!.onClicked(
+                        v,
+                        MotionAction.ACTION_SEARCH_DELETE, null
+                    )
                 }
             }
             v == centerTextView -> {
-                listener!!.onClicked(v, MotionAction.ACTION_CENTER_TEXT, null)
+                listener!!.onClicked(
+                    v,
+                    MotionAction.ACTION_CENTER_TEXT, null
+                )
             }
         }
     }
@@ -925,7 +949,7 @@ class CommonTitleBar(
      */
     fun setLeftView(leftView: View) {
         if (leftView.id == View.NO_ID) {
-            leftView.id = StatusBarUtil.generateViewId()
+            leftView.id = ViewUtil.generateViewId()
         }
         val leftInnerParams =
             LayoutParams(WRAP_CONTENT, MATCH_PARENT)
@@ -939,7 +963,7 @@ class CommonTitleBar(
      */
     fun setCenterView(centerView: View) {
         if (centerView.id == View.NO_ID) {
-            centerView.id = StatusBarUtil.generateViewId()
+            centerView.id = ViewUtil.generateViewId()
         }
         val centerInnerParams =
             LayoutParams(WRAP_CONTENT, MATCH_PARENT)
@@ -953,7 +977,7 @@ class CommonTitleBar(
      */
     fun setRightView(rightView: View) {
         if (rightView.id == View.NO_ID) {
-            rightView.id = StatusBarUtil.generateViewId()
+            rightView.id = ViewUtil.generateViewId()
         }
         val rightInnerParams =
             LayoutParams(WRAP_CONTENT, MATCH_PARENT)

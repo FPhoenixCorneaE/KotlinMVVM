@@ -1,37 +1,42 @@
 package com.wkz.kotlinmvvm.mvvm.viewmodel.activity
 
-import android.annotation.SuppressLint
 import android.annotation.TargetApi
 import android.content.res.Configuration
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Bundle
 import android.transition.Transition
-import android.view.View
 import android.widget.ImageView
 import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.DecodeFormat
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.request.target.Target
 import com.orhanobut.logger.Logger
-import com.scwang.smartrefresh.header.MaterialHeader
-import com.shuyu.gsyvideoplayer.listener.LockClickListener
 import com.shuyu.gsyvideoplayer.utils.OrientationUtils
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
 import com.shuyu.gsyvideoplayer.video.base.GSYVideoPlayer
 import com.wkz.extension.showToast
 import com.wkz.framework.base.activity.Dagger2InjectionActivity
+import com.wkz.framework.glide.GlideUtil
 import com.wkz.kotlinmvvm.R
+import com.wkz.kotlinmvvm.constant.OpenEyesConstants
 import com.wkz.kotlinmvvm.listener.OnVideoListener
 import com.wkz.kotlinmvvm.mvvm.contract.OpenEyesVideoDetailContract
 import com.wkz.kotlinmvvm.mvvm.model.bean.OpenEyesHomeBean
 import com.wkz.kotlinmvvm.mvvm.presenter.OpenEyesVideoDetailPresenter
 import com.wkz.kotlinmvvm.mvvm.viewmodel.adapter.OpenEyesVideoDetailAdapter
+import com.wkz.util.ColorUtil
+import com.wkz.util.ImageUtil
+import com.wkz.util.statusbar.StatusBarUtil
 import kotlinx.android.synthetic.main.open_eyes_activity_video_detail.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-@SuppressLint("SimpleDateFormat")
 /**
  * @desc: 视频详情
  */
@@ -39,16 +44,12 @@ class OpenEyesVideoDetailActivity :
     Dagger2InjectionActivity<OpenEyesVideoDetailContract.View, OpenEyesVideoDetailPresenter>(),
     OpenEyesVideoDetailContract.View {
 
-
-    companion object {
-        const val IMG_TRANSITION = "IMG_TRANSITION"
-        const val TRANSITION = "TRANSITION"
+    private val mVideoDetailAdapter by lazy {
+        OpenEyesVideoDetailAdapter(mContext, itemList)
     }
-
-    private val mAdapter by lazy { OpenEyesVideoDetailAdapter(mContext, itemList) }
-
-    private val mFormat by lazy { SimpleDateFormat("yyyyMMddHHmmss"); }
-
+    private val mFormat by lazy {
+        SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault())
+    }
 
     /**
      * Item 详细数据
@@ -60,12 +61,7 @@ class OpenEyesVideoDetailActivity :
 
     private var isPlay: Boolean = false
     private var isPause: Boolean = false
-
-
-    private var isTransition: Boolean = false
-
     private var transition: Transition? = null
-    private var mMaterialHeader: MaterialHeader? = null
 
     override fun getLayoutId(): Int = R.layout.open_eyes_activity_video_detail
 
@@ -73,62 +69,67 @@ class OpenEyesVideoDetailActivity :
      * 初始化 View
      */
     override fun initView() {
-        //过渡动画
-//        initTransition()
-        initVideoViewConfig()
-
-        mRecyclerView.layoutManager = LinearLayoutManager(mContext)
-        mRecyclerView.adapter = mAdapter
-
-        //设置相关视频 Item 的点击事件
-        mAdapter.setOnItemDetailClick { mPresenter.loadVideoInfo(it) }
-
-//        //状态栏透明和间距处理
-//        StatusBarUtil.immersive(this)
-//        StatusBarUtil.setPaddingSmart(this, mVideoView)
-
-        /***  下拉刷新  ***/
-        //内容跟随偏移
-        mRefreshLayout.setEnableHeaderTranslationContent(true)
-        mRefreshLayout.setOnRefreshListener {
-            loadVideoInfo()
-        }
-        mMaterialHeader = mRefreshLayout.refreshHeader as MaterialHeader?
-        //打开下拉刷新区域块背景:
-        mMaterialHeader?.setShowBezierWave(true)
-        //设置下拉刷新主题颜色
-        mRefreshLayout.setPrimaryColorsId(
-            R.color.open_eyes_color_black_alpha50,
-            R.color.open_eyes_color_bg_title
-        )
+        // 过渡动画
+        initTransition()
+        // RecyclerView
+        initRecyclerView()
+        // 状态栏透明和间距处理
+        StatusBarUtil.transparentStatusBar(window)
+        StatusBarUtil.setSmartPadding(mContext, mVpVideo)
     }
 
+    /**
+     * 初始化过渡动画
+     */
+    private fun initTransition() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            postponeEnterTransition()
+            ViewCompat.setTransitionName(
+                mVpVideo,
+                getString(R.string.open_eyes_transition_name_video)
+            )
+            addTransitionListener()
+            startPostponedEnterTransition()
+        } else {
+            loadVideoInfo()
+        }
+    }
+
+    private fun initRecyclerView() {
+        // 设置相关视频 Item 的点击事件
+        mVideoDetailAdapter.setOnItemDetailClick {
+            mPresenter.loadVideoInfo(it)
+        }
+        mRvVideo.layoutManager = LinearLayoutManager(mContext)
+        mRvVideo.adapter = mVideoDetailAdapter
+    }
 
     /**
      * 初始化 VideoView 的配置
      */
     private fun initVideoViewConfig() {
-        //设置旋转
-        orientationUtils = OrientationUtils(this, mVideoView)
-        //是否旋转
-        mVideoView.isRotateViewAuto = false
-        //是否可以滑动调整
-        mVideoView.setIsTouchWiget(true)
+        // 设置旋转
+        orientationUtils = OrientationUtils(mContext, mVpVideo)
+        // 是否旋转
+        mVpVideo.isRotateViewAuto = false
+        // 是否可以滑动调整
+        mVpVideo.setIsTouchWiget(true)
 
-        //增加封面
+        // 增加封面
         val imageView = ImageView(this)
         imageView.scaleType = ImageView.ScaleType.CENTER_CROP
-//        Glide.with(this)
-//            .load(itemData.data?.cover?.feed)
-//            .centerCrop()
-//            .into(imageView)
-        mVideoView.thumbImageView = imageView
+        GlideUtil.setupImage(
+            imageView,
+            itemData.data?.cover?.feed,
+            ColorDrawable(ColorUtil.randomColor)
+        )
+        mVpVideo.thumbImageView = imageView
 
-        mVideoView.setStandardVideoAllCallBack(object : OnVideoListener {
+        mVpVideo.setStandardVideoAllCallBack(object : OnVideoListener {
 
             override fun onPrepared(url: String, vararg objects: Any) {
                 super.onPrepared(url, *objects)
-                //开始播放了才能旋转和全屏
+                // 开始播放了才能旋转和全屏
                 orientationUtils?.isEnable = true
                 isPlay = true
             }
@@ -151,49 +152,34 @@ class OpenEyesVideoDetailActivity :
             override fun onQuitFullscreen(url: String, vararg objects: Any) {
                 super.onQuitFullscreen(url, *objects)
                 Logger.d("***** onQuitFullscreen **** ")
-                //列表返回的样式判断
+                // 列表返回的样式判断
                 orientationUtils?.backToProtVideo()
             }
         })
-        //设置返回按键功能
-        mVideoView.backButton.setOnClickListener({ onBackPressed() })
-        //设置全屏按键功能
-        mVideoView.fullscreenButton.setOnClickListener {
-            //直接横屏
+        // 设置返回按键功能
+        mVpVideo.backButton.setOnClickListener { onBackPressed() }
+        // 设置全屏按键功能
+        mVpVideo.fullscreenButton.setOnClickListener {
+            // 直接横屏
             orientationUtils?.resolveByClick()
-            //第一个true是否需要隐藏actionbar，第二个true是否需要隐藏statusbar
-            mVideoView.startWindowFullscreen(this, true, true)
+            // 第一个true是否需要隐藏actionbar，第二个true是否需要隐藏statusbar
+            mVpVideo.startWindowFullscreen(this, true, true)
         }
-        //锁屏事件
-        mVideoView.setLockClickListener(object : LockClickListener {
-            override fun onClick(view: View?, lock: Boolean) {
-                //配合下方的onConfigurationChanged
-                orientationUtils?.isEnable = !lock
-            }
-
-        })
+        // 锁屏事件
+        mVpVideo.setLockClickListener { view, lock ->
+            // 配合下方的onConfigurationChanged
+            orientationUtils?.isEnable = !lock
+        }
     }
 
     /**
      * 初始化数据
      */
     override fun initData(savedInstanceState: Bundle?) {
-//        itemData = intent.getSerializableExtra(OpenEyesConstants.BUNDLE_VIDEO_DATA) as OpenEyesHomeBean.Issue.Item
-        itemData = OpenEyesHomeBean.Issue.Item("", null, "")
-        isTransition = intent.getBooleanExtra(TRANSITION, false)
-
-        showContent()
-        mPresenter.requestRelatedVideo(169617)
-    }
-
-
-    override fun showLoading() {
-
-    }
-
-     override fun showContent() {
-        super.showContent()
-        mRefreshLayout.finishRefresh()
+        itemData =
+            intent.getSerializableExtra(OpenEyesConstants.EXTRA_KEY_VIDEO_DATA)
+                    as OpenEyesHomeBean.Issue.Item
+        initVideoViewConfig()
     }
 
     override fun isAlreadyLoadedData(): Boolean = true
@@ -203,9 +189,9 @@ class OpenEyesVideoDetailActivity :
      */
     override fun setVideo(url: String) {
         Logger.d("playUrl:$url")
-        mVideoView.setUp(url, false, "")
-        //开始自动播放
-        mVideoView.startPlayLogic()
+        mVpVideo.setUp(url, false, "")
+        // 开始自动播放
+        mVpVideo.startPlayLogic()
     }
 
     /**
@@ -213,10 +199,9 @@ class OpenEyesVideoDetailActivity :
      */
     override fun setVideoInfo(itemInfo: OpenEyesHomeBean.Issue.Item) {
         itemData = itemInfo
-        mAdapter.addData(itemInfo)
+        mVideoDetailAdapter.addData(itemInfo)
         // 请求相关的最新等视频
         mPresenter.requestRelatedVideo(itemInfo.data?.id ?: 0)
-
     }
 
 
@@ -224,21 +209,45 @@ class OpenEyesVideoDetailActivity :
      * 设置相关的数据视频
      */
     override fun setRecentRelatedVideo(itemList: ArrayList<OpenEyesHomeBean.Issue.Item>) {
-        mAdapter.addData(itemList)
+        mVideoDetailAdapter.addData(itemList)
         this.itemList = itemList
     }
-
 
     /**
      * 设置背景颜色
      */
     override fun setBackground(url: String) {
-        Glide.with(this)
-            .load(url)
-            .centerCrop()
-            .format(DecodeFormat.PREFER_ARGB_8888)
-            .transition(DrawableTransitionOptions().crossFade())
-            .into(mVideoBackground)
+        GlideUtil.setupImage(
+            mIvVideoBackground,
+            url,
+            RequestOptions().centerCrop(),
+            object : RequestListener<Drawable> {
+                override fun onLoadFailed(
+                    e: GlideException?,
+                    model: Any?,
+                    target: Target<Drawable>?,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    return false
+                }
+
+                override fun onResourceReady(
+                    resource: Drawable?,
+                    model: Any?,
+                    target: Target<Drawable>?,
+                    dataSource: DataSource?,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    // 根据图片背景设置状态栏颜色
+                    StatusBarUtil.setStatusBarColor(
+                        window,
+                        resource?.run {
+                            ColorUtil.getColorFromBitmap(ImageUtil.drawable2Bitmap(resource))
+                        } ?: Color.TRANSPARENT
+                    )
+                    return false
+                }
+            })
     }
 
     /**
@@ -251,7 +260,7 @@ class OpenEyesVideoDetailActivity :
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
         if (isPlay && !isPause) {
-            mVideoView.onConfigurationChanged(this, newConfig, orientationUtils)
+            mVpVideo.onConfigurationChanged(mContext, newConfig, orientationUtils)
         }
     }
 
@@ -267,12 +276,13 @@ class OpenEyesVideoDetailActivity :
      */
     override fun onBackPressed() {
         orientationUtils?.backToProtVideo()
-        if (StandardGSYVideoPlayer.backFromWindowFull(this))
+        if (StandardGSYVideoPlayer.backFromWindowFull(mContext)) {
             return
-        //释放所有
-        mVideoView.setStandardVideoAllCallBack(null)
+        }
+        // 释放所有
+        mVpVideo.setStandardVideoAllCallBack(null)
         GSYVideoPlayer.releaseAllVideos()
-        if (isTransition && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) run {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) run {
             super.onBackPressed()
         } else {
             finish()
@@ -298,19 +308,9 @@ class OpenEyesVideoDetailActivity :
     }
 
     private fun getCurPlay(): GSYVideoPlayer {
-        return if (mVideoView.fullWindowPlayer != null) {
-            mVideoView.fullWindowPlayer
-        } else mVideoView
-    }
-
-    private fun initTransition() {
-        if (isTransition && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            postponeEnterTransition()
-            ViewCompat.setTransitionName(mVideoView, IMG_TRANSITION)
-            addTransitionListener()
-            startPostponedEnterTransition()
-        } else {
-            loadVideoInfo()
+        return when {
+            mVpVideo.fullWindowPlayer != null -> mVpVideo.fullWindowPlayer
+            else -> mVpVideo
         }
     }
 
@@ -334,7 +334,6 @@ class OpenEyesVideoDetailActivity :
                 loadVideoInfo()
                 transition?.removeListener(this)
             }
-
         })
     }
 }

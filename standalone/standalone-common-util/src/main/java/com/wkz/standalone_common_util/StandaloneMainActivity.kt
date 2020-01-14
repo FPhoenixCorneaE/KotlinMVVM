@@ -108,9 +108,10 @@ class StandaloneMainActivity : AppCompatActivity() {
                     .putString("String", "String")
                     .putString("String1", "String1")
                     .get(),
+                200,
                 android.R.anim.slide_in_left,
-                android.R.anim.slide_out_right,
-                200
+                android.R.anim.slide_out_right
+
             )
         }
 
