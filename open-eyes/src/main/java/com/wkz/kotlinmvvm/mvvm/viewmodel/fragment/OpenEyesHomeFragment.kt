@@ -106,7 +106,8 @@ class OpenEyesHomeFragment :
                     item
                 ).get(),
                 -1,
-                viewHolder.itemView.mIvCoverFeed
+                viewHolder.itemView.mIvCoverFeed,
+                viewHolder.itemView.mIvAvatar
             )
         }
         mVideoWrapper.setOnItemLongClickListener { viewHolder, position, item ->

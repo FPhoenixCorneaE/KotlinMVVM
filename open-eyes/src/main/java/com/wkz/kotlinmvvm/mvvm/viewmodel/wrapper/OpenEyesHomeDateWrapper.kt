@@ -13,6 +13,8 @@ class OpenEyesHomeDateWrapper :
     ViewHolderWrapper<OpenEyesHomeBean.Issue.Item>(R.layout.open_eyes_item_home_date) {
 
     override fun onBindViewHolder(holder: ViewHolder, item: OpenEyesHomeBean.Issue.Item) {
-        holder.itemView.mTvHeader.text = item.data?.text
+        with(holder.itemView) {
+            mTvHeader.text = item.data?.text
+        }
     }
 }

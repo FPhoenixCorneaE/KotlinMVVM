@@ -20,10 +20,25 @@
             android:layout_below="@+id/mVpVideo"
             tools:ignore="ContentDescription" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/mRvVideo"
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/mVpVideo" />
+            android:layout_below="@+id/mVpVideo">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/open_eyes_color_white_alpha50"
+                android:orientation="vertical">
+
+                <include layout="@layout/open_eyes_layout_video_detail_info" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/mRvVideo"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
     </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

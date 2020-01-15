@@ -1,58 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="15dp"
-                android:layout_marginStart="15dp">
-
-    <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:layout_alignParentBottom="true"
-            android:background="@color/open_eyes_color_darker_gray"/>
-
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="@dimen/dp_16"
+    android:paddingTop="@dimen/dp_8"
+    android:paddingEnd="@dimen/dp_16"
+    android:paddingBottom="@dimen/dp_8">
 
     <ImageView
-            android:id="@+id/iv_video_small_card"
-            android:layout_width="135dp"
-            android:layout_height="80dp"
-            android:layout_centerVertical="true"
-            android:layout_marginBottom="15dp"
-            android:scaleType="fitXY"
-            android:layout_marginEnd="15dp"
-            android:layout_marginTop="15dp"
-            tools:src="@color/open_eyes_color_darker_gray"
-            tools:ignore="ContentDescription"/>
+        android:id="@+id/mIvVideoSmallCard"
+        android:layout_width="@dimen/dp_135"
+        android:layout_height="@dimen/dp_80"
+        android:layout_centerVertical="true"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription"
+        tools:src="@color/open_eyes_color_lighter_gray" />
 
+    <TextView
+        android:id="@+id/mTvDuration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/dp_8"
+        android:layout_marginBottom="@dimen/dp_8"
+        android:textColor="@color/open_eyes_color_lighter_gray"
+        android:textSize="@dimen/sp_12"
+        app:layout_constraintBottom_toBottomOf="@+id/mIvVideoSmallCard"
+        app:layout_constraintEnd_toEndOf="@+id/mIvVideoSmallCard"
+        tools:text="0'0''" />
 
-    <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:orientation="vertical"
-            android:layout_toEndOf="@+id/iv_video_small_card">
-
-        <TextView
-                android:id="@+id/tv_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:textSize="14sp"
-                android:textColor="@color/open_eyes_color_white"
-                android:layout_marginTop="5dp"
-                tools:text="舞动中国"/>
-
-        <TextView
-                android:id="@+id/tv_tag"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:textColor="@color/open_eyes_color_darker_gray"
-                android:textSize="12sp"
-                tools:text="舞动中国"/>
-
-    </LinearLayout>
-
-
-</RelativeLayout>
+    <TextView
+        android:id="@+id/mTvTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_16"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:textColor="@color/open_eyes_color_lighter_gray"
+        android:textSize="@dimen/sp_13"
+        app:layout_constraintBottom_toBottomOf="@+id/mIvVideoSmallCard"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/mIvVideoSmallCard"
+        app:layout_constraintTop_toTopOf="@+id/mIvVideoSmallCard" />
+</androidx.constraintlayout.widget.ConstraintLayout>

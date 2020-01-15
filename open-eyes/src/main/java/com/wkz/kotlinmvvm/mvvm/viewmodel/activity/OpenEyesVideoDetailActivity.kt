@@ -1,5 +1,6 @@
 package com.wkz.kotlinmvvm.mvvm.viewmodel.activity
 
+import android.annotation.SuppressLint
 import android.annotation.TargetApi
 import android.content.res.Configuration
 import android.graphics.Color
@@ -20,6 +21,7 @@ import com.orhanobut.logger.Logger
 import com.shuyu.gsyvideoplayer.utils.OrientationUtils
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
 import com.shuyu.gsyvideoplayer.video.base.GSYVideoPlayer
+import com.wkz.extension.durationFormat
 import com.wkz.extension.showToast
 import com.wkz.framework.base.activity.Dagger2InjectionActivity
 import com.wkz.framework.glide.GlideUtil
@@ -29,12 +31,15 @@ import com.wkz.kotlinmvvm.listener.OnVideoListener
 import com.wkz.kotlinmvvm.mvvm.contract.OpenEyesVideoDetailContract
 import com.wkz.kotlinmvvm.mvvm.model.bean.OpenEyesHomeBean
 import com.wkz.kotlinmvvm.mvvm.presenter.OpenEyesVideoDetailPresenter
-import com.wkz.kotlinmvvm.mvvm.viewmodel.adapter.OpenEyesVideoDetailAdapter
+import com.wkz.kotlinmvvm.mvvm.viewmodel.adapter.OpenEyesVideoListAdapter
 import com.wkz.util.ColorUtil
 import com.wkz.util.ImageUtil
+import com.wkz.util.ResourceUtil
 import com.wkz.util.ScreenUtil
 import com.wkz.util.statusbar.StatusBarUtil
+import com.wkz.widget.Callback
 import kotlinx.android.synthetic.main.open_eyes_activity_video_detail.*
+import kotlinx.android.synthetic.main.open_eyes_layout_video_detail_info.*
 import java.util.*
 
 /**
@@ -44,9 +49,8 @@ class OpenEyesVideoDetailActivity :
     Dagger2InjectionActivity<OpenEyesVideoDetailContract.View, OpenEyesVideoDetailPresenter>(),
     OpenEyesVideoDetailContract.View {
 
-    private var mVideoList = ArrayList<OpenEyesHomeBean.Issue.Item>()
-    private val mVideoDetailAdapter by lazy {
-        OpenEyesVideoDetailAdapter(mContext, mVideoList)
+    private val mVideoListAdapter by lazy {
+        OpenEyesVideoListAdapter(mContext, ArrayList())
     }
     /**
      * 视频详细数据
@@ -80,12 +84,18 @@ class OpenEyesVideoDetailActivity :
      */
     private fun initTransition() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            // 延迟共享动画的执行
             postponeEnterTransition()
             ViewCompat.setTransitionName(
                 mVpVideo,
                 getString(R.string.open_eyes_transition_name_video)
             )
+            ViewCompat.setTransitionName(
+                mIvAvatar,
+                getString(R.string.open_eyes_transition_name_avatar)
+            )
             addTransitionListener()
+            // 启动过渡动画
             startPostponedEnterTransition()
         } else {
             loadVideoInfo()
@@ -93,12 +103,15 @@ class OpenEyesVideoDetailActivity :
     }
 
     private fun initRecyclerView() {
-        // 设置相关视频 Item 的点击事件
-        mVideoDetailAdapter.setOnItemDetailClick {
-            mPresenter.loadVideoInfo(it)
+        with(mRvVideo) {
+            // 设置相关视频 Item 的点击事件
+            mVideoListAdapter.setOnItemDetailClick {
+                mPresenter.loadVideoInfo(it)
+            }
+            layoutManager = LinearLayoutManager(mContext)
+            adapter = mVideoListAdapter
+            isNestedScrollingEnabled = false
         }
-        mRvVideo.layoutManager = LinearLayoutManager(mContext)
-        mRvVideo.adapter = mVideoDetailAdapter
     }
 
     private fun initStatusBar() {
@@ -148,7 +161,6 @@ class OpenEyesVideoDetailActivity :
 
             override fun onAutoComplete(url: String, vararg objects: Any) {
                 super.onAutoComplete(url, *objects)
-                Logger.d("***** onAutoPlayComplete **** ")
             }
 
             override fun onPlayError(url: String, vararg objects: Any) {
@@ -158,12 +170,10 @@ class OpenEyesVideoDetailActivity :
 
             override fun onEnterFullscreen(url: String, vararg objects: Any) {
                 super.onEnterFullscreen(url, *objects)
-                Logger.d("***** onEnterFullscreen **** ")
             }
 
             override fun onQuitFullscreen(url: String, vararg objects: Any) {
                 super.onQuitFullscreen(url, *objects)
-                Logger.d("***** onQuitFullscreen **** ")
                 // 列表返回的样式判断
                 mOrientationUtils?.backToProtVideo()
             }
@@ -199,20 +209,78 @@ class OpenEyesVideoDetailActivity :
     /**
      * 设置视频信息
      */
+    @SuppressLint("SetTextI18n")
     override fun setVideoInfo(itemInfo: OpenEyesHomeBean.Issue.Item) {
         mVideoDetailData = itemInfo
-        mVideoDetailAdapter.addData(itemInfo)
-        // 请求相关的最新等视频
-        mPresenter.requestRelatedVideo(itemInfo.data?.id ?: 0)
-    }
+        // avatar
+        GlideUtil.setupCircleImage(
+            mIvAvatar,
+            itemInfo.data?.author?.icon ?: itemInfo.data?.provider?.icon
+        )
+        // author name
+        mTvAuthorName.text = itemInfo.data?.author?.name
+        // author description
+        mTvAuthorDescription.text = itemInfo.data?.author?.description
+        // title
+        mTvTitle.text = itemInfo.data?.title
+        // description
+        mTvDescription.apply {
+            // 设置最大显示行数
+            mMaxLineCount = 3
+            // 收起文案
+            mCollapseText = ResourceUtil.getString(R.string.open_eyes_collapse_text)
+            // 展开文案
+            mExpandText = ResourceUtil.getString(R.string.open_eyes_expand_text)
+            // 是否支持收起功能
+            mCollapseEnable = true
+            // 是否给展开收起添加下划线
+            mUnderlineEnable = false
+            // 收起文案颜色
+            mCollapseTextColor = ColorUtil.randomColor
+            // 展开文案颜色
+            mExpandTextColor = ColorUtil.randomColor
+            itemInfo.data?.description?.let {
+                setText(it, itemInfo.data.expanded, object : Callback {
+                    override fun onExpand() {
 
+                    }
+
+                    override fun onCollapse() {
+                    }
+
+                    override fun onLoss() {
+                    }
+
+                    override fun onExpandClick() {
+                        itemInfo.data.expanded = !itemInfo.data.expanded
+                        changeExpandedState(itemInfo.data.expanded)
+                    }
+
+                    override fun onCollapseClick() {
+                        itemInfo.data.expanded = !itemInfo.data.expanded
+                        changeExpandedState(itemInfo.data.expanded)
+                    }
+                })
+            }
+        }
+
+        // category
+        mTvCategory.text = "#${itemInfo.data?.category}"
+        // duration
+        mTvDuration.text = durationFormat(itemInfo.data?.duration ?: 0)
+        // collectionCount
+        mTvCollection.text = itemInfo.data?.consumption?.collectionCount.toString()
+        // shareCount
+        mTvShare.text = itemInfo.data?.consumption?.shareCount.toString()
+        // replyCount
+        mTvReply.text = itemInfo.data?.consumption?.replyCount.toString()
+    }
 
     /**
      * 设置相关的数据视频
      */
     override fun setRecentRelatedVideo(itemList: ArrayList<OpenEyesHomeBean.Issue.Item>) {
-        mVideoDetailAdapter.addData(itemList)
-        mVideoList = itemList
+        mVideoListAdapter.addData(itemList)
     }
 
     /**

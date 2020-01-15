@@ -111,12 +111,16 @@ abstract class BaseNBAdapter<T> : RecyclerView.Adapter<RecyclerView.ViewHolder>(
     abstract fun getLayoutId(): Int
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return if (viewType <= TYPE_FOOT) {
-            HeaderFooterHolder(footViews[abs(viewType + abs(TYPE_FOOT))])
-        } else if (TYPE_FOOT < viewType && viewType <= TYPE_HEAD) {
-            HeaderFooterHolder(headViews[abs(viewType + abs(TYPE_HEAD))])
-        } else {
-            getViewHolder(viewGroup, viewType)
+        return when {
+            viewType <= TYPE_FOOT -> {
+                HeaderFooterHolder(footViews[abs(viewType + abs(TYPE_FOOT))])
+            }
+            viewType in (TYPE_FOOT + 1)..TYPE_HEAD -> {
+                HeaderFooterHolder(headViews[abs(viewType + abs(TYPE_HEAD))])
+            }
+            else -> {
+                getViewHolder(viewGroup, viewType)
+            }
         }
     }
 
@@ -316,8 +320,8 @@ abstract class BaseNBAdapter<T> : RecyclerView.Adapter<RecyclerView.ViewHolder>(
      */
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
         super.onAttachedToRecyclerView(recyclerView)
-        when {
-            recyclerView.layoutManager is GridLayoutManager -> {
+        when (recyclerView.layoutManager) {
+            is GridLayoutManager -> {
                 val gridLayoutManager = recyclerView.layoutManager as GridLayoutManager?
                 gridLayoutManager!!.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
                     override fun getSpanSize(position: Int): Int {
@@ -328,7 +332,7 @@ abstract class BaseNBAdapter<T> : RecyclerView.Adapter<RecyclerView.ViewHolder>(
                     }
                 }
             }
-            recyclerView.layoutManager is StaggeredGridLayoutManager -> {
+            is StaggeredGridLayoutManager -> {
                 //这里是防止瀑布流自带动画，引起子view乱跳。第一行出现空白格
                 recyclerView.animation = null
                 val staggeredGridLayoutManager =
@@ -346,8 +350,8 @@ abstract class BaseNBAdapter<T> : RecyclerView.Adapter<RecyclerView.ViewHolder>(
      * @param divideDimen
      */
     fun setGridDivide(recyclerView: RecyclerView, divideDimen: Int) {
-        when {
-            recyclerView.layoutManager is GridLayoutManager -> recyclerView.addItemDecoration(object :
+        when (recyclerView.layoutManager) {
+            is GridLayoutManager -> recyclerView.addItemDecoration(object :
                 RecyclerView.ItemDecoration() {
                 override fun getItemOffsets(
                     outRect: Rect,
@@ -384,8 +388,8 @@ abstract class BaseNBAdapter<T> : RecyclerView.Adapter<RecyclerView.ViewHolder>(
                             }
                             val totalSize = headViews.size + dataSize + footViews.size
 
-                            when {
-                                totalSize - position == footViews.size -> outRect.set(
+                            when (footViews.size) {
+                                totalSize - position -> outRect.set(
                                     0,
                                     divideDimen,
                                     0,
@@ -499,7 +503,7 @@ abstract class BaseNBAdapter<T> : RecyclerView.Adapter<RecyclerView.ViewHolder>(
 
                 }
             })
-            recyclerView.layoutManager is StaggeredGridLayoutManager -> recyclerView.addItemDecoration(
+            is StaggeredGridLayoutManager -> recyclerView.addItemDecoration(
                 object : RecyclerView.ItemDecoration() {
                     override fun getItemOffsets(
                         outRect: Rect,
@@ -538,8 +542,8 @@ abstract class BaseNBAdapter<T> : RecyclerView.Adapter<RecyclerView.ViewHolder>(
                                 }
                                 val totalSize = headViews.size + dataSize + footViews.size
 
-                                when {
-                                    totalSize - position == footViews.size -> outRect.set(
+                                when (footViews.size) {
+                                    totalSize - position -> outRect.set(
                                         0,
                                         divideDimen,
                                         0,

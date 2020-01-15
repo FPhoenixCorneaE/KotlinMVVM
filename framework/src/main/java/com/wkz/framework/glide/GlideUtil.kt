@@ -45,22 +45,22 @@ object GlideUtil {
     }
 
     /**
-     * @JvmOverloads 重载方法
      * 设置图片
      */
-    @JvmOverloads
-    fun setupImage(imageView: ImageView, picUrl: Any?, placeholder: Drawable? = null) {
-        setupImageRequestOptions(
+    fun setupImage(
+        imageView: ImageView,
+        picUrl: Any?,
+        placeholder: Drawable? = null,
+        requestListener: RequestListener<Drawable>? = null
+    ) {
+        setupImage(
             imageView,
             picUrl,
             RequestOptions().centerCrop()
                 .placeholder(placeholder)
-                .error(placeholder)
+                .error(placeholder),
+            requestListener
         )
-    }
-
-    fun setupImageRequestOptions(imageView: ImageView, picUrl: Any?, options: RequestOptions) {
-        setupImage(imageView, picUrl, options, null)
     }
 
     fun setupRoundedImagePlaceColorRes(
@@ -91,66 +91,57 @@ object GlideUtil {
      * 设置圆角图片
      * @param cornerRadius 圆角
      */
-    @JvmOverloads
     fun setupRoundedImage(
         imageView: ImageView,
         picUrl: Any?,
         cornerRadius: Int,
-        placeholder: Drawable? = null
+        placeholder: Drawable? = null,
+        requestListener: RequestListener<Drawable>? = null
     ) {
-        setupRoundedImageRequestOptions(
+        setupImage(
             imageView,
             picUrl,
             RequestOptions().transform(CenterCrop(), RoundedCorners(cornerRadius))
                 .placeholder(placeholder)
-                .error(placeholder)
+                .error(placeholder),
+            requestListener
         )
-    }
-
-    fun setupRoundedImageRequestOptions(
-        imageView: ImageView,
-        picUrl: Any?,
-        options: RequestOptions
-    ) {
-        setupImage(imageView, picUrl, options, null)
     }
 
     fun setupCircleImagePlaceColorRes(
         imageView: ImageView,
-        picUrl: Any?, @ColorRes placeResId: Int
+        picUrl: Any?,
+        @ColorRes placeResId: Int
     ) {
         setupCircleImage(imageView, picUrl, ColorDrawable(ResourceUtil.getColor(placeResId)))
     }
 
     fun setupCircleImagePlaceDrawableRes(
         imageView: ImageView,
-        picUrl: Any?, @DrawableRes placeResId: Int
+        picUrl: Any?,
+        @DrawableRes placeResId: Int
     ) {
         setupCircleImage(imageView, picUrl, ResourceUtil.getDrawable(placeResId))
     }
 
     /**
-     * @JvmOverloads 重载方法
      * 设置圆形图片
      */
-    @JvmOverloads
-    fun setupCircleImage(imageView: ImageView, picUrl: Any?, placeholder: Drawable? = null) {
-        setupCircleImageRequestOptions(
+    fun setupCircleImage(
+        imageView: ImageView,
+        picUrl: Any?,
+        placeholder: Drawable? = null,
+        requestListener: RequestListener<Drawable>? = null
+    ) {
+        setupImage(
             imageView,
             picUrl,
             RequestOptions()
                 .transform(CenterCrop(), CircleCrop())
                 .placeholder(placeholder)
-                .error(placeholder)
+                .error(placeholder),
+            requestListener
         )
-    }
-
-    fun setupCircleImageRequestOptions(
-        imageView: ImageView,
-        picUrl: Any?,
-        options: RequestOptions
-    ) {
-        setupImage(imageView, picUrl, options, null)
     }
 
     /**

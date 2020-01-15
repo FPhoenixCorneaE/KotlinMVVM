@@ -3,7 +3,9 @@ package com.wkz.util
 import android.content.res.AssetFileDescriptor
 import android.content.res.ColorStateList
 import android.content.res.XmlResourceParser
+import android.graphics.Typeface
 import android.graphics.drawable.Drawable
+import android.os.Build
 import androidx.annotation.*
 import androidx.core.content.ContextCompat
 import java.io.BufferedReader
@@ -154,6 +156,14 @@ class ResourceUtil private constructor() {
          */
         fun getColor(@ColorRes resId: Int): Int {
             return ContextCompat.getColor(ContextUtil.context, resId)
+        }
+
+        /**
+         * Get font
+         */
+        @RequiresApi(Build.VERSION_CODES.O)
+        fun getFont(@FontRes resId: Int): Typeface {
+            return ContextUtil.context.resources.getFont(resId)
         }
 
         /**

@@ -10,13 +10,13 @@ import com.wkz.kotlinmvvm.mvvm.model.bean.OpenEyesHomeBean
 import com.wkz.rxretrofit.network.exception.ExceptionHandle
 import com.wkz.util.NetworkUtil
 import com.wkz.util.ScreenUtil
-import com.wkz.util.SizeUtil
 import javax.inject.Inject
 
 /**
  * @desc: 视频详情Presenter
  */
-class OpenEyesVideoDetailPresenter @Inject constructor() : BasePresenter<OpenEyesVideoDetailContract.View>(),
+class OpenEyesVideoDetailPresenter @Inject constructor() :
+    BasePresenter<OpenEyesVideoDetailContract.View>(),
     OpenEyesVideoDetailContract.Presenter {
 
     @Inject
@@ -55,10 +55,14 @@ class OpenEyesVideoDetailPresenter @Inject constructor() : BasePresenter<OpenEye
 
         // 设置背景
         val backgroundUrl =
-            itemInfo.data.cover.blurred + "/thumbnail/${ScreenUtil.screenHeight - SizeUtil.dp2px(250f)}x${ScreenUtil.screenWidth}"
+            itemInfo.data.cover.blurred +
+                    "/thumbnail/${ScreenUtil.screenHeight / 3 * 2}x${ScreenUtil.screenWidth}"
         backgroundUrl.let { mView.setBackground(it) }
 
         mView.setVideoInfo(itemInfo)
+
+        // 请求相关的最新等视频
+        requestRelatedVideo(itemInfo.data.id)
     }
 
     /**
