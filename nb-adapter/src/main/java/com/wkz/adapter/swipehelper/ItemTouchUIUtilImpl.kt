@@ -23,7 +23,7 @@ import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.ItemTouchUIUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.wkz.adapter.R
+import com.wkz.adapter.nb.R
 
 /**
  * Package private class to keep implementations. Putting them inside ItemTouchUIUtil makes them

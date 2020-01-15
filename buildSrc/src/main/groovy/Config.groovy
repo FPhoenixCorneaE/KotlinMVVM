@@ -28,6 +28,7 @@ class Config {
             lifecycleExtensions: "androidx.lifecycle:lifecycle-extensions:2.2.0-alpha02",
             flexbox            : "com.google.android:flexbox:1.1.0",
             viewpager2         : "androidx.viewpager2:viewpager2:1.0.0",
+            palette         : "androidx.palette:palette-ktx:1.0.0",
     ]
 
     /** navigation 扩展插件 */

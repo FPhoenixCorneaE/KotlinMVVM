@@ -1,5 +1,7 @@
 package com.wkz.adapter
 
+import com.wkz.adapter.nb.R
+
 /**
  * @desc: 动画类型
  */

@@ -16,7 +16,7 @@ import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.ItemTouchUIUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.wkz.adapter.R
+import com.wkz.adapter.nb.R
 import java.util.*
 
 

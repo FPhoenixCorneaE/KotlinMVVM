@@ -15,8 +15,26 @@ android {
 
     buildTypes {
         release {
+            // 执行proguard混淆
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            // Zipalign优化
+            zipAlignEnabled true
+            // 移除无用的resource文件
+            shrinkResources false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt')
+            proguardFiles 'proguard-rules-universal.pro'
+            proguardFiles 'proguard-rules.pro'
+        }
+        debug {
+            // 执行proguard混淆
+            minifyEnabled false
+            // Zipalign优化
+            zipAlignEnabled true
+            // 移除无用的resource文件
+            shrinkResources false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt')
+            proguardFiles 'proguard-rules-universal.pro'
+            proguardFiles 'proguard-rules.pro'
         }
     }
 

@@ -284,10 +284,13 @@ class OpenEyesVideoDetailActivity :
         // 释放所有
         mVpVideo.setStandardVideoAllCallBack(null)
         GSYVideoPlayer.releaseAllVideos()
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) run {
-            super.onBackPressed()
-        } else {
-            finish()
+        when {
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP -> run {
+                super.onBackPressed()
+            }
+            else -> {
+                finish()
+            }
         }
     }
 

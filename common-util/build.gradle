@@ -11,12 +11,32 @@ android {
         targetSdkVersion Config.android.targetSdkVersion
         versionCode 1
         versionName "1.0.0"
+
+        consumerProguardFiles 'consumer-rules.pro'
     }
 
     buildTypes {
         release {
+            // 执行proguard混淆
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            // Zipalign优化
+            zipAlignEnabled true
+            // 移除无用的resource文件
+            shrinkResources false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt')
+            proguardFiles 'proguard-rules-universal.pro'
+            proguardFiles 'proguard-rules.pro'
+        }
+        debug {
+            // 执行proguard混淆
+            minifyEnabled false
+            // Zipalign优化
+            zipAlignEnabled true
+            // 移除无用的resource文件
+            shrinkResources false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt')
+            proguardFiles 'proguard-rules-universal.pro'
+            proguardFiles 'proguard-rules.pro'
         }
     }
 
@@ -39,6 +59,7 @@ dependencies {
     implementation Config.support.appcompat
     implementation Config.support.lifecycleViewmodel
     implementation Config.support.lifecycleExtensions
+    implementation Config.support.palette
     implementation Config.kotlinLibs
     implementation Config.rxPermissions
     implementation Config.rxJava2Libs
@@ -46,5 +67,4 @@ dependencies {
     api(Config.logger) {
         transitive true
     }
-    implementation 'androidx.palette:palette-ktx:1.0.0'
 }

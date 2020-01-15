@@ -79,7 +79,7 @@ data class OpenEyesHomeBean(
                 val lastViewTime: Any,
                 val playlists: Any,
                 val header: Header,
-                val itemList: ArrayList<OpenEyesHomeBean.Issue.Item>
+                val itemList: ArrayList<Item>
             ) : Serializable, BaseObservable() {
                 data class Tag(
                     val id: Int,
