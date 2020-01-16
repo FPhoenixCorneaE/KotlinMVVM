@@ -1,5 +1,5 @@
 <resources>
-    <string name="open_eyes_app_name">KotlinMVVM</string>
+    <string name="open_eyes_app_name">开眼</string>
     <string name="open_eyes_transition_name_avatar">TransitionAvatar</string>
     <string name="open_eyes_transition_name_video">TransitionVideo</string>
     <string name="open_eyes_transition_name_search">TransitionSearch</string>

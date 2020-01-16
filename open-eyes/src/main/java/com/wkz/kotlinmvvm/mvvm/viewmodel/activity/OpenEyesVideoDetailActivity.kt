@@ -280,7 +280,7 @@ class OpenEyesVideoDetailActivity :
      * 设置相关的数据视频
      */
     override fun setRecentRelatedVideo(itemList: ArrayList<OpenEyesHomeBean.Issue.Item>) {
-        mVideoListAdapter.addData(itemList)
+        mVideoListAdapter.setData(itemList)
     }
 
     /**
@@ -378,6 +378,11 @@ class OpenEyesVideoDetailActivity :
         super.onDestroy()
         GSYVideoPlayer.releaseAllVideos()
         mOrientationUtils?.releaseListener()
+    }
+
+    override fun finish() {
+        startPostponedEnterTransition()
+        super.finish()
     }
 
     private fun getCurPlay(): GSYVideoPlayer {

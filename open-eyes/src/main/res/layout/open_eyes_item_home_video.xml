@@ -73,6 +73,16 @@
         tools:ignore="ContentDescription"
         tools:src="@tools:sample/backgrounds/scenic" />
 
+    <ImageView
+        app:layout_constraintStart_toStartOf="@+id/mIvCoverFeed"
+        app:layout_constraintEnd_toEndOf="@+id/mIvCoverFeed"
+        app:layout_constraintTop_toTopOf="@+id/mIvCoverFeed"
+        app:layout_constraintBottom_toBottomOf="@+id/mIvCoverFeed"
+        android:layout_width="@dimen/dp_60"
+        android:layout_height="@dimen/dp_60"
+        android:src="@drawable/open_eyes_ic_play"
+        tools:ignore="ContentDescription" />
+
     <TextView
         android:id="@+id/mTvTitle"
         android:layout_width="0dp"

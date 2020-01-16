@@ -36,7 +36,8 @@ class OpenEyesVideoListAdapter(mContext: Context, data: ArrayList<OpenEyesHomeBe
     /**
      * 添加相关推荐等数据 Item
      */
-    fun addData(item: ArrayList<OpenEyesHomeBean.Issue.Item>) {
+    fun setData(item: ArrayList<OpenEyesHomeBean.Issue.Item>) {
+        mData.clear()
         mData.addAll(item)
         notifyDataSetChanged()
     }

@@ -1,0 +1,5 @@
+<resources>
+  <string name="easy_behavior_float_behavior">com.wkz.behavior.FloatButtonEasyBehavior</string>
+  <string name="bye_burger_bottom_behavior">com.wkz.behavior.BottomEasyBehavior</string>
+  <string name="bye_burger_title_behavior">com.wkz.behavior.TitleEasyBehavior</string>
+</resources>

@@ -12,6 +12,7 @@ include ':wan-android'
 include ':magic-indicator'
 include ':nb-adapter'
 include ':pager-adapter'
+include ':easy-behavior'
 
 // standalone
 include ':standalone:standalone-common-util'
