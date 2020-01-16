@@ -8,8 +8,9 @@ import android.util.TypedValue
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import kotlin.math.roundToInt
 
-object BottomNavigationUtils {
+object BottomNavigationUtil {
 
     fun changeImageColorFilter(image: ImageView, fromColor: Int, toColor: Int) {
         val imageColorChangeAnimation = ValueAnimator.ofObject(ArgbEvaluator(), fromColor, toColor)
@@ -90,6 +91,6 @@ object BottomNavigationUtils {
 
     fun pxToDp(px: Int, context: Context): Int {
         val displayMetrics = context.resources.displayMetrics
-        return Math.round(px / (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT))
+        return (px / (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT)).roundToInt()
     }
 }

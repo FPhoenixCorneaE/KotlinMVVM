@@ -64,15 +64,16 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    api project(':bottom-navigation-view')
     api project(':common-titlebar')
     api project(':common-util')
-    api project(':rxretrofit')
-    api project(':multiple-status-view')
-    api project(':multi-type-adapter')
     api project(':expand-collapse-text-view')
     api project(':magic-indicator')
+    api project(':multiple-status-view')
+    api project(':multi-type-adapter')
     api project(':nb-adapter')
     api project(':pager-adapter')
+    api project(':rxretrofit')
     api Config.supportLibs
     api Config.kotlinLibs
     implementation Config.dagger2Libs
@@ -87,4 +88,5 @@ dependencies {
     api Config.rxImagePickerLibs
     api Config.rxPermissions
     api Config.folivora
+    api Config.realtimeBlurView
 }

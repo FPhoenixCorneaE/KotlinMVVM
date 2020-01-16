@@ -28,7 +28,7 @@ class Config {
             lifecycleExtensions: "androidx.lifecycle:lifecycle-extensions:2.2.0-alpha02",
             flexbox            : "com.google.android:flexbox:1.1.0",
             viewpager2         : "androidx.viewpager2:viewpager2:1.0.0",
-            palette         : "androidx.palette:palette-ktx:1.0.0",
+            palette            : "androidx.palette:palette-ktx:1.0.0",
     ]
 
     /** navigation 扩展插件 */
@@ -121,6 +121,8 @@ class Config {
     static videoPlayer = 'com.shuyu:GSYVideoPlayer:2.1.1'
     /** Gson */
     static gson = 'com.google.code.gson:gson:2.8.6'
+    /** 模糊透明View */
+    static realtimeBlurView = 'com.github.mmin18:realtimeblurview:1.2.1'
 
 
     /** compiler */

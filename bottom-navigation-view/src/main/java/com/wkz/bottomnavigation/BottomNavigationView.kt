@@ -105,7 +105,7 @@ class BottomNavigationView @JvmOverloads constructor(
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
 
-        navigationWidth = BottomNavigationUtils.getActionbarSize(context)
+        navigationWidth = BottomNavigationUtil.getActionbarSize(context)
         val params = layoutParams
         if (coloredBackground) {
             itemActiveColorWithoutColoredBackground = ContextCompat.getColor(context, R.color.colorActive)
@@ -298,16 +298,16 @@ class BottomNavigationView @JvmOverloads constructor(
                 val view = viewList[itemIndex].findViewById<View>(R.id.bottom_navigation_container)
                 val title = view.findViewById<View>(R.id.bottom_navigation_item_title) as TextView
                 val icon = view.findViewById<View>(R.id.bottom_navigation_item_icon) as ImageView
-                BottomNavigationUtils.changeTextColor(title, itemInactiveColor, itemActiveColorWithoutColoredBackground)
+                BottomNavigationUtil.changeTextColor(title, itemInactiveColor, itemActiveColorWithoutColoredBackground)
                 if (withText) {
-                    BottomNavigationUtils.changeTextSize(title, textInactiveSize, textActiveSize)
+                    BottomNavigationUtil.changeTextSize(title, textInactiveSize, textActiveSize)
                 } else {
-                    BottomNavigationUtils.changeTextSize(title, 0F, textActiveSize)
+                    BottomNavigationUtil.changeTextSize(title, 0F, textActiveSize)
                 }
                 if (bottomNavigationItems[i].imageResourceActive != 0) {
                     icon.setImageResource(bottomNavigationItems[i].imageResourceActive)
                 } else {
-                    BottomNavigationUtils.changeImageColorFilter(
+                    BottomNavigationUtil.changeImageColorFilter(
                         icon,
                         itemInactiveColor,
                         itemActiveColorWithoutColoredBackground
@@ -316,13 +316,13 @@ class BottomNavigationView @JvmOverloads constructor(
 
                 if (isTablet) {
                     if (withText) {
-                        BottomNavigationUtils.changeRightPadding(
+                        BottomNavigationUtil.changeRightPadding(
                             view,
                             viewInactivePaddingTop.toFloat(),
                             viewActivePaddingTop.toFloat()
                         )
                     } else {
-                        BottomNavigationUtils.changeRightPadding(
+                        BottomNavigationUtil.changeRightPadding(
                             view,
                             viewInactivePaddingTopWithoutText.toFloat(),
                             viewActivePaddingTop.toFloat()
@@ -330,13 +330,13 @@ class BottomNavigationView @JvmOverloads constructor(
                     }
                 } else {
                     if (withText)
-                        BottomNavigationUtils.changeViewTopPadding(
+                        BottomNavigationUtil.changeViewTopPadding(
                             view,
                             viewInactivePaddingTop.toFloat(),
                             viewActivePaddingTop.toFloat()
                         )
                     else
-                        BottomNavigationUtils.changeViewTopPadding(
+                        BottomNavigationUtil.changeViewTopPadding(
                             view,
                             viewInactivePaddingTopWithoutText.toFloat(),
                             viewActivePaddingTop.toFloat()
@@ -375,7 +375,7 @@ class BottomNavigationView @JvmOverloads constructor(
                     })
                     changeBackgroundColor.start()
                 } else {
-                    BottomNavigationUtils.changeViewBackgroundColor(
+                    BottomNavigationUtil.changeViewBackgroundColor(
                         container as View,
                         bottomNavigationItems[currentItem].color,
                         bottomNavigationItems[itemIndex].color
@@ -389,39 +389,39 @@ class BottomNavigationView @JvmOverloads constructor(
 
                 when {
                     bottomNavigationItems[i].imageResourceActive != 0 -> icon.setImageResource(bottomNavigationItems[i].imageResource)
-                    else -> BottomNavigationUtils.changeImageColorFilter(
+                    else -> BottomNavigationUtil.changeImageColorFilter(
                         icon,
                         itemActiveColorWithoutColoredBackground,
                         itemInactiveColor
                     )
                 }
 
-                BottomNavigationUtils.changeTextColor(title, itemActiveColorWithoutColoredBackground, itemInactiveColor)
+                BottomNavigationUtil.changeTextColor(title, itemActiveColorWithoutColoredBackground, itemInactiveColor)
                 when {
-                    withText -> BottomNavigationUtils.changeTextSize(title, textActiveSize, textInactiveSize)
-                    else -> BottomNavigationUtils.changeTextSize(title, textActiveSize, 0F)
+                    withText -> BottomNavigationUtil.changeTextSize(title, textActiveSize, textInactiveSize)
+                    else -> BottomNavigationUtil.changeTextSize(title, textActiveSize, 0F)
                 }
 
                 when {
                     isTablet -> when {
-                        withText -> BottomNavigationUtils.changeRightPadding(
+                        withText -> BottomNavigationUtil.changeRightPadding(
                             view,
                             viewActivePaddingTop.toFloat(),
                             viewInactivePaddingTop.toFloat()
                         )
-                        else -> BottomNavigationUtils.changeRightPadding(
+                        else -> BottomNavigationUtil.changeRightPadding(
                             view,
                             viewActivePaddingTop.toFloat(),
                             viewInactivePaddingTopWithoutText.toFloat()
                         )
                     }
                     else -> when {
-                        withText -> BottomNavigationUtils.changeViewTopPadding(
+                        withText -> BottomNavigationUtil.changeViewTopPadding(
                             view,
                             viewActivePaddingTop.toFloat(),
                             viewInactivePaddingTop.toFloat()
                         )
-                        else -> BottomNavigationUtils.changeViewTopPadding(
+                        else -> BottomNavigationUtil.changeViewTopPadding(
                             view,
                             viewActivePaddingTop.toFloat(),
                             viewInactivePaddingTopWithoutText.toFloat()
@@ -485,7 +485,7 @@ class BottomNavigationView @JvmOverloads constructor(
      * @param item item to add
      */
     fun addTab(vararg item: BottomNavigationItem): BottomNavigationView {
-        bottomNavigationItems.addAll(Arrays.asList(*item))
+        bottomNavigationItems.addAll(listOf(*item))
         return this
     }
 
