@@ -27,7 +27,8 @@ class BottomNavigationView @JvmOverloads constructor(
 
     private val NAVIGATION_HEIGHT = resources.getDimension(R.dimen.bottom_navigation_height).toInt()
 
-    private val NAVIGATION_LINE_WIDTH = resources.getDimension(R.dimen.bottom_navigation_line_width).toInt()
+    private val NAVIGATION_LINE_WIDTH =
+        resources.getDimension(R.dimen.bottom_navigation_line_width).toInt()
 
     private var textActiveSize: Float = 0.toFloat()
 
@@ -80,13 +81,14 @@ class BottomNavigationView @JvmOverloads constructor(
     private fun init(attrs: AttributeSet?) {
         if (attrs != null) {
             val res = resources
-
             val array = context.obtainStyledAttributes(attrs, R.styleable.BottomNavigationView)
             withText = array.getBoolean(R.styleable.BottomNavigationView_bnv_with_text, true)
-            coloredBackground = array.getBoolean(R.styleable.BottomNavigationView_bnv_colored_background, true)
+            coloredBackground =
+                array.getBoolean(R.styleable.BottomNavigationView_bnv_colored_background, true)
             disableShadow = array.getBoolean(R.styleable.BottomNavigationView_bnv_shadow, false)
             isTablet = array.getBoolean(R.styleable.BottomNavigationView_bnv_tablet, false)
-            viewPagerSlide = array.getBoolean(R.styleable.BottomNavigationView_bnv_viewpager_slide, true)
+            viewPagerSlide =
+                array.getBoolean(R.styleable.BottomNavigationView_bnv_viewpager_slide, true)
             itemActiveColorWithoutColoredBackground =
                 array.getColor(R.styleable.BottomNavigationView_bnv_active_color, -1)
             textActiveSize = array.getDimensionPixelSize(
@@ -104,11 +106,11 @@ class BottomNavigationView @JvmOverloads constructor(
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
-
         navigationWidth = BottomNavigationUtil.getActionbarSize(context)
         val params = layoutParams
         if (coloredBackground) {
-            itemActiveColorWithoutColoredBackground = ContextCompat.getColor(context, R.color.colorActive)
+            itemActiveColorWithoutColoredBackground =
+                ContextCompat.getColor(context, R.color.colorActive)
             itemInactiveColor = ContextCompat.getColor(context, R.color.colorInactive)
             shadowHeight = resources.getDimension(R.dimen.bottom_navigation_shadow_height).toInt()
         } else {
@@ -118,16 +120,26 @@ class BottomNavigationView @JvmOverloads constructor(
             }
             itemInactiveColor = ContextCompat.getColor(context, R.color.withoutColoredBackground)
             shadowHeight =
-                resources.getDimension(R.dimen.bottom_navigation_shadow_height_without_colored_background).toInt()
+                resources.getDimension(R.dimen.bottom_navigation_shadow_height_without_colored_background)
+                    .toInt()
         }
-        if (isTablet) {
-            params.width = navigationWidth + NAVIGATION_LINE_WIDTH
-            params.height = ViewGroup.LayoutParams.MATCH_PARENT
-        } else {
-            params.width = ViewGroup.LayoutParams.MATCH_PARENT
-            params.height = if (disableShadow) NAVIGATION_HEIGHT else NAVIGATION_HEIGHT + shadowHeight
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                elevation = resources.getDimension(R.dimen.bottom_navigation_elevation)
+        when {
+            isTablet -> {
+                params.width = navigationWidth + NAVIGATION_LINE_WIDTH
+                params.height = ViewGroup.LayoutParams.MATCH_PARENT
+            }
+            else -> {
+                params.width = ViewGroup.LayoutParams.MATCH_PARENT
+                params.height =
+                    when {
+                        disableShadow -> NAVIGATION_HEIGHT
+                        else -> NAVIGATION_HEIGHT + shadowHeight
+                    }
+                when {
+                    Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP -> {
+                        elevation = resources.getDimension(R.dimen.bottom_navigation_elevation)
+                    }
+                }
             }
         }
         layoutParams = params
@@ -136,7 +148,6 @@ class BottomNavigationView @JvmOverloads constructor(
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
-
         if (willNotRecreate) {
             removeAllViews()
         }
@@ -151,61 +162,60 @@ class BottomNavigationView @JvmOverloads constructor(
         if (bottomNavigationItems.size == 0) {
             throw NullPointerException("You need at least one item")
         }
-        val containerParams: RelativeLayout.LayoutParams
-        val params: RelativeLayout.LayoutParams
-        val lineParams: RelativeLayout.LayoutParams
+        val containerParams: LayoutParams
+        val params: LayoutParams
+        val lineParams: LayoutParams
         val white = ContextCompat.getColor(context, R.color.white)
         backgroundColorTemp = View(context)
         viewList.clear()
         if (isTablet) {
-            itemWidth = RelativeLayout.LayoutParams.MATCH_PARENT
+            itemWidth = LayoutParams.MATCH_PARENT
             itemHeight = navigationWidth
         } else {
             itemWidth = width / bottomNavigationItems.size
-            itemHeight = RelativeLayout.LayoutParams.MATCH_PARENT
+            itemHeight = LayoutParams.MATCH_PARENT
         }
         container = FrameLayout(context)
         val shadow = View(context)
         val line = View(context)
         val items = LinearLayout(context)
         items.orientation = if (isTablet) LinearLayout.VERTICAL else LinearLayout.HORIZONTAL
-        val shadowParams = RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, shadowHeight)
+        val shadowParams = LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, shadowHeight)
         if (isTablet) {
             line.setBackgroundColor(ContextCompat.getColor(context, R.color.colorInactive))
-            containerParams = RelativeLayout.LayoutParams(navigationWidth, ViewGroup.LayoutParams.MATCH_PARENT)
-            lineParams = RelativeLayout.LayoutParams(NAVIGATION_LINE_WIDTH, ViewGroup.LayoutParams.MATCH_PARENT)
-            lineParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT)
-            params = RelativeLayout.LayoutParams(navigationWidth, ViewGroup.LayoutParams.MATCH_PARENT)
+            containerParams = LayoutParams(navigationWidth, ViewGroup.LayoutParams.MATCH_PARENT)
+            lineParams = LayoutParams(NAVIGATION_LINE_WIDTH, ViewGroup.LayoutParams.MATCH_PARENT)
+            lineParams.addRule(ALIGN_PARENT_RIGHT)
+            params = LayoutParams(navigationWidth, ViewGroup.LayoutParams.MATCH_PARENT)
             items.setPadding(0, itemHeight / 2, 0, 0)
             addView(line, lineParams)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                val backgroundLayoutParams = RelativeLayout.LayoutParams(
+                val backgroundLayoutParams = LayoutParams(
                     navigationWidth, ViewGroup.LayoutParams.MATCH_PARENT
                 )
-                backgroundLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT)
+                backgroundLayoutParams.addRule(ALIGN_PARENT_LEFT)
                 container!!.addView(backgroundColorTemp, backgroundLayoutParams)
             }
         } else {
-            params = RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, NAVIGATION_HEIGHT)
-            containerParams = RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, NAVIGATION_HEIGHT)
-            shadowParams.addRule(RelativeLayout.ABOVE, container!!.id)
+            params = LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, NAVIGATION_HEIGHT)
+            containerParams = LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, NAVIGATION_HEIGHT)
+            shadowParams.addRule(ABOVE, container!!.id)
             shadow.setBackgroundResource(R.drawable.bottom_navigation_shadow)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                val backgroundLayoutParams = RelativeLayout.LayoutParams(
+                val backgroundLayoutParams = LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT, NAVIGATION_HEIGHT
                 )
-                backgroundLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM)
+                backgroundLayoutParams.addRule(ALIGN_PARENT_BOTTOM)
                 container!!.addView(backgroundColorTemp, backgroundLayoutParams)
             }
         }
-        containerParams.addRule(if (isTablet) RelativeLayout.ALIGN_PARENT_LEFT else RelativeLayout.ALIGN_PARENT_BOTTOM)
+        containerParams.addRule(if (isTablet) ALIGN_PARENT_LEFT else ALIGN_PARENT_BOTTOM)
         addView(shadow, shadowParams)
         addView(container, containerParams)
         container!!.addView(items, params)
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
         for (i in 0 until bottomNavigationItems.size) {
-
             if (!coloredBackground) {
                 bottomNavigationItems[i].color = white
             }
@@ -213,18 +223,26 @@ class BottomNavigationView @JvmOverloads constructor(
             val textActivePaddingTop =
                 context.resources.getDimension(R.dimen.bottom_navigation_padding_top_active).toInt()
             val viewInactivePaddingTop =
-                context.resources.getDimension(R.dimen.bottom_navigation_padding_top_inactive).toInt()
+                context.resources.getDimension(R.dimen.bottom_navigation_padding_top_inactive)
+                    .toInt()
             val viewInactivePaddingTopWithoutText =
-                context.resources.getDimension(R.dimen.bottom_navigation_padding_top_inactive_without_text).toInt()
+                context.resources.getDimension(R.dimen.bottom_navigation_padding_top_inactive_without_text)
+                    .toInt()
             val view = inflater.inflate(R.layout.bottom_navigation, this, false)
             val icon = view.findViewById<View>(R.id.bottom_navigation_item_icon) as ImageView
             val title = view.findViewById<View>(R.id.bottom_navigation_item_title) as TextView
 
-            if (isCustomFont) {
-                title.typeface = font
-            } else {
-                title.typeface =
-                    Typeface.createFromAsset(context.getApplicationContext().getAssets(), "fonts/Noh_normal.ttf")
+            when {
+                isCustomFont -> {
+                    title.typeface = font
+                }
+                else -> {
+                    title.typeface =
+                        Typeface.createFromAsset(
+                            context.applicationContext.assets,
+                            "font/noahtt_normal.ttf"
+                        )
+                }
             }
 
             if (isTablet) {
@@ -261,9 +279,11 @@ class BottomNavigationView @JvmOverloads constructor(
                 )
             } else {
                 view.setPadding(
-                    view.paddingLeft, if (i == currentItem)
+                    view.paddingLeft,
+                    if (i == currentItem)
                         textActivePaddingTop
-                    else if (withText) viewInactivePaddingTop else viewInactivePaddingTopWithoutText, view.paddingRight,
+                    else if (withText) viewInactivePaddingTop else viewInactivePaddingTopWithoutText,
+                    view.paddingRight,
                     view.paddingBottom
                 )
             }
@@ -273,7 +293,7 @@ class BottomNavigationView @JvmOverloads constructor(
                 else -> title.setTextSize(TypedValue.COMPLEX_UNIT_PX, 0F)
             }
             title.text = bottomNavigationItems[i].title
-            val itemParams = RelativeLayout.LayoutParams(itemWidth, itemHeight)
+            val itemParams = LayoutParams(itemWidth, itemHeight)
             items.addView(view, itemParams)
             view.setOnClickListener { onBottomNavigationItemClick(i) }
 
@@ -286,11 +306,13 @@ class BottomNavigationView @JvmOverloads constructor(
             return
         }
 
-        val viewActivePaddingTop = context.resources.getDimension(R.dimen.bottom_navigation_padding_top_active).toInt()
+        val viewActivePaddingTop =
+            context.resources.getDimension(R.dimen.bottom_navigation_padding_top_active).toInt()
         val viewInactivePaddingTop =
             context.resources.getDimension(R.dimen.bottom_navigation_padding_top_inactive).toInt()
         val viewInactivePaddingTopWithoutText =
-            context.resources.getDimension(R.dimen.bottom_navigation_padding_top_inactive_without_text).toInt()
+            context.resources.getDimension(R.dimen.bottom_navigation_padding_top_inactive_without_text)
+                .toInt()
         var centerX: Int
         var centerY: Int
         for (i in viewList.indices) {
@@ -298,7 +320,11 @@ class BottomNavigationView @JvmOverloads constructor(
                 val view = viewList[itemIndex].findViewById<View>(R.id.bottom_navigation_container)
                 val title = view.findViewById<View>(R.id.bottom_navigation_item_title) as TextView
                 val icon = view.findViewById<View>(R.id.bottom_navigation_item_icon) as ImageView
-                BottomNavigationUtil.changeTextColor(title, itemInactiveColor, itemActiveColorWithoutColoredBackground)
+                BottomNavigationUtil.changeTextColor(
+                    title,
+                    itemInactiveColor,
+                    itemActiveColorWithoutColoredBackground
+                )
                 if (withText) {
                     BottomNavigationUtil.changeTextSize(title, textInactiveSize, textActiveSize)
                 } else {
@@ -358,7 +384,7 @@ class BottomNavigationView @JvmOverloads constructor(
                 }
 
                 val finalRadius = Math.max(width, height)
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     backgroundColorTemp!!.setBackgroundColor(bottomNavigationItems[itemIndex].color)
                     val changeBackgroundColor = ViewAnimationUtils.createCircularReveal(
                         backgroundColorTemp,
@@ -388,7 +414,9 @@ class BottomNavigationView @JvmOverloads constructor(
                 val icon = view.findViewById<View>(R.id.bottom_navigation_item_icon) as ImageView
 
                 when {
-                    bottomNavigationItems[i].imageResourceActive != 0 -> icon.setImageResource(bottomNavigationItems[i].imageResource)
+                    bottomNavigationItems[i].imageResourceActive != 0 -> icon.setImageResource(
+                        bottomNavigationItems[i].imageResource
+                    )
                     else -> BottomNavigationUtil.changeImageColorFilter(
                         icon,
                         itemActiveColorWithoutColoredBackground,
@@ -396,9 +424,17 @@ class BottomNavigationView @JvmOverloads constructor(
                     )
                 }
 
-                BottomNavigationUtil.changeTextColor(title, itemActiveColorWithoutColoredBackground, itemInactiveColor)
+                BottomNavigationUtil.changeTextColor(
+                    title,
+                    itemActiveColorWithoutColoredBackground,
+                    itemInactiveColor
+                )
                 when {
-                    withText -> BottomNavigationUtil.changeTextSize(title, textActiveSize, textInactiveSize)
+                    withText -> BottomNavigationUtil.changeTextSize(
+                        title,
+                        textActiveSize,
+                        textInactiveSize
+                    )
                     else -> BottomNavigationUtil.changeTextSize(title, textActiveSize, 0F)
                 }
 
@@ -454,7 +490,11 @@ class BottomNavigationView @JvmOverloads constructor(
      * @param colorResources color resources for every item in the ViewPager adapter
      * @param imageResources images resources for every item in the ViewPager adapter
      */
-    fun setUpWithViewPager(pager: ViewPager, colorResources: IntArray, imageResources: IntArray): BottomNavigationView {
+    fun setUpWithViewPager(
+        pager: ViewPager,
+        colorResources: IntArray,
+        imageResources: IntArray
+    ): BottomNavigationView {
         this.mViewPager = pager
         if (pager.adapter == null) {
             throw IllegalArgumentException("you should set a adapter for ViewPager first!")
@@ -463,7 +503,13 @@ class BottomNavigationView @JvmOverloads constructor(
             throw IllegalArgumentException("colorResources and imageResources must be equal to the ViewPager items : " + pager.adapter!!.count)
         }
         for (i in 0 until pager.adapter!!.count) {
-            addTab(BottomNavigationItem(pager.adapter!!.getPageTitle(i), colorResources[i], imageResources[i]))
+            addTab(
+                BottomNavigationItem(
+                    pager.adapter!!.getPageTitle(i),
+                    colorResources[i],
+                    imageResources[i]
+                )
+            )
         }
         return this
     }

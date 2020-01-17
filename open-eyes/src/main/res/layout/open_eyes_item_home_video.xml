@@ -43,7 +43,7 @@
         android:layout_marginTop="@dimen/dp_8"
         android:layout_marginEnd="@dimen/dp_16"
         android:ellipsize="end"
-        android:maxLines="2"
+        android:maxLines="1"
         android:textColor="@color/open_eyes_color_darker_gray"
         android:textSize="@dimen/sp_13"
         app:layout_constraintEnd_toStartOf="@+id/mTvCategory"
@@ -74,13 +74,13 @@
         tools:src="@tools:sample/backgrounds/scenic" />
 
     <ImageView
-        app:layout_constraintStart_toStartOf="@+id/mIvCoverFeed"
-        app:layout_constraintEnd_toEndOf="@+id/mIvCoverFeed"
-        app:layout_constraintTop_toTopOf="@+id/mIvCoverFeed"
-        app:layout_constraintBottom_toBottomOf="@+id/mIvCoverFeed"
         android:layout_width="@dimen/dp_60"
         android:layout_height="@dimen/dp_60"
         android:src="@drawable/open_eyes_ic_play"
+        app:layout_constraintBottom_toBottomOf="@+id/mIvCoverFeed"
+        app:layout_constraintEnd_toEndOf="@+id/mIvCoverFeed"
+        app:layout_constraintStart_toStartOf="@+id/mIvCoverFeed"
+        app:layout_constraintTop_toTopOf="@+id/mIvCoverFeed"
         tools:ignore="ContentDescription" />
 
     <TextView

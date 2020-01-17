@@ -1,5 +1,7 @@
 package com.wkz.kotlinmvvm.mvvm.viewmodel.activity
 
+import android.graphics.Typeface
+import android.os.Build
 import android.os.Bundle
 import com.wkz.bottomnavigation.BottomNavigationItem
 import com.wkz.bottomnavigation.OnBottomNavigationItemClickListener
@@ -29,43 +31,52 @@ class OpenEyesHomeActivity :
 
     private fun initBottomNavigationView() {
         mBnvNavigation.isWithText(false)
-        mBnvNavigation.isColoredBackground(true)
-        mBnvNavigation.setTextActiveSize(ResourceUtil.getDimension(R.dimen.sp_13))
-        mBnvNavigation.setTextInactiveSize(ResourceUtil.getDimension(R.dimen.sp_11))
-        mBnvNavigation.setItemActiveColorWithoutColoredBackground(
-            ResourceUtil.getColor(R.color.open_eyes_color_darker_gray)
-        )
-        mBnvNavigation.setFont(ResourceUtil.getFont(R.font.lobster))
-        mBnvNavigation.setTabs(
-            listOf(
-                BottomNavigationItem(
-                    "首页",
-                    ColorUtil.setAlphaComponent(ColorUtil.randomColor, 0.1f),
-                    R.drawable.open_eyes_ic_nav_home
-                ),
-                BottomNavigationItem(
-                    "发现",
-                    ColorUtil.setAlphaComponent(ColorUtil.randomColor, 0.1f),
-                    R.drawable.open_eyes_ic_nav_discover
-                ),
-                BottomNavigationItem(
-                    "热门",
-                    ColorUtil.setAlphaComponent(ColorUtil.randomColor, 0.1f),
-                    R.drawable.open_eyes_ic_nav_hot
-                ),
-                BottomNavigationItem(
-                    "我的",
-                    ColorUtil.setAlphaComponent(ColorUtil.randomColor, 0.1f),
-                    R.drawable.open_eyes_ic_nav_mine
+            .isColoredBackground(true)
+            .setTextActiveSize(ResourceUtil.getDimension(R.dimen.sp_13))
+            .setTextInactiveSize(ResourceUtil.getDimension(R.dimen.sp_11))
+            .setItemActiveColorWithoutColoredBackground(
+                ResourceUtil.getColor(R.color.open_eyes_color_black)
+            )
+            .run {
+                when {
+                    Build.VERSION.SDK_INT >= Build.VERSION_CODES.O -> {
+                        setFont(ResourceUtil.getFont(R.font.lobster))
+                    }
+                    else -> {
+                        setFont(Typeface.createFromAsset(assets, "font/lobster.otf"))
+                    }
+                }
+            }
+            .setTabs(
+                listOf(
+                    BottomNavigationItem(
+                        "首页",
+                        ColorUtil.setAlphaComponent(ColorUtil.randomColor, 0.1f),
+                        R.drawable.open_eyes_ic_nav_home
+                    ),
+                    BottomNavigationItem(
+                        "发现",
+                        ColorUtil.setAlphaComponent(ColorUtil.randomColor, 0.1f),
+                        R.drawable.open_eyes_ic_nav_discover
+                    ),
+                    BottomNavigationItem(
+                        "热门",
+                        ColorUtil.setAlphaComponent(ColorUtil.randomColor, 0.1f),
+                        R.drawable.open_eyes_ic_nav_hot
+                    ),
+                    BottomNavigationItem(
+                        "我的",
+                        ColorUtil.setAlphaComponent(ColorUtil.randomColor, 0.1f),
+                        R.drawable.open_eyes_ic_nav_mine
+                    )
                 )
             )
-        )
-        mBnvNavigation.setOnBottomNavigationItemClickListener(object :
-            OnBottomNavigationItemClickListener {
-            override fun onNavigationItemClick(index: Int) {
+            .setOnBottomNavigationItemClickListener(object :
+                OnBottomNavigationItemClickListener {
+                override fun onNavigationItemClick(index: Int) {
 
-            }
-        })
+                }
+            })
     }
 
     override fun initData(savedInstanceState: Bundle?) {
