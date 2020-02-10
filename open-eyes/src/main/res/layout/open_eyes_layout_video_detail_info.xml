@@ -88,11 +88,10 @@
             app:layout_constraintTop_toBottomOf="@+id/mTvTitle"
             tools:text="00'00'" />
 
-        <com.wkz.widget.ExpandTextView
+        <com.wkz.widget.ExpandCollapseTextView
             android:id="@+id/mTvDescription"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:lineSpacingMultiplier="1.1"
             android:paddingTop="@dimen/dp_8"
             android:paddingBottom="@dimen/dp_16"
             android:textColor="@color/open_eyes_color_lighter_gray"

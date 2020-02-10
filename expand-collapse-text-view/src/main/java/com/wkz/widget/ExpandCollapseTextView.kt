@@ -15,7 +15,7 @@ import android.widget.TextView
  * @desc: 展开收起TextView
  * @date: 2019-10-18 19:14
  */
-class ExpandTextView @JvmOverloads constructor(
+class ExpandCollapseTextView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
@@ -45,6 +45,7 @@ class ExpandTextView @JvmOverloads constructor(
     var mUnderlineEnable = true
 
     init {
+        setLineSpacing(0.0f, 1.1f)
         movementMethod = LinkMovementMethod.getInstance()
     }
 
@@ -61,8 +62,8 @@ class ExpandTextView @JvmOverloads constructor(
             paint,
             measuredWidth - paddingLeft - paddingRight,
             Layout.Alignment.ALIGN_CENTER,
-            1f,
-            0f,
+            lineSpacingMultiplier,
+            lineSpacingExtra,
             true
         )
         // 总计行数
@@ -166,11 +167,9 @@ class ExpandTextView @JvmOverloads constructor(
         }
         // 重新计算高度
         var lineHeight = 0
-        for (i in 0 until lineCount) {
-            val lineBound = Rect()
-            sl.getLineBounds(i, lineBound)
-            lineHeight += lineBound.height()
-        }
+        val lineBound = Rect()
+        sl.getLineBounds(0, lineBound)
+        lineHeight = lineBound.height() * lineCount
         // 展开状态下,若最后一行文字占满控件宽度,则需要增加一行显示收起文案
         if (mExpanded) {
             // 收起文案的宽度
