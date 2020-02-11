@@ -18,7 +18,7 @@ interface WanAndroidApi {
      * 首页Banner
      */
     @GET("banner/json")
-    fun getBannerList(): LiveData<BaseResponse<List<WanAndroidBannerBean>>>
+    fun getBannerList(): LiveData<BaseResponse<ArrayList<WanAndroidBannerBean>>>
 
     /**
      * 首页文章列表

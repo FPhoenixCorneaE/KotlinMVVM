@@ -1,14 +1,16 @@
 package com.wkz.wanandroid.mvvm.model
 
+import java.io.Serializable
+
 data class WanAndroidPageBean(
     var curPage: Int,
-    var datas: List<ArticleBean>,
+    var datas: ArrayList<ArticleBean>,
     var offset: Int,
     var over: Boolean,
     var pageCount: Int,
     var size: Int,
     var total: Int
-) {
+) : Serializable {
     data class ArticleBean(
         var id: Int,
         var author: String,
@@ -27,5 +29,5 @@ data class WanAndroidPageBean(
         var envelopePic: String,
         var read: Boolean,
         var originId: Int
-    )
+    ) : Serializable
 }

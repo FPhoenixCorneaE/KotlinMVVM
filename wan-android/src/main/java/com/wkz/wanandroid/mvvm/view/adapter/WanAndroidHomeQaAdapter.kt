@@ -26,9 +26,7 @@ class WanAndroidHomeQaAdapter :
         position: Int
     ) {
         viewHolder.itemView.mTvTitle.text = data.title.replaceFirst("每日一问 ", "")
-        // FROM_HTML_MODE_COMPACT：html块元素之间使用一个换行符分隔
-        // FROM_HTML_MODE_LEGACY：html块元素之间使用两个换行符分隔
-        viewHolder.itemView.mTvDesc.text = Html.fromHtml(data.desc, Html.FROM_HTML_MODE_LEGACY)
+        viewHolder.itemView.mTvDesc.text = Html.fromHtml(data.desc)
         viewHolder.itemView.mNiceDate.text = data.niceDate
     }
 }

@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener
 import com.wkz.adapter.AnimationType
+import com.wkz.extension.isNonNull
 import com.wkz.extension.viewModel
 import com.wkz.framework.base.fragment.BaseFragment
 import com.wkz.wanandroid.R
@@ -56,11 +57,13 @@ class WanAndroidHomeQaFragment : BaseFragment(), OnRefreshLoadMoreListener {
             adapter = mHomeQaAdapter
         }
         mHomeQaViewModel.mQaList.observe(this, Observer {
-            when {
-                it.curPage == 1 -> mHomeQaAdapter.dataList.clear()
+            when (it.curPage) {
+                1 -> mHomeQaAdapter.dataList.clear()
             }
-            mHomeQaAdapter.dataList.addAll(it.datas)
-            mHomeQaAdapter.notifyDataSetChanged()
+            if (it.datas.isNonNull()) {
+                mHomeQaAdapter.dataList.addAll(it.datas)
+                mHomeQaAdapter.notifyDataSetChanged()
+            }
         })
     }
 

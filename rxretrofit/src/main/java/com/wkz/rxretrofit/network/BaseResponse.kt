@@ -1,6 +1,7 @@
 package com.wkz.rxretrofit.network
 
 import androidx.annotation.Keep
+import java.io.Serializable
 
 /**
  * 封装返回的数据
@@ -11,4 +12,4 @@ data class BaseResponse<T>(
     val errorCode: Int,
     val errorMsg: String,
     val data: T?
-)
+) : Serializable

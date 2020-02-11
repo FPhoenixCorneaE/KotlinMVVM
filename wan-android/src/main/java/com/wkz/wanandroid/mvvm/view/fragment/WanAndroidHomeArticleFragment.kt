@@ -8,11 +8,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener
 import com.wkz.adapter.AnimationType
+import com.wkz.extension.isNonNull
 import com.wkz.extension.viewModel
 import com.wkz.framework.base.fragment.BaseFragment
 import com.wkz.util.SizeUtil
 import com.wkz.wanandroid.R
-import com.wkz.wanandroid.mvvm.model.WanAndroidBannerBean
 import com.wkz.wanandroid.mvvm.view.adapter.WanAndroidHomeArticleAdapter
 import com.wkz.wanandroid.mvvm.view.adapter.WanAndroidHomeBannerAdapter
 import com.wkz.wanandroid.mvvm.viewmodel.WanAndroidHomeArticleViewModel
@@ -83,7 +83,7 @@ class WanAndroidHomeArticleFragment : BaseFragment(), OnRefreshLoadMoreListener 
             })
         }
         mHomeArticleViewModel.mBannerList.observe(this, Observer {
-            mBannerAdapter.dataList = it as ArrayList<WanAndroidBannerBean>
+            mBannerAdapter.dataList = it
             mBannerAdapter.notifyDataSetChanged()
         })
     }
@@ -96,11 +96,13 @@ class WanAndroidHomeArticleFragment : BaseFragment(), OnRefreshLoadMoreListener 
             isNestedScrollingEnabled = false
         }
         mHomeArticleViewModel.mArticleList.observe(this, Observer {
-            when {
-                it.curPage == 1 -> mHomeArticleAdapter.dataList.clear()
+            when (it.curPage) {
+                1 -> mHomeArticleAdapter.dataList.clear()
             }
-            mHomeArticleAdapter.dataList.addAll(it.datas)
-            mHomeArticleAdapter.notifyDataSetChanged()
+            if (it.datas.isNonNull()) {
+                mHomeArticleAdapter.dataList.addAll(it.datas)
+                mHomeArticleAdapter.notifyDataSetChanged()
+            }
         })
     }
 
