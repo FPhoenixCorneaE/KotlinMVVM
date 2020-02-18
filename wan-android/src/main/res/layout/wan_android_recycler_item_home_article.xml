@@ -19,8 +19,8 @@
 
         <ImageView
             android:id="@+id/mIvIcon"
-            android:layout_width="@dimen/dp_36"
-            android:layout_height="@dimen/dp_36"
+            android:layout_width="@dimen/dp_20"
+            android:layout_height="@dimen/dp_20"
             android:layout_margin="@dimen/dp_16"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -28,25 +28,93 @@
             tools:src="@tools:sample/avatars" />
 
         <TextView
+            android:id="@+id/mTvAuthor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_8"
+            android:background="@drawable/wan_android_selector_author"
+            android:textColor="@color/wan_android_color_gray_0x666666"
+            android:textSize="@dimen/sp_13"
+            app:layout_constraintBottom_toBottomOf="@+id/mIvIcon"
+            app:layout_constraintStart_toEndOf="@+id/mIvIcon"
+            app:layout_constraintTop_toTopOf="@+id/mIvIcon"
+            tools:text="@tools:sample/first_names" />
+
+        <TextView
+            android:id="@+id/mTvTop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_8"
+            android:background="@drawable/wan_android_shape_label_top"
+            android:text="@string/wan_android_top"
+            android:textColor="@android:color/holo_red_light"
+            android:textSize="@dimen/sp_10"
+            app:layout_constraintBottom_toBottomOf="@+id/mTvAuthor"
+            app:layout_constraintStart_toEndOf="@+id/mTvAuthor"
+            app:layout_constraintTop_toTopOf="@+id/mTvAuthor" />
+
+        <TextView
+            android:id="@+id/mTvNew"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_8"
+            android:background="@drawable/wan_android_shape_label_top"
+            android:text="@string/wan_android_new"
+            android:textColor="@android:color/holo_red_light"
+            android:textSize="@dimen/sp_10"
+            app:layout_constraintBottom_toBottomOf="@+id/mTvAuthor"
+            app:layout_constraintStart_toEndOf="@+id/mTvTop"
+            app:layout_constraintTop_toTopOf="@+id/mTvAuthor" />
+
+        <TextView
+            android:id="@+id/mTvTag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_8"
+            android:background="@drawable/wan_android_shape_label_tag"
+            android:textColor="@android:color/holo_green_dark"
+            android:textSize="@dimen/sp_10"
+            app:layout_constraintBottom_toBottomOf="@+id/mTvAuthor"
+            app:layout_constraintStart_toEndOf="@+id/mTvNew"
+            app:layout_constraintTop_toTopOf="@+id/mTvAuthor"
+            tools:text="@string/wan_android_ask" />
+
+        <TextView
+            android:id="@+id/mNiceDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/dp_16"
+            android:textColor="@color/wan_android_color_gray_0x999999"
+            android:textSize="@dimen/sp_12"
+            app:layout_constraintBottom_toBottomOf="@+id/mIvIcon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/mIvIcon"
+            tools:text="@tools:sample/date/mmddyy" />
+
+        <TextView
             android:id="@+id/mTvTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_68"
+            android:layout_marginStart="@dimen/dp_16"
+            android:layout_marginTop="@dimen/dp_12"
             android:layout_marginEnd="@dimen/dp_16"
             android:ellipsize="end"
+            android:fontFamily="@font/framework_slender_gold"
             android:maxLines="2"
             android:textColor="@color/wan_android_color_title_0x222222"
-            android:textSize="@dimen/sp_16"
+            android:textSize="@dimen/sp_14"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/mIvIcon"
+            app:layout_constraintTop_toBottomOf="@+id/mIvIcon"
             tools:text="@tools:sample/lorem/random" />
 
         <TextView
             android:id="@+id/mSuperChapterName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_20"
+            android:layout_marginStart="@dimen/dp_16"
+            android:layout_marginTop="@dimen/dp_12"
             android:layout_marginBottom="@dimen/dp_16"
             android:gravity="center"
             android:paddingStart="@dimen/dp_4"
@@ -57,8 +125,8 @@
             app:drawableId="shape_rounded_4dp"
             app:drawableType="shape"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/mIvIcon"
-            app:layout_constraintTop_toBottomOf="@+id/mIvIcon"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mTvTitle"
             app:shapeCornerRadius="@dimen/dp_4"
             app:shapeSolidColor="@color/wan_android_color_black_alpha10"
             tools:ignore="MissingPrefix"
@@ -81,17 +149,5 @@
             app:layout_constraintTop_toTopOf="@+id/mSuperChapterName"
             tools:ignore="MissingPrefix"
             tools:text="@tools:sample/last_names" />
-
-        <TextView
-            android:id="@+id/mNiceDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/dp_16"
-            android:textSize="@dimen/sp_12"
-            app:layout_constraintBottom_toBottomOf="@+id/mSuperChapterName"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/mSuperChapterName"
-            tools:text="@tools:sample/date/mmddyy" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

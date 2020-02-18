@@ -21,6 +21,12 @@ interface WanAndroidApi {
     fun getBannerList(): LiveData<BaseResponse<ArrayList<WanAndroidBannerBean>>>
 
     /**
+     * 首页置顶文章集合数据
+     */
+    @GET("article/top/json")
+    fun getTopArticleList(): LiveData<BaseResponse<ArrayList<WanAndroidPageBean.ArticleBean>>>
+
+    /**
      * 首页文章列表
      */
     @GET("article/list/{page}/json")

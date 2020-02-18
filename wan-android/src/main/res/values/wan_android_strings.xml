@@ -2,4 +2,7 @@
     <string name="wan_android_app_name">WanAndroid</string>
     <string name="wan_android_title_fragment_home_article">推荐</string>
     <string name="wan_android_title_fragment_home_qa">每日一问</string>
+    <string name="wan_android_top">置顶</string>
+    <string name="wan_android_new">新</string>
+    <string name="wan_android_ask">问答</string>
 </resources>

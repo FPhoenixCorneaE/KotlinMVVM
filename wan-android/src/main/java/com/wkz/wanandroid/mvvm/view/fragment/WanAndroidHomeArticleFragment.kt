@@ -13,6 +13,7 @@ import com.wkz.extension.viewModel
 import com.wkz.framework.base.fragment.BaseFragment
 import com.wkz.util.SizeUtil
 import com.wkz.wanandroid.R
+import com.wkz.wanandroid.mvvm.model.WanAndroidPageBean
 import com.wkz.wanandroid.mvvm.view.adapter.WanAndroidHomeArticleAdapter
 import com.wkz.wanandroid.mvvm.view.adapter.WanAndroidHomeBannerAdapter
 import com.wkz.wanandroid.mvvm.viewmodel.WanAndroidHomeArticleViewModel
@@ -26,12 +27,11 @@ class WanAndroidHomeArticleFragment : BaseFragment(), OnRefreshLoadMoreListener 
     private val mBannerAdapter by lazy(LazyThreadSafetyMode.NONE) {
         WanAndroidHomeBannerAdapter()
     }
-
     private val mHomeArticleAdapter by lazy(LazyThreadSafetyMode.NONE) {
         WanAndroidHomeArticleAdapter()
     }
-
     private val mHomeArticleViewModel by viewModel<WanAndroidHomeArticleViewModel>()
+    private var mTopArticleList = ArrayList<WanAndroidPageBean.ArticleBean>()
 
     /**
      * 加载布局
@@ -95,9 +95,15 @@ class WanAndroidHomeArticleFragment : BaseFragment(), OnRefreshLoadMoreListener 
             adapter = mHomeArticleAdapter
             isNestedScrollingEnabled = false
         }
+        mHomeArticleViewModel.mTopArticleList.observe(this, Observer {
+            mTopArticleList = it
+        })
         mHomeArticleViewModel.mArticleList.observe(this, Observer {
             when (it.curPage) {
-                1 -> mHomeArticleAdapter.dataList.clear()
+                1 -> {
+                    mHomeArticleAdapter.dataList.clear()
+                    mHomeArticleAdapter.dataList.addAll(0, mTopArticleList)
+                }
             }
             if (it.datas.isNonNull()) {
                 mHomeArticleAdapter.dataList.addAll(it.datas)

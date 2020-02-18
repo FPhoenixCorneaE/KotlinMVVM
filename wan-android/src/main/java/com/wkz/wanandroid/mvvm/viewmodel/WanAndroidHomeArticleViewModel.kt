@@ -22,6 +22,16 @@ class WanAndroidHomeArticleViewModel : WanAndroidBaseViewModel() {
             it.data ?: ArrayList()
         }
     }
+    /* 置顶文章列表 */
+    val mTopArticleList = Transformations.switchMap(mPage) {
+        Transformations.map(sWanAndroidService.getTopArticleList()) {
+            if (mPage.value == 0) {
+                it.data ?: ArrayList()
+            } else {
+                ArrayList()
+            }
+        }
+    }
     /* 文章列表 */
     val mArticleList = Transformations.switchMap(mPage) { it ->
         Transformations.map(sWanAndroidService.getArticleList(it)) {

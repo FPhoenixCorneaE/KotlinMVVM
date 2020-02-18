@@ -13,6 +13,7 @@
     <color name="wan_android_color_black">#000000</color>
     <color name="wan_android_color_darker_gray">#aaaaaa</color>
     <color name="wan_android_color_lighter_gray">#dddddd</color>
+    <color name="wan_android_color_gray_0x666666">#666666</color>
     <color name="wan_android_color_gray_0x999999">#999999</color>
     <color name="wan_android_color_title_white">#ffffff</color>
     <color name="wan_android_color_title_0x222222">#000000</color>

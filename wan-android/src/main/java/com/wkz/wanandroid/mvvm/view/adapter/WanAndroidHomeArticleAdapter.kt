@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.text.Html
 import androidx.recyclerview.widget.RecyclerView
 import com.wkz.adapter.BaseNBAdapter
+import com.wkz.extension.visible
 import com.wkz.framework.glide.GlideUtil
 import com.wkz.util.SizeUtil
 import com.wkz.wanandroid.R
@@ -27,15 +28,32 @@ class WanAndroidHomeArticleAdapter :
         data: WanAndroidPageBean.ArticleBean,
         position: Int
     ) {
-        GlideUtil.setupRoundedImage(
-            viewHolder.itemView.mIvIcon,
-            getIcon(data.link),
-            SizeUtil.dp2px(4F)
-        )
-        viewHolder.itemView.mTvTitle.text = Html.fromHtml(data.title)
-        viewHolder.itemView.mSuperChapterName.text = data.superChapterName
-        viewHolder.itemView.mChapterName.text = data.chapterName
-        viewHolder.itemView.mNiceDate.text = data.niceDate
+        viewHolder.itemView.apply {
+            GlideUtil.setupRoundedImage(
+                mIvIcon,
+                getIcon(data.link),
+                SizeUtil.dp2px(4f)
+            )
+            mTvAuthor.text =
+                when {
+                    data.author.isNotEmpty() -> {
+                        data.author
+                    }
+                    else -> {
+                        data.shareUser
+                    }
+                }
+            mTvTop.visible(data.type == 1)
+            mTvNew.visible(data.fresh)
+            mTvTag.visible(data.tags.isNotEmpty())
+            if (data.tags.isNotEmpty()) {
+                mTvTag.text = data.tags[0].name
+            }
+            mTvTitle.text = Html.fromHtml(data.title)
+            mSuperChapterName.text = data.superChapterName
+            mChapterName.text = data.chapterName
+            mNiceDate.text = data.niceDate
+        }
     }
 
     private fun getIcon(link: String): Int {
