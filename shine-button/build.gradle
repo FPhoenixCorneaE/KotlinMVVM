@@ -1,9 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-// 扩展插件
 apply plugin: 'kotlin-android-extensions'
-// kapt3插件
-apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion Config.android.compileSdkVersion
@@ -43,11 +40,6 @@ android {
         }
     }
 
-    // 支持数据绑定框架dataBinding
-    dataBinding {
-        enabled true
-    }
-
     compileOptions {
         targetCompatibility JavaVersion.VERSION_1_8
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -64,31 +56,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    api project(':bottom-navigation-view')
-    api project(':common-titlebar')
-    api project(':common-util')
-    api project(':easy-behavior')
-    api project(':expand-collapse-text-view')
-    api project(':magic-indicator')
-    api project(':multiple-status-view')
-    api project(':multi-type-adapter')
-    api project(':nb-adapter')
-    api project(':pager-adapter')
-    api project(':rxretrofit')
-    api project(':shine-button')
-    api Config.supportLibs
-    api Config.kotlinLibs
-    implementation Config.dagger2Libs
-    kapt Config.kaptDagger2
-    api Config.autoDisposeLibs
-    api Config.smartRefreshLibs
-    api Config.glideLibs
-    kapt Config.kaptGlide
-    api Config.videoPlayer
-    kapt Config.kaptDataBinding
-    api Config.multiTypeLibs
-    api Config.rxImagePickerLibs
-    api Config.rxPermissions
-    api Config.folivora
-    api Config.realtimeBlurView
+    implementation Config.support.appcompat
+    implementation Config.kotlinLibs
 }
+

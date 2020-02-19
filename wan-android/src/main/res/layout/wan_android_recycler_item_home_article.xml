@@ -149,5 +149,21 @@
             app:layout_constraintTop_toTopOf="@+id/mSuperChapterName"
             tools:ignore="MissingPrefix"
             tools:text="@tools:sample/last_names" />
+
+        <com.wkz.shinebutton.ShineButton
+            android:id="@+id/mSbCollect"
+            android:layout_width="@dimen/dp_24"
+            android:layout_height="@dimen/dp_24"
+            android:layout_marginEnd="@dimen/dp_16"
+            app:layout_constraintBottom_toBottomOf="@+id/mSuperChapterName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/mSuperChapterName"
+            app:shinebutton_allow_random_color="true"
+            app:shinebutton_btn_color="@color/wan_android_color_gray_0x999999"
+            app:shinebutton_btn_fill_color="@android:color/holo_red_dark"
+            app:shinebutton_enable_flashing="true"
+            app:shinebutton_shine_count="8"
+            app:shinebutton_shape="@mipmap/shinebutton_heart"
+            app:shinebutton_shine_size="@dimen/dp_20" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

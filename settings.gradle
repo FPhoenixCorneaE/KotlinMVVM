@@ -13,6 +13,7 @@ include ':magic-indicator'
 include ':nb-adapter'
 include ':pager-adapter'
 include ':easy-behavior'
+include ':shine-button'
 
 // standalone
 include ':standalone:standalone-common-util'

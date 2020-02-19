@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ShineButton">
+        <attr name="shinebutton_btn_color" format="color" />
+        <attr name="shinebutton_btn_fill_color" format="color" />
+        <attr name="shinebutton_shine_count" format="integer" />
+        <attr name="shinebutton_shine_turn_angle" format="float" />
+        <attr name="shinebutton_small_shine_offset_angle" format="float" />
+        <attr name="shinebutton_enable_flashing" format="boolean" />
+        <attr name="shinebutton_allow_random_color" format="boolean" />
+        <attr name="shinebutton_small_shine_color" format="color" />
+        <attr name="shinebutton_big_shine_color" format="color" />
+        <attr name="shinebutton_shine_animation_duration" format="integer" />
+        <attr name="shinebutton_click_animation_duration" format="integer" />
+        <attr name="shinebutton_shine_distance_multiple" format="float" />
+        <attr name="shinebutton_shine_size" format="dimension" />
+    </declare-styleable>
+    <declare-styleable name="PorterShapeImageView">
+        <attr name="shinebutton_shape" format="integer|reference" />
+    </declare-styleable>
+</resources>
