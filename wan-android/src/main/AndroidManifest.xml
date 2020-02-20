@@ -12,19 +12,23 @@
         android:icon="@mipmap/wan_android_ic_launcher"
         android:label="@string/wan_android_app_name"
         android:largeHeap="true"
-        android:roundIcon="@mipmap/wan_android_ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning"
         tools:replace="android:label"
         tools:targetApi="m">
-        <activity android:name=".mvvm.view.activity.WanAndroidHomeActivity">
+        <activity
+            android:name=".mvvm.view.activity.WanAndroidHomeActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-    </application>
 
+        <activity
+            android:name=".mvvm.view.activity.WanAndroidWebViewActivity"
+            android:screenOrientation="portrait" />
+    </application>
 </manifest>

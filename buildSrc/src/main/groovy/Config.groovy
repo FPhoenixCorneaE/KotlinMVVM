@@ -123,6 +123,11 @@ class Config {
     static gson = 'com.google.code.gson:gson:2.8.6'
     /** 模糊透明View */
     static realtimeBlurView = 'com.github.mmin18:realtimeblurview:1.2.1'
+    /** WebView 基于腾讯x5开源库，提高webView开发效率，大概要节约你百分之六十的时间成本。该案例支持处理js的
+     * 交互逻辑且无耦合、同时暴露进度条加载进度、可以监听异常error状态、支持视频播放并且可以全频、支持加载word，
+     * xls，ppt，pdf，txt等文件文档、发短信、打电话、发邮件、打开文件操作上传图片、唤起原生App、支持webView页
+     * 面截图、x5库为最新版本，功能强大。*/
+    static webView = 'cn.yc:WebViewLib:1.2.2'
 
 
     /** compiler */

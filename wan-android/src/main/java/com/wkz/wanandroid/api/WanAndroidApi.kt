@@ -4,15 +4,28 @@ import androidx.lifecycle.LiveData
 import com.wkz.rxretrofit.network.BaseResponse
 import com.wkz.wanandroid.mvvm.model.WanAndroidBannerBean
 import com.wkz.wanandroid.mvvm.model.WanAndroidPageBean
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
+import com.wkz.wanandroid.mvvm.model.WanAndroidUserInfoBean
+import retrofit2.http.*
 
 /**
  * @desc: WanAndroid Api接口
  * @date: 2019-10-28 16:00
  */
 interface WanAndroidApi {
+
+    /**
+     * 登录
+     */
+    @FormUrlEncoded
+    @POST("user/login")
+    fun login(@Field("username") userName: String, @Field("password") password: String): LiveData<BaseResponse<WanAndroidUserInfoBean>>
+
+    /**
+     * 注册
+     */
+    @FormUrlEncoded
+    @POST("user/register")
+    fun register(@Field("username") userName: String, @Field("password") password: String, @Field("repassword") rePassword: String): LiveData<BaseResponse<Any>>
 
     /**
      * 首页Banner

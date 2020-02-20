@@ -1,5 +1,6 @@
 package com.wkz.util
 
+import android.content.res.ColorStateList
 import android.content.res.Resources
 import android.graphics.*
 import android.graphics.Bitmap.CompressFormat
@@ -13,9 +14,11 @@ import android.renderscript.RenderScript
 import android.renderscript.RenderScript.RSMessageHandler
 import android.renderscript.ScriptIntrinsicBlur
 import android.view.View
+import android.widget.ImageView
 import androidx.annotation.*
 import androidx.annotation.IntRange
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.DrawableCompat
 import java.io.*
 
 /**
@@ -76,18 +79,19 @@ class ImageUtil private constructor() {
                     return drawable.bitmap
                 }
             }
-            val bitmap: Bitmap = if (drawable.intrinsicWidth <= 0 || drawable.intrinsicHeight <= 0) {
-                Bitmap.createBitmap(
-                    1, 1,
-                    if (drawable.opacity != PixelFormat.OPAQUE) Bitmap.Config.ARGB_8888 else Bitmap.Config.RGB_565
-                )
-            } else {
-                Bitmap.createBitmap(
-                    drawable.intrinsicWidth,
-                    drawable.intrinsicHeight,
-                    if (drawable.opacity != PixelFormat.OPAQUE) Bitmap.Config.ARGB_8888 else Bitmap.Config.RGB_565
-                )
-            }
+            val bitmap: Bitmap =
+                if (drawable.intrinsicWidth <= 0 || drawable.intrinsicHeight <= 0) {
+                    Bitmap.createBitmap(
+                        1, 1,
+                        if (drawable.opacity != PixelFormat.OPAQUE) Bitmap.Config.ARGB_8888 else Bitmap.Config.RGB_565
+                    )
+                } else {
+                    Bitmap.createBitmap(
+                        drawable.intrinsicWidth,
+                        drawable.intrinsicHeight,
+                        if (drawable.opacity != PixelFormat.OPAQUE) Bitmap.Config.ARGB_8888 else Bitmap.Config.RGB_565
+                    )
+                }
             val canvas = Canvas(bitmap)
             drawable.setBounds(0, 0, canvas.width, canvas.height)
             drawable.draw(canvas)
@@ -1143,6 +1147,7 @@ class ImageUtil private constructor() {
             }
             return ret
         }
+
         /**
          * Return the alpha bitmap.
          *
@@ -1164,6 +1169,7 @@ class ImageUtil private constructor() {
             }
             return ret
         }
+
         /**
          * Return the gray bitmap.
          *
@@ -1196,6 +1202,7 @@ class ImageUtil private constructor() {
             }
             return ret
         }
+
         /**
          * Return the blur bitmap fast.
          *
@@ -1333,6 +1340,7 @@ class ImageUtil private constructor() {
             }
             return ret
         }
+
         /**
          * Return the blur bitmap using stack.
          *
@@ -1595,6 +1603,7 @@ class ImageUtil private constructor() {
                 recycle
             )
         }
+
         /**
          * Save the bitmap.
          *
@@ -2183,6 +2192,59 @@ class ImageUtil private constructor() {
                     e.printStackTrace()
                 }
             }
+        }
+
+        /**
+         * 对图标进行着色
+         *
+         * @param tintColor 着色的颜色值
+         */
+        fun setTintColor(
+            imageView: ImageView,
+            tintColor: Int
+        ) { // 获取此drawable的共享状态实例
+            val wrappedDrawable = getCanTintDrawable(imageView.drawable)
+            // 进行着色
+            DrawableCompat.setTint(wrappedDrawable, tintColor)
+            imageView.setImageDrawable(wrappedDrawable)
+        }
+
+        /**
+         * 对图标进行着色
+         * 通过ColorStateList 指定颜色状态列表
+         *
+         * @param drawableResId 图标id
+         * @param tintColor     着色的颜色值
+         */
+        fun setTintColor(
+            imageView: ImageView, @DrawableRes drawableResId: Int,
+            tintColor: Int
+        ) {
+            ResourceUtil.getDrawable(drawableResId)?.let {
+                val wrappedDrawable = getCanTintDrawable(it)
+                // 进行着色
+                DrawableCompat.setTintList(wrappedDrawable, ColorStateList.valueOf(tintColor))
+                imageView.setImageDrawable(wrappedDrawable)
+            }
+        }
+
+        /**
+         * 获取可以进行tint的Drawable
+         *
+         *
+         * 对原drawable进行重新实例化  newDrawable()
+         * 包装  warp()
+         * 可变操作 mutate()
+         *
+         * @param drawable 原始drawable
+         * @return 可着色的drawable
+         */
+        @NonNull
+        fun getCanTintDrawable(@NonNull drawable: Drawable): Drawable { // 获取此drawable的共享状态实例
+            val state = drawable.constantState
+            // 对drawable 进行重新实例化、包装、可变操作
+            return DrawableCompat.wrap(state?.newDrawable() ?: drawable)
+                .mutate()
         }
     }
 

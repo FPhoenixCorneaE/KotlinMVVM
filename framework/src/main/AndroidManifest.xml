@@ -9,6 +9,10 @@
         android:supportsRtl="true"
         tools:ignore="UnusedAttribute">
 
+        <activity
+            android:name=".base.activity.BaseWebViewActivity"
+            android:screenOrientation="portrait" />
+
         <!--适配全面屏-->
         <meta-data
             android:name="android.max_aspect"

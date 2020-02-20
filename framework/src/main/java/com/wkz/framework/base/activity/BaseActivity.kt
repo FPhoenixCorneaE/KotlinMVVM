@@ -64,7 +64,7 @@ abstract class BaseActivity : AppCompatActivity() {
         super.setContentView(mMsvRoot)
     }
 
-    protected fun initListener() {
+    protected open fun initListener() {
 
     }
 

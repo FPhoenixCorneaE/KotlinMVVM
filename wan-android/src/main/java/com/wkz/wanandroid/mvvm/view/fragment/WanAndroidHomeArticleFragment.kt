@@ -8,12 +8,18 @@ import androidx.recyclerview.widget.RecyclerView
 import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener
 import com.wkz.adapter.AnimationType
+import com.wkz.adapter.BaseNBAdapter
 import com.wkz.extension.isNonNull
 import com.wkz.extension.viewModel
+import com.wkz.framework.base.activity.BaseWebViewActivity
 import com.wkz.framework.base.fragment.BaseFragment
+import com.wkz.util.BundleBuilder
+import com.wkz.util.IntentUtil
 import com.wkz.util.SizeUtil
 import com.wkz.wanandroid.R
+import com.wkz.wanandroid.mvvm.model.WanAndroidBannerBean
 import com.wkz.wanandroid.mvvm.model.WanAndroidPageBean
+import com.wkz.wanandroid.mvvm.view.activity.WanAndroidWebViewActivity
 import com.wkz.wanandroid.mvvm.view.adapter.WanAndroidHomeArticleAdapter
 import com.wkz.wanandroid.mvvm.view.adapter.WanAndroidHomeBannerAdapter
 import com.wkz.wanandroid.mvvm.viewmodel.WanAndroidHomeArticleViewModel
@@ -58,6 +64,40 @@ class WanAndroidHomeArticleFragment : BaseFragment(), OnRefreshLoadMoreListener 
                 !it -> mSrlRefresh.finishLoadMore(1500)
             }
         })
+        mBannerAdapter.onItemClickListener =
+            object : BaseNBAdapter.OnItemClickListener<WanAndroidBannerBean> {
+                override fun onItemClick(item: WanAndroidBannerBean, position: Int) {
+                    IntentUtil.startActivity(
+                        mContext,
+                        WanAndroidWebViewActivity::class.java,
+                        BundleBuilder.of()
+                            .putString(
+                                BaseWebViewActivity.TITLE,
+                                item.title
+                            ).putString(
+                                BaseWebViewActivity.WEB_URL,
+                                item.url
+                            ).get()
+                    )
+                }
+            }
+        mHomeArticleAdapter.onItemClickListener =
+            object : BaseNBAdapter.OnItemClickListener<WanAndroidPageBean.ArticleBean> {
+                override fun onItemClick(item: WanAndroidPageBean.ArticleBean, position: Int) {
+                    IntentUtil.startActivity(
+                        mContext,
+                        WanAndroidWebViewActivity::class.java,
+                        BundleBuilder.of()
+                            .putString(
+                                BaseWebViewActivity.TITLE,
+                                item.title
+                            ).putString(
+                                BaseWebViewActivity.WEB_URL,
+                                item.link
+                            ).get()
+                    )
+                }
+            }
     }
 
     private fun initBannerRecyclerView() {
