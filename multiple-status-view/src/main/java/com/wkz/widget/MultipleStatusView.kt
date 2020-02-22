@@ -6,13 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
-import android.widget.RelativeLayout
 import com.wkz.widget.multiplestatus.R
 import java.util.*
 
 /**
  * 类描述：  一个方便在多种状态切换的view
- *
+ * 多状态布局不能继承RelativeLayout或者LinearLayout否则AgentWeb加载网页空白
  * 创建时间: 2016/1/15 10:20.
  */
 class MultipleStatusView @JvmOverloads constructor(
