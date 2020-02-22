@@ -112,6 +112,11 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     /**
+     * 已经载入数据
+     */
+    open fun isAlreadyLoadedData(): Boolean = true
+
+    /**
      * 加载布局
      */
     @LayoutRes
@@ -126,9 +131,4 @@ abstract class BaseActivity : AppCompatActivity() {
      * 初始化数据
      */
     abstract fun initData(savedInstanceState: Bundle?)
-
-    /**
-     * 已经载入数据
-     */
-    abstract fun isAlreadyLoadedData(): Boolean
 }

@@ -91,5 +91,6 @@ dependencies {
     api Config.rxPermissions
     api Config.folivora
     api Config.realtimeBlurView
+    api Config.smartSwipeLibs
     api Config.agentWebLibs
 }

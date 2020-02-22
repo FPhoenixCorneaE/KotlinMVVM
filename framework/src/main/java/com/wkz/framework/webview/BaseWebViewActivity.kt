@@ -1,5 +1,6 @@
 package com.wkz.framework.webview
 
+import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.view.KeyEvent
@@ -11,8 +12,10 @@ import com.just.agentweb.NestedScrollAgentWebView
 import com.wkz.framework.R
 import com.wkz.framework.base.activity.BaseActivity
 import com.wkz.titlebar.CommonTitleBar
+import com.wkz.util.BundleBuilder
 import com.wkz.util.DeviceIdUtil
 import com.wkz.util.ImageUtil
+import com.wkz.util.IntentUtil
 import kotlinx.android.synthetic.main.framework_activity_base_web_view.*
 
 /**
@@ -26,6 +29,17 @@ open class BaseWebViewActivity : BaseActivity() {
     companion object {
         const val WEB_URL = "web_url"
         const val TITLE = "title"
+
+        fun start(context: Context, title: String, webUrl: String) {
+            IntentUtil.startActivity(
+                context,
+                BaseWebViewActivity::class.java,
+                BundleBuilder.of()
+                    .putString(TITLE, title)
+                    .putString(WEB_URL, webUrl)
+                    .get()
+            )
+        }
     }
 
     override fun getLayoutId(): Int = R.layout.framework_activity_base_web_view

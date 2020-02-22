@@ -12,9 +12,6 @@ import com.wkz.adapter.BaseNBAdapter
 import com.wkz.extension.isNonNull
 import com.wkz.extension.viewModel
 import com.wkz.framework.base.fragment.BaseFragment
-import com.wkz.framework.webview.BaseWebViewActivity
-import com.wkz.util.BundleBuilder
-import com.wkz.util.IntentUtil
 import com.wkz.util.SizeUtil
 import com.wkz.wanandroid.R
 import com.wkz.wanandroid.mvvm.model.WanAndroidBannerBean
@@ -67,27 +64,13 @@ class WanAndroidHomeArticleFragment : BaseFragment(), OnRefreshLoadMoreListener 
         mBannerAdapter.onItemClickListener =
             object : BaseNBAdapter.OnItemClickListener<WanAndroidBannerBean> {
                 override fun onItemClick(item: WanAndroidBannerBean, position: Int) {
-                    IntentUtil.startActivity(
-                        mContext,
-                        WanAndroidWebViewActivity::class.java,
-                        BundleBuilder.of()
-                            .putString(BaseWebViewActivity.TITLE, item.title)
-                            .putString(BaseWebViewActivity.WEB_URL, item.url)
-                            .get()
-                    )
+                    WanAndroidWebViewActivity.start(mContext, item.title, item.url)
                 }
             }
         mHomeArticleAdapter.onItemClickListener =
             object : BaseNBAdapter.OnItemClickListener<WanAndroidPageBean.ArticleBean> {
                 override fun onItemClick(item: WanAndroidPageBean.ArticleBean, position: Int) {
-                    IntentUtil.startActivity(
-                        mContext,
-                        WanAndroidWebViewActivity::class.java,
-                        BundleBuilder.of()
-                            .putString(BaseWebViewActivity.TITLE, item.title)
-                            .putString(BaseWebViewActivity.WEB_URL, item.link)
-                            .get()
-                    )
+                    WanAndroidWebViewActivity.start(mContext, item.title, item.link)
                 }
             }
     }

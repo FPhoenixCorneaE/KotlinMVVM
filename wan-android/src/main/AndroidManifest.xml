@@ -17,6 +17,7 @@
         tools:ignore="AllowBackup,GoogleAppIndexingWarning"
         tools:replace="android:label"
         tools:targetApi="m">
+        <!-- 首页 -->
         <activity
             android:name=".mvvm.view.activity.WanAndroidHomeActivity"
             android:screenOrientation="portrait">
@@ -26,9 +27,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <!-- 网页显示界面 -->
         <activity
             android:name=".mvvm.view.activity.WanAndroidWebViewActivity"
+            android:screenOrientation="portrait" />
+        <!-- 登录界面 -->
+        <activity
+            android:name=".mvvm.view.activity.WanAndroidLoginActivity"
             android:screenOrientation="portrait" />
     </application>
 </manifest>

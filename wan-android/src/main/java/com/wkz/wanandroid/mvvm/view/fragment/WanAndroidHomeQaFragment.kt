@@ -5,10 +5,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener
 import com.wkz.adapter.AnimationType
+import com.wkz.adapter.BaseNBAdapter
 import com.wkz.extension.isNonNull
 import com.wkz.extension.viewModel
 import com.wkz.framework.base.fragment.BaseFragment
 import com.wkz.wanandroid.R
+import com.wkz.wanandroid.mvvm.model.WanAndroidPageBean
+import com.wkz.wanandroid.mvvm.view.activity.WanAndroidWebViewActivity
 import com.wkz.wanandroid.mvvm.view.adapter.WanAndroidHomeQaAdapter
 import com.wkz.wanandroid.mvvm.viewmodel.WanAndroidHomeQaViewModel
 import kotlinx.android.synthetic.main.wan_android_fragment_home_qa.*
@@ -48,6 +51,12 @@ class WanAndroidHomeQaFragment : BaseFragment(), OnRefreshLoadMoreListener {
                 !it -> mSrlRefresh.finishLoadMore(1500)
             }
         })
+        mHomeQaAdapter.onItemClickListener =
+            object : BaseNBAdapter.OnItemClickListener<WanAndroidPageBean.ArticleBean> {
+                override fun onItemClick(item: WanAndroidPageBean.ArticleBean, position: Int) {
+                    WanAndroidWebViewActivity.start(mContext, item.title, item.link)
+                }
+            }
     }
 
     private fun initQaRecyclerView() {

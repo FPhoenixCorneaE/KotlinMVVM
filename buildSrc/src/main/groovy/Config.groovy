@@ -159,5 +159,6 @@ class Config {
     static glideLibs = glide.values()
     static smartRefreshLibs = smartRefresh.values()
     static multiTypeLibs = multiType.values()
+    static smartSwipeLibs = smartSwipe.values()
     static agentWebLibs = agentWeb.values()
 }
