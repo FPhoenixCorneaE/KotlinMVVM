@@ -5,6 +5,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.RelativeLayout
 import com.wkz.widget.multiplestatus.R
 import java.util.*
@@ -18,7 +19,7 @@ class MultipleStatusView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
-) : RelativeLayout(context, attrs, defStyleAttr) {
+) : FrameLayout(context, attrs, defStyleAttr) {
 
     private var mEmptyView: View? = null
     private var mErrorView: View? = null

@@ -10,7 +10,9 @@
         tools:ignore="UnusedAttribute">
 
         <activity
-            android:name=".base.activity.BaseWebViewActivity"
+            android:name=".webview.BaseWebViewActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:hardwareAccelerated="true"
             android:screenOrientation="portrait" />
 
         <!--适配全面屏-->

@@ -19,7 +19,7 @@ android {
 
         // 设备CUP类型
         ndk {
-            abiFilters "armeabi", "x86"
+            abiFilters "armeabi", "armeabi-v7a", "x86"
         }
 
         // 支持矢量图

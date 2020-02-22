@@ -11,8 +11,8 @@ import com.wkz.adapter.AnimationType
 import com.wkz.adapter.BaseNBAdapter
 import com.wkz.extension.isNonNull
 import com.wkz.extension.viewModel
-import com.wkz.framework.base.activity.BaseWebViewActivity
 import com.wkz.framework.base.fragment.BaseFragment
+import com.wkz.framework.webview.BaseWebViewActivity
 import com.wkz.util.BundleBuilder
 import com.wkz.util.IntentUtil
 import com.wkz.util.SizeUtil
@@ -71,13 +71,9 @@ class WanAndroidHomeArticleFragment : BaseFragment(), OnRefreshLoadMoreListener 
                         mContext,
                         WanAndroidWebViewActivity::class.java,
                         BundleBuilder.of()
-                            .putString(
-                                BaseWebViewActivity.TITLE,
-                                item.title
-                            ).putString(
-                                BaseWebViewActivity.WEB_URL,
-                                item.url
-                            ).get()
+                            .putString(BaseWebViewActivity.TITLE, item.title)
+                            .putString(BaseWebViewActivity.WEB_URL, item.url)
+                            .get()
                     )
                 }
             }
@@ -88,13 +84,9 @@ class WanAndroidHomeArticleFragment : BaseFragment(), OnRefreshLoadMoreListener 
                         mContext,
                         WanAndroidWebViewActivity::class.java,
                         BundleBuilder.of()
-                            .putString(
-                                BaseWebViewActivity.TITLE,
-                                item.title
-                            ).putString(
-                                BaseWebViewActivity.WEB_URL,
-                                item.link
-                            ).get()
+                            .putString(BaseWebViewActivity.TITLE, item.title)
+                            .putString(BaseWebViewActivity.WEB_URL, item.link)
+                            .get()
                     )
                 }
             }

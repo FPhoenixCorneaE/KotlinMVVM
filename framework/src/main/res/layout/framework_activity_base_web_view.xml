@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/mLlWebContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -16,15 +17,4 @@
         app:leftType="imageButton"
         app:showBottomLine="true"
         app:titleBarHeight="?attr/actionBarSize" />
-
-    <!--仿微信横向进度条-->
-    <com.ycbjie.webviewlib.WebProgress
-        android:id="@+id/mWpProgress"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_3" />
-
-    <com.ycbjie.webviewlib.X5WebView
-        android:id="@+id/mWvX5Web"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
 </LinearLayout>
