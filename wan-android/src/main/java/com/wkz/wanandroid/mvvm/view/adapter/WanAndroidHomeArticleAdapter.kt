@@ -6,9 +6,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.wkz.adapter.BaseNBAdapter
 import com.wkz.extension.visible
 import com.wkz.framework.glide.GlideUtil
+import com.wkz.util.IntentUtil
 import com.wkz.util.SizeUtil
 import com.wkz.wanandroid.R
 import com.wkz.wanandroid.mvvm.model.WanAndroidPageBean
+import com.wkz.wanandroid.mvvm.view.activity.WanAndroidLoginActivity
 import kotlinx.android.synthetic.main.wan_android_recycler_item_home_article.view.*
 
 /**
@@ -53,6 +55,9 @@ class WanAndroidHomeArticleAdapter :
             mSuperChapterName.text = data.superChapterName
             mChapterName.text = data.chapterName
             mNiceDate.text = data.niceDate
+            mSbCollect.setOnClickListener {
+                IntentUtil.startActivity(context, WanAndroidLoginActivity::class.java)
+            }
         }
     }
 

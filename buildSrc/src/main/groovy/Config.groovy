@@ -1,5 +1,5 @@
 class Config {
-    static gradle_version = '3.5.3'
+    static gradle_version = '3.6.1'
     static kotlin_version = '1.3.61'
 
     static classpath = [
