@@ -22,14 +22,16 @@
             android:name=".test.TestActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustNothing" />
+            android:windowSoftInputMode="adjustNothing"
+            tools:ignore="LockedOrientationActivity" />
         <!-- 首页 -->
         <activity
             android:name=".mvvm.viewmodel.activity.OpenEyesHomeActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/open_eyes_app_name"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustNothing">
+            android:windowSoftInputMode="adjustNothing"
+            tools:ignore="LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -41,7 +43,8 @@
             android:name=".mvvm.viewmodel.activity.OpenEyesVideoDetailActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustNothing" />
+            android:windowSoftInputMode="adjustNothing"
+            tools:ignore="LockedOrientationActivity" />
     </application>
 
 </manifest>

@@ -1,7 +1,5 @@
 package com.wkz.kotlinmvvm.mvvm.viewmodel.activity
 
-import android.graphics.Typeface
-import android.os.Build
 import android.os.Bundle
 import com.wkz.bottomnavigation.BottomNavigationItem
 import com.wkz.bottomnavigation.OnBottomNavigationItemClickListener
@@ -37,16 +35,7 @@ class OpenEyesHomeActivity :
             .setItemActiveColorWithoutColoredBackground(
                 ResourceUtil.getColor(R.color.open_eyes_color_black)
             )
-            .run {
-                when {
-                    Build.VERSION.SDK_INT >= Build.VERSION_CODES.O -> {
-                        setFont(ResourceUtil.getFont(R.font.lobster))
-                    }
-                    else -> {
-                        setFont(Typeface.createFromAsset(assets, "font/lobster.otf"))
-                    }
-                }
-            }
+            .setFont(ResourceUtil.getFont(R.font.lobster))
             .setTabs(
                 listOf(
                     BottomNavigationItem(

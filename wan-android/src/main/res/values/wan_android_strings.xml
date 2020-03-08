@@ -5,4 +5,8 @@
     <string name="wan_android_top">置顶</string>
     <string name="wan_android_new">新</string>
     <string name="wan_android_ask">问答</string>
+    <string name="wan_android_login">登录</string>
+    <string name="wan_android_register">还没有账号？去注册→</string>
+    <string name="wan_android_account">账号</string>
+    <string name="wan_android_password">密码</string>
 </resources>

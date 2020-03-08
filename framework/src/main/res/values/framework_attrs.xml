@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ProgressButton">
+        <attr name="pbBgColor" format="color" />
+        <attr name="pbProgressColor" format="color" />
+        <attr name="pbText" format="string" />
+        <attr name="pbTextColor" format="color" />
+        <attr name="pbTextSize" format="dimension" />
+        <attr name="pbTextBold" format="boolean" />
+        <attr name="pbFontFamily" format="reference" />
+    </declare-styleable>
+</resources>

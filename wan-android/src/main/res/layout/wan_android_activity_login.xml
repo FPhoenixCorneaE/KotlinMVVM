@@ -11,7 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:src="@mipmap/wan_android_ic_login_bg" />
+        android:src="@mipmap/wan_android_ic_login_bg"
+        tools:ignore="ContentDescription" />
 
     <com.github.mmin18.widget.RealtimeBlurView
         android:layout_width="match_parent"
@@ -21,9 +22,10 @@
         app:realtimeOverlayColor="@color/wan_android_color_white_alpha10" />
 
     <TextView
+        android:id="@+id/mTvAppName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_160"
+        android:layout_marginTop="@dimen/dp_128"
         android:fontFamily="@font/lobster"
         android:text="@string/wan_android_app_name"
         android:textColor="@color/wan_android_color_title_0x222222"
@@ -31,4 +33,122 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/mClAccount"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_48"
+        android:layout_marginStart="@dimen/dp_20"
+        android:layout_marginTop="@dimen/dp_40"
+        android:layout_marginEnd="@dimen/dp_20"
+        android:background="@drawable/wan_android_shape_bg_login_user"
+        app:layout_constraintTop_toBottomOf="@+id/mTvAppName">
+
+        <ImageView
+            android:id="@+id/mIvAccount"
+            android:layout_width="@dimen/dp_24"
+            android:layout_height="@dimen/dp_24"
+            android:layout_marginStart="@dimen/dp_20"
+            android:src="@drawable/wan_android_ic_user"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
+
+        <EditText
+            android:id="@+id/mEtAccount"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/dp_8"
+            android:layout_marginEnd="@dimen/dp_20"
+            android:background="@null"
+            android:hint="@string/wan_android_account"
+            android:imeOptions="actionNext"
+            android:inputType="text"
+            android:maxLines="1"
+            android:textColor="@color/wan_android_color_white"
+            android:textColorHint="@color/wan_android_color_darker_gray"
+            android:textSize="@dimen/sp_20"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/mIvAccount" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/mClPassword"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_48"
+        android:layout_marginStart="@dimen/dp_20"
+        android:layout_marginTop="@dimen/dp_20"
+        android:layout_marginEnd="@dimen/dp_20"
+        android:background="@drawable/wan_android_shape_bg_login_user"
+        app:layout_constraintTop_toBottomOf="@+id/mClAccount">
+
+        <ImageView
+            android:id="@+id/mIvPassword"
+            android:layout_width="@dimen/dp_24"
+            android:layout_height="@dimen/dp_24"
+            android:layout_marginStart="@dimen/dp_20"
+            android:src="@drawable/wan_android_ic_password"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
+
+        <EditText
+            android:id="@+id/mEtPassword"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/dp_8"
+            android:layout_marginEnd="@dimen/dp_48"
+            android:background="@null"
+            android:hint="@string/wan_android_password"
+            android:imeOptions="actionDone"
+            android:inputType="textPassword"
+            android:maxLines="1"
+            android:textColor="@color/wan_android_color_white"
+            android:textColorHint="@color/wan_android_color_darker_gray"
+            android:textSize="@dimen/sp_20"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/mIvPassword" />
+
+        <ImageView
+            android:id="@+id/mIvPasswordState"
+            android:layout_width="@dimen/dp_24"
+            android:layout_height="@dimen/dp_24"
+            android:layout_marginEnd="@dimen/dp_20"
+            android:src="@drawable/wan_android_ic_password_show"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.wkz.framework.widget.ProgressButton
+        android:id="@+id/mBtnLogin"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_48"
+        android:layout_marginStart="@dimen/dp_20"
+        android:layout_marginEnd="@dimen/dp_20"
+        android:layout_marginBottom="@dimen/dp_20"
+        app:layout_constraintBottom_toTopOf="@+id/mTvRegister"
+        app:pbBgColor="@android:color/holo_red_dark"
+        app:pbFontFamily="@font/framework_slender_gold"
+        app:pbProgressColor="@android:color/white"
+        app:pbText="@string/wan_android_login"
+        app:pbTextBold="true"
+        app:pbTextColor="@color/wan_android_color_white"
+        app:pbTextSize="@dimen/sp_20" />
+
+    <TextView
+        android:id="@+id/mTvRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dp_128"
+        android:text="@string/wan_android_register"
+        android:textColor="@android:color/holo_red_dark"
+        android:textSize="@dimen/sp_20"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

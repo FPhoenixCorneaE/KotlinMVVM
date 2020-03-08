@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable
 import android.os.Build
 import androidx.annotation.*
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStream
@@ -161,9 +162,15 @@ class ResourceUtil private constructor() {
         /**
          * Get font
          */
-        @RequiresApi(Build.VERSION_CODES.O)
-        fun getFont(@FontRes resId: Int): Typeface {
-            return ContextUtil.context.resources.getFont(resId)
+        fun getFont(@FontRes resId: Int): Typeface? {
+            return when {
+                Build.VERSION.SDK_INT >= Build.VERSION_CODES.O -> {
+                    ContextUtil.context.resources.getFont(resId)
+                }
+                else -> {
+                    ResourcesCompat.getFont(ContextUtil.context, resId)
+                }
+            }
         }
 
         /**

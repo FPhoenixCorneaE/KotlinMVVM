@@ -13,6 +13,7 @@ import android.view.ViewAnimationUtils
 import android.view.ViewGroup
 import android.widget.*
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.viewpager.widget.ViewPager
 import com.wkz.bottom_navigation.R
 import java.util.*
@@ -237,11 +238,7 @@ class BottomNavigationView @JvmOverloads constructor(
                     title.typeface = font
                 }
                 else -> {
-                    title.typeface =
-                        Typeface.createFromAsset(
-                            context.applicationContext.assets,
-                            "font/noahtt_normal.ttf"
-                        )
+                    title.typeface = ResourcesCompat.getFont(context, R.font.noahtt_normal)
                 }
             }
 
@@ -653,7 +650,7 @@ class BottomNavigationView @JvmOverloads constructor(
      *
      * @param font custom font
      */
-    fun setFont(font: Typeface): BottomNavigationView {
+    fun setFont(font: Typeface?): BottomNavigationView {
         isCustomFont = true
         this.font = font
         return this
