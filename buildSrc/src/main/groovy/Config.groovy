@@ -1,6 +1,6 @@
 class Config {
     static gradle_version = '3.6.1'
-    static kotlin_version = '1.3.61'
+    static kotlin_version = '1.3.70'
 
     static classpath = [
             gradle: "com.android.tools.build:gradle:$Config.gradle_version",
@@ -131,6 +131,8 @@ class Config {
     static gson = 'com.google.code.gson:gson:2.8.6'
     /** 模糊透明View */
     static realtimeBlurView = 'com.github.mmin18:realtimeblurview:1.2.1'
+    /** Lottie */
+    static lottie = 'com.airbnb.android:lottie:3.4.0'
 
 
     /** compiler */

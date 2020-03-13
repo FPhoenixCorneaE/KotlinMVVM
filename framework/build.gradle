@@ -93,4 +93,5 @@ dependencies {
     api Config.realtimeBlurView
     api Config.smartSwipeLibs
     api Config.agentWebLibs
+    api Config.lottie
 }
