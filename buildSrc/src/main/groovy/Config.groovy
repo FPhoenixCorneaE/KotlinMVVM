@@ -133,6 +133,8 @@ class Config {
     static realtimeBlurView = 'com.github.mmin18:realtimeblurview:1.2.1'
     /** Lottie */
     static lottie = 'com.airbnb.android:lottie:3.4.0'
+    /** WorkManager */
+    static workManager = 'androidx.work:work-runtime-ktx:2.3.3'
 
 
     /** compiler */
