@@ -36,8 +36,8 @@ class ExceptionHandle {
                 }
                 is ApiException -> {
                     // 服务器返回的错误信息
-                    errorMsg = e.message.toString()
                     errorCode = ErrorStatus.SERVER_ERROR
+                    errorMsg = e.message.toString()
                 }
                 is IllegalArgumentException -> {
                     // 参数错误

@@ -18,7 +18,6 @@ package com.wkz.rxretrofit.network.ssl
 import android.annotation.SuppressLint
 import com.orhanobut.logger.Logger
 import com.wkz.util.CloseUtil
-import java.io.IOException
 import java.io.InputStream
 import java.security.KeyManagementException
 import java.security.KeyStore
@@ -29,9 +28,9 @@ import java.security.cert.X509Certificate
 import javax.net.ssl.*
 
 /**
- * http证书相关的工具类
+ * Http SSL证书套接字工具类
  */
-object SslSocketUtils {
+object SslSocketUtil {
 
     /**
      * 为了解决客户端不信任服务器数字证书的问题，网络上大部分的解决方案都是让客户端不对证书做任何检查，

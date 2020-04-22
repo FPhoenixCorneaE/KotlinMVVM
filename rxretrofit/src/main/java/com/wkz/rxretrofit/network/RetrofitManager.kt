@@ -3,7 +3,7 @@ package com.wkz.rxretrofit.network
 import androidx.collection.ArrayMap
 import com.orhanobut.logger.Logger
 import com.wkz.rxretrofit.network.factory.LiveDataCallAdapterFactory
-import com.wkz.rxretrofit.network.ssl.SslSocketUtils
+import com.wkz.rxretrofit.network.ssl.SslSocketUtil
 import com.wkz.util.ContextUtil
 import com.wkz.util.NetworkUtil
 import com.wkz.util.SharedPreferencesUtil
@@ -26,15 +26,19 @@ object RetrofitManager {
     private var mHeaderArray = ArrayMap<String, String>()
 
     /**
-     * 设置公共参数
+     * 添加公共参数拦截器
      */
     private fun addQueryParameterInterceptor(): Interceptor {
         return Interceptor { chain ->
             val originalRequest = chain.request()
             val builder = originalRequest.url().newBuilder()
             // Provide your custom QueryParameter here
-            mQueryParameterArray.forEach { (name, value) ->
-                builder.addQueryParameter(name, value)
+            mQueryParameterArray.apply {
+                forEach { (name, value) ->
+                    builder.addQueryParameter(name, value)
+                }
+                // 添加完清空
+                clear()
             }
             val modifiedUrl = builder.build()
             val request = originalRequest.newBuilder().url(modifiedUrl).build()
@@ -43,15 +47,19 @@ object RetrofitManager {
     }
 
     /**
-     * 设置请求头
+     * 添加请求头拦截器
      */
     private fun addHeaderInterceptor(): Interceptor {
         return Interceptor { chain ->
             val originalRequest = chain.request()
             val requestBuilder = originalRequest.newBuilder()
             // Provide your custom header here
-            mHeaderArray.forEach { (name, value) ->
-                requestBuilder.addHeader(name, value)
+            mHeaderArray.apply {
+                forEach { (name, value) ->
+                    requestBuilder.addHeader(name, value)
+                }
+                // 添加完清空
+                clear()
             }
             requestBuilder.method(originalRequest.method(), originalRequest.body())
             val request = requestBuilder.build()
@@ -60,7 +68,7 @@ object RetrofitManager {
     }
 
     /**
-     * 设置缓存
+     * 添加缓存拦截器
      */
     private fun addCacheInterceptor(): Interceptor {
         return Interceptor { chain ->
@@ -100,9 +108,12 @@ object RetrofitManager {
         }
     }
 
+    /**
+     * 获取OkHttpClient
+     */
     private fun getOkHttpClient(): OkHttpClient {
         // SSL证书
-        val sslParams = SslSocketUtils.getSslSocketFactory()
+        val sslParams = SslSocketUtil.getSslSocketFactory()
         // 添加一个log拦截器,打印所有的log
         val httpLoggingInterceptor = HttpLoggingInterceptor { message ->
             Logger.i(message)
@@ -124,8 +135,8 @@ object RetrofitManager {
             .addNetworkInterceptor(httpLoggingInterceptor)
             // 信任所有证书,不安全有风险
             .sslSocketFactory(sslParams.sSLSocketFactory, sslParams.trustManager)
-            .hostnameVerifier(SslSocketUtils.mUnSafeHostnameVerifier)
-            //错误重连
+            .hostnameVerifier(SslSocketUtil.mUnSafeHostnameVerifier)
+            // 错误重连
             .retryOnConnectionFailure(true)
             // 添加缓存文件与大小
             .cache(cache)
