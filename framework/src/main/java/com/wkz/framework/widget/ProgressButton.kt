@@ -38,6 +38,7 @@ class ProgressButton @JvmOverloads constructor(
     private var bgColor = Color.RED
     private var proColor = Color.WHITE
     private var mStop = false
+    private var mReset = false
     fun setBgColor(color: Int): ProgressButton {
         bgColor = color
         return this
@@ -120,8 +121,7 @@ class ProgressButton @JvmOverloads constructor(
         mRectF.bottom = measuredHeight - mPadding.toFloat()
         mRadius = (measuredHeight - 2 * mPadding shr 1.toFloat().toInt()).toFloat()
         canvas.drawRoundRect(mRectF, mRadius, mRadius, paintRectF)
-        if (mRectF.width() == mRectF.height() && !mStop) {
-            isClickable = true
+        if (mRectF.width() == mRectF.height() && !mStop && !mReset) {
             val mRectFPro = RectF()
             mRectFPro.left = measuredWidth / 2.0f - mRectF.width() / 4
             mRectFPro.top = measuredHeight / 2.0f - mRectF.width() / 4
@@ -140,6 +140,7 @@ class ProgressButton @JvmOverloads constructor(
     }
 
     fun startAnim() {
+        mReset = false
         mStop = false
         isClickable = false
         if (mProgressButtonAnim != null) {
@@ -182,15 +183,31 @@ class ProgressButton @JvmOverloads constructor(
         startAnimation(mProgressScaleAnim)
         mProgressScaleAnim!!.setAnimationListener(object : AnimationListener {
             override fun onAnimationStart(animation: Animation) {}
+            override fun onAnimationRepeat(animation: Animation) {}
             override fun onAnimationEnd(animation: Animation) {
                 clearAnimation()
                 mOnStopAnim.onStop()
-                mSpac = 0f
-                invalidate()
             }
-
-            override fun onAnimationRepeat(animation: Animation) {}
         })
+    }
+
+    fun reset() {
+        mProgressButtonAnim?.cancel()
+        mProgressRotateAnim?.cancel()
+        mProgressScaleAnim?.cancel()
+        mReset = true
+        mProgressButtonAnim?.let {
+            clearAnimation()
+            it.duration = progressButtonDuration.toLong()
+            it.setAnimationListener(object : AnimationListener {
+                override fun onAnimationRepeat(animation: Animation?) {}
+                override fun onAnimationStart(animation: Animation?) {}
+                override fun onAnimationEnd(animation: Animation?) {
+                    isClickable = true
+                }
+            })
+            startAnimation(mProgressButtonAnim)
+        }
     }
 
     private inner class ProgressButtonAnim : Animation() {
@@ -199,9 +216,10 @@ class ProgressButton @JvmOverloads constructor(
             t: Transformation
         ) {
             super.applyTransformation(interpolatedTime, t)
+            val interpolatedTime = if (mReset) 1 - interpolatedTime else interpolatedTime
             mSpac = (measuredWidth - measuredHeight) / 2.0f * interpolatedTime
             invalidate()
-            if (interpolatedTime == 1.0f) {
+            if (interpolatedTime == 1.0f && !mReset) {
                 startProAnim()
             }
         }

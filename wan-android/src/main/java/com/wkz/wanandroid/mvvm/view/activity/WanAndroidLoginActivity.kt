@@ -1,5 +1,6 @@
 package com.wkz.wanandroid.mvvm.view.activity
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
@@ -9,6 +10,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.Observer
 import com.wkz.extension.viewModel
 import com.wkz.framework.base.activity.BaseActivity
+import com.wkz.framework.widget.ProgressButton
 import com.wkz.util.IntentUtil
 import com.wkz.wanandroid.R
 import com.wkz.wanandroid.mvvm.model.WanAndroidAccountBody
@@ -42,13 +44,16 @@ class WanAndroidLoginActivity : BaseActivity(), TextWatcher {
             val username = mEtAccount.text.toString()
             val password = mEtPassword.text.toString()
             // 登录
+            mBtnLogin.startAnim()
             val accountBody = WanAndroidAccountBody(username, password)
             mAccountViewModel.login(accountBody)
         }
         mBtnNoAccount.setOnClickListener {
             // 没有账号,去注册
             prepareCall(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult? ->
-                finish()
+                if (result?.resultCode == Activity.RESULT_OK) {
+                    finish()
+                }
             }.launch(Intent(mContext, WanAndroidRegisterActivity::class.java))
         }
 
@@ -58,11 +63,22 @@ class WanAndroidLoginActivity : BaseActivity(), TextWatcher {
 
             })
             mLoginSuccess.observe(mContext, Observer {
-                if (it == true) {
-                    // 登录成功,进入首页
-                    IntentUtil.startActivity(mContext, WanAndroidHomeActivity::class.java)
-                    finish()
-                }
+                mBtnLogin.postDelayed({
+                    if (it) {
+                        // 登录成功,进入首页
+                        mBtnLogin?.stopAnim(object : ProgressButton.OnStopAnim {
+                            override fun onStop() {
+                                IntentUtil.startActivity(
+                                    mContext,
+                                    WanAndroidHomeActivity::class.java
+                                )
+                                finish()
+                            }
+                        })
+                    } else {
+                        mBtnLogin?.reset()
+                    }
+                }, 500)
             })
         }
     }

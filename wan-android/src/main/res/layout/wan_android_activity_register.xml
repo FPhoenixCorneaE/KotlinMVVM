@@ -102,7 +102,7 @@
             android:layout_marginEnd="@dimen/dp_48"
             android:background="@null"
             android:hint="@string/wan_android_password"
-            android:imeOptions="actionDone"
+            android:imeOptions="actionNext"
             android:inputType="textPassword"
             android:maxLines="1"
             android:textColor="@color/wan_android_color_white"

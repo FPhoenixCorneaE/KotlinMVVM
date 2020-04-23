@@ -8,6 +8,7 @@ import androidx.lifecycle.Observer
 import com.wkz.extension.showToast
 import com.wkz.extension.viewModel
 import com.wkz.framework.base.activity.BaseActivity
+import com.wkz.framework.widget.ProgressButton
 import com.wkz.util.IntentUtil
 import com.wkz.util.ResourceUtil
 import com.wkz.wanandroid.R
@@ -56,25 +57,41 @@ class WanAndroidRegisterActivity : BaseActivity(), TextWatcher {
                 return@setOnClickListener
             }
             // 注册
+            mBtnRegister.startAnim()
             val accountBody = WanAndroidAccountBody(username, password)
             mAccountViewModel.register(accountBody)
         }
         mAccountViewModel.apply {
             // 需要观察该LiveData,否则不会执行注册接口
             mRegisterSuccess.observe(mContext, Observer {
-
+                if (!it) {
+                    mBtnRegister.postDelayed({
+                        mBtnRegister?.reset()
+                    }, 500)
+                }
             })
             // 需要观察该LiveData,否则不会执行登录接口
             mUserInfo.observe(mContext, Observer {
 
             })
             mLoginSuccess.observe(mContext, Observer {
-                if (it) {
-                    // 登录成功,进入首页
-                    IntentUtil.startActivity(mContext, WanAndroidHomeActivity::class.java)
-                    setResult(Activity.RESULT_OK)
-                    finish()
-                }
+                mBtnRegister.postDelayed({
+                    if (it) {
+                        // 登录成功,进入首页
+                        mBtnRegister?.stopAnim(object : ProgressButton.OnStopAnim {
+                            override fun onStop() {
+                                IntentUtil.startActivity(
+                                    mContext,
+                                    WanAndroidHomeActivity::class.java
+                                )
+                                setResult(Activity.RESULT_OK)
+                                finish()
+                            }
+                        })
+                    } else {
+                        mBtnRegister?.reset()
+                    }
+                }, 500)
             })
         }
     }
