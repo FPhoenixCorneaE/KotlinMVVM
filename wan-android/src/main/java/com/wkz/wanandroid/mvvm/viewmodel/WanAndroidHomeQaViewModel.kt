@@ -12,13 +12,16 @@ class WanAndroidHomeQaViewModel : WanAndroidBaseViewModel() {
 
     /* 页数 */
     private val mPage = MutableLiveData<Int>()
+
     /* 是否正在刷新 */
     val mRefreshing = MutableLiveData<Boolean>()
+
     /* 是否正在加载更多 */
     val mLoadingMore = MutableLiveData<Boolean>()
+
     /* 问答列表 */
-    val mQaList = Transformations.switchMap(mPage) { it ->
-        Transformations.map(sWanAndroidService.getQaList(it, 440)) {
+    val mQaList = Transformations.switchMap(mPage) { page ->
+        Transformations.map(sWanAndroidService.getQaList(page, 440)) {
             mRefreshing.value = false
             mLoadingMore.value = false
             it.data ?: WanAndroidPageBean(1, ArrayList(), 0, true, 1, 20, 0)

@@ -1,32 +1,32 @@
 package com.wkz.wanandroid.mvvm.view.activity
 
-import android.content.Intent
+import android.app.Activity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import androidx.activity.result.ActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.Observer
+import com.wkz.extension.showToast
 import com.wkz.extension.viewModel
 import com.wkz.framework.base.activity.BaseActivity
 import com.wkz.util.IntentUtil
+import com.wkz.util.ResourceUtil
 import com.wkz.wanandroid.R
 import com.wkz.wanandroid.mvvm.model.WanAndroidAccountBody
 import com.wkz.wanandroid.mvvm.viewmodel.WanAndroidAccountViewModel
-import kotlinx.android.synthetic.main.wan_android_activity_login.*
+import kotlinx.android.synthetic.main.wan_android_activity_register.*
 
 /**
- * @desc: 登录Activity
- * @date: 2020-02-22 17:08
+ * @desc: 注册Activity
+ * @date: 2020-04-22 11:09
  */
-class WanAndroidLoginActivity : BaseActivity(), TextWatcher {
+class WanAndroidRegisterActivity : BaseActivity(), TextWatcher {
 
     private val mAccountViewModel by viewModel<WanAndroidAccountViewModel>()
 
-    override fun getLayoutId(): Int = R.layout.wan_android_activity_login
+    override fun getLayoutId(): Int = R.layout.wan_android_activity_register
 
     override fun initView() {
-        mBtnLogin.apply {
+        mBtnRegister.apply {
             isEnabled = false
             alpha = 0.2f
         }
@@ -38,29 +38,41 @@ class WanAndroidLoginActivity : BaseActivity(), TextWatcher {
     override fun initListener() {
         mEtAccount.addTextChangedListener(this)
         mEtPassword.addTextChangedListener(this)
-        mBtnLogin.setOnClickListener {
+        mEtPasswordConfirm.addTextChangedListener(this)
+        mBtnRegister.setOnClickListener {
             val username = mEtAccount.text.toString()
             val password = mEtPassword.text.toString()
-            // 登录
+            val rePassword = mEtPasswordConfirm.text.toString()
+            if (username.length < 6) {
+                showToast(ResourceUtil.getString(R.string.wan_android_register_tips_account_lenght))
+                return@setOnClickListener
+            }
+            if (password.length < 6) {
+                showToast(ResourceUtil.getString(R.string.wan_android_register_tips_password_length))
+                return@setOnClickListener
+            }
+            if (password != rePassword) {
+                showToast(ResourceUtil.getString(R.string.wan_android_register_tips_password_incomformity))
+                return@setOnClickListener
+            }
+            // 注册
             val accountBody = WanAndroidAccountBody(username, password)
-            mAccountViewModel.login(accountBody)
+            mAccountViewModel.register(accountBody)
         }
-        mBtnNoAccount.setOnClickListener {
-            // 没有账号,去注册
-            prepareCall(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult? ->
-                finish()
-            }.launch(Intent(mContext, WanAndroidRegisterActivity::class.java))
-        }
-
         mAccountViewModel.apply {
+            // 需要观察该LiveData,否则不会执行注册接口
+            mRegisterSuccess.observe(mContext, Observer {
+
+            })
             // 需要观察该LiveData,否则不会执行登录接口
             mUserInfo.observe(mContext, Observer {
 
             })
             mLoginSuccess.observe(mContext, Observer {
-                if (it == true) {
+                if (it) {
                     // 登录成功,进入首页
                     IntentUtil.startActivity(mContext, WanAndroidHomeActivity::class.java)
+                    setResult(Activity.RESULT_OK)
                     finish()
                 }
             })
@@ -74,10 +86,11 @@ class WanAndroidLoginActivity : BaseActivity(), TextWatcher {
     }
 
     override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-        mBtnLogin.apply {
+        mBtnRegister.apply {
             isEnabled =
                 mEtAccount.text.isNullOrBlank().not()
                         && mEtPassword.text.isNullOrBlank().not()
+                        && mEtPasswordConfirm.text.isNullOrBlank().not()
             alpha = if (isEnabled) 1f else 0.2f
         }
     }

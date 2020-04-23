@@ -12,16 +12,20 @@ class WanAndroidHomeArticleViewModel : WanAndroidBaseViewModel() {
 
     /* 页数 */
     private val mPage = MutableLiveData<Int>()
+
     /* 是否正在刷新 */
     val mRefreshing = MutableLiveData<Boolean>()
+
     /* 是否正在加载更多 */
     val mLoadingMore = MutableLiveData<Boolean>()
+
     /* Banner */
     val mBannerList = Transformations.switchMap(mPage) {
         Transformations.map(sWanAndroidService.getBannerList()) {
             it.data ?: ArrayList()
         }
     }
+
     /* 置顶文章列表 */
     val mTopArticleList = Transformations.switchMap(mPage) {
         Transformations.map(sWanAndroidService.getTopArticleList()) {
@@ -32,9 +36,10 @@ class WanAndroidHomeArticleViewModel : WanAndroidBaseViewModel() {
             }
         }
     }
+
     /* 文章列表 */
-    val mArticleList = Transformations.switchMap(mPage) { it ->
-        Transformations.map(sWanAndroidService.getArticleList(it)) {
+    val mArticleList = Transformations.switchMap(mPage) { page ->
+        Transformations.map(sWanAndroidService.getArticleList(page)) {
             mRefreshing.value = false
             mLoadingMore.value = false
             it.data ?: WanAndroidPageBean(1, ArrayList(), 0, true, 1, 20, 0)

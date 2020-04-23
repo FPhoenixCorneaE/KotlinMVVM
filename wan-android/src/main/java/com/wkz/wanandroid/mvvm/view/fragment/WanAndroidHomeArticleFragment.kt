@@ -51,16 +51,6 @@ class WanAndroidHomeArticleFragment : BaseFragment(), OnRefreshLoadMoreListener 
 
     override fun initListener() {
         mSrlRefresh.setOnRefreshLoadMoreListener(this)
-        mHomeArticleViewModel.mRefreshing.observe(this, Observer {
-            when {
-                !it -> mSrlRefresh.finishRefresh(1500)
-            }
-        })
-        mHomeArticleViewModel.mLoadingMore.observe(this, Observer {
-            when {
-                !it -> mSrlRefresh.finishLoadMore(1500)
-            }
-        })
         mBannerAdapter.onItemClickListener =
             object : BaseNBAdapter.OnItemClickListener<WanAndroidBannerBean> {
                 override fun onItemClick(item: WanAndroidBannerBean, position: Int) {
@@ -73,6 +63,40 @@ class WanAndroidHomeArticleFragment : BaseFragment(), OnRefreshLoadMoreListener 
                     WanAndroidWebViewActivity.start(mContext, item.title, item.link)
                 }
             }
+        mHomeArticleViewModel.apply {
+            mRefreshing.observe(mContext, Observer {
+                when {
+                    !it -> mSrlRefresh.finishRefresh()
+                }
+            })
+            mLoadingMore.observe(mContext, Observer {
+                when {
+                    !it -> mSrlRefresh.finishLoadMore()
+                }
+            })
+            mBannerList.observe(mContext, Observer {
+                mBannerAdapter.dataList = it
+                mBannerAdapter.notifyDataSetChanged()
+            })
+            mTopArticleList.observe(mContext, Observer {
+                this@WanAndroidHomeArticleFragment.mTopArticleList = it
+            })
+            mArticleList.observe(mContext, Observer {
+                when (it.curPage) {
+                    1 -> {
+                        mHomeArticleAdapter.dataList.clear()
+                        mHomeArticleAdapter.dataList.addAll(
+                            0,
+                            this@WanAndroidHomeArticleFragment.mTopArticleList
+                        )
+                    }
+                }
+                if (it.datas.isNonNull()) {
+                    mHomeArticleAdapter.dataList.addAll(it.datas)
+                    mHomeArticleAdapter.notifyDataSetChanged()
+                }
+            })
+        }
     }
 
     private fun initBannerRecyclerView() {
@@ -97,10 +121,6 @@ class WanAndroidHomeArticleFragment : BaseFragment(), OnRefreshLoadMoreListener 
                 }
             })
         }
-        mHomeArticleViewModel.mBannerList.observe(this, Observer {
-            mBannerAdapter.dataList = it
-            mBannerAdapter.notifyDataSetChanged()
-        })
     }
 
     private fun initArticleRecyclerView() {
@@ -110,21 +130,6 @@ class WanAndroidHomeArticleFragment : BaseFragment(), OnRefreshLoadMoreListener 
             adapter = mHomeArticleAdapter
             isNestedScrollingEnabled = false
         }
-        mHomeArticleViewModel.mTopArticleList.observe(this, Observer {
-            mTopArticleList = it
-        })
-        mHomeArticleViewModel.mArticleList.observe(this, Observer {
-            when (it.curPage) {
-                1 -> {
-                    mHomeArticleAdapter.dataList.clear()
-                    mHomeArticleAdapter.dataList.addAll(0, mTopArticleList)
-                }
-            }
-            if (it.datas.isNonNull()) {
-                mHomeArticleAdapter.dataList.addAll(it.datas)
-                mHomeArticleAdapter.notifyDataSetChanged()
-            }
-        })
     }
 
     /**

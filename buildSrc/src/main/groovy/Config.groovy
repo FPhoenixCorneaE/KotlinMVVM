@@ -1,6 +1,6 @@
 class Config {
-    static gradle_version = '3.6.1'
-    static kotlin_version = '1.3.70'
+    static gradle_version = '3.6.3'
+    static kotlin_version = '1.3.72'
 
     static classpath = [
             gradle: "com.android.tools.build:gradle:$Config.gradle_version",
@@ -42,7 +42,8 @@ class Config {
     /** Kotlin */
     static kotlin = [
             core            : "androidx.core:core-ktx:1.0.2",
-            fragment        : "androidx.fragment:fragment-ktx:1.0.0",
+            activity        : "androidx.activity:activity-ktx:1.2.0-alpha02",
+            fragment        : "androidx.fragment:fragment-ktx:1.3.0-alpha02",
             kotlinStdlibJdk7: "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$Config.kotlin_version",
     ]
 

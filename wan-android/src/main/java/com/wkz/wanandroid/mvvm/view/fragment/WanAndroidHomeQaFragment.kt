@@ -27,6 +27,7 @@ class WanAndroidHomeQaFragment : BaseFragment(), OnRefreshLoadMoreListener {
     }
 
     private val mHomeQaViewModel by viewModel<WanAndroidHomeQaViewModel>()
+
     /**
      * 加载布局
      */
@@ -41,22 +42,33 @@ class WanAndroidHomeQaFragment : BaseFragment(), OnRefreshLoadMoreListener {
 
     override fun initListener() {
         mSrlRefresh.setOnRefreshLoadMoreListener(this)
-        mHomeQaViewModel.mRefreshing.observe(this, Observer {
-            when {
-                !it -> mSrlRefresh.finishRefresh(1500)
-            }
-        })
-        mHomeQaViewModel.mLoadingMore.observe(this, Observer {
-            when {
-                !it -> mSrlRefresh.finishLoadMore(1500)
-            }
-        })
         mHomeQaAdapter.onItemClickListener =
             object : BaseNBAdapter.OnItemClickListener<WanAndroidPageBean.ArticleBean> {
                 override fun onItemClick(item: WanAndroidPageBean.ArticleBean, position: Int) {
                     WanAndroidWebViewActivity.start(mContext, item.title, item.link)
                 }
             }
+        mHomeQaViewModel.apply {
+            mRefreshing.observe(mContext, Observer {
+                when {
+                    !it -> mSrlRefresh.finishRefresh()
+                }
+            })
+            mLoadingMore.observe(mContext, Observer {
+                when {
+                    !it -> mSrlRefresh.finishLoadMore()
+                }
+            })
+            mQaList.observe(mContext, Observer {
+                when (it.curPage) {
+                    1 -> mHomeQaAdapter.dataList.clear()
+                }
+                if (it.datas.isNonNull()) {
+                    mHomeQaAdapter.dataList.addAll(it.datas)
+                    mHomeQaAdapter.notifyDataSetChanged()
+                }
+            })
+        }
     }
 
     private fun initQaRecyclerView() {
@@ -65,15 +77,6 @@ class WanAndroidHomeQaFragment : BaseFragment(), OnRefreshLoadMoreListener {
             layoutManager = LinearLayoutManager(mContext)
             adapter = mHomeQaAdapter
         }
-        mHomeQaViewModel.mQaList.observe(this, Observer {
-            when (it.curPage) {
-                1 -> mHomeQaAdapter.dataList.clear()
-            }
-            if (it.datas.isNonNull()) {
-                mHomeQaAdapter.dataList.addAll(it.datas)
-                mHomeQaAdapter.notifyDataSetChanged()
-            }
-        })
     }
 
     /**

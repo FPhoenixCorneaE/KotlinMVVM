@@ -10,6 +10,7 @@ import retrofit2.http.*
 /**
  * @desc: WanAndroid Api接口
  * @date: 2019-10-28 16:00
+ * 注意：@POST请求方式没有参数时不能添加@FormUrlEncoded,有参数时要添加@FormUrlEncoded.
  */
 interface WanAndroidApi {
 
@@ -18,14 +19,21 @@ interface WanAndroidApi {
      */
     @FormUrlEncoded
     @POST("user/login")
-    fun login(@Field("username") userName: String, @Field("password") password: String): LiveData<BaseResponse<WanAndroidUserInfoBean>>
+    fun login(
+        @Field("username") userName: String,
+        @Field("password") password: String
+    ): LiveData<BaseResponse<WanAndroidUserInfoBean>>
 
     /**
      * 注册
      */
     @FormUrlEncoded
     @POST("user/register")
-    fun register(@Field("username") userName: String, @Field("password") password: String, @Field("repassword") rePassword: String): LiveData<BaseResponse<Any>>
+    fun register(
+        @Field("username") userName: String,
+        @Field("password") password: String,
+        @Field("repassword") rePassword: String
+    ): LiveData<BaseResponse<Any>>
 
     /**
      * 首页Banner

@@ -6,7 +6,12 @@
     <string name="wan_android_new">新</string>
     <string name="wan_android_ask">问答</string>
     <string name="wan_android_login">登录</string>
-    <string name="wan_android_register">还没有账号？去注册→</string>
+    <string name="wan_android_no_account">还没有账号？去注册→</string>
     <string name="wan_android_account">账号</string>
     <string name="wan_android_password">密码</string>
+    <string name="wan_android_password_confirm">确认密码</string>
+    <string name="wan_android_register">注册</string>
+    <string name="wan_android_register_tips_account_lenght">账号长度不能小于6位！</string>
+    <string name="wan_android_register_tips_password_length">密码长度不能小于6位！</string>
+    <string name="wan_android_register_tips_password_incomformity">密码不一致！</string>
 </resources>

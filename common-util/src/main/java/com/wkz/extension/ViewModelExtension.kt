@@ -9,9 +9,7 @@ inline fun <reified T : ViewModel> FragmentActivity.viewModel() =
     lazy { ViewModelProviders.of(this).get(T::class.java) }
 
 inline fun <reified T : ViewModel> FragmentActivity.viewModel(crossinline block: T.() -> Unit) =
-    lazy {
-        ViewModelProviders.of(this).get(T::class.java).apply(block)
-    }
+    lazy { ViewModelProviders.of(this).get(T::class.java).apply(block) }
 
 inline fun <reified T : ViewModel> Fragment.viewModel() =
     lazy { ViewModelProviders.of(this).get(T::class.java) }
@@ -24,7 +22,4 @@ inline fun <reified T : ViewModel> Fragment.viewModel(
     key: Int? = null,
     crossinline block: T.() -> Unit
 ) =
-    lazy {
-        ViewModelProviders.of(this).get(key.toString(), T::class.java)
-            .apply(block)
-    }
+    lazy { ViewModelProviders.of(this).get(key.toString(), T::class.java).apply(block) }

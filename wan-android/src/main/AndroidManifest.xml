@@ -21,6 +21,7 @@
         <activity
             android:name=".mvvm.view.activity.WanAndroidHomeActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustNothing"
             tools:ignore="LockedOrientationActivity">
@@ -40,6 +41,14 @@
         <!-- 登录界面 -->
         <activity
             android:name=".mvvm.view.activity.WanAndroidLoginActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Fullscreen"
+            android:windowSoftInputMode="adjustNothing"
+            tools:ignore="LockedOrientationActivity" />
+        <!-- 注册界面 -->
+        <activity
+            android:name=".mvvm.view.activity.WanAndroidRegisterActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Fullscreen"
