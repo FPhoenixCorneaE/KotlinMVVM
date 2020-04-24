@@ -71,9 +71,6 @@ class WanAndroidRegisterActivity : BaseActivity(), TextWatcher {
                 }
             })
             // 需要观察该LiveData,否则不会执行登录接口
-            mUserInfo.observe(mContext, Observer {
-
-            })
             mLoginSuccess.observe(mContext, Observer {
                 mBtnRegister.postDelayed({
                     if (it) {

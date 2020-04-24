@@ -347,7 +347,7 @@ class ShineButton : PorterShapeImageView {
     }
 
     interface OnCheckedChangeListener {
-        fun onCheckedChanged(view: View?, checked: Boolean)
+        fun onCheckedChanged(view: View, checked: Boolean)
     }
 
     companion object {

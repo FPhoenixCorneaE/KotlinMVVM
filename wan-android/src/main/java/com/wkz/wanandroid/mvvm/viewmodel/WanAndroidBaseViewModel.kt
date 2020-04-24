@@ -5,6 +5,7 @@ import com.wkz.rxretrofit.network.IBaseUrl
 import com.wkz.rxretrofit.network.RetrofitManager
 import com.wkz.util.AppUtil
 import com.wkz.util.DeviceIdUtil
+import com.wkz.util.LanguageUtil
 import com.wkz.wanandroid.api.WanAndroidApi
 import com.wkz.wanandroid.api.WanAndroidUrlConstant
 
@@ -15,6 +16,7 @@ open class WanAndroidBaseViewModel : ViewModel(), IBaseUrl {
             .addHeader("deviceModel", AppUtil.getMobileModel())
             .addHeader("versionCode", AppUtil.versionCode.toString())
             .addHeader("versionName", AppUtil.versionName)
+            .addHeader("language", LanguageUtil.currentLocale.toString())
             .addHeader("sign", AppUtil.getSign())
             .getRetrofit(this)
             .create(WanAndroidApi::class.java)

@@ -31,13 +31,12 @@ import kotlin.reflect.KProperty
 class SharedPreferencesUtil<T>(private val keyName: String, private val default: T) {
 
     companion object {
-        private const val file_name = "kotlin_mvvm_file"
 
         /**
          * Get SharedPreferences
          */
         private val sharedPreferences: SharedPreferences by lazy {
-            ContextUtil.context.getSharedPreferences(file_name, Context.MODE_PRIVATE)
+            ContextUtil.context.getSharedPreferences(AppUtil.appName, Context.MODE_PRIVATE)
         }
 
         /**

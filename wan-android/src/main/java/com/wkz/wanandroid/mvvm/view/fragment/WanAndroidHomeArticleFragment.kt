@@ -10,12 +10,16 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener
 import com.wkz.adapter.AnimationType
 import com.wkz.adapter.BaseNBAdapter
 import com.wkz.extension.isNonNull
+import com.wkz.extension.showToast
 import com.wkz.extension.viewModel
 import com.wkz.framework.base.fragment.BaseFragment
+import com.wkz.util.IntentUtil
 import com.wkz.util.SizeUtil
 import com.wkz.wanandroid.R
+import com.wkz.wanandroid.manager.WanAndroidUserManager
 import com.wkz.wanandroid.mvvm.model.WanAndroidBannerBean
 import com.wkz.wanandroid.mvvm.model.WanAndroidPageBean
+import com.wkz.wanandroid.mvvm.view.activity.WanAndroidLoginActivity
 import com.wkz.wanandroid.mvvm.view.activity.WanAndroidWebViewActivity
 import com.wkz.wanandroid.mvvm.view.adapter.WanAndroidHomeArticleAdapter
 import com.wkz.wanandroid.mvvm.view.adapter.WanAndroidHomeBannerAdapter
@@ -63,6 +67,24 @@ class WanAndroidHomeArticleFragment : BaseFragment(), OnRefreshLoadMoreListener 
                     WanAndroidWebViewActivity.start(mContext, item.title, item.link)
                 }
             }
+        mHomeArticleAdapter.mOnItemChildClickListener = object :
+            WanAndroidHomeArticleAdapter.OnItemChildClickListener {
+            override fun onCollectStatusChanged(
+                view: View,
+                checked: Boolean,
+                data: WanAndroidPageBean.ArticleBean,
+                position: Int
+            ) {
+                if (WanAndroidUserManager.hasLoggedOn) {
+                    // 已登录
+                    showToast("已登录！")
+                } else {
+                    // 未登录,跳转登录
+                    mHomeArticleAdapter.notifyItemChanged(position)
+                    IntentUtil.startActivity(mContext, WanAndroidLoginActivity::class.java)
+                }
+            }
+        }
         mHomeArticleViewModel.apply {
             mRefreshing.observe(mContext, Observer {
                 when {

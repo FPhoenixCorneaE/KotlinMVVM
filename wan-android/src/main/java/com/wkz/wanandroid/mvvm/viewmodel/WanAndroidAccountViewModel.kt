@@ -1,12 +1,10 @@
 package com.wkz.wanandroid.mvvm.viewmodel
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
-import com.orhanobut.logger.Logger
 import com.wkz.extension.showToast
+import com.wkz.wanandroid.manager.WanAndroidUserManager
 import com.wkz.wanandroid.mvvm.model.WanAndroidAccountBody
-import com.wkz.wanandroid.mvvm.model.WanAndroidUserInfoBean
 
 /**
  *  @desc: 账号登录、注册ViewModel
@@ -40,10 +38,7 @@ class WanAndroidAccountViewModel : WanAndroidBaseViewModel() {
     }
 
     /* 登录成功 */
-    val mLoginSuccess = MutableLiveData<Boolean>()
-
-    /* 用户信息 */
-    val mUserInfo: LiveData<WanAndroidUserInfoBean?> =
+    val mLoginSuccess =
         Transformations.switchMap(mLoginAccountBody) { accountBody ->
             Transformations.map(
                 sWanAndroidService.login(
@@ -51,14 +46,12 @@ class WanAndroidAccountViewModel : WanAndroidBaseViewModel() {
                     accountBody.password
                 )
             ) {
-                if (it.errorCode != -1) {
-                    mLoginSuccess.value = true
-                    it.data
-                } else {
+                WanAndroidUserManager.setLoginStatus(it.errorCode != -1)
+                if (it.errorCode == -1) {
+                    // 登录失败,提示失败信息
                     showToast(it.errorMsg)
-                    mLoginSuccess.value = false
-                    null
                 }
+                it.errorCode != -1
             }
         }
 

@@ -148,7 +148,7 @@
         android:background="@null"
         android:text="@string/wan_android_no_account"
         android:textColor="@android:color/holo_red_dark"
-        android:textSize="@dimen/sp_20"
+        android:textSize="@dimen/sp_18"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/mBtnLogin" />

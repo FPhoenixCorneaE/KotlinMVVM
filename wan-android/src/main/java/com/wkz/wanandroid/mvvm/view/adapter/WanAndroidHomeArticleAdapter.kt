@@ -2,15 +2,15 @@ package com.wkz.wanandroid.mvvm.view.adapter
 
 import android.annotation.SuppressLint
 import android.text.Html
+import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.wkz.adapter.BaseNBAdapter
 import com.wkz.extension.visible
 import com.wkz.framework.glide.GlideUtil
-import com.wkz.util.IntentUtil
+import com.wkz.shinebutton.ShineButton
 import com.wkz.util.SizeUtil
 import com.wkz.wanandroid.R
 import com.wkz.wanandroid.mvvm.model.WanAndroidPageBean
-import com.wkz.wanandroid.mvvm.view.activity.WanAndroidLoginActivity
 import kotlinx.android.synthetic.main.wan_android_recycler_item_home_article.view.*
 
 /**
@@ -19,6 +19,8 @@ import kotlinx.android.synthetic.main.wan_android_recycler_item_home_article.vie
  */
 class WanAndroidHomeArticleAdapter :
     BaseNBAdapter<WanAndroidPageBean.ArticleBean>() {
+
+    var mOnItemChildClickListener: OnItemChildClickListener? = null
     override fun getLayoutId(): Int = R.layout.wan_android_recycler_item_home_article
 
     /**
@@ -55,9 +57,12 @@ class WanAndroidHomeArticleAdapter :
             mSuperChapterName.text = data.superChapterName
             mChapterName.text = data.chapterName
             mNiceDate.text = data.niceDate
-            mSbCollect.setOnClickListener {
-                IntentUtil.startActivity(context, WanAndroidLoginActivity::class.java)
-            }
+            mSbCollect.setChecked(data.collect)
+            mSbCollect.setOnCheckStateChangeListener(object : ShineButton.OnCheckedChangeListener {
+                override fun onCheckedChanged(view: View, checked: Boolean) {
+                    mOnItemChildClickListener?.onCollectStatusChanged(view, checked, data, position)
+                }
+            })
         }
     }
 
@@ -70,5 +75,17 @@ class WanAndroidHomeArticleAdapter :
             link.contains("weixin.qq.com") -> R.mipmap.wan_android_ic_logo_wechat
             else -> R.mipmap.wan_android_ic_logo_other
         }
+    }
+
+    interface OnItemChildClickListener {
+        /**
+         * 收藏状态改变
+         */
+        fun onCollectStatusChanged(
+            view: View,
+            checked: Boolean,
+            data: WanAndroidPageBean.ArticleBean,
+            position: Int
+        )
     }
 }
