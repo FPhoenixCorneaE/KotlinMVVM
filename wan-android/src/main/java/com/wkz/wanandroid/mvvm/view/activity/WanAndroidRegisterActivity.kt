@@ -45,7 +45,7 @@ class WanAndroidRegisterActivity : BaseActivity(), TextWatcher {
             val password = mEtPassword.text.toString()
             val rePassword = mEtPasswordConfirm.text.toString()
             if (username.length < 6) {
-                showToast(ResourceUtil.getString(R.string.wan_android_register_tips_account_lenght))
+                showToast(ResourceUtil.getString(R.string.wan_android_register_tips_account_length))
                 return@setOnClickListener
             }
             if (password.length < 6) {

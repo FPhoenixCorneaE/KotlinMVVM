@@ -17,5 +17,17 @@
         android:id="@+id/mVpHome"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/mBnvHome"
         app:layout_constraintTop_toBottomOf="@id/mFlMagicIndicator" />
+
+    <!-- app:labelVisibilityMode="labeled" 如果底部超过三个tab,设置此属性可以正常显示 -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/mBnvHome"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        app:itemIconTint="@color/wan_android_color_gray_0x666666"
+        app:itemTextColor="@color/wan_android_color_gray_0x666666"
+        app:labelVisibilityMode="labeled"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:menu="@menu/wan_android_menu_home_bottom_navigation" />
 </androidx.constraintlayout.widget.ConstraintLayout>

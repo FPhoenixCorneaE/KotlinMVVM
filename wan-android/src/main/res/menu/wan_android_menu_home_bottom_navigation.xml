@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/mHomeMenuMain"
+        android:checked="true"
+        android:icon="@mipmap/wan_android_ic_menu_home_main"
+        android:title="@string/wan_android_home_main" />
+
+    <item
+        android:id="@+id/mHomeMenuProject"
+        android:icon="@mipmap/wan_android_ic_menu_home_project"
+        android:title="@string/wan_android_home_project" />
+
+    <item
+        android:id="@+id/mHomeMenuSquare"
+        android:icon="@mipmap/wan_android_ic_menu_home_square"
+        android:title="@string/wan_android_home_square" />
+
+    <item
+        android:id="@+id/mHomeMenuVipcn"
+        android:icon="@mipmap/wan_android_ic_menu_home_vipcn"
+        android:title="@string/wan_android_home_vipcn" />
+
+    <item
+        android:id="@+id/mHomeMenuMine"
+        android:icon="@mipmap/wan_android_ic_menu_home_mine"
+        android:title="@string/wan_android_home_mine" />
+
+</menu>
