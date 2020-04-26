@@ -12,7 +12,7 @@ class SHAUtil private constructor() {
         /**
          * SHA-512 加密
          */
-        fun encryptSHA(data: ByteArray): String {
+        fun encrypt(data: ByteArray): String {
             val builder = StringBuilder()
             try {
                 val sha = MessageDigest.getInstance("SHA-512")

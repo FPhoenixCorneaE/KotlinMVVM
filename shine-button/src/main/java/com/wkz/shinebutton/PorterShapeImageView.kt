@@ -8,26 +8,23 @@ import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 
-open class PorterShapeImageView : AbstractPorterImageView {
+open class PorterShapeImageView @JvmOverloads constructor(
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyle: Int = 0
+) : AbstractPorterImageView(context, attrs, defStyle) {
     private var shape: Drawable? = null
     private var mMatrix: Matrix? = null
     private var drawMatrix: Matrix? = null
 
-    constructor(context: Context) : super(context) {
-        setup(context, null, 0)
-    }
-
-    constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {
-        setup(context, attrs, 0)
-    }
-
-    constructor(context: Context, attrs: AttributeSet?, defStyle: Int) : super(context, attrs, defStyle) {
+    init {
         setup(context, attrs, defStyle)
     }
 
     private fun setup(context: Context, attrs: AttributeSet?, defStyle: Int) {
         if (attrs != null) {
-            val typedArray = context.obtainStyledAttributes(attrs, R.styleable.PorterShapeImageView, defStyle, 0)
+            val typedArray =
+                context.obtainStyledAttributes(attrs, R.styleable.PorterShapeImageView, defStyle, 0)
             shape = typedArray.getDrawable(R.styleable.PorterShapeImageView_shinebutton_shape)
             typedArray.recycle()
         }

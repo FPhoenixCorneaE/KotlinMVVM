@@ -5,6 +5,7 @@ import androidx.lifecycle.Transformations
 import com.wkz.extension.showToast
 import com.wkz.wanandroid.manager.WanAndroidUserManager
 import com.wkz.wanandroid.mvvm.model.WanAndroidAccountBody
+import com.wkz.wanandroid.mvvm.model.WanAndroidUserInfoBean
 
 /**
  *  @desc: 账号登录、注册ViewModel
@@ -46,12 +47,15 @@ class WanAndroidAccountViewModel : WanAndroidBaseViewModel() {
                     accountBody.password
                 )
             ) {
-                WanAndroidUserManager.setLoginStatus(it.errorCode != -1)
-                if (it.errorCode == -1) {
+                val loginSuccess = it.errorCode != -1 && it.errorCode != 1000
+                if (loginSuccess) {
+                    // 登录成功,保存用户信息
+                    WanAndroidUserManager.setUserInfo(it.data?: WanAndroidUserInfoBean())
+                }else{
                     // 登录失败,提示失败信息
                     showToast(it.errorMsg)
                 }
-                it.errorCode != -1
+                loginSuccess
             }
         }
 

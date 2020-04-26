@@ -12,9 +12,9 @@ import javax.crypto.spec.SecretKeySpec
  */
 class AESUtil private constructor() {
     companion object {
-        /*
-     * 生成密钥
-     */
+        /**
+         * 生成密钥
+         */
         @Throws(NoSuchAlgorithmException::class)
         fun initKey(): ByteArray {
             val keyGen = KeyGenerator.getInstance("AES")
@@ -23,26 +23,42 @@ class AESUtil private constructor() {
             return secretKey.encoded
         }
 
-        /*
-     * AES 加密
-     */
+        /**
+         * AES 加密
+         */
         @Throws(Exception::class)
-        fun encrypt(data: ByteArray?, key: ByteArray?): ByteArray {
-            val secretKey: SecretKey = SecretKeySpec(key, "AES")
+        fun encrypt(data: ByteArray, key: ByteArray? = null): ByteArray {
+            val secretKey: SecretKey = SecretKeySpec(key ?: initKey(), "AES")
             val cipher = Cipher.getInstance("AES")
             cipher.init(Cipher.ENCRYPT_MODE, secretKey)
             return cipher.doFinal(data)
         }
 
-        /*
-     * AES 解密
-     */
+        /**
+         * AES 加密
+         */
         @Throws(Exception::class)
-        fun decrypt(data: ByteArray?, key: ByteArray?): ByteArray {
-            val secretKey: SecretKey = SecretKeySpec(key, "AES")
+        fun encrypt(data: String, key: ByteArray? = null): String {
+            return encrypt(data.toByteArray(), key).toString()
+        }
+
+        /**
+         * AES 解密
+         */
+        @Throws(Exception::class)
+        fun decrypt(data: ByteArray, key: ByteArray? = null): ByteArray {
+            val secretKey: SecretKey = SecretKeySpec(key ?: initKey(), "AES")
             val cipher = Cipher.getInstance("AES")
             cipher.init(Cipher.DECRYPT_MODE, secretKey)
             return cipher.doFinal(data)
+        }
+
+        /**
+         * AES 解密
+         */
+        @Throws(Exception::class)
+        fun decrypt(data: String, key: ByteArray? = null): String {
+            return decrypt(data.toByteArray(), key).toString()
         }
     }
 

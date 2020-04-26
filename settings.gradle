@@ -14,6 +14,8 @@ include ':nb-adapter'
 include ':pager-adapter'
 include ':easy-behavior'
 include ':shine-button'
+include ':shape-image-view'
+include ':arc-layout'
 
 // standalone
 include ':standalone:standalone-common-util'

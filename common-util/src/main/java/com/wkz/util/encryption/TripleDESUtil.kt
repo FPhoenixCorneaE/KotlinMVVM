@@ -12,9 +12,9 @@ import javax.crypto.spec.SecretKeySpec
  */
 class TripleDESUtil private constructor() {
     companion object {
-        /*
-     * 生成密钥
-     */
+        /**
+         * 生成密钥
+         */
         @Throws(NoSuchAlgorithmException::class)
         fun initKey(): ByteArray {
             val keyGen = KeyGenerator.getInstance("DESede")
@@ -24,28 +24,42 @@ class TripleDESUtil private constructor() {
             return secretKey.encoded
         }
 
-        /*
-     * 3DES 加密
-     */
+        /**
+         * 3DES 加密
+         */
         @Throws(Exception::class)
-        fun encrypt(data: ByteArray?, key: ByteArray?): ByteArray {
-            val secretKey: SecretKey = SecretKeySpec(key, "DESede")
-            val cipher =
-                Cipher.getInstance("DESede/ECB/PKCS5Padding")
+        fun encrypt(data: ByteArray, key: ByteArray? = null): ByteArray {
+            val secretKey: SecretKey = SecretKeySpec(key ?: initKey(), "DESede")
+            val cipher = Cipher.getInstance("DESede/ECB/PKCS5Padding")
             cipher.init(Cipher.ENCRYPT_MODE, secretKey)
             return cipher.doFinal(data)
         }
 
-        /*
-     * 3DES 解密
-     */
+        /**
+         * 3DES 加密
+         */
         @Throws(Exception::class)
-        fun decrypt(data: ByteArray?, key: ByteArray?): ByteArray {
-            val secretKey: SecretKey = SecretKeySpec(key, "DESede")
-            val cipher =
-                Cipher.getInstance("DESede/ECB/PKCS5Padding")
+        fun encrypt(data: String, key: ByteArray? = null): String {
+            return encrypt(data.toByteArray(), key).toString()
+        }
+
+        /**
+         * 3DES 解密
+         */
+        @Throws(Exception::class)
+        fun decrypt(data: ByteArray, key: ByteArray? = null): ByteArray {
+            val secretKey: SecretKey = SecretKeySpec(key ?: initKey(), "DESede")
+            val cipher = Cipher.getInstance("DESede/ECB/PKCS5Padding")
             cipher.init(Cipher.DECRYPT_MODE, secretKey)
             return cipher.doFinal(data)
+        }
+
+        /**
+         * 3DES 解密
+         */
+        @Throws(Exception::class)
+        fun decrypt(data: String, key: ByteArray? = null): String {
+            return decrypt(data.toByteArray(), key).toString()
         }
     }
 

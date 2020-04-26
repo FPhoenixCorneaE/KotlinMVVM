@@ -76,6 +76,8 @@ dependencies {
     api project(':pager-adapter')
     api project(':rxretrofit')
     api project(':shine-button')
+    api project(':shape-image-view')
+    api project(':arc-layout')
     api Config.supportLibs
     api Config.kotlinLibs
     implementation Config.dagger2Libs
@@ -94,4 +96,6 @@ dependencies {
     api Config.smartSwipeLibs
     api Config.agentWebLibs
     api Config.lottie
+    api Config.workManager
+    api Config.kenBurnsView
 }

@@ -90,8 +90,8 @@ class Config {
 
     /** Glide */
     static glide = [
-            glide      : "com.github.bumptech.glide:glide:4.9.0",
-            glideOkhttp: "com.github.bumptech.glide:okhttp3-integration:4.9.0",
+            glide      : "com.github.bumptech.glide:glide:4.11.0",
+            glideOkhttp: "com.github.bumptech.glide:okhttp3-integration:4.11.0",
     ]
 
     /** 下拉刷新、上拉加载、二级刷新、淘宝二楼、RefreshLayout、OverScroll，Android智能下拉刷新框架，
@@ -138,11 +138,13 @@ class Config {
     static lottie = 'com.airbnb.android:lottie:3.4.0'
     /** WorkManager */
     static workManager = 'androidx.work:work-runtime-ktx:2.3.3'
+    /** Ken Burns effect */
+    static kenBurnsView = 'com.flaviofaria:kenburnsview:1.0.7'
 
 
     /** compiler */
     static dataBindingCompiler = "com.android.databinding:compiler:3.1.4"
-    static glideCompiler = "com.github.bumptech.glide:compiler:4.9.0"
+    static glideCompiler = "com.github.bumptech.glide:compiler:4.11.0"
     static dagger2Compiler = [
             daggerCompiler        : 'com.google.dagger:dagger-compiler:2.16',
             daggerAndroidProcessor: 'com.google.dagger:dagger-android-processor:2.16',

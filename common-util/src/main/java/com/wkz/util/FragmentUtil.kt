@@ -75,6 +75,7 @@ class FragmentUtil private constructor() {
 
         /**
          * Replace an existing fragment that was added to a container.
+         * @param addToBackStack 将fragment添加到回退栈中
          */
         fun replaceFragment(
             newFragment: Fragment,
@@ -92,6 +93,7 @@ class FragmentUtil private constructor() {
         /**
          * Add a fragment to the activity state. This fragment may optionally also have its view (if
          * [Fragment.onCreateView] returns non-null) into a container view of the activity.
+         * @param addToBackStack 将fragment添加到回退栈中
          */
         fun addFragment(
             newFragment: Fragment,
@@ -111,6 +113,7 @@ class FragmentUtil private constructor() {
         /**
          * Hides an existing fragment. This is only relevant for fragments whose views have been added to a container, as
          * this will cause the view to be hidden.
+         * @param addToBackStack 将fragment添加到回退栈中
          */
         fun hideAndShowFragment(
             previousFragment: Fragment?,

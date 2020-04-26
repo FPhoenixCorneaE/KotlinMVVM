@@ -3,7 +3,6 @@
 
     <item
         android:id="@+id/mHomeMenuMain"
-        android:checked="true"
         android:icon="@mipmap/wan_android_ic_menu_home_main"
         android:title="@string/wan_android_home_main" />
 

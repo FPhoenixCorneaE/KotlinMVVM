@@ -31,6 +31,7 @@ abstract class BaseActivity : AppCompatActivity() {
 
     /** 当前界面 Context 对象*/
     protected lateinit var mContext: FragmentActivity
+
     /** 根布局 */
     protected lateinit var mMsvRoot: MultipleStatusView
 
@@ -64,6 +65,9 @@ abstract class BaseActivity : AppCompatActivity() {
         super.setContentView(mMsvRoot)
     }
 
+    /**
+     * 初始化监听器
+     */
     protected open fun initListener() {
 
     }

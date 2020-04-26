@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.wkz.arclayout.ArcLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_200"
+        android:background="@color/wan_android_colorPrimary"
+        android:elevation="@dimen/dp_10"
+        app:arc_cropDirection="cropOutside"
+        app:arc_height="@dimen/dp_50"
+        app:arc_position="bottom"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.flaviofaria.kenburnsview.KenBurnsView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/wan_android_bg_mine_user" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.wkz.shapeimageview.ShapeImageView
+                android:id="@+id/mIvUserAvatar"
+                android:layout_width="@dimen/dp_72"
+                app:siv_shape_type="circle"
+                android:layout_height="@dimen/dp_72"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/dp_20" />
+        </FrameLayout>
+    </com.wkz.arclayout.ArcLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
