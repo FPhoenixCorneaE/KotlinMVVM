@@ -367,7 +367,7 @@ class ShapeImageView @JvmOverloads constructor(
         return this
     }
 
-    fun load(obj: Any?, options: RequestOptions?): ShapeImageView {
+    fun load(obj: Any?, options: RequestOptions): ShapeImageView {
         mImageLoader!!.load(obj, options)
         return this
     }

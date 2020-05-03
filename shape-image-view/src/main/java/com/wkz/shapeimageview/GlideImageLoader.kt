@@ -48,7 +48,7 @@ class GlideImageLoader(imageView: ImageView) {
         load(obj, requestOptions(*placeholder))
     }
 
-    fun load(obj: Any?, options: RequestOptions?) {
+    fun load(obj: Any?, options: RequestOptions) {
         if (context == null) {
             return
         }
@@ -63,18 +63,20 @@ class GlideImageLoader(imageView: ImageView) {
         if (context == null || transitionOptions == null) {
             return
         }
-        requestBuilder(obj, requestOptions(*placeholder)).transition(transitionOptions)
+        requestBuilder(obj, requestOptions(*placeholder))
+            .transition(transitionOptions)
             .into(imageView!!)
     }
 
     fun requestBuilder(
         obj: Any?,
-        options: RequestOptions?
+        options: RequestOptions
     ): RequestBuilder<Drawable?> {
         mImageUrlObj = obj
         return Glide.with(context!!)
             .load(obj)
-            .apply(options!!)
+            .skipMemoryCache(false)
+            .apply(options)
             .listener(object : RequestListener<Drawable?> {
                 override fun onLoadFailed(
                     e: GlideException?,

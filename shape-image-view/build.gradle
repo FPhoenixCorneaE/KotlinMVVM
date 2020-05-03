@@ -43,6 +43,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation Config.kotlinLibs
     api Config.glideLibs
     kapt Config.kaptGlide
 }
