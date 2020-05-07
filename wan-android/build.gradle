@@ -17,9 +17,9 @@ android {
         versionName "1.0.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        // 设备CUP类型
+        // CPU架构,只支持目前主流版本"arm64-v8a",性能最佳
         ndk {
-            abiFilters "armeabi", "armeabi-v7a", "x86"
+            abiFilters "arm64-v8a"
         }
 
         // 支持矢量图
