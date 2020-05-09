@@ -16,6 +16,7 @@ include ':easy-behavior'
 include ':shine-button'
 include ':shape-image-view'
 include ':arc-layout'
+include ':palette-image-view'
 
 // standalone
 include ':standalone:standalone-common-util'

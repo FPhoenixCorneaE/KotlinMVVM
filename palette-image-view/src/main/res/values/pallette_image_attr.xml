@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="PaletteImageView">
+        <attr name="piv_paletteRadius" format="dimension" />
+        <attr name="piv_paletteSrc" format="reference" />
+        <attr name="piv_palettePadding" format="dimension" />
+        <attr name="piv_paletteOffsetX" format="dimension" />
+        <attr name="piv_paletteOffsetY" format="dimension" />
+        <attr name="piv_paletteShadowRadius" format="dimension" />
+
+    </declare-styleable>
+</resources>
