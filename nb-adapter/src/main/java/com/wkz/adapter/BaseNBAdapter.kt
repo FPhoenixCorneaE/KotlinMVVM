@@ -1,10 +1,10 @@
 package com.wkz.adapter
 
+import android.content.res.Resources
 import android.graphics.Rect
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.GridLayoutManager
@@ -18,15 +18,19 @@ import kotlin.math.abs
 abstract class BaseNBAdapter<T> : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     //正常type 0;
     internal val TYPE_NORMAL = 0
+
     //头部type默认小于-100 > -10000  我相信头部不能能回家到9900个，如果超过这个数把底部继续拉下限
     internal val TYPE_HEAD = -100
+
     //底部type默认小于-10000
     internal val TYPE_FOOT = -10000
 
     //头部储存器
     internal var headViews = ArrayList<View>()
+
     //底部储存器
     internal var footViews = ArrayList<View>()
+
     //数据源
     var dataList: ArrayList<T> = ArrayList()
 
@@ -36,8 +40,10 @@ abstract class BaseNBAdapter<T> : RecyclerView.Adapter<RecyclerView.ViewHolder>(
      * */
     //记录时间差，看看是否大于50，防止动画一起执行；
     private var currentMillions = 0
+
     //记录已经启动过动画的position的位置
     private var currentPosition = -1
+
     //如果一直存在小于50的时候，用于叠加delay时间
     private var delayTimePosition = 1
     private var animationType: AnimationType? = null
@@ -166,63 +172,79 @@ abstract class BaseNBAdapter<T> : RecyclerView.Adapter<RecyclerView.ViewHolder>(
 
     private fun addItemAnimation(viewHolder: RecyclerView.ViewHolder, position: Int) {
         if (animResId != 0 || animationType != null) {
-            if (!alwaysShow) {
-                if (position > currentPosition) {
-                    currentPosition = position
+            try {
+                if (alwaysShow) {
                     val nowMillis = System.currentTimeMillis().toInt()
-                    var animator: Animation? = null
-                    if (animResId != 0) {
-                        animator =
-                            AnimationUtils.loadAnimation(viewHolder.itemView.context, animResId)
-                    } else {
-                        if (animationType != null) {
-                            animator = AnimationUtils.loadAnimation(
+                    val animator = when {
+                        animResId != 0 -> {
+                            AnimationUtils.loadAnimation(
+                                viewHolder.itemView.context,
+                                animResId
+                            )
+                        }
+                        else -> {
+                            AnimationUtils.loadAnimation(
                                 viewHolder.itemView.context,
                                 animationType!!.resId
                             )
                         }
                     }
-                    //这里处理的是当前页显示的item执行动画的间隔太快，看不出效果
                     if (nowMillis - currentMillions >= 10) {
                         delayTimePosition = 1
                         currentMillions = nowMillis
-                        viewHolder.itemView.startAnimation(animator)
                     } else {
                         delayTimePosition++
                         currentMillions = nowMillis
-                        if (animator != null) {
+                        animator.startOffset = (50 * delayTimePosition).toLong()
+                    }
+                    // RecyclerView的四级缓存中，其中有一个mCachedViews列表，缓存的是刚从屏幕移除的
+                    // ViewHolder(已经Detached)，复用这里的ViewHolder不会重新执行onBindViewHolder。
+                    // 也就是说item Detached时动画置空，而Attached时可能不会回调onBindViewHolder重新设置动画。
+                    // 我们应该在item Attach到屏幕时设置动画，而不是在onBindViewHolder里设置。
+                    viewHolder.itemView.addOnAttachStateChangeListener(object :
+                        View.OnAttachStateChangeListener {
+                        override fun onViewAttachedToWindow(v: View?) {
+                            viewHolder.itemView.startAnimation(animator)
+                        }
+
+                        override fun onViewDetachedFromWindow(v: View?) {
+                            viewHolder.itemView.clearAnimation()
+                        }
+                    })
+                } else {
+                    if (position > currentPosition) {
+                        currentPosition = position
+                        val nowMillis = System.currentTimeMillis().toInt()
+                        val animator = when {
+                            animResId != 0 -> {
+                                AnimationUtils.loadAnimation(
+                                    viewHolder.itemView.context,
+                                    animResId
+                                )
+                            }
+                            else -> {
+                                AnimationUtils.loadAnimation(
+                                    viewHolder.itemView.context,
+                                    animationType!!.resId
+                                )
+                            }
+                        }
+                        //这里处理的是当前页显示的item执行动画的间隔太快，看不出效果
+                        if (nowMillis - currentMillions >= 10) {
+                            delayTimePosition = 1
+                            currentMillions = nowMillis
+                            viewHolder.itemView.startAnimation(animator)
+                        } else {
+                            delayTimePosition++
+                            currentMillions = nowMillis
                             animator.startOffset = (50 * delayTimePosition).toLong()
                             viewHolder.itemView.startAnimation(animator)
                         }
                     }
                 }
-            } else {
-                val nowMillis = System.currentTimeMillis().toInt()
-                var animator: Animation? = null
-                if (animResId != 0) {
-                    animator = AnimationUtils.loadAnimation(viewHolder.itemView.context, animResId)
-                } else {
-                    if (animationType != null) {
-                        animator = AnimationUtils.loadAnimation(
-                            viewHolder.itemView.context,
-                            animationType!!.resId
-                        )
-                    }
-                }
-                if (nowMillis - currentMillions >= 10) {
-                    delayTimePosition = 1
-                    currentMillions = nowMillis
-                    viewHolder.itemView.startAnimation(animator)
-                } else {
-                    delayTimePosition++
-                    currentMillions = nowMillis
-                    if (animator != null) {
-                        animator.startOffset = (50 * delayTimePosition).toLong()
-                        viewHolder.itemView.startAnimation(animator)
-                    }
-                }
+            } catch (e: Resources.NotFoundException) {
+                e.printStackTrace()
             }
-
         }
     }
 

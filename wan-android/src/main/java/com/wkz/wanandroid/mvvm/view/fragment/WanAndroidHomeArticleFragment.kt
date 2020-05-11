@@ -98,7 +98,10 @@ class WanAndroidHomeArticleFragment : BaseFragment(), OnRefreshLoadMoreListener 
             })
             mBannerList.observe(mContext, Observer {
                 mBannerAdapter.dataList = it
-                mBannerAdapter.notifyDataSetChanged()
+                mBannerAdapter.notifyItemRangeChanged(
+                    mBannerAdapter.dataList.size - it.size - 1,
+                    it.size
+                )
             })
             mTopArticleList.observe(mContext, Observer {
                 this@WanAndroidHomeArticleFragment.mTopArticleList = it
@@ -115,14 +118,17 @@ class WanAndroidHomeArticleFragment : BaseFragment(), OnRefreshLoadMoreListener 
                 }
                 if (it.datas.isNonNull()) {
                     mHomeArticleAdapter.dataList.addAll(it.datas)
-                    mHomeArticleAdapter.notifyDataSetChanged()
+                    mHomeArticleAdapter.notifyItemRangeChanged(
+                        mHomeArticleAdapter.dataList.size - it.datas.size - 1,
+                        it.datas.size
+                    )
                 }
             })
         }
     }
 
     private fun initBannerRecyclerView() {
-        mBannerAdapter.showItemAnim(AnimationType.ALPHA)
+        mBannerAdapter.showItemAnim(AnimationType.ALPHA, true)
         mRvBanner.apply {
             adapter = mBannerAdapter
             stayEnd(false)
@@ -146,7 +152,7 @@ class WanAndroidHomeArticleFragment : BaseFragment(), OnRefreshLoadMoreListener 
     }
 
     private fun initArticleRecyclerView() {
-        mHomeArticleAdapter.showItemAnim(AnimationType.TRANSLATE_FROM_BOTTOM)
+        mHomeArticleAdapter.showItemAnim(AnimationType.TRANSLATE_FROM_BOTTOM, true)
         mRvArticle.apply {
             layoutManager = LinearLayoutManager(mContext)
             adapter = mHomeArticleAdapter

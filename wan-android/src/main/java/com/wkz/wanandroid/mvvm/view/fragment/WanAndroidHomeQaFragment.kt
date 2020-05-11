@@ -65,14 +65,17 @@ class WanAndroidHomeQaFragment : BaseFragment(), OnRefreshLoadMoreListener {
                 }
                 if (it.datas.isNonNull()) {
                     mHomeQaAdapter.dataList.addAll(it.datas)
-                    mHomeQaAdapter.notifyDataSetChanged()
+                    mHomeQaAdapter.notifyItemRangeChanged(
+                        mHomeQaAdapter.dataList.size - it.datas.size - 1,
+                        it.datas.size
+                    )
                 }
             })
         }
     }
 
     private fun initQaRecyclerView() {
-        mHomeQaAdapter.showItemAnim(AnimationType.TRANSLATE_FROM_BOTTOM)
+        mHomeQaAdapter.showItemAnim(AnimationType.TRANSLATE_FROM_BOTTOM, true)
         mRvQa.apply {
             layoutManager = LinearLayoutManager(mContext)
             adapter = mHomeQaAdapter

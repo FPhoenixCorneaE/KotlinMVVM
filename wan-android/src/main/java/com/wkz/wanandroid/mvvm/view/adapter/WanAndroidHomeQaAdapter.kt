@@ -25,8 +25,10 @@ class WanAndroidHomeQaAdapter :
         data: WanAndroidPageBean.ArticleBean,
         position: Int
     ) {
-        viewHolder.itemView.mTvTitle.text = data.title.replaceFirst("每日一问 ", "")
-        viewHolder.itemView.mTvDesc.text = Html.fromHtml(data.desc)
-        viewHolder.itemView.mNiceDate.text = data.niceDate
+        viewHolder.itemView.apply {
+            mTvTitle.text = data.title.replaceFirst("每日一问 ", "")
+            mTvDesc.text = Html.fromHtml(data.desc)
+            mNiceDate.text = data.niceDate
+        }
     }
 }
