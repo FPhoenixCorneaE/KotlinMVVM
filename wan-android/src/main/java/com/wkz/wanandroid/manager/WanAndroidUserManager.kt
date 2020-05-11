@@ -9,23 +9,20 @@ import com.wkz.wanandroid.mvvm.model.WanAndroidUserInfoBean
 object WanAndroidUserManager {
 
     /* 登录状态 */
-    val hasLoggedOn = SharedPreferencesUtil.getBoolean(
-        WanAndroidConstant.WAN_ANDROID_LOGIN_STATUS,
-        false
-    )
-
-    /**
-     * 设置登录状态
-     */
-    fun setLoginStatus(loginStatus: Boolean) {
-        SharedPreferencesUtil.put(
+    var sHasLoggedOn: Boolean
+        set(loginState) {
+            SharedPreferencesUtil.put(
+                WanAndroidConstant.WAN_ANDROID_LOGIN_STATUS,
+                loginState
+            )
+        }
+        get() = SharedPreferencesUtil.getBoolean(
             WanAndroidConstant.WAN_ANDROID_LOGIN_STATUS,
-            loginStatus
+            false
         )
-    }
 
     /* 用户信息,AES解密 */
-    val mUserInfo = GsonUtil.fromJson(
+    val sUserInfo = GsonUtil.fromJson(
         AESUtil.decrypt(
             SharedPreferencesUtil.getString(WanAndroidConstant.WAN_ANDROID_USER_INFO, "")
         )
@@ -34,7 +31,7 @@ object WanAndroidUserManager {
 
     /* 设置用户信息,AES加密 */
     fun setUserInfo(userInfoBean: WanAndroidUserInfoBean) {
-        setLoginStatus(true)
+        sHasLoggedOn = true
         SharedPreferencesUtil.put(
             WanAndroidConstant.WAN_ANDROID_USER_INFO,
             AESUtil.encrypt(GsonUtil.toJson(userInfoBean))

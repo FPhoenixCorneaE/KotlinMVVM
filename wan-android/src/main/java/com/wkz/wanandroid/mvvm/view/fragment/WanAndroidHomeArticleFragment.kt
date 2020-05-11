@@ -75,7 +75,7 @@ class WanAndroidHomeArticleFragment : BaseFragment(), OnRefreshLoadMoreListener 
                 data: WanAndroidPageBean.ArticleBean,
                 position: Int
             ) {
-                if (WanAndroidUserManager.hasLoggedOn) {
+                if (WanAndroidUserManager.sHasLoggedOn) {
                     // 已登录
                     showToast("已登录！")
                 } else {
