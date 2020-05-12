@@ -2,6 +2,7 @@ package com.wkz.util.gson
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.google.gson.JsonSyntaxException
 import com.google.gson.reflect.TypeToken
 import java.io.Reader
 import java.lang.reflect.Type
@@ -13,6 +14,7 @@ class GsonUtil private constructor() {
     companion object {
         private val GSON = createGson(true)
         private val GSON_NO_NULLS = createGson(false)
+
         /**
          * Gets pre-configured [Gson] instance.
          *
@@ -87,8 +89,13 @@ class GsonUtil private constructor() {
          * @param type Type json will be converted to.
          * @return instance of type
          */
-        fun <T> fromJson(json: String, type: Class<T>): T {
-            return GSON.fromJson(json, type)
+        fun <T> fromJson(json: String, type: Class<T>): T? {
+            return try {
+                GSON.fromJson(json, type)
+            } catch (e: JsonSyntaxException) {
+                e.printStackTrace()
+                null
+            }
         }
 
         /**
@@ -98,8 +105,13 @@ class GsonUtil private constructor() {
          * @param type type type json will be converted to.
          * @return instance of type
          */
-        fun <T> fromJson(json: String, type: Type): T {
-            return GSON.fromJson(json, type)
+        fun <T> fromJson(json: String, type: Type): T? {
+            return try {
+                GSON.fromJson(json, type)
+            } catch (e: JsonSyntaxException) {
+                e.printStackTrace()
+                null
+            }
         }
 
         /**
@@ -109,8 +121,13 @@ class GsonUtil private constructor() {
          * @param type   type type json will be converted to.
          * @return instance of type
          */
-        fun <T> fromJson(reader: Reader, type: Class<T>): T {
-            return GSON.fromJson(reader, type)
+        fun <T> fromJson(reader: Reader, type: Class<T>): T? {
+            return try {
+                GSON.fromJson(reader, type)
+            } catch (e: JsonSyntaxException) {
+                e.printStackTrace()
+                null
+            }
         }
 
         /**
@@ -120,8 +137,13 @@ class GsonUtil private constructor() {
          * @param type   type type json will be converted to.
          * @return instance of type
          */
-        fun <T> fromJson(reader: Reader, type: Type): T {
-            return GSON.fromJson(reader, type)
+        fun <T> fromJson(reader: Reader, type: Type): T? {
+            return try {
+                GSON.fromJson(reader, type)
+            } catch (e: JsonSyntaxException) {
+                e.printStackTrace()
+                null
+            }
         }
 
         /**
