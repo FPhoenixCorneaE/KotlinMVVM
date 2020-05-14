@@ -1,6 +1,7 @@
 package com.wkz.util.encryption
 
 import android.util.Base64
+import java.nio.charset.Charset
 import java.security.NoSuchAlgorithmException
 import javax.crypto.Cipher
 import javax.crypto.KeyGenerator
@@ -66,7 +67,9 @@ class AESUtil private constructor() {
          */
         @Throws(Exception::class)
         fun encrypt(data: String, key: ByteArray? = null): String {
-            return encrypt(data.toByteArray(), key).toString()
+            // 不可以用ByteArray.toString().否则会报异常
+            // javax.crypto.IllegalBlockSizeException: error:1e00007b:Cipher functions:OPENSSL_internal:WRONG_FINAL_BLOCK_LENGTH
+            return String(encrypt(data.toByteArray(Charsets.ISO_8859_1), key), Charsets.ISO_8859_1)
         }
 
         /**
@@ -91,7 +94,9 @@ class AESUtil private constructor() {
          */
         @Throws(Exception::class)
         fun decrypt(data: String, key: ByteArray? = null): String {
-            return decrypt(data.toByteArray(), key).toString()
+            // 不可以用ByteArray.toString().否则会报异常
+            // javax.crypto.IllegalBlockSizeException: error:1e00007b:Cipher functions:OPENSSL_internal:WRONG_FINAL_BLOCK_LENGTH
+            return String(decrypt(data.toByteArray(Charsets.ISO_8859_1), key), Charsets.ISO_8859_1)
         }
     }
 
