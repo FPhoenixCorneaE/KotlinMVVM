@@ -1,9 +1,10 @@
 package com.wkz.shapeimageview
 
 import android.content.Context
-import android.graphics.*
-import android.graphics.drawable.BitmapDrawable
-import android.graphics.drawable.ColorDrawable
+import android.graphics.Canvas
+import android.graphics.Paint
+import android.graphics.Path
+import android.graphics.RectF
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.widget.ImageView
@@ -37,17 +38,17 @@ class ShapeImageView @JvmOverloads constructor(
      */
     private val mBorderPaint = Paint(Paint.ANTI_ALIAS_FLAG)
     private var mBorderColor = 0
-    private var mBorderWidth = 0
+    private var mBorderWidth = 0f
     private var mBorderPath = Path()
 
     /**
      * 圆角、左上角、右上角、左下角、右下角弧度
      */
-    private var mRadius = 0
-    private var mRadiusTopLeft = 0
-    private var mRadiusTopRight = 0
-    private var mRadiusBottomLeft = 0
-    private var mRadiusBottomRight = 0
+    private var mRadius = 0f
+    private var mRadiusTopLeft = 0f
+    private var mRadiusTopRight = 0f
+    private var mRadiusBottomLeft = 0f
+    private var mRadiusBottomRight = 0f
 
     /**
      * 圆角弧度数组
@@ -62,10 +63,10 @@ class ShapeImageView @JvmOverloads constructor(
     /**
      * 图片加载器
      */
-    private var mImageLoader: GlideImageLoader? = null
+    private lateinit var mImageLoader: GlideImageLoader
 
     /**
-     * 圆角矩形
+     * 矩形范围
      */
     private var mRectF = RectF()
 
@@ -94,30 +95,40 @@ class ShapeImageView @JvmOverloads constructor(
         }
     }
 
-    private fun init(
+    private fun initAttr(
         context: Context,
         attrs: AttributeSet?
     ) {
-        if (attrs != null) {
-            val array = context.obtainStyledAttributes(attrs, R.styleable.ShapeImageView)
+        attrs?.let {
+            val array = context.obtainStyledAttributes(it, R.styleable.ShapeImageView)
             try {
-                mBorderWidth =
-                    array.getDimensionPixelOffset(R.styleable.ShapeImageView_siv_border_width, 0)
-                mBorderColor = array.getColor(R.styleable.ShapeImageView_siv_border_color, 0)
-                mRadius = array.getDimensionPixelOffset(R.styleable.ShapeImageView_siv_radius, 0)
-                mRadiusTopLeft =
-                    array.getDimensionPixelOffset(R.styleable.ShapeImageView_siv_radius_top_left, 0)
-                mRadiusTopRight = array.getDimensionPixelOffset(
+                mBorderWidth = array.getDimension(
+                    R.styleable.ShapeImageView_siv_border_width,
+                    0f
+                )
+                mBorderColor = array.getColor(
+                    R.styleable.ShapeImageView_siv_border_color,
+                    0
+                )
+                mRadius = array.getDimension(
+                    R.styleable.ShapeImageView_siv_radius,
+                    0f
+                )
+                mRadiusTopLeft = array.getDimension(
+                    R.styleable.ShapeImageView_siv_radius_top_left,
+                    0f
+                )
+                mRadiusTopRight = array.getDimension(
                     R.styleable.ShapeImageView_siv_radius_top_right,
-                    0
+                    0f
                 )
-                mRadiusBottomLeft = array.getDimensionPixelOffset(
+                mRadiusBottomLeft = array.getDimension(
                     R.styleable.ShapeImageView_siv_radius_bottom_left,
-                    0
+                    0f
                 )
-                mRadiusBottomRight = array.getDimensionPixelOffset(
+                mRadiusBottomRight = array.getDimension(
                     R.styleable.ShapeImageView_siv_radius_bottom_right,
-                    0
+                    0f
                 )
                 mShapeType = array.getInteger(
                     R.styleable.ShapeImageView_siv_shape_type,
@@ -141,20 +152,18 @@ class ShapeImageView @JvmOverloads constructor(
             mRadii = when {
                 mRadius > 0 -> {
                     floatArrayOf(
-                        mRadius.toFloat(), mRadius.toFloat(),
-                        mRadius.toFloat(), mRadius.toFloat(),
-                        mRadius.toFloat(), mRadius.toFloat(),
-                        mRadius.toFloat(), mRadius
-                            .toFloat()
+                        mRadius, mRadius,
+                        mRadius, mRadius,
+                        mRadius, mRadius,
+                        mRadius, mRadius
                     )
                 }
                 else -> {
                     floatArrayOf(
-                        mRadiusTopLeft.toFloat(), mRadiusTopLeft.toFloat(),
-                        mRadiusTopRight.toFloat(), mRadiusTopRight.toFloat(),
-                        mRadiusBottomRight.toFloat(), mRadiusBottomRight.toFloat(),
-                        mRadiusBottomLeft.toFloat(), mRadiusBottomLeft
-                            .toFloat()
+                        mRadiusTopLeft, mRadiusTopLeft,
+                        mRadiusTopRight, mRadiusTopRight,
+                        mRadiusBottomRight, mRadiusBottomRight,
+                        mRadiusBottomLeft, mRadiusBottomLeft
                     )
                 }
             }
@@ -174,11 +183,10 @@ class ShapeImageView @JvmOverloads constructor(
     }
 
     override fun onDraw(canvas: Canvas) {
-        val drawable = drawable
-        if (drawable == null || width == 0 || height == 0) {
+        if (drawable == null || mWidth == 0 || mHeight == 0) {
             return
         }
-        drawDrawable(canvas, getBitmapFromDrawable(drawable))
+        drawDrawable(canvas)
         drawBorder(canvas)
     }
 
@@ -186,58 +194,34 @@ class ShapeImageView @JvmOverloads constructor(
      * 绘制图片
      *
      * @param canvas    画布
-     * @param srcBitmap 位图
      */
-    private fun drawDrawable(
-        canvas: Canvas,
-        srcBitmap: Bitmap
-    ) {
-        canvas.saveLayer(
-            0f,
-            0f,
-            mWidth.toFloat(),
-            mHeight.toFloat(),
-            null
-        )
-        var bitmap = srcBitmap
-        mDrawablePaint.color = Color.WHITE
+    private fun drawDrawable(canvas: Canvas) {
+        val saveCount = canvas.save()
+        mDrawablePath.rewind()
         if (mShapeType == ShapeType.RECTANGLE) {
-            mRectF.left = mBorderWidth.toFloat() / 2
-            mRectF.top = mBorderWidth.toFloat() / 2
-            mRectF.right = width - mBorderWidth.toFloat() / 2
-            mRectF.bottom = height - mBorderWidth.toFloat() / 2
-            mDrawablePath.rewind()
+            mRectF.left = mBorderWidth
+            mRectF.top = mBorderWidth
+            mRectF.right = mWidth - mBorderWidth
+            mRectF.bottom = mHeight - mBorderWidth
+            // 添加圆角矩形路径,Path.Direction.CW-顺时针;Path.Direction.CCW-逆时针
             mDrawablePath.addRoundRect(mRectF, mRadii, Path.Direction.CW)
-            canvas.drawPath(mDrawablePath, mDrawablePaint)
-            mDrawablePath.close()
         } else {
-            canvas.drawCircle(
+            // 添加圆形路径,Path.Direction.CW-顺时针;Path.Direction.CCW-逆时针
+            mDrawablePath.addCircle(
                 mWidth.toFloat() / 2,
                 mHeight.toFloat() / 2,
                 mWidth.toFloat() / 2 - mBorderWidth,
-                mDrawablePaint
+                Path.Direction.CW
             )
         }
-
-        // SRC_IN 只显示两层图像交集部分的上层图像
-        mDrawablePaint.xfermode = PorterDuffXfermode(PorterDuff.Mode.SRC_IN)
-
-        // Bitmap缩放
-        val scaleWidth = width.toFloat() / bitmap.width
-        val scaleHeight = height.toFloat() / bitmap.height
-        val matrix = Matrix()
-        matrix.postScale(scaleWidth, scaleHeight)
-        bitmap = Bitmap.createBitmap(
-            bitmap,
-            0,
-            0,
-            bitmap.width,
-            bitmap.height,
-            matrix,
-            true
-        )
-        canvas.drawBitmap(bitmap, 0f, 0f, mDrawablePaint)
-        canvas.restore()
+        // 剪裁图形
+        canvas.clipPath(mDrawablePath)
+        // 合并图像矩阵
+        canvas.concat(imageMatrix)
+        // 绘制图片到画布
+        drawable.draw(canvas)
+        mDrawablePath.close()
+        canvas.restoreToCount(saveCount)
     }
 
     /**
@@ -247,68 +231,30 @@ class ShapeImageView @JvmOverloads constructor(
      */
     private fun drawBorder(canvas: Canvas) {
         if (mBorderWidth > 0) {
-            canvas.save()
-            mBorderPaint.strokeWidth = mBorderWidth.toFloat()
+            val saveCount = canvas.save()
+            mBorderPaint.strokeWidth = mBorderWidth
             mBorderPaint.style = Paint.Style.STROKE
             mBorderPaint.color = mBorderColor
             if (mShapeType == ShapeType.RECTANGLE) {
-                mRectF.left = mBorderWidth.toFloat() / 2
-                mRectF.top = mBorderWidth.toFloat() / 2
-                mRectF.right = width - mBorderWidth.toFloat() / 2
-                mRectF.bottom = height - mBorderWidth.toFloat() / 2
+                mRectF.left = mBorderWidth / 2
+                mRectF.top = mBorderWidth / 2
+                mRectF.right = mWidth - mBorderWidth / 2
+                mRectF.bottom = mHeight - mBorderWidth / 2
                 mBorderPath.rewind()
                 mBorderPath.addRoundRect(mRectF, mRadii, Path.Direction.CW)
+                // 绘制圆角边框
                 canvas.drawPath(mBorderPath, mBorderPaint)
+                mBorderPath.close()
             } else {
+                // 绘制圆形边框
                 canvas.drawCircle(
                     mWidth.toFloat() / 2,
                     mHeight.toFloat() / 2,
-                    (mWidth - mBorderWidth).toFloat() / 2,
+                    (mWidth.toFloat() - mBorderWidth) / 2,
                     mBorderPaint
                 )
             }
-            canvas.restore()
-        }
-    }
-
-    /**
-     * 获取Bitmap
-     *
-     * @param drawable 图片
-     * @return Bitmap
-     */
-    private fun getBitmapFromDrawable(drawable: Drawable): Bitmap {
-        return try {
-            val bitmap: Bitmap = when (drawable) {
-                is BitmapDrawable -> {
-                    return drawable.bitmap
-                }
-                is ColorDrawable -> {
-                    Bitmap.createBitmap(
-                        1,
-                        1,
-                        Bitmap.Config.RGB_565
-                    )
-                }
-                else -> {
-                    Bitmap.createBitmap(
-                        drawable.intrinsicWidth,
-                        drawable.intrinsicHeight,
-                        Bitmap.Config.RGB_565
-                    )
-                }
-            }
-            val canvas = Canvas(bitmap)
-            drawable.setBounds(0, 0, canvas.width, canvas.height)
-            drawable.draw(canvas)
-            bitmap
-        } catch (e: OutOfMemoryError) {
-            e.printStackTrace()
-            Bitmap.createBitmap(
-                1,
-                1,
-                Bitmap.Config.RGB_565
-            )
+            canvas.restoreToCount(saveCount)
         }
     }
 
@@ -392,6 +338,6 @@ class ShapeImageView @JvmOverloads constructor(
     }
 
     init {
-        init(context, attrs)
+        initAttr(context, attrs)
     }
 }

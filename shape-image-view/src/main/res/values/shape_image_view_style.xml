@@ -2,13 +2,13 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <declare-styleable name="ShapeImageView" tools:ignore="ResourceName">
-        <attr name="siv_border_width" format="dimension"/>
+        <attr name="siv_border_width" format="float|reference"/>
         <attr name="siv_border_color" format="color"/>
-        <attr name="siv_radius" format="dimension"/>
-        <attr name="siv_radius_top_left" format="dimension"/>
-        <attr name="siv_radius_top_right" format="dimension"/>
-        <attr name="siv_radius_bottom_left" format="dimension"/>
-        <attr name="siv_radius_bottom_right" format="dimension"/>
+        <attr name="siv_radius" format="float|reference"/>
+        <attr name="siv_radius_top_left" format="float|reference"/>
+        <attr name="siv_radius_top_right" format="float|reference"/>
+        <attr name="siv_radius_bottom_left" format="float|reference"/>
+        <attr name="siv_radius_bottom_right" format="float|reference"/>
         <attr name="siv_shape_type" format="enum">
             <enum name="rectangle" value="0"/>
             <enum name="circle" value="1"/>

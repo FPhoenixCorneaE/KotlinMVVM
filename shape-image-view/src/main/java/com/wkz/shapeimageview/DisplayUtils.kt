@@ -13,9 +13,9 @@ object DisplayUtils {
      * @param dpValue dp值
      * @return px值
      */
-    fun dip2px(context: Context, dpValue: Float): Int {
+    fun dip2px(context: Context, dpValue: Float): Float {
         val scale = context.resources.displayMetrics.density
-        return (dpValue * scale + 0.5f).toInt()
+        return dpValue * scale + 0.5f
     }
 
     /**
@@ -25,9 +25,9 @@ object DisplayUtils {
      * @param pxValue px值
      * @return dp值
      */
-    fun px2dip(context: Context, pxValue: Float): Int {
+    fun px2dip(context: Context, pxValue: Float): Float {
         val scale = context.resources.displayMetrics.density
-        return (pxValue / scale + 0.5f).toInt()
+        return pxValue / scale + 0.5f
     }
 
     /**

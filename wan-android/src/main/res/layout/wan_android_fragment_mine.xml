@@ -20,17 +20,18 @@
             android:scaleType="centerCrop"
             android:src="@mipmap/wan_android_bg_mine_user" />
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <com.wkz.shapeimageview.ShapeImageView
-                android:id="@+id/mIvUserAvatar"
-                android:layout_width="@dimen/dp_72"
-                app:siv_shape_type="circle"
-                android:layout_height="@dimen/dp_72"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="@dimen/dp_20" />
-        </FrameLayout>
+        <com.wkz.shapeimageview.ShapeImageView
+            android:id="@+id/mIvUserAvatar"
+            android:layout_width="@dimen/dp_72"
+            android:layout_height="@dimen/dp_72"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/dp_20"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/wan_android_ic_avatar_default"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:siv_border_color="@color/wan_android_colorAccent"
+            app:siv_border_width="@dimen/dp_3"
+            app:siv_shape_type="circle" />
     </com.wkz.arclayout.ArcLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

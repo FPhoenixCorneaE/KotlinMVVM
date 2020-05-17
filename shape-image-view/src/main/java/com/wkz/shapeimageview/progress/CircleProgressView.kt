@@ -90,14 +90,14 @@ class CircleProgressView @JvmOverloads constructor(
         mNormalPaint!!.style =
             if (mProgressStyle == ProgressStyle.FILL_IN_ARC) Paint.Style.FILL else Paint.Style.STROKE
         mNormalPaint!!.isAntiAlias = true
-        mNormalPaint!!.strokeWidth = mNormalBarSize.toFloat()
+        mNormalPaint!!.strokeWidth = mNormalBarSize
         mReachPaint = Paint()
         mReachPaint!!.color = mReachBarColor
         mReachPaint!!.style =
             if (mProgressStyle == ProgressStyle.FILL_IN_ARC) Paint.Style.FILL else Paint.Style.STROKE
         mReachPaint!!.isAntiAlias = true
         mReachPaint!!.strokeCap = if (mReachCapRound) Paint.Cap.ROUND else Paint.Cap.BUTT
-        mReachPaint!!.strokeWidth = mReachBarSize.toFloat()
+        mReachPaint!!.strokeWidth = mReachBarSize
         if (needDrawInnerBackground) {
             mInnerBackgroundPaint = Paint()
             mInnerBackgroundPaint!!.style = Paint.Style.FILL
@@ -108,7 +108,7 @@ class CircleProgressView @JvmOverloads constructor(
             mOutPaint = Paint()
             mOutPaint!!.style = Paint.Style.STROKE
             mOutPaint!!.color = mOuterColor
-            mOutPaint!!.strokeWidth = mOuterSize.toFloat()
+            mOutPaint!!.strokeWidth = mOuterSize
             mOutPaint!!.isAntiAlias = true
         }
     }
@@ -123,14 +123,14 @@ class CircleProgressView @JvmOverloads constructor(
         // 获取三种风格通用的属性
         mNormalBarSize = ta.getDimension(
             R.styleable.CircleProgressView_cpv_progressNormalSize,
-            mNormalBarSize.toFloat()
-        ).toInt()
+            mNormalBarSize
+        )
         mNormalBarColor =
             ta.getColor(R.styleable.CircleProgressView_cpv_progressNormalColor, mNormalBarColor)
         mReachBarSize = ta.getDimension(
             R.styleable.CircleProgressView_cpv_progressReachSize,
-            mReachBarSize.toFloat()
-        ).toInt()
+            mReachBarSize
+        )
         mReachBarColor =
             ta.getColor(R.styleable.CircleProgressView_cpv_progressReachColor, mReachBarColor)
         mTextSize = ta.getDimension(
@@ -148,39 +148,39 @@ class CircleProgressView @JvmOverloads constructor(
         mTextVisible =
             ta.getBoolean(R.styleable.CircleProgressView_cpv_progressTextVisible, mTextVisible)
         mRadius =
-            ta.getDimension(R.styleable.CircleProgressView_cpv_radius, mRadius.toFloat()).toInt()
+            ta.getDimension(R.styleable.CircleProgressView_cpv_radius, mRadius)
         rectF =
-            RectF((-mRadius).toFloat(), (-mRadius).toFloat(), mRadius.toFloat(), mRadius.toFloat())
+            RectF((-mRadius), (-mRadius), mRadius, mRadius)
         when (mProgressStyle) {
             ProgressStyle.FILL_IN -> {
-                mReachBarSize = 0
-                mNormalBarSize = 0
-                mOuterSize = 0
+                mReachBarSize = 0f
+                mNormalBarSize = 0f
+                mOuterSize = 0f
             }
             ProgressStyle.FILL_IN_ARC -> {
                 mStartArc = ta.getInt(R.styleable.CircleProgressView_cpv_progressStartArc, 0) + 270
                 mInnerPadding = ta.getDimension(
                     R.styleable.CircleProgressView_cpv_innerPadding,
-                    mInnerPadding.toFloat()
-                ).toInt()
+                    mInnerPadding
+                )
                 mOuterColor =
                     ta.getColor(R.styleable.CircleProgressView_cpv_outerColor, mReachBarColor)
                 mOuterSize = ta.getDimension(
                     R.styleable.CircleProgressView_cpv_outerSize,
-                    mOuterSize.toFloat()
-                ).toInt()
+                    mOuterSize
+                )
                 // 将画笔大小重置为0
-                mReachBarSize = 0
-                mNormalBarSize = 0
+                mReachBarSize = 0f
+                mNormalBarSize = 0f
                 if (!ta.hasValue(R.styleable.CircleProgressView_cpv_progressNormalColor)) {
                     mNormalBarColor = Color.TRANSPARENT
                 }
                 val mInnerRadius = mRadius - mOuterSize / 2 - mInnerPadding
                 rectInner = RectF(
-                    (-mInnerRadius).toFloat(),
-                    (-mInnerRadius).toFloat(),
-                    mInnerRadius.toFloat(),
-                    mInnerRadius.toFloat()
+                    (-mInnerRadius),
+                    (-mInnerRadius),
+                    mInnerRadius,
+                    mInnerRadius
                 )
             }
             ProgressStyle.NORMAL -> {
@@ -210,25 +210,25 @@ class CircleProgressView @JvmOverloads constructor(
         when (mProgressStyle) {
             ProgressStyle.FILL_IN -> {
                 height = (paddingTop + paddingBottom // 边距
-                        + abs(mRadius * 2)) // 直径
+                        + abs(mRadius * 2).toInt()) // 直径
                 width = (paddingLeft + paddingRight // 边距
-                        + abs(mRadius * 2)) // 直径
+                        + abs(mRadius * 2).toInt()) // 直径
             }
             ProgressStyle.FILL_IN_ARC -> {
                 height = (paddingTop + paddingBottom // 边距
                         + abs(mRadius * 2) // 直径
-                        + maxPaintWidth) // 边框
+                        + maxPaintWidth).toInt() // 边框
                 width = (paddingLeft + paddingRight // 边距
                         + abs(mRadius * 2) // 直径
-                        + maxPaintWidth) // 边框
+                        + maxPaintWidth).toInt() // 边框
             }
             ProgressStyle.NORMAL -> {
                 height = (paddingTop + paddingBottom // 边距
                         + abs(mRadius * 2) // 直径
-                        + maxBarPaintWidth) // 边框
+                        + maxBarPaintWidth).toInt() // 边框
                 width = (paddingLeft + paddingRight // 边距
                         + abs(mRadius * 2) // 直径
-                        + maxBarPaintWidth) // 边框
+                        + maxBarPaintWidth).toInt() // 边框
             }
             else -> {
             }
@@ -282,7 +282,7 @@ class CircleProgressView @JvmOverloads constructor(
         val sweepAngle = 360 - angle * 2
         // 绘制未到达区域
         rectF =
-            RectF((-mRadius).toFloat(), (-mRadius).toFloat(), mRadius.toFloat(), mRadius.toFloat())
+            RectF((-mRadius), (-mRadius), mRadius, mRadius)
         mNormalPaint!!.style = Paint.Style.FILL
         canvas.drawArc(rectF!!, startAngle, sweepAngle, false, mNormalPaint!!)
         // 翻转180度绘制已到达区域
@@ -365,17 +365,17 @@ class CircleProgressView @JvmOverloads constructor(
         valueAnimator.start()
     }
 
-    var reachBarSize: Int
+    var reachBarSize: Float
         get() = mReachBarSize
         set(reachBarSize) {
-            mReachBarSize = DisplayUtils.dip2px(context, reachBarSize.toFloat())
+            mReachBarSize = DisplayUtils.dip2px(context, reachBarSize)
             invalidate()
         }
 
-    var normalBarSize: Int
+    var normalBarSize: Float
         get() = mNormalBarSize
         set(normalBarSize) {
-            mNormalBarSize = DisplayUtils.dip2px(context, normalBarSize.toFloat())
+            mNormalBarSize = DisplayUtils.dip2px(context, normalBarSize)
             invalidate()
         }
 
@@ -442,10 +442,10 @@ class CircleProgressView @JvmOverloads constructor(
             invalidate()
         }
 
-    var radius: Int
+    var radius: Float
         get() = mRadius
         set(radius) {
-            mRadius = DisplayUtils.dip2px(context, radius.toFloat())
+            mRadius = DisplayUtils.dip2px(context, radius)
             invalidate()
         }
 
@@ -470,16 +470,16 @@ class CircleProgressView @JvmOverloads constructor(
             invalidate()
         }
 
-    var innerPadding: Int
+    var innerPadding: Float
         get() = mInnerPadding
         set(innerPadding) {
-            mInnerPadding = DisplayUtils.dip2px(context, innerPadding.toFloat())
+            mInnerPadding = DisplayUtils.dip2px(context, innerPadding)
             val mInnerRadius = mRadius - mOuterSize / 2 - mInnerPadding
             rectInner = RectF(
-                (-mInnerRadius).toFloat(),
-                (-mInnerRadius).toFloat(),
-                mInnerRadius.toFloat(),
-                mInnerRadius.toFloat()
+                -mInnerRadius,
+                -mInnerRadius,
+                mInnerRadius,
+                mInnerRadius
             )
             invalidate()
         }
@@ -491,10 +491,10 @@ class CircleProgressView @JvmOverloads constructor(
             invalidate()
         }
 
-    var outerSize: Int
+    var outerSize: Float
         get() = mOuterSize
         set(outerSize) {
-            mOuterSize = DisplayUtils.dip2px(context, outerSize.toFloat())
+            mOuterSize = DisplayUtils.dip2px(context, outerSize)
             invalidate()
         }
 
@@ -503,13 +503,13 @@ class CircleProgressView @JvmOverloads constructor(
         bundle.putParcelable(STATE, super.onSaveInstanceState())
         // 保存当前样式
         bundle.putInt(PROGRESS_STYLE, progressStyle)
-        bundle.putInt(RADIUS, radius)
+        bundle.putFloat(RADIUS, radius)
         bundle.putBoolean(IS_REACH_CAP_ROUND, isReachCapRound)
         bundle.putInt(START_ARC, startArc)
         bundle.putInt(INNER_BG_COLOR, innerBackgroundColor)
-        bundle.putInt(INNER_PADDING, innerPadding)
+        bundle.putFloat(INNER_PADDING, innerPadding)
         bundle.putInt(OUTER_COLOR, outerColor)
-        bundle.putInt(OUTER_SIZE, outerSize)
+        bundle.putFloat(OUTER_SIZE, outerSize)
         // 保存text信息
         bundle.putInt(TEXT_COLOR, textColor)
         bundle.putInt(TEXT_SIZE, textSize)
@@ -519,24 +519,24 @@ class CircleProgressView @JvmOverloads constructor(
         bundle.putString(TEXT_PREFIX, textPrefix)
         // 保存已到达进度信息
         bundle.putInt(REACH_BAR_COLOR, reachBarColor)
-        bundle.putInt(REACH_BAR_SIZE, reachBarSize)
+        bundle.putFloat(REACH_BAR_SIZE, reachBarSize)
 
         // 保存未到达进度信息
         bundle.putInt(NORMAL_BAR_COLOR, normalBarColor)
-        bundle.putInt(NORMAL_BAR_SIZE, normalBarSize)
+        bundle.putFloat(NORMAL_BAR_SIZE, normalBarSize)
         return bundle
     }
 
     override fun onRestoreInstanceState(state: Parcelable) {
         if (state is Bundle) {
             mProgressStyle = state.getInt(PROGRESS_STYLE)
-            mRadius = state.getInt(RADIUS)
+            mRadius = state.getFloat(RADIUS)
             mReachCapRound = state.getBoolean(IS_REACH_CAP_ROUND)
             mStartArc = state.getInt(START_ARC)
             mInnerBackgroundColor = state.getInt(INNER_BG_COLOR)
-            mInnerPadding = state.getInt(INNER_PADDING)
+            mInnerPadding = state.getFloat(INNER_PADDING)
             mOuterColor = state.getInt(OUTER_COLOR)
-            mOuterSize = state.getInt(OUTER_SIZE)
+            mOuterSize = state.getFloat(OUTER_SIZE)
             mTextColor = state.getInt(TEXT_COLOR)
             mTextSize = state.getInt(TEXT_SIZE)
             mTextSkewX = state.getFloat(TEXT_SKEW_X)
@@ -544,9 +544,9 @@ class CircleProgressView @JvmOverloads constructor(
             mTextSuffix = state.getString(TEXT_SUFFIX)
             mTextPrefix = state.getString(TEXT_PREFIX)
             mReachBarColor = state.getInt(REACH_BAR_COLOR)
-            mReachBarSize = state.getInt(REACH_BAR_SIZE)
+            mReachBarSize = state.getFloat(REACH_BAR_SIZE)
             mNormalBarColor = state.getInt(NORMAL_BAR_COLOR)
-            mNormalBarSize = state.getInt(NORMAL_BAR_SIZE)
+            mNormalBarSize = state.getFloat(NORMAL_BAR_SIZE)
             initPaint()
             super.onRestoreInstanceState(state.getParcelable(STATE))
             return
