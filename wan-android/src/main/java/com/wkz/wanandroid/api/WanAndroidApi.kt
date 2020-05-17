@@ -2,9 +2,7 @@ package com.wkz.wanandroid.api
 
 import androidx.lifecycle.LiveData
 import com.wkz.rxretrofit.network.BaseResponse
-import com.wkz.wanandroid.mvvm.model.WanAndroidBannerBean
-import com.wkz.wanandroid.mvvm.model.WanAndroidPageBean
-import com.wkz.wanandroid.mvvm.model.WanAndroidUserInfoBean
+import com.wkz.wanandroid.mvvm.model.*
 import retrofit2.http.*
 
 /**
@@ -63,4 +61,34 @@ interface WanAndroidApi {
         @Path("page") page: Int,
         @Query("cid") cid: Int
     ): LiveData<BaseResponse<WanAndroidPageBean>>
+
+    /**
+     * 收藏文章
+     */
+    @POST("/lg/collect/{id}/json")
+    fun collectArticle(@Path("id") id: Int): LiveData<BaseResponse<Any>>
+
+    /**
+     * 取消收藏文章
+     */
+    @POST("/lg/uncollect_originId/{id}/json")
+    fun unCollectArticle(@Path("id") id: Int): LiveData<BaseResponse<Any>>
+
+    /**
+     * 获取当前账户的个人积分
+     */
+    @GET("/lg/coin/userinfo/json")
+    fun getIntegral(): LiveData<BaseResponse<WanAndroidIntegralBean>>
+
+    /**
+     * 获取积分排行榜
+     */
+    @GET("/coin/rank/{page}/json")
+    fun getIntegralRanking(@Path("page") page: Int): LiveData<BaseResponse<WanAndroidIntegralRankingBean>>
+
+    /**
+     * 获取积分记录
+     */
+    @GET("/lg/coin/list/{page}/json")
+    fun getIntegralRecord(@Path("page") page: Int): LiveData<BaseResponse<WanAndroidIntegralRecordBean>>
 }

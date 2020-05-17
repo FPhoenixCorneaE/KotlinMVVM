@@ -8,6 +8,7 @@ import com.wkz.adapter.app.FragmentStatePagerItemAdapter
 import com.wkz.framework.base.fragment.BaseFragment
 import com.wkz.util.ResourceUtil
 import com.wkz.util.SizeUtil
+import com.wkz.util.statusbar.StatusBarUtil
 import com.wkz.wanandroid.R
 import com.wkz.widget.magicindicator.IPagerIndicator
 import com.wkz.widget.magicindicator.IPagerTitleView
@@ -35,6 +36,9 @@ class WanAndroidHomeFragment : BaseFragment() {
      * 初始化View
      */
     override fun initView() {
+        // 模拟状态栏
+        StatusBarUtil.setSmartPadding(mContext, mVwStatusBar)
+        StatusBarUtil.setSmartMargin(mContext, mFlMagicIndicator)
         initViewPager()
         initMagicIndicator()
     }

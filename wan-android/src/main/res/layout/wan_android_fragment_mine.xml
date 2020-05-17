@@ -1,37 +1,382 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.scwang.smartrefresh.layout.SmartRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.wkz.arclayout.ArcLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_200"
-        android:background="@color/wan_android_colorPrimary"
-        android:elevation="@dimen/dp_10"
-        app:arc_cropDirection="cropOutside"
-        app:arc_height="@dimen/dp_50"
-        app:arc_position="bottom"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="match_parent">
 
-        <com.flaviofaria.kenburnsview.KenBurnsView
+        <com.wkz.arclayout.ArcLayout
+            android:id="@+id/mFlArc"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:src="@mipmap/wan_android_bg_mine_user" />
+            android:layout_height="@dimen/dp_200"
+            android:background="@color/wan_android_colorPrimary"
+            android:elevation="@dimen/dp_10"
+            app:arc_cropDirection="cropOutside"
+            app:arc_height="@dimen/dp_50"
+            app:arc_position="bottom"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <com.wkz.shapeimageview.ShapeImageView
-            android:id="@+id/mIvUserAvatar"
-            android:layout_width="@dimen/dp_72"
-            android:layout_height="@dimen/dp_72"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="@dimen/dp_20"
-            android:scaleType="centerCrop"
-            android:src="@mipmap/wan_android_ic_avatar_default"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:siv_border_color="@color/wan_android_colorAccent"
-            app:siv_border_width="@dimen/dp_3"
-            app:siv_shape_type="circle" />
-    </com.wkz.arclayout.ArcLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <com.flaviofaria.kenburnsview.KenBurnsView
+                android:id="@+id/mIvUserBg"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/wan_android_bg_mine_user" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical">
+
+                <com.wkz.shapeimageview.ShapeImageView
+                    android:id="@+id/mIvUserAvatar"
+                    android:layout_width="@dimen/dp_80"
+                    android:layout_height="@dimen/dp_80"
+                    android:layout_marginStart="@dimen/dp_20"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/wan_android_ic_avatar_default"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:siv_border_color="@color/wan_android_colorAccent"
+                    app:siv_border_width="@dimen/dp_3"
+                    app:siv_shape_type="circle" />
+
+                <TextView
+                    android:id="@+id/mTvUserName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_16"
+                    android:layout_marginTop="@dimen/dp_12"
+                    android:layout_marginEnd="@dimen/dp_16"
+                    android:text="@string/wan_android_mine_user_has_not_log_in"
+                    android:textColor="@color/wan_android_color_white"
+                    android:textSize="@dimen/sp_16"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/mIvUserAvatar"
+                    app:layout_constraintTop_toTopOf="@+id/mIvUserAvatar" />
+
+                <TextView
+                    android:id="@+id/mTvUserId"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_16"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:text="id ：--"
+                    android:textColor="@color/wan_android_color_white"
+                    android:textSize="@dimen/sp_14"
+                    app:layout_constraintStart_toEndOf="@+id/mIvUserAvatar"
+                    app:layout_constraintTop_toBottomOf="@+id/mTvUserName"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:id="@+id/mTvUserRanking"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_16"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:text="排名 ： --"
+                    android:textColor="@color/wan_android_color_white"
+                    android:textSize="@dimen/sp_14"
+                    app:layout_constraintStart_toEndOf="@+id/mTvUserId"
+                    app:layout_constraintTop_toBottomOf="@+id/mTvUserName"
+                    tools:ignore="HardcodedText" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.wkz.arclayout.ArcLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none"
+            app:layout_constraintTop_toBottomOf="@+id/mFlArc">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/mCvIntegral"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_60"
+                    android:layout_marginStart="@dimen/dp_20"
+                    android:layout_marginTop="@dimen/dp_12"
+                    android:layout_marginEnd="@dimen/dp_20"
+                    app:cardCornerRadius="@dimen/dp_8"
+                    app:cardElevation="@dimen/dp_4"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:layout_width="@dimen/dp_24"
+                        android:layout_height="@dimen/dp_24"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="@dimen/dp_8"
+                        android:src="@drawable/wan_android_ic_integral"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="@dimen/dp_40"
+                        android:text="@string/wan_android_mine_integral"
+                        android:textColor="@color/wan_android_color_title_0x222222"
+                        android:textSize="@dimen/sp_14"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/mTvCurrentIntegral"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical|end"
+                        android:layout_marginEnd="@dimen/dp_40"
+                        android:textColor="@color/wan_android_colorPrimary"
+                        android:textSize="@dimen/sp_14"
+                        android:textStyle="bold"
+                        tools:text="当前积分：10" />
+
+                    <ImageView
+                        android:layout_width="@dimen/dp_24"
+                        android:layout_height="@dimen/dp_24"
+                        android:layout_gravity="center_vertical|end"
+                        android:layout_marginEnd="@dimen/dp_8"
+                        android:src="@drawable/wan_android_ic_arrow_rightwards"
+                        tools:ignore="ContentDescription" />
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/mCvCollect"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_60"
+                    android:layout_marginStart="@dimen/dp_20"
+                    android:layout_marginTop="@dimen/dp_12"
+                    android:layout_marginEnd="@dimen/dp_20"
+                    app:cardCornerRadius="@dimen/dp_8"
+                    app:cardElevation="@dimen/dp_4"
+                    app:layout_constraintTop_toBottomOf="@+id/mCvIntegral">
+
+                    <ImageView
+                        android:layout_width="@dimen/dp_24"
+                        android:layout_height="@dimen/dp_24"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="@dimen/dp_8"
+                        android:src="@drawable/wan_android_ic_collect"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="@dimen/dp_40"
+                        android:text="@string/wan_android_mine_collect"
+                        android:textColor="@color/wan_android_color_title_0x222222"
+                        android:textSize="@dimen/sp_14"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:layout_width="@dimen/dp_24"
+                        android:layout_height="@dimen/dp_24"
+                        android:layout_gravity="center_vertical|end"
+                        android:layout_marginEnd="@dimen/dp_8"
+                        android:src="@drawable/wan_android_ic_arrow_rightwards"
+                        tools:ignore="ContentDescription" />
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/mCvArticle"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_60"
+                    android:layout_marginStart="@dimen/dp_20"
+                    android:layout_marginTop="@dimen/dp_12"
+                    android:layout_marginEnd="@dimen/dp_20"
+                    app:cardCornerRadius="@dimen/dp_8"
+                    app:cardElevation="@dimen/dp_4"
+                    app:layout_constraintTop_toBottomOf="@+id/mCvCollect">
+
+                    <ImageView
+                        android:layout_width="@dimen/dp_24"
+                        android:layout_height="@dimen/dp_24"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="@dimen/dp_8"
+                        android:src="@drawable/wan_android_ic_article"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="@dimen/dp_40"
+                        android:text="@string/wan_android_mine_article"
+                        android:textColor="@color/wan_android_color_title_0x222222"
+                        android:textSize="@dimen/sp_14"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:layout_width="@dimen/dp_24"
+                        android:layout_height="@dimen/dp_24"
+                        android:layout_gravity="center_vertical|end"
+                        android:layout_marginEnd="@dimen/dp_8"
+                        android:src="@drawable/wan_android_ic_arrow_rightwards"
+                        tools:ignore="ContentDescription" />
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/mCvToDoList"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_60"
+                    android:layout_marginStart="@dimen/dp_20"
+                    android:layout_marginTop="@dimen/dp_12"
+                    android:layout_marginEnd="@dimen/dp_20"
+                    app:cardCornerRadius="@dimen/dp_8"
+                    app:cardElevation="@dimen/dp_4"
+                    app:layout_constraintTop_toBottomOf="@+id/mCvArticle">
+
+                    <ImageView
+                        android:layout_width="@dimen/dp_24"
+                        android:layout_height="@dimen/dp_24"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="@dimen/dp_8"
+                        android:src="@drawable/wan_android_ic_to_do_list"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="@dimen/dp_40"
+                        android:text="@string/wan_android_mine_to_do_list"
+                        android:textColor="@color/wan_android_color_title_0x222222"
+                        android:textSize="@dimen/sp_14"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:layout_width="@dimen/dp_24"
+                        android:layout_height="@dimen/dp_24"
+                        android:layout_gravity="center_vertical|end"
+                        android:layout_marginEnd="@dimen/dp_8"
+                        android:src="@drawable/wan_android_ic_arrow_rightwards"
+                        tools:ignore="ContentDescription" />
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/mCvWebsite"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_60"
+                    android:layout_marginStart="@dimen/dp_20"
+                    android:layout_marginTop="@dimen/dp_12"
+                    android:layout_marginEnd="@dimen/dp_20"
+                    app:cardCornerRadius="@dimen/dp_8"
+                    app:cardElevation="@dimen/dp_4"
+                    app:layout_constraintTop_toBottomOf="@+id/mCvToDoList">
+
+                    <ImageView
+                        android:layout_width="@dimen/dp_24"
+                        android:layout_height="@dimen/dp_24"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="@dimen/dp_8"
+                        android:src="@drawable/wan_android_ic_website"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="@dimen/dp_40"
+                        android:text="@string/wan_android_mine_website"
+                        android:textColor="@color/wan_android_color_title_0x222222"
+                        android:textSize="@dimen/sp_14"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:layout_width="@dimen/dp_24"
+                        android:layout_height="@dimen/dp_24"
+                        android:layout_gravity="center_vertical|end"
+                        android:layout_marginEnd="@dimen/dp_8"
+                        android:src="@drawable/wan_android_ic_arrow_rightwards"
+                        tools:ignore="ContentDescription" />
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/mCvJoin"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_60"
+                    android:layout_marginStart="@dimen/dp_20"
+                    android:layout_marginTop="@dimen/dp_12"
+                    android:layout_marginEnd="@dimen/dp_20"
+                    app:cardCornerRadius="@dimen/dp_8"
+                    app:cardElevation="@dimen/dp_4"
+                    app:layout_constraintTop_toBottomOf="@+id/mCvWebsite">
+
+                    <ImageView
+                        android:layout_width="@dimen/dp_24"
+                        android:layout_height="@dimen/dp_24"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="@dimen/dp_8"
+                        android:src="@drawable/wan_android_ic_join"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="@dimen/dp_40"
+                        android:text="@string/wan_android_mine_join"
+                        android:textColor="@color/wan_android_color_title_0x222222"
+                        android:textSize="@dimen/sp_14"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:layout_width="@dimen/dp_24"
+                        android:layout_height="@dimen/dp_24"
+                        android:layout_gravity="center_vertical|end"
+                        android:layout_marginEnd="@dimen/dp_8"
+                        android:src="@drawable/wan_android_ic_arrow_rightwards"
+                        tools:ignore="ContentDescription" />
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/mCvSetting"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_60"
+                    android:layout_marginStart="@dimen/dp_20"
+                    android:layout_marginTop="@dimen/dp_12"
+                    android:layout_marginEnd="@dimen/dp_20"
+                    android:layout_marginBottom="@dimen/dp_20"
+                    app:cardCornerRadius="@dimen/dp_8"
+                    app:cardElevation="@dimen/dp_4"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/mCvJoin">
+
+                    <ImageView
+                        android:layout_width="@dimen/dp_24"
+                        android:layout_height="@dimen/dp_24"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="@dimen/dp_8"
+                        android:src="@drawable/wan_android_ic_setting"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="@dimen/dp_40"
+                        android:text="@string/wan_android_mine_setting"
+                        android:textColor="@color/wan_android_color_title_0x222222"
+                        android:textSize="@dimen/sp_14"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:layout_width="@dimen/dp_24"
+                        android:layout_height="@dimen/dp_24"
+                        android:layout_gravity="center_vertical|end"
+                        android:layout_marginEnd="@dimen/dp_8"
+                        android:src="@drawable/wan_android_ic_arrow_rightwards"
+                        tools:ignore="ContentDescription" />
+                </com.google.android.material.card.MaterialCardView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.scwang.smartrefresh.layout.SmartRefreshLayout>

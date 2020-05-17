@@ -16,22 +16,27 @@ class WanAndroidMineFragment : BaseFragment() {
     override fun getLayoutId(): Int = R.layout.wan_android_fragment_mine
 
     override fun initView() {
+
     }
 
     override fun lazyLoadData() {
-        mIvUserAvatar.load(R.mipmap.wan_android_ic_avatar_default/*,
+        mIvUserAvatar.load(
+            R.mipmap.wan_android_ic_avatar_default,
             GenericTransitionOptions.with { view: View ->
                 // 设置加载动画
                 animSet {
                     objectAnim {
                         target = view
-                        alpha = floatArrayOf(0f, 1f)
-                        duration = 200L
+                        alpha = floatArrayOf(0.5f, 1f)
+                        scaleX = floatArrayOf(1.3f, 1f)
+                        scaleY = floatArrayOf(1.3f, 1f)
+                        duration = 400L
                         interpolator = LinearInterpolator()
                     }
                     start()
                 }
-            }*/)
+            }
+        )
     }
 
     override fun isAlreadyLoadedData(): Boolean = true

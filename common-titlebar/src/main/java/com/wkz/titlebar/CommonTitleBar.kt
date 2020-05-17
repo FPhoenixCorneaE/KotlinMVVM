@@ -17,11 +17,7 @@ import android.view.inputmethod.EditorInfo
 import android.widget.*
 import android.widget.TextView.OnEditorActionListener
 import com.wkz.util.*
-import com.wkz.util.statusbar.StatusBarUtil.getStatusBarHeight
-import com.wkz.util.statusbar.StatusBarUtil.setDarkMode
-import com.wkz.util.statusbar.StatusBarUtil.setLightMode
-import com.wkz.util.statusbar.StatusBarUtil.supportTransparentStatusBar
-import com.wkz.util.statusbar.StatusBarUtil.transparentStatusBar
+import com.wkz.util.statusbar.StatusBarUtil
 import kotlin.math.max
 
 /**
@@ -33,6 +29,7 @@ class CommonTitleBar(
 ) : RelativeLayout(context, attrs), View.OnClickListener {
     private var viewStatusBarFill // 状态栏填充视图
             : View? = null
+
     /**
      * 获取标题栏底部横线
      *
@@ -45,6 +42,7 @@ class CommonTitleBar(
             : View? = null
     private var rlMain // 主视图
             : RelativeLayout? = null
+
     /**
      * 获取标题栏左边TextView，对应leftType = textView
      *
@@ -53,6 +51,7 @@ class CommonTitleBar(
     var leftTextView // 左边TextView
             : TextView? = null
         private set
+
     /**
      * 获取标题栏左边ImageButton，对应leftType = imageButton
      *
@@ -61,6 +60,7 @@ class CommonTitleBar(
     var leftImageButton // 左边ImageButton
             : ImageButton? = null
         private set
+
     /**
      * 获取左边自定义布局
      *
@@ -68,6 +68,7 @@ class CommonTitleBar(
      */
     var leftCustomView: View? = null
         private set
+
     /**
      * 获取标题栏右边TextView，对应rightType = textView
      *
@@ -76,6 +77,7 @@ class CommonTitleBar(
     var rightTextView // 右边TextView
             : TextView? = null
         private set
+
     /**
      * 获取标题栏右边ImageButton，对应rightType = imageButton
      *
@@ -84,6 +86,7 @@ class CommonTitleBar(
     var rightImageButton // 右边ImageButton
             : ImageButton? = null
         private set
+
     /**
      * 获取右边自定义布局
      *
@@ -93,6 +96,7 @@ class CommonTitleBar(
         private set
     var centerLayout: LinearLayout? = null
         private set
+
     /**
      * 获取标题栏中间TextView，对应centerType = textView
      *
@@ -106,6 +110,7 @@ class CommonTitleBar(
         private set
     private var progressCenter // 中间进度条,默认隐藏
             : ProgressBar? = null
+
     /**
      * 获取搜索框布局，对应centerType = searchView
      *
@@ -114,6 +119,7 @@ class CommonTitleBar(
     var centerSearchView // 中间搜索框布局
             : RelativeLayout? = null
         private set
+
     /**
      * 获取搜索框内部输入框，对应centerType = searchView
      *
@@ -123,6 +129,7 @@ class CommonTitleBar(
         private set
     var centerSearchLeftImageView: ImageView? = null
         private set
+
     /**
      * 获取搜索框右边图标ImageView，对应centerType = searchView
      *
@@ -130,6 +137,7 @@ class CommonTitleBar(
      */
     var centerSearchRightImageView: ImageView? = null
         private set
+
     /**
      * 获取中间自定义布局视图
      *
@@ -339,6 +347,7 @@ class CommonTitleBar(
 
     private val MATCH_PARENT = ViewGroup.LayoutParams.MATCH_PARENT
     private val WRAP_CONTENT = ViewGroup.LayoutParams.WRAP_CONTENT
+
     /**
      * 初始化全局视图
      *
@@ -348,10 +357,10 @@ class CommonTitleBar(
         val globalParams =
             ViewGroup.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
         layoutParams = globalParams
-        val transparentStatusBar = supportTransparentStatusBar()
+        val transparentStatusBar = StatusBarUtil.supportTransparentStatusBar()
         // 构建标题栏填充视图
         if (fillStatusBar && transparentStatusBar) {
-            val statusBarHeight = getStatusBarHeight(context)
+            val statusBarHeight = StatusBarUtil.getStatusBarHeight(context)
             viewStatusBarFill = View(context)
             viewStatusBarFill!!.id = ViewUtil.generateViewId()
             viewStatusBarFill!!.setBackgroundColor(statusBarColor)
@@ -734,12 +743,12 @@ class CommonTitleBar(
     private fun setUpImmersionTitleBar() {
         val window = window ?: return
         // 设置状态栏背景透明
-        transparentStatusBar(window)
+        StatusBarUtil.transparentStatusBar(window)
         // 设置图标主题
         if (statusBarMode == 0) {
-            setDarkMode(window)
+            StatusBarUtil.setDarkMode(window)
         } else {
-            setLightMode(window)
+            StatusBarUtil.setLightMode(window)
         }
     }
 
@@ -815,6 +824,7 @@ class CommonTitleBar(
         }
         false
     }
+
     /**
      * 双击事件中，上次被点击时间
      */
@@ -934,13 +944,13 @@ class CommonTitleBar(
      */
     fun toggleStatusBarMode() {
         val window = window ?: return
-        transparentStatusBar(window)
+        StatusBarUtil.transparentStatusBar(window)
         if (statusBarMode == 0) {
             statusBarMode = 1
-            setLightMode(window)
+            StatusBarUtil.setLightMode(window)
         } else {
             statusBarMode = 0
-            setDarkMode(window)
+            StatusBarUtil.setDarkMode(window)
         }
     }
 
@@ -1064,34 +1074,42 @@ class CommonTitleBar(
              * 左边TextView被点击
              */
             var ACTION_LEFT_TEXT = 1
+
             /**
              * 左边ImageBtn被点击
              */
             var ACTION_LEFT_BUTTON = 2
+
             /**
              * 右边TextView被点击
              */
             var ACTION_RIGHT_TEXT = 3
+
             /**
              * 右边ImageBtn被点击
              */
             var ACTION_RIGHT_BUTTON = 4
+
             /**
              * 搜索框被点击,搜索框不可输入的状态下会被触发
              */
             var ACTION_SEARCH = 5
+
             /**
              * 搜索框输入状态下,键盘提交触发
              */
             var ACTION_SEARCH_SUBMIT = 6
+
             /**
              * 语音按钮被点击
              */
             var ACTION_SEARCH_VOICE = 7
+
             /**
              * 搜索删除按钮被点击
              */
             var ACTION_SEARCH_DELETE = 8
+
             /**
              * 中间文字点击
              */
