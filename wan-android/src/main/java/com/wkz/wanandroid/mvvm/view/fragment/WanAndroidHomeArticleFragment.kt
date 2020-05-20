@@ -86,27 +86,27 @@ class WanAndroidHomeArticleFragment : BaseFragment(), OnRefreshLoadMoreListener 
             }
         }
         mHomeArticleViewModel.apply {
-            mRefreshing.observe(mContext, Observer {
+            mRefreshing.observe(viewLifecycleOwner, Observer {
                 when {
                     !it -> mSrlRefresh.finishRefresh()
                 }
             })
-            mLoadingMore.observe(mContext, Observer {
+            mLoadingMore.observe(viewLifecycleOwner, Observer {
                 when {
                     !it -> mSrlRefresh.finishLoadMore()
                 }
             })
-            mBannerList.observe(mContext, Observer {
+            mBannerList.observe(viewLifecycleOwner, Observer {
                 mBannerAdapter.dataList = it
                 mBannerAdapter.notifyItemRangeChanged(
                     mBannerAdapter.dataList.size - it.size - 1,
                     it.size
                 )
             })
-            mTopArticleList.observe(mContext, Observer {
+            mTopArticleList.observe(viewLifecycleOwner, Observer {
                 this@WanAndroidHomeArticleFragment.mTopArticleList = it
             })
-            mArticleList.observe(mContext, Observer {
+            mArticleList.observe(viewLifecycleOwner, Observer {
                 when (it.curPage) {
                     1 -> {
                         mHomeArticleAdapter.dataList.clear()

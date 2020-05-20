@@ -49,17 +49,17 @@ class WanAndroidHomeQaFragment : BaseFragment(), OnRefreshLoadMoreListener {
                 }
             }
         mHomeQaViewModel.apply {
-            mRefreshing.observe(mContext, Observer {
+            mRefreshing.observe(viewLifecycleOwner, Observer {
                 when {
                     !it -> mSrlRefresh.finishRefresh()
                 }
             })
-            mLoadingMore.observe(mContext, Observer {
+            mLoadingMore.observe(viewLifecycleOwner, Observer {
                 when {
                     !it -> mSrlRefresh.finishLoadMore()
                 }
             })
-            mQaList.observe(mContext, Observer {
+            mQaList.observe(viewLifecycleOwner, Observer {
                 when (it.curPage) {
                     1 -> mHomeQaAdapter.dataList.clear()
                 }

@@ -1,12 +1,14 @@
 package com.wkz.rxretrofit.network
 
 import androidx.collection.ArrayMap
+import com.franmontiel.persistentcookiejar.PersistentCookieJar
+import com.franmontiel.persistentcookiejar.cache.SetCookieCache
+import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor
 import com.orhanobut.logger.Logger
 import com.wkz.rxretrofit.network.factory.LiveDataCallAdapterFactory
 import com.wkz.rxretrofit.network.ssl.SslSocketUtil
 import com.wkz.util.ContextUtil
 import com.wkz.util.NetworkUtil
-import com.wkz.util.SharedPreferencesUtil
 import com.wkz.util.gson.GsonUtil
 import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
@@ -21,7 +23,12 @@ import java.util.concurrent.TimeUnit
  */
 object RetrofitManager {
 
-    private var token: String by SharedPreferencesUtil("token", "")
+    /**
+     * 持久化CookieJar
+     */
+    private val mPersistentCookieJar: PersistentCookieJar by lazy {
+        PersistentCookieJar(SetCookieCache(), SharedPrefsCookiePersistor(ContextUtil.context))
+    }
     private var mQueryParameterArray = ArrayMap<String, String?>()
     private var mHeaderArray = ArrayMap<String, String>()
 
@@ -140,9 +147,14 @@ object RetrofitManager {
             .retryOnConnectionFailure(true)
             // 添加缓存文件与大小
             .cache(cache)
-            .connectTimeout(60L, TimeUnit.SECONDS)
-            .readTimeout(60L, TimeUnit.SECONDS)
-            .writeTimeout(60L, TimeUnit.SECONDS)
+            // 添加Cookies自动持久化
+            .cookieJar(mPersistentCookieJar)
+            // 连接超时时间
+            .connectTimeout(10L, TimeUnit.SECONDS)
+            // 读超时时间
+            .readTimeout(10L, TimeUnit.SECONDS)
+            // 写超时时间
+            .writeTimeout(10L, TimeUnit.SECONDS)
             .build()
     }
 
@@ -179,5 +191,12 @@ object RetrofitManager {
     fun addHeader(name: String, value: String): RetrofitManager {
         mHeaderArray[name] = value
         return this
+    }
+
+    /**
+     * 清空Cookies
+     */
+    fun clearCookieJar() {
+        mPersistentCookieJar.clear()
     }
 }

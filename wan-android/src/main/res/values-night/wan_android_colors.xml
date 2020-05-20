@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="wan_android_colorPrimary">#000000</color>
-    <color name="wan_android_colorPrimaryDark">#aa000000</color>
+    <color name="wan_android_colorPrimaryDark">#dd000000</color>
     <color name="wan_android_colorAccent">#ffffff</color>
 
     <color name="wan_android_color_black_alpha10">#10ffffff</color>

@@ -60,4 +60,5 @@ dependencies {
     implementation project(':common-util')
     api Config.retrofit2Libs
     api Config.rxJava2Libs
+    api Config.persistentCookieJar
 }

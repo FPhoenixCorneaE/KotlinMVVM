@@ -73,7 +73,7 @@
                         android:layout_marginTop="@dimen/dp_16"
                         android:text="id ：--"
                         android:textColor="@color/wan_android_color_white"
-                        android:textSize="@dimen/sp_14"
+                        android:textSize="@dimen/sp_15"
                         app:layout_constraintStart_toEndOf="@+id/mIvUserAvatar"
                         app:layout_constraintTop_toBottomOf="@+id/mTvUserName"
                         tools:ignore="HardcodedText" />
@@ -86,7 +86,7 @@
                         android:layout_marginTop="@dimen/dp_16"
                         android:text="排名 ： --"
                         android:textColor="@color/wan_android_color_white"
-                        android:textSize="@dimen/sp_14"
+                        android:textSize="@dimen/sp_15"
                         app:layout_constraintStart_toEndOf="@+id/mTvUserId"
                         app:layout_constraintTop_toBottomOf="@+id/mTvUserName"
                         tools:ignore="HardcodedText" />

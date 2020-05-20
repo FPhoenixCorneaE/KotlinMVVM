@@ -22,7 +22,7 @@ class WanAndroidHomeArticleViewModel : WanAndroidBaseViewModel() {
     /* Banner */
     val mBannerList = Transformations.switchMap(mPage) {
         Transformations.map(sWanAndroidService.getBannerList()) {
-            it.data ?: ArrayList()
+            it.data ?: arrayListOf()
         }
     }
 
@@ -30,9 +30,9 @@ class WanAndroidHomeArticleViewModel : WanAndroidBaseViewModel() {
     val mTopArticleList = Transformations.switchMap(mPage) {
         Transformations.map(sWanAndroidService.getTopArticleList()) {
             if (mPage.value == 0) {
-                it.data ?: ArrayList()
+                it.data ?: arrayListOf()
             } else {
-                ArrayList()
+                arrayListOf()
             }
         }
     }
@@ -42,7 +42,7 @@ class WanAndroidHomeArticleViewModel : WanAndroidBaseViewModel() {
         Transformations.map(sWanAndroidService.getArticleList(page)) {
             mRefreshing.value = false
             mLoadingMore.value = false
-            it.data ?: WanAndroidPageBean(1, ArrayList(), 0, true, 1, 20, 0)
+            it.data ?: WanAndroidPageBean(1, arrayListOf(), 0, true, 1, 20, 0)
         }
     }
 

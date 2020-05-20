@@ -140,6 +140,8 @@ class Config {
     static workManager = 'androidx.work:work-runtime-ktx:2.3.3'
     /** Ken Burns effect */
     static kenBurnsView = 'com.flaviofaria:kenburnsview:1.0.7'
+    /** Cookies自动持久化 */
+    static persistentCookieJar = 'com.github.franmontiel:PersistentCookieJar:v1.0.1'
 
 
     /** compiler */
