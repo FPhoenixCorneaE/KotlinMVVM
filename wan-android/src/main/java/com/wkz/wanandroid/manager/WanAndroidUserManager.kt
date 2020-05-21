@@ -22,12 +22,25 @@ object WanAndroidUserManager {
         )
 
     /* 用户信息,AES解密 */
-    val sUserInfo = GsonUtil.fromJson(
-        AESUtil.decrypt(
-            SharedPreferencesUtil.getString(WanAndroidConstant.WAN_ANDROID_USER_INFO, "")
-        )
-        , WanAndroidUserInfoBean::class.java
-    )
+    val sUserInfo: WanAndroidUserInfoBean?
+        get() {
+            return when {
+                sHasLoggedOn -> {
+                    GsonUtil.fromJson(
+                        AESUtil.decrypt(
+                            SharedPreferencesUtil.getString(
+                                WanAndroidConstant.WAN_ANDROID_USER_INFO,
+                                ""
+                            )
+                        )
+                        , WanAndroidUserInfoBean::class.java
+                    )
+                }
+                else -> {
+                    null
+                }
+            }
+        }
 
     /* 设置用户信息,AES加密 */
     fun setUserInfo(userInfoBean: WanAndroidUserInfoBean) {

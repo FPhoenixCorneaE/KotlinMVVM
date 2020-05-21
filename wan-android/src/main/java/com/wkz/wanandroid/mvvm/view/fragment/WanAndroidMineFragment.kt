@@ -5,10 +5,12 @@ import android.view.animation.LinearInterpolator
 import androidx.lifecycle.Observer
 import com.bumptech.glide.GenericTransitionOptions
 import com.wkz.animation_dsl.animSet
+import com.wkz.extension.androidViewModel
 import com.wkz.extension.viewModel
 import com.wkz.framework.base.fragment.BaseFragment
 import com.wkz.wanandroid.R
 import com.wkz.wanandroid.manager.WanAndroidUserManager
+import com.wkz.wanandroid.mvvm.viewmodel.WanAndroidAccountViewModel
 import com.wkz.wanandroid.mvvm.viewmodel.WanAndroidMineIntegralViewModel
 import kotlinx.android.synthetic.main.wan_android_fragment_mine.*
 
@@ -17,6 +19,9 @@ import kotlinx.android.synthetic.main.wan_android_fragment_mine.*
  * @date：2020-04-26 12:53
  */
 class WanAndroidMineFragment : BaseFragment() {
+
+    /* 账号信息视图模型 */
+    private val mAccountViewModel by androidViewModel<WanAndroidAccountViewModel>()
 
     /* 积分视图模型 */
     private val mMineIntegralViewModel by viewModel<WanAndroidMineIntegralViewModel>()
@@ -31,12 +36,22 @@ class WanAndroidMineFragment : BaseFragment() {
     }
 
     override fun initListener() {
+        mAccountViewModel.apply {
+            // 登录成功
+            mLoginSuccess.observe(viewLifecycleOwner, Observer {
+                if (it) {
+                    // 获取积分
+                    mMineIntegralViewModel.getIntegral()
+                }
+            })
+        }
         mMineIntegralViewModel.apply {
+            // 用户积分
             mUserIntegral.observe(viewLifecycleOwner, Observer {
                 it.apply {
                     mTvUserName.text = username
-                    mTvUserId.text = "id ：${userId}"
-                    mTvUserRanking.text = "排名 ： ${rank}"
+                    mTvUserId.text = "id：${userId}"
+                    mTvUserRanking.text = "排名：${rank}"
                 }
             })
         }
@@ -60,12 +75,6 @@ class WanAndroidMineFragment : BaseFragment() {
                 }
             }
         )
-        when {
-            mHasLoggedOn -> {
-                // 获取积分
-                mMineIntegralViewModel.getIntegral()
-            }
-        }
     }
 
     override fun isAlreadyLoadedData(): Boolean = true

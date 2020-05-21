@@ -12,7 +12,7 @@ import android.view.View
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.Observer
-import com.wkz.extension.viewModel
+import com.wkz.extension.androidViewModel
 import com.wkz.framework.base.activity.BaseActivity
 import com.wkz.framework.widget.ProgressButton
 import com.wkz.util.IntentUtil
@@ -29,7 +29,7 @@ import kotlinx.android.synthetic.main.wan_android_activity_login.*
  */
 class WanAndroidLoginActivity : BaseActivity(), TextWatcher {
 
-    private val mAccountViewModel by viewModel<WanAndroidAccountViewModel>()
+    private val mAccountViewModel by androidViewModel<WanAndroidAccountViewModel>()
 
     override fun getLayoutId(): Int = R.layout.wan_android_activity_login
 

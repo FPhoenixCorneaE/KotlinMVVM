@@ -59,7 +59,7 @@ class AESUtil private constructor() {
             // 加密
             val result = cipher.doFinal(data)
             // 使用BASE64对加密后的二进制数组进行编码
-            return Base64.encode(result, Base64.DEFAULT)
+            return Base64.encode(result, Base64.NO_WRAP)
         }
 
         /**
@@ -86,7 +86,7 @@ class AESUtil private constructor() {
             val cipher = Cipher.getInstance(transformation)
             // 解密时使用加密器的解密模式
             cipher.init(Cipher.DECRYPT_MODE, secretKey, ivParameterSpec)
-            return cipher.doFinal(Base64.encode(data, Base64.DEFAULT))
+            return cipher.doFinal(Base64.decode(data, Base64.NO_WRAP))
         }
 
         /**

@@ -5,8 +5,8 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import androidx.lifecycle.Observer
+import com.wkz.extension.androidViewModel
 import com.wkz.extension.showToast
-import com.wkz.extension.viewModel
 import com.wkz.framework.base.activity.BaseActivity
 import com.wkz.framework.widget.ProgressButton
 import com.wkz.util.IntentUtil
@@ -22,7 +22,7 @@ import kotlinx.android.synthetic.main.wan_android_activity_register.*
  */
 class WanAndroidRegisterActivity : BaseActivity(), TextWatcher {
 
-    private val mAccountViewModel by viewModel<WanAndroidAccountViewModel>()
+    private val mAccountViewModel by androidViewModel<WanAndroidAccountViewModel>()
 
     override fun getLayoutId(): Int = R.layout.wan_android_activity_register
 

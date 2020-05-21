@@ -36,7 +36,6 @@ class WanAndroidMineIntegralViewModel : WanAndroidBaseViewModel() {
     /* 用户积分 */
     val mUserIntegral = Transformations.switchMap(mRefreshingIntegral) {
         Transformations.map(sWanAndroidService.getIntegral()) {
-            mRefreshingIntegral.value = false
             it.data ?: WanAndroidIntegralBean()
         }
     }
