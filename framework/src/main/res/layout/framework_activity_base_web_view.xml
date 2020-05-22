@@ -11,7 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:centerText=""
-        app:centerTextColor="@android:color/black"
         app:centerTextSize="@dimen/sp_18"
         app:centerType="textView"
         app:leftType="imageButton"

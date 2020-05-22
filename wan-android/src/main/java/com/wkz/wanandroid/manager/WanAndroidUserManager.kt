@@ -1,5 +1,7 @@
 package com.wkz.wanandroid.manager
 
+import com.wkz.extension.isNonNull
+import com.wkz.rxretrofit.network.RetrofitManager
 import com.wkz.util.SharedPreferencesUtil
 import com.wkz.util.encryption.AESUtil
 import com.wkz.util.gson.GsonUtil
@@ -21,11 +23,31 @@ object WanAndroidUserManager {
             false
         )
 
-    /* 用户信息,AES解密 */
-    val sUserInfo: WanAndroidUserInfoBean?
+    /* 用户信息 */
+    var sUserInfo: WanAndroidUserInfoBean?
+        set(userInfo) {
+            when {
+                userInfo.isNonNull() -> {
+                    sHasLoggedOn = true
+                    /* AES加密 */
+                    SharedPreferencesUtil.put(
+                        WanAndroidConstant.WAN_ANDROID_USER_INFO,
+                        AESUtil.encrypt(GsonUtil.toJson(userInfo!!))
+                    )
+                }
+                else -> {
+                    sHasLoggedOn = false
+                    SharedPreferencesUtil.put(
+                        WanAndroidConstant.WAN_ANDROID_USER_INFO,
+                        ""
+                    )
+                }
+            }
+        }
         get() {
             return when {
                 sHasLoggedOn -> {
+                    /* AES解密 */
                     GsonUtil.fromJson(
                         AESUtil.decrypt(
                             SharedPreferencesUtil.getString(
@@ -42,12 +64,13 @@ object WanAndroidUserManager {
             }
         }
 
-    /* 设置用户信息,AES加密 */
-    fun setUserInfo(userInfoBean: WanAndroidUserInfoBean) {
-        sHasLoggedOn = true
-        SharedPreferencesUtil.put(
-            WanAndroidConstant.WAN_ANDROID_USER_INFO,
-            AESUtil.encrypt(GsonUtil.toJson(userInfoBean))
-        )
+    /**
+     * 退出登录
+     */
+    fun logout() {
+        // 清空Cookies
+        RetrofitManager.clearCookieJar()
+        // 清空用户信息
+        sUserInfo = null
     }
 }

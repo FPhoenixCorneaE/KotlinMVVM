@@ -1,7 +1,6 @@
 package com.wkz.wanandroid.mvvm.view.activity
 
 import android.content.Context
-import android.graphics.Color
 import com.wkz.framework.webview.BaseWebViewActivity
 import com.wkz.util.BundleBuilder
 import com.wkz.util.IntentUtil
@@ -28,6 +27,10 @@ class WanAndroidWebViewActivity : BaseWebViewActivity() {
     }
 
     override fun getLeftImageColor(): Int {
-        return Color.BLACK
+        return ResourceUtil.getColor(R.color.wan_android_color_title_0x222222)
+    }
+
+    override fun getCenterTextColor(): Int {
+        return ResourceUtil.getColor(R.color.wan_android_color_title_0x222222)
     }
 }

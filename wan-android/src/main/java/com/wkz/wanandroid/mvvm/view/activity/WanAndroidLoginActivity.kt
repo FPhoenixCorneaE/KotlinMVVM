@@ -29,6 +29,7 @@ import kotlinx.android.synthetic.main.wan_android_activity_login.*
  */
 class WanAndroidLoginActivity : BaseActivity(), TextWatcher {
 
+    /* 账号信息视图模型 */
     private val mAccountViewModel by androidViewModel<WanAndroidAccountViewModel>()
 
     override fun getLayoutId(): Int = R.layout.wan_android_activity_login

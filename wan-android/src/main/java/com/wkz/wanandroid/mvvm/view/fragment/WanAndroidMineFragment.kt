@@ -6,10 +6,16 @@ import androidx.lifecycle.Observer
 import com.bumptech.glide.GenericTransitionOptions
 import com.wkz.animation_dsl.animSet
 import com.wkz.extension.androidViewModel
+import com.wkz.extension.gone
 import com.wkz.extension.viewModel
+import com.wkz.extension.visible
 import com.wkz.framework.base.fragment.BaseFragment
+import com.wkz.util.IntentUtil
+import com.wkz.util.ResourceUtil
 import com.wkz.wanandroid.R
 import com.wkz.wanandroid.manager.WanAndroidUserManager
+import com.wkz.wanandroid.mvvm.view.activity.WanAndroidLoginActivity
+import com.wkz.wanandroid.mvvm.view.activity.WanAndroidSettingActivity
 import com.wkz.wanandroid.mvvm.viewmodel.WanAndroidAccountViewModel
 import com.wkz.wanandroid.mvvm.viewmodel.WanAndroidMineIntegralViewModel
 import kotlinx.android.synthetic.main.wan_android_fragment_mine.*
@@ -26,9 +32,6 @@ class WanAndroidMineFragment : BaseFragment() {
     /* 积分视图模型 */
     private val mMineIntegralViewModel by viewModel<WanAndroidMineIntegralViewModel>()
 
-    /* 是否已登录 */
-    private val mHasLoggedOn = WanAndroidUserManager.sHasLoggedOn
-
     override fun getLayoutId(): Int = R.layout.wan_android_fragment_mine
 
     override fun initView() {
@@ -36,12 +39,27 @@ class WanAndroidMineFragment : BaseFragment() {
     }
 
     override fun initListener() {
+        mClUserInfo.setOnClickListener {
+            if (!WanAndroidUserManager.sHasLoggedOn) {
+                goToLoginActivity()
+            }
+        }
+        mCvSetting.setOnClickListener {
+            IntentUtil.startActivity(mContext, WanAndroidSettingActivity::class.java)
+        }
         mAccountViewModel.apply {
             // 登录成功
             mLoginSuccess.observe(viewLifecycleOwner, Observer {
                 if (it) {
                     // 获取积分
                     mMineIntegralViewModel.getIntegral()
+                } else {
+                    // 退出登录
+                    mTvUserName.text =
+                        ResourceUtil.getString(R.string.wan_android_mine_user_has_not_log_in)
+                    mTvUserId.text = "id：--"
+                    mTvUserRanking.text = "排名：--"
+                    mTvCurrentIntegral.gone()
                 }
             })
         }
@@ -52,9 +70,18 @@ class WanAndroidMineFragment : BaseFragment() {
                     mTvUserName.text = username
                     mTvUserId.text = "id：${userId}"
                     mTvUserRanking.text = "排名：${rank}"
+                    mTvCurrentIntegral.visible()
+                    mTvCurrentIntegral.text = "当前积分：$coinCount"
                 }
             })
         }
+    }
+
+    /**
+     * 跳转到登录界面
+     */
+    private fun goToLoginActivity() {
+        IntentUtil.startActivity(mContext, WanAndroidLoginActivity::class.java)
     }
 
     override fun lazyLoadData() {

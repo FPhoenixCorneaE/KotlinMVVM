@@ -52,7 +52,7 @@ class WanAndroidAccountViewModel(application: Application) :
                 val loginSuccess = it.errorCode != -1 && it.errorCode != 1000
                 if (loginSuccess) {
                     // 登录成功,保存用户信息
-                    WanAndroidUserManager.setUserInfo(it.data ?: WanAndroidUserInfoBean())
+                    WanAndroidUserManager.sUserInfo = it.data
                 } else {
                     // 登录失败,提示失败信息
                     showToast(it.errorMsg)

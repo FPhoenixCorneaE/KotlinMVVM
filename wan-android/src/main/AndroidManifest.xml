@@ -55,5 +55,12 @@
             android:theme="@style/AppTheme.Fullscreen"
             android:windowSoftInputMode="adjustNothing"
             tools:ignore="LockedOrientationActivity" />
+        <!-- 设置界面 -->
+        <activity
+            android:name=".mvvm.view.activity.WanAndroidSettingActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="behind"
+            android:windowSoftInputMode="adjustNothing"
+            tools:ignore="LockedOrientationActivity" />
     </application>
 </manifest>

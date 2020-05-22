@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.wkz.titlebar.CommonTitleBar
+        android:id="@+id/mTbTitleBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:centerText="@string/wan_android_mine_setting"
+        app:centerTextColor="@color/wan_android_color_title_0x222222"
+        app:centerTextSize="@dimen/sp_18"
+        app:centerType="textView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:leftType="imageButton"
+        app:showBottomLine="true"
+        app:titleBarHeight="?attr/actionBarSize" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/mCvLogout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_48"
+        android:layout_marginStart="@dimen/dp_20"
+        android:layout_marginEnd="@dimen/dp_20"
+        android:layout_marginBottom="@dimen/dp_128"
+        app:cardCornerRadius="@dimen/dp_8"
+        app:cardElevation="@dimen/dp_4"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <Button
+            android:id="@+id/mBtnLogout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/wan_android_mine_logout"
+            android:textColor="@color/wan_android_color_white"
+            android:textSize="@dimen/sp_18"
+            app:drawableType="ripple"
+            app:rippleColor="@android:color/holo_red_dark"
+            app:rippleContent="@android:color/holo_red_light"
+            tools:ignore="MissingPrefix" />
+    </com.google.android.material.card.MaterialCardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

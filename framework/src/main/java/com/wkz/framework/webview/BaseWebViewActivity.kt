@@ -46,6 +46,7 @@ open class BaseWebViewActivity : BaseActivity() {
 
     override fun initView() {
         mTbTitleBar.setBackgroundColor(getTitleBgColor())
+        mTbTitleBar.centerTextView?.setTextColor(getCenterTextColor())
         mTbTitleBar.leftImageButton?.let {
             ImageUtil.setTintColor(it, getLeftImageColor())
         }
@@ -144,6 +145,10 @@ open class BaseWebViewActivity : BaseActivity() {
     }
 
     open fun getLeftImageColor(): Int {
-        return Color.GRAY
+        return Color.BLACK
+    }
+
+    open fun getCenterTextColor(): Int {
+        return Color.BLACK
     }
 }

@@ -123,7 +123,7 @@ class Config {
 
 
     /** 直接在layout文件中去创建drawable */
-    static folivora = "cn.cricin:folivora:0.0.9"
+    static folivora = "cn.cricin:folivora:0.1.0"
     /** logger */
     static logger = "com.orhanobut:logger:2.2.0"
     /** 权限管理 */

@@ -33,6 +33,7 @@
                     android:src="@mipmap/wan_android_bg_mine_user" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/mClUserInfo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical">
