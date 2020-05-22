@@ -2,6 +2,7 @@ package com.wkz.wanandroid.mvvm.view.activity
 
 import android.os.Bundle
 import android.view.MenuItem
+import androidx.fragment.app.Fragment
 import com.wkz.framework.base.activity.BaseActivity
 import com.wkz.util.FragmentUtil
 import com.wkz.wanandroid.R
@@ -14,6 +15,14 @@ import kotlinx.android.synthetic.main.wan_android_activity_home.*
  * @date: 2019-10-28 16:04
  */
 class WanAndroidHomeActivity : BaseActivity() {
+
+    private val mHomeFragment by lazy {
+        WanAndroidHomeFragment.getInstance()
+    }
+    private val mMineFragment by lazy {
+        WanAndroidMineFragment.getInstance()
+    }
+    private var mPreviousFragment: Fragment? = null
 
     /**
      *  加载布局
@@ -37,11 +46,14 @@ class WanAndroidHomeActivity : BaseActivity() {
     private fun onNavigationItemSelected(it: MenuItem) {
         when (it.itemId) {
             R.id.mHomeMenuMain -> {
-                FragmentUtil.with(mContext)
-                    .setContainerViewId(R.id.mFlActivityContainer)
-                    .setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
-                    .replaceFragment(WanAndroidHomeFragment.getInstance())
-                    .commit()
+                if (mPreviousFragment != mHomeFragment) {
+                    FragmentUtil.with(mContext)
+                        .setContainerViewId(R.id.mFlActivityContainer)
+                        .setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
+                        .hideAndShowFragment(mPreviousFragment, mHomeFragment)
+                        .commit()
+                    mPreviousFragment = mHomeFragment
+                }
             }
             R.id.mHomeMenuProject -> {
 
@@ -53,11 +65,14 @@ class WanAndroidHomeActivity : BaseActivity() {
 
             }
             R.id.mHomeMenuMine -> {
-                FragmentUtil.with(mContext)
-                    .setContainerViewId(R.id.mFlActivityContainer)
-                    .setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
-                    .replaceFragment(WanAndroidMineFragment.getInstance())
-                    .commit()
+                if (mPreviousFragment != mMineFragment) {
+                    FragmentUtil.with(mContext)
+                        .setContainerViewId(R.id.mFlActivityContainer)
+                        .setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
+                        .hideAndShowFragment(mPreviousFragment, mMineFragment)
+                        .commit()
+                    mPreviousFragment = mMineFragment
+                }
             }
         }
     }
