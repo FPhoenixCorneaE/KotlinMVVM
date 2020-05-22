@@ -46,11 +46,17 @@ class WanAndroidHomeArticleViewModel : WanAndroidBaseViewModel() {
         }
     }
 
+    /**
+     * 下拉刷新
+     */
     fun autoRefresh() {
         mRefreshing.value = true
         mPage.value = 0
     }
 
+    /**
+     * 上拉加载更多
+     */
     fun loadMore() {
         mLoadingMore.value = true
         mPage.value = (mPage.value ?: 0) + 1

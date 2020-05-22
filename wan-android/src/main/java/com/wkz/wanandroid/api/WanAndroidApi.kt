@@ -72,7 +72,7 @@ interface WanAndroidApi {
      * 取消收藏文章
      */
     @POST("/lg/uncollect_originId/{id}/json")
-    fun unCollectArticle(@Path("id") id: Int): LiveData<BaseResponse<Any>>
+    fun cancelCollectArticle(@Path("id") id: Int): LiveData<BaseResponse<Any>>
 
     /**
      * 获取当前账户的个人积分

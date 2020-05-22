@@ -2,6 +2,7 @@ package com.wkz.wanandroid.mvvm.view.fragment
 
 import android.graphics.Rect
 import android.view.View
+import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -10,9 +11,9 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener
 import com.wkz.adapter.AnimationType
 import com.wkz.adapter.BaseNBAdapter
 import com.wkz.extension.isNonNull
-import com.wkz.extension.showToast
 import com.wkz.extension.viewModel
 import com.wkz.framework.base.fragment.BaseFragment
+import com.wkz.shinebutton.ShineButton
 import com.wkz.util.IntentUtil
 import com.wkz.util.SizeUtil
 import com.wkz.wanandroid.R
@@ -23,6 +24,7 @@ import com.wkz.wanandroid.mvvm.view.activity.WanAndroidLoginActivity
 import com.wkz.wanandroid.mvvm.view.activity.WanAndroidWebViewActivity
 import com.wkz.wanandroid.mvvm.view.adapter.WanAndroidHomeArticleAdapter
 import com.wkz.wanandroid.mvvm.view.adapter.WanAndroidHomeBannerAdapter
+import com.wkz.wanandroid.mvvm.viewmodel.WanAndroidCollectViewModel
 import com.wkz.wanandroid.mvvm.viewmodel.WanAndroidHomeArticleViewModel
 import kotlinx.android.synthetic.main.wan_android_fragment_home_article.*
 
@@ -37,7 +39,12 @@ class WanAndroidHomeArticleFragment : BaseFragment(), OnRefreshLoadMoreListener 
     private val mHomeArticleAdapter by lazy(LazyThreadSafetyMode.NONE) {
         WanAndroidHomeArticleAdapter()
     }
+
+    /* 首页文章ViewModel */
     private val mHomeArticleViewModel by viewModel<WanAndroidHomeArticleViewModel>()
+
+    /* 收藏文章、网址ViewModel */
+    private val mCollectViewModel by viewModel<WanAndroidCollectViewModel>()
     private var mTopArticleList = ArrayList<WanAndroidPageBean.ArticleBean>()
 
     /**
@@ -69,19 +76,41 @@ class WanAndroidHomeArticleFragment : BaseFragment(), OnRefreshLoadMoreListener 
             }
         mHomeArticleAdapter.mOnItemChildClickListener = object :
             WanAndroidHomeArticleAdapter.OnItemChildClickListener {
-            override fun onCollectStatusChanged(
-                view: View,
-                checked: Boolean,
+            override fun onClickAuthorName(
+                view: TextView,
                 data: WanAndroidPageBean.ArticleBean,
                 position: Int
             ) {
-                if (WanAndroidUserManager.sHasLoggedOn) {
-                    // 已登录
-                    showToast("已登录！")
-                } else {
-                    // 未登录,跳转登录
-                    mHomeArticleAdapter.notifyItemChanged(position)
-                    IntentUtil.startActivity(mContext, WanAndroidLoginActivity::class.java)
+
+            }
+
+            override fun onClickCollectIcon(
+                shineButton: ShineButton,
+                data: WanAndroidPageBean.ArticleBean,
+                position: Int
+            ) {
+                when {
+                    WanAndroidUserManager.sHasLoggedOn -> {
+                        // 已登录
+                        when {
+                            data.collect -> {
+                                // 已收藏
+                                mCollectViewModel.cancelCollectArticle(data.id)
+                                shineButton.setChecked(false)
+                                data.collect = false
+                            }
+                            else -> {
+                                // 未收藏
+                                mCollectViewModel.collectArticle(data.id)
+                                shineButton.setChecked(true)
+                                data.collect = true
+                            }
+                        }
+                    }
+                    else -> {
+                        // 未登录,跳转登录
+                        IntentUtil.startActivity(mContext, WanAndroidLoginActivity::class.java)
+                    }
                 }
             }
         }
@@ -123,6 +152,14 @@ class WanAndroidHomeArticleFragment : BaseFragment(), OnRefreshLoadMoreListener 
                         it.datas.size
                     )
                 }
+            })
+        }
+        mCollectViewModel.apply {
+            mArticleCollect.observe(viewLifecycleOwner, Observer {
+                // 收藏文章
+            })
+            mArticleCancelCollect.observe(viewLifecycleOwner, Observer {
+                // 取消收藏文章
             })
         }
     }

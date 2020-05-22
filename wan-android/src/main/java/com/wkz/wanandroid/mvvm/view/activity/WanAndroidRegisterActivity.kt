@@ -10,6 +10,7 @@ import com.wkz.extension.showToast
 import com.wkz.framework.base.activity.BaseActivity
 import com.wkz.framework.widget.ProgressButton
 import com.wkz.util.IntentUtil
+import com.wkz.util.KeyboardUtil
 import com.wkz.util.ResourceUtil
 import com.wkz.wanandroid.R
 import com.wkz.wanandroid.mvvm.model.WanAndroidAccountBody
@@ -57,6 +58,8 @@ class WanAndroidRegisterActivity : BaseActivity(), TextWatcher {
                 showToast(ResourceUtil.getString(R.string.wan_android_register_tips_password_incomformity))
                 return@setOnClickListener
             }
+            // 隐藏软键盘
+            KeyboardUtil.closeKeyboard(mContext)
             // 注册
             mBtnRegister.startAnim()
             val accountBody = WanAndroidAccountBody(username, password)

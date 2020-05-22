@@ -40,9 +40,60 @@ class WanAndroidMineFragment : BaseFragment() {
 
     override fun initListener() {
         mClUserInfo.setOnClickListener {
-            if (!WanAndroidUserManager.sHasLoggedOn) {
-                goToLoginActivity()
+            when {
+                !WanAndroidUserManager.sHasLoggedOn -> {
+                    // 未登录
+                    goToLoginActivity()
+                }
             }
+        }
+        mCvIntegral.setOnClickListener {
+            when {
+                WanAndroidUserManager.sHasLoggedOn -> {
+
+                }
+                else -> {
+                    // 未登录
+                    goToLoginActivity()
+                }
+            }
+        }
+        mCvCollect.setOnClickListener {
+            when {
+                WanAndroidUserManager.sHasLoggedOn -> {
+
+                }
+                else -> {
+                    // 未登录
+                    goToLoginActivity()
+                }
+            }
+        }
+        mCvArticle.setOnClickListener {
+            when {
+                WanAndroidUserManager.sHasLoggedOn -> {
+
+                }
+                else -> {
+                    // 未登录
+                    goToLoginActivity()
+                }
+            }
+        }
+        mCvToDoList.setOnClickListener {
+            when {
+                WanAndroidUserManager.sHasLoggedOn -> {
+
+                }
+                else -> {
+                    // 未登录
+                    goToLoginActivity()
+                }
+            }
+        }
+        mCvWebsite.setOnClickListener {
+        }
+        mCvJoin.setOnClickListener {
         }
         mCvSetting.setOnClickListener {
             IntentUtil.startActivity(mContext, WanAndroidSettingActivity::class.java)

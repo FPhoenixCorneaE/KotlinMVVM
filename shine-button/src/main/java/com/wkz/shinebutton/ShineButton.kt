@@ -125,11 +125,7 @@ class ShineButton : PorterShapeImageView {
         color = btnFillColor
     }
 
-    fun setChecked(checked: Boolean, anim: Boolean) {
-        setChecked(checked, anim, true)
-    }
-
-    private fun setChecked(checked: Boolean, anim: Boolean, callBack: Boolean) {
+    fun setChecked(checked: Boolean, anim: Boolean = true, callBack: Boolean = false) {
         isChecked = checked
         if (checked) {
             setSrcColor(color)
@@ -147,10 +143,6 @@ class ShineButton : PorterShapeImageView {
         if (callBack) {
             onListenerUpdate(checked)
         }
-    }
-
-    fun setChecked(checked: Boolean) {
-        setChecked(checked, false, false)
     }
 
     private fun onListenerUpdate(checked: Boolean) {
@@ -212,6 +204,10 @@ class ShineButton : PorterShapeImageView {
     }
 
     override fun setOnClickListener(l: OnClickListener?) {
+        super.setOnClickListener(l)
+    }
+
+    fun setOnButtonClickListener(l: OnClickListener?) {
         if (l is OnButtonClickListener) {
             super.setOnClickListener(l)
         } else {
@@ -347,7 +343,7 @@ class ShineButton : PorterShapeImageView {
     }
 
     interface OnCheckedChangeListener {
-        fun onCheckedChanged(view: View, checked: Boolean)
+        fun onCheckedChanged(shineButton: ShineButton, checked: Boolean)
     }
 
     companion object {

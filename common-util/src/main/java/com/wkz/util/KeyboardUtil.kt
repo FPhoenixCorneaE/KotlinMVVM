@@ -1,5 +1,6 @@
 package com.wkz.util
 
+import android.app.Activity
 import android.content.Context
 import android.view.View
 import android.view.Window
@@ -20,7 +21,7 @@ object KeyboardUtil {
      */
     fun openKeyboard(editText: EditText) {
         val imm =
-            ContextUtil.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            editText.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.showSoftInput(editText, InputMethodManager.RESULT_SHOWN)
         imm.toggleSoftInput(
             InputMethodManager.SHOW_FORCED,
@@ -35,8 +36,21 @@ object KeyboardUtil {
      */
     fun closeKeyboard(editText: EditText) {
         val imm =
-            ContextUtil.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            editText.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(editText.windowToken, 0)
+    }
+
+    /**
+     * 关闭软键盘
+     *
+     * @param activity
+     */
+    fun closeKeyboard(activity: Activity) {
+        activity.currentFocus?.apply {
+            val imm = activity
+                .getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(windowToken, 0)
+        }
     }
 
     /**

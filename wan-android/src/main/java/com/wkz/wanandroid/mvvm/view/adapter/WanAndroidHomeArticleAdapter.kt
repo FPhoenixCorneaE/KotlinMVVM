@@ -2,7 +2,7 @@ package com.wkz.wanandroid.mvvm.view.adapter
 
 import android.annotation.SuppressLint
 import android.text.Html
-import android.view.View
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.wkz.adapter.BaseNBAdapter
 import com.wkz.extension.visible
@@ -58,11 +58,12 @@ class WanAndroidHomeArticleAdapter :
             mChapterName.text = data.chapterName
             mNiceDate.text = data.niceDate
             mSbCollect.setChecked(data.collect)
-            mSbCollect.setOnCheckStateChangeListener(object : ShineButton.OnCheckedChangeListener {
-                override fun onCheckedChanged(view: View, checked: Boolean) {
-                    mOnItemChildClickListener?.onCollectStatusChanged(view, checked, data, position)
-                }
-            })
+            mTvAuthor.setOnClickListener {
+                mOnItemChildClickListener?.onClickAuthorName(mTvAuthor, data, position)
+            }
+            mSbCollect.setOnClickListener {
+                mOnItemChildClickListener?.onClickCollectIcon(mSbCollect, data, position)
+            }
         }
     }
 
@@ -79,11 +80,19 @@ class WanAndroidHomeArticleAdapter :
 
     interface OnItemChildClickListener {
         /**
-         * 收藏状态改变
+         * 作者点击
          */
-        fun onCollectStatusChanged(
-            view: View,
-            checked: Boolean,
+        fun onClickAuthorName(
+            view: TextView,
+            data: WanAndroidPageBean.ArticleBean,
+            position: Int
+        )
+
+        /**
+         * 收藏Icon点击
+         */
+        fun onClickCollectIcon(
+            shineButton: ShineButton,
             data: WanAndroidPageBean.ArticleBean,
             position: Int
         )

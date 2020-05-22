@@ -16,6 +16,7 @@ import com.wkz.extension.androidViewModel
 import com.wkz.framework.base.activity.BaseActivity
 import com.wkz.framework.widget.ProgressButton
 import com.wkz.util.IntentUtil
+import com.wkz.util.KeyboardUtil
 import com.wkz.util.ResourceUtil
 import com.wkz.util.SpannableStringUtil
 import com.wkz.wanandroid.R
@@ -69,6 +70,8 @@ class WanAndroidLoginActivity : BaseActivity(), TextWatcher {
         mEtAccount.addTextChangedListener(this)
         mEtPassword.addTextChangedListener(this)
         mBtnLogin.setOnClickListener {
+            // 隐藏软键盘
+            KeyboardUtil.closeKeyboard(mContext)
             val username = mEtAccount.text.toString()
             val password = mEtPassword.text.toString()
             // 登录

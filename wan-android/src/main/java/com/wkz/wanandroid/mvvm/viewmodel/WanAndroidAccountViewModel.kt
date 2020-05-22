@@ -6,7 +6,6 @@ import androidx.lifecycle.Transformations
 import com.wkz.extension.showToast
 import com.wkz.wanandroid.manager.WanAndroidUserManager
 import com.wkz.wanandroid.mvvm.model.WanAndroidAccountBody
-import com.wkz.wanandroid.mvvm.model.WanAndroidUserInfoBean
 
 /**
  *  @desc: 账号登录、注册ViewModel
