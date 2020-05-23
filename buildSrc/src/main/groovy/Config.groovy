@@ -90,8 +90,9 @@ class Config {
 
     /** Glide */
     static glide = [
-            glide      : "com.github.bumptech.glide:glide:4.11.0",
-            glideOkhttp: "com.github.bumptech.glide:okhttp3-integration:4.11.0",
+            glide           : "com.github.bumptech.glide:glide:4.11.0",
+            glideAnnotations: "com.github.bumptech.glide:annotations:4.11.0",
+            glideOkhttp     : "com.github.bumptech.glide:okhttp3-integration:4.11.0",
     ]
 
     /** 下拉刷新、上拉加载、二级刷新、淘宝二楼、RefreshLayout、OverScroll，Android智能下拉刷新框架，

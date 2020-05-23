@@ -7,7 +7,6 @@ import android.text.TextWatcher
 import androidx.lifecycle.Observer
 import com.wkz.extension.androidViewModel
 import com.wkz.extension.showToast
-import com.wkz.framework.base.activity.BaseActivity
 import com.wkz.framework.widget.ProgressButton
 import com.wkz.util.IntentUtil
 import com.wkz.util.KeyboardUtil
@@ -21,7 +20,7 @@ import kotlinx.android.synthetic.main.wan_android_activity_register.*
  * @desc: 注册Activity
  * @date: 2020-04-22 11:09
  */
-class WanAndroidRegisterActivity : BaseActivity(), TextWatcher {
+class WanAndroidRegisterActivity : WanAndroidBaseActivity(), TextWatcher {
 
     /* 账号信息视图模型 */
     private val mAccountViewModel by androidViewModel<WanAndroidAccountViewModel>()

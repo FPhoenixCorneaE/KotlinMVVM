@@ -52,14 +52,6 @@ fun showToast(content: CharSequence?) {
     ToastUtil.show(content)
 }
 
-fun dp2px(dipValue: Float): Int {
-    return SizeUtil.dp2px(dipValue)
-}
-
-fun px2dp(pxValue: Float): Int {
-    return SizeUtil.px2dp(pxValue)
-}
-
 /**
  * 读取assets文件夹下文件
  * @param fileName 文件名称

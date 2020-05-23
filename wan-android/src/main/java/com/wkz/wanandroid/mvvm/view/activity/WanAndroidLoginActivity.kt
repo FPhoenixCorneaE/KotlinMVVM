@@ -13,7 +13,6 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.Observer
 import com.wkz.extension.androidViewModel
-import com.wkz.framework.base.activity.BaseActivity
 import com.wkz.framework.widget.ProgressButton
 import com.wkz.util.IntentUtil
 import com.wkz.util.KeyboardUtil
@@ -28,7 +27,7 @@ import kotlinx.android.synthetic.main.wan_android_activity_login.*
  * @desc: 登录Activity
  * @date: 2020-02-22 17:08
  */
-class WanAndroidLoginActivity : BaseActivity(), TextWatcher {
+class WanAndroidLoginActivity : WanAndroidBaseActivity(), TextWatcher {
 
     /* 账号信息视图模型 */
     private val mAccountViewModel by androidViewModel<WanAndroidAccountViewModel>()

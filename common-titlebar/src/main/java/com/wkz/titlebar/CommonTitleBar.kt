@@ -16,7 +16,13 @@ import android.view.View.OnFocusChangeListener
 import android.view.inputmethod.EditorInfo
 import android.widget.*
 import android.widget.TextView.OnEditorActionListener
-import com.wkz.util.*
+import androidx.core.content.ContextCompat
+import com.wkz.extension.dp2px
+import com.wkz.extension.dpToPx
+import com.wkz.extension.getScreenWidth
+import com.wkz.extension.spToPx
+import com.wkz.util.KeyboardUtil
+import com.wkz.util.ViewUtil
 import com.wkz.util.statusbar.StatusBarUtil
 import kotlin.math.max
 
@@ -148,19 +154,18 @@ class CommonTitleBar(
         private set
     private var fillStatusBar: Boolean = true // 是否撑起状态栏, true时,标题栏浸入状态栏 = false
     private var titleBarColor: Int = Color.WHITE// 标题栏背景颜色 = 0
-    private var titleBarHeight: Int = SizeUtil.dp2px(44f) // 标题栏高度 = 0
+    private var titleBarHeight: Int = 0 // 标题栏高度 = 0
     private var statusBarColor: Int = Color.WHITE // 状态栏颜色 = 0
     private var statusBarMode: Int = 0 // 状态栏模式 = 0
     private var showBottomLine: Boolean = true // 是否显示底部分割线 = false
     private var bottomLineColor: Int = Color.parseColor("#dddddd")// 分割线颜色 = 0
-    private var bottomShadowHeight: Float = SizeUtil.dp2px(0f).toFloat() // 底部阴影高度 = 0f
+    private var bottomShadowHeight: Float = 0f // 底部阴影高度 = 0f
     private var leftType =
         TYPE_LEFT_NONE// 左边视图类型 = 0
     private var leftText // 左边TextView文字
             : String? = null
-    private var leftTextColor =
-        ResourceUtil.getColor(R.color.common_titlebar_text_selector)// 左边TextView颜色 = 0
-    private var leftTextSize = SizeUtil.dp2px(16f).toFloat()// 左边TextView文字大小 = 0f
+    private var leftTextColor = 0// 左边TextView颜色 = 0
+    private var leftTextSize = 0f// 左边TextView文字大小 = 0f
     private var leftDrawable = 0// 左边TextView drawableLeft资源 = 0
     private var leftDrawablePadding = 5f // 左边TextView drawablePadding = 0f
     private var leftImageResource = R.drawable.common_titlebar_reback_selector // 左边图片资源 = 0
@@ -169,9 +174,8 @@ class CommonTitleBar(
         TYPE_RIGHT_NONE // 右边视图类型 = 0
     private var rightText // 右边TextView文字
             : String? = null
-    private var rightTextColor =
-        ResourceUtil.getColor(R.color.common_titlebar_text_selector)// 右边TextView颜色 = 0
-    private var rightTextSize = SizeUtil.dp2px(16f).toFloat()// 右边TextView文字大小 = 0f
+    private var rightTextColor = 0// 右边TextView颜色 = 0
+    private var rightTextSize = 0f// 右边TextView文字大小 = 0f
     private var rightImageResource = 0// 右边图片资源 = 0
     private var rightCustomViewRes = 0// 右边自定义视图布局资源 = 0
     private var centerType =
@@ -179,19 +183,19 @@ class CommonTitleBar(
     private var centerText // 中间TextView文字
             : String? = null
     private var centerTextColor = Color.parseColor("#333333")// 中间TextView字体颜色 = 0
-    private var centerTextSize = SizeUtil.dp2px(18f).toFloat()// 中间TextView字体大小 = 0f
+    private var centerTextSize = 0f// 中间TextView字体大小 = 0f
     private var centerTextMarquee = true// 中间TextView字体是否显示跑马灯效果 = false
     private var centerSubText // 中间subTextView文字
             : String? = null
     private var centerSubTextColor = Color.parseColor("#666666")// 中间subTextView字体颜色 = 0
-    private var centerSubTextSize = SizeUtil.dp2px(11f).toFloat()// 中间subTextView字体大小 = 0f
+    private var centerSubTextSize = 0f// 中间subTextView字体大小 = 0f
     private var centerSearchEditable = true// 搜索框是否可输入 = false
     private var centerSearchBgResource = R.drawable.common_titlebar_search_gray_shape // 搜索框背景图片 = 0
     private var centerSearchRightType =
         TYPE_CENTER_SEARCH_RIGHT_VOICE// 搜索框右边按钮类型  0: voice 1: delete = 0
     private var centerCustomViewRes = 0// 中间自定义布局资源 = 0
-    private var PADDING_5 = SizeUtil.dp2px(5f)
-    private var PADDING_16 = SizeUtil.dp2px(16f)
+    private var PADDING_5 = 0
+    private var PADDING_16 = 0
     private var listener: OnTitleBarClickListener? = null
     private var doubleClickListener: OnTitleBarDoubleClickListener? = null
 
@@ -208,7 +212,7 @@ class CommonTitleBar(
             array.getColor(R.styleable.CommonTitleBar_titleBarColor, Color.WHITE)
         titleBarHeight = array.getDimension(
             R.styleable.CommonTitleBar_titleBarHeight,
-            SizeUtil.dp2px(44f).toFloat()
+            context.dpToPx(44f)
         ).toInt()
         statusBarColor =
             array.getColor(R.styleable.CommonTitleBar_statusBarColor, Color.WHITE)
@@ -220,7 +224,7 @@ class CommonTitleBar(
         )
         bottomShadowHeight = array.getDimension(
             R.styleable.CommonTitleBar_bottomShadowHeight,
-            SizeUtil.dp2px(0f).toFloat()
+            0f
         )
         leftType = array.getInt(
             R.styleable.CommonTitleBar_leftType,
@@ -231,11 +235,11 @@ class CommonTitleBar(
                 leftText = array.getString(R.styleable.CommonTitleBar_leftText)
                 leftTextColor = array.getColor(
                     R.styleable.CommonTitleBar_leftTextColor,
-                    ResourceUtil.getColor(R.color.common_titlebar_text_selector)
+                    ContextCompat.getColor(context, R.color.common_titlebar_text_selector)
                 )
                 leftTextSize = array.getDimension(
                     R.styleable.CommonTitleBar_leftTextSize,
-                    SizeUtil.dp2px(16f).toFloat()
+                    context.spToPx(16f)
                 )
                 leftDrawable = array.getResourceId(R.styleable.CommonTitleBar_leftDrawable, 0)
                 leftDrawablePadding =
@@ -261,11 +265,11 @@ class CommonTitleBar(
                 rightText = array.getString(R.styleable.CommonTitleBar_rightText)
                 rightTextColor = array.getColor(
                     R.styleable.CommonTitleBar_rightTextColor,
-                    ResourceUtil.getColor(R.color.common_titlebar_text_selector)
+                    ContextCompat.getColor(context, R.color.common_titlebar_text_selector)
                 )
                 rightTextSize = array.getDimension(
                     R.styleable.CommonTitleBar_rightTextSize,
-                    SizeUtil.dp2px(16f).toFloat()
+                    context.spToPx(16f)
                 )
             }
             TYPE_RIGHT_IMAGE_BUTTON -> {
@@ -311,7 +315,7 @@ class CommonTitleBar(
                 )
                 centerTextSize = array.getDimension(
                     R.styleable.CommonTitleBar_centerTextSize,
-                    SizeUtil.dp2px(18f).toFloat()
+                    context.spToPx(18f)
                 )
                 centerTextMarquee =
                     array.getBoolean(R.styleable.CommonTitleBar_centerTextMarquee, true)
@@ -322,7 +326,7 @@ class CommonTitleBar(
                 )
                 centerSubTextSize = array.getDimension(
                     R.styleable.CommonTitleBar_centerSubTextSize,
-                    SizeUtil.dp2px(11f).toFloat()
+                    context.spToPx(11f)
                 )
             }
             TYPE_CENTER_SEARCH_VIEW -> {
@@ -383,7 +387,7 @@ class CommonTitleBar(
         // 计算主布局高度
         if (showBottomLine) {
             mainParams.height =
-                titleBarHeight - max(1, SizeUtil.dp2px(0.4f))
+                titleBarHeight - max(1, context.dp2px(0.4f))
         } else {
             mainParams.height = titleBarHeight
         }
@@ -395,7 +399,7 @@ class CommonTitleBar(
             bottomLine!!.setBackgroundColor(bottomLineColor)
             val bottomLineParams = LayoutParams(
                 MATCH_PARENT,
-                max(1, SizeUtil.dp2px(0.4f))
+                max(1, context.dp2px(0.4f))
             )
             bottomLineParams.addRule(BELOW, rlMain!!.id)
             addView(bottomLine, bottomLineParams)
@@ -404,7 +408,7 @@ class CommonTitleBar(
             viewBottomShadow!!.setBackgroundResource(R.drawable.common_titlebar_bottom_shadow)
             val bottomShadowParams = LayoutParams(
                 MATCH_PARENT,
-                SizeUtil.dp2px(bottomShadowHeight)
+                context.dp2px(bottomShadowHeight)
             )
             bottomShadowParams.addRule(BELOW, rlMain!!.id)
             addView(viewBottomShadow, bottomShadowParams)
@@ -571,7 +575,7 @@ class CommonTitleBar(
                 centerTextView!!.paint.isFakeBoldText = true
                 // 设置跑马灯效果
                 centerTextView!!.maxWidth =
-                    (ScreenUtil.screenWidth * 3 / 5.0).toInt()
+                    (context.getScreenWidth * 3 / 5.0).toInt()
                 if (centerTextMarquee) {
                     centerTextView!!.ellipsize = TextUtils.TruncateAt.MARQUEE
                     centerTextView!!.marqueeRepeatLimit = -1
@@ -586,7 +590,7 @@ class CommonTitleBar(
                 progressCenter!!.indeterminateDrawable =
                     resources.getDrawable(R.drawable.common_titlebar_progress_draw)
                 progressCenter!!.visibility = View.GONE
-                val progressWidth = SizeUtil.dp2px(18f)
+                val progressWidth = context.dp2px(18f)
                 val progressParams =
                     LayoutParams(progressWidth, progressWidth)
                 progressParams.addRule(CENTER_VERTICAL)
@@ -613,8 +617,8 @@ class CommonTitleBar(
                 val centerParams =
                     LayoutParams(MATCH_PARENT, MATCH_PARENT)
                 // 设置边距
-                centerParams.topMargin = SizeUtil.dp2px(7f)
-                centerParams.bottomMargin = SizeUtil.dp2px(7f)
+                centerParams.topMargin = context.dp2px(7f)
+                centerParams.bottomMargin = context.dp2px(7f)
                 // 根据左边的布局类型来设置边距,布局依赖规则
                 when (leftType) {
                     TYPE_LEFT_TEXT_VIEW -> {
@@ -656,7 +660,7 @@ class CommonTitleBar(
                 centerSearchLeftImageView = ImageView(context)
                 centerSearchLeftImageView!!.id = ViewUtil.generateViewId()
                 centerSearchLeftImageView!!.setOnClickListener(this)
-                val searchIconWidth = SizeUtil.dp2px(15f)
+                val searchIconWidth = context.dp2px(15f)
                 val searchParams =
                     LayoutParams(searchIconWidth, searchIconWidth)
                 searchParams.addRule(CENTER_VERTICAL)
@@ -689,7 +693,7 @@ class CommonTitleBar(
                 centerSearchEditText!!.setHintTextColor(Color.parseColor("#999999"))
                 centerSearchEditText!!.setTextSize(
                     TypedValue.COMPLEX_UNIT_PX,
-                    SizeUtil.dp2px(14f).toFloat()
+                    context.spToPx(14f)
                 )
                 centerSearchEditText!!.setPadding(PADDING_5, 0, PADDING_5, 0)
                 if (!centerSearchEditable) {
@@ -737,7 +741,9 @@ class CommonTitleBar(
 
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
-        setUpImmersionTitleBar()
+        if (!isInEditMode) {
+            setUpImmersionTitleBar()
+        }
     }
 
     private fun setUpImmersionTitleBar() {
@@ -1157,6 +1163,8 @@ class CommonTitleBar(
     }
 
     init {
+        PADDING_5 = context.dp2px(5f)
+        PADDING_16 = context.dp2px(16f)
         loadAttributes(context, attrs)
         initGlobalViews(context)
         initMainViews(context)

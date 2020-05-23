@@ -16,7 +16,8 @@ import com.bumptech.glide.request.RequestOptions
 import java.io.InputStream
 
 /**
- * @desc:自定义 GlideModule
+ * @document: http://bumptech.github.io/glide/doc/configuration.html#setup
+ * @desc: 自定义GlideModule子类，设置内存缓存、Bitmap池、磁盘缓存、默认请求选项、解码格式等等
  */
 @GlideModule
 class CustomAppGlideModule : AppGlideModule() {
@@ -74,7 +75,10 @@ class CustomAppGlideModule : AppGlideModule() {
             // 日志级别,通常来说 Log.VERBOSE 将使日志变得更冗杂，Log.ERROR 会让日志更趋向静默
             .setLogLevel(Log.DEBUG)
             // 默认请求选项
-            .setDefaultRequestOptions(RequestOptions().format(DecodeFormat.PREFER_RGB_565).disallowHardwareConfig())
+            .setDefaultRequestOptions(
+                RequestOptions().format(DecodeFormat.PREFER_RGB_565)
+                    .disallowHardwareConfig()
+            )
     }
 
     /**

@@ -7,16 +7,9 @@
 
     <com.wkz.titlebar.CommonTitleBar
         android:id="@+id/mTbTitleBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:centerText="@string/wan_android_mine_setting"
-        app:centerTextColor="@color/wan_android_color_title_0x222222"
-        app:centerTextSize="@dimen/sp_18"
-        app:centerType="textView"
+        style="@style/CommonTitleBar"
         app:layout_constraintTop_toTopOf="parent"
-        app:leftType="imageButton"
-        app:showBottomLine="true"
-        app:titleBarHeight="?attr/actionBarSize" />
+        tools:ignore="MissingConstraints" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/mCvLogout"

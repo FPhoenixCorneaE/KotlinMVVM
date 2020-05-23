@@ -1,19 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/wan_android_colorPrimary</item>
-        <item name="colorPrimaryDark">@color/wan_android_colorPrimaryDark</item>
-        <item name="colorAccent">@color/wan_android_colorAccent</item>
-    </style>
-
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
-
-    <style name="AppTheme.Fullscreen" parent="AppTheme">
-        <item name="android:windowTranslucentStatus">true</item>
-        <item name="android:windowContentOverlay">@null</item>
+    <style name="CommonTitleBar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="centerTextColor">@color/wan_android_color_title_0x222222</item>
+        <item name="centerTextSize">@dimen/sp_18</item>
+        <item name="centerType">textView</item>
+        <item name="leftType">imageButton</item>
+        <item name="showBottomLine">true</item>
+        <item name="statusBarColor">@color/wan_android_colorPrimary</item>
+        <item name="titleBarColor">@color/wan_android_colorPrimary</item>
+        <item name="titleBarHeight">?attr/actionBarSize</item>
     </style>
 </resources>

@@ -3,7 +3,6 @@ package com.wkz.wanandroid.mvvm.view.activity
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.fragment.app.Fragment
-import com.wkz.framework.base.activity.BaseActivity
 import com.wkz.util.FragmentUtil
 import com.wkz.wanandroid.R
 import com.wkz.wanandroid.mvvm.view.fragment.WanAndroidHomeFragment
@@ -14,7 +13,7 @@ import kotlinx.android.synthetic.main.wan_android_activity_home.*
  * @desc: 首页Activity
  * @date: 2019-10-28 16:04
  */
-class WanAndroidHomeActivity : BaseActivity() {
+class WanAndroidHomeActivity : WanAndroidBaseActivity() {
 
     private val mHomeFragment by lazy {
         WanAndroidHomeFragment.getInstance()

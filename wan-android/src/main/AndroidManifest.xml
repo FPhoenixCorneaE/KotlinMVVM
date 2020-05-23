@@ -32,14 +32,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!-- 网页显示界面 -->
+        <!-- 网页显示 -->
         <activity
             android:name=".mvvm.view.activity.WanAndroidWebViewActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="behind"
             android:windowSoftInputMode="adjustNothing"
             tools:ignore="LockedOrientationActivity" />
-        <!-- 登录界面 -->
+        <!-- 登录 -->
         <activity
             android:name=".mvvm.view.activity.WanAndroidLoginActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -47,7 +47,7 @@
             android:theme="@style/AppTheme.Fullscreen"
             android:windowSoftInputMode="adjustNothing"
             tools:ignore="LockedOrientationActivity" />
-        <!-- 注册界面 -->
+        <!-- 注册 -->
         <activity
             android:name=".mvvm.view.activity.WanAndroidRegisterActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -55,10 +55,19 @@
             android:theme="@style/AppTheme.Fullscreen"
             android:windowSoftInputMode="adjustNothing"
             tools:ignore="LockedOrientationActivity" />
-        <!-- 设置界面 -->
+        <!-- 设置 -->
         <activity
             android:name=".mvvm.view.activity.WanAndroidSettingActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/wan_android_mine_setting"
+            android:screenOrientation="behind"
+            android:windowSoftInputMode="adjustNothing"
+            tools:ignore="LockedOrientationActivity" />
+        <!-- 积分排行榜-->
+        <activity
+            android:name=".mvvm.view.activity.WanAndroidIntegralRankingActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/wan_android_integral_ranking"
             android:screenOrientation="behind"
             android:windowSoftInputMode="adjustNothing"
             tools:ignore="LockedOrientationActivity" />
