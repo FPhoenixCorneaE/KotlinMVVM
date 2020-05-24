@@ -1,6 +1,7 @@
 package com.wkz.wanandroid.mvvm.view.fragment
 
 import android.content.Context
+import android.graphics.Typeface
 import android.view.animation.AccelerateInterpolator
 import android.view.animation.DecelerateInterpolator
 import com.wkz.adapter.app.FragmentPagerItems
@@ -79,11 +80,12 @@ class WanAndroidHomeFragment : BaseFragment() {
                     val simplePagerTitleView = ScaleTransitionPagerTitleView(context)
                     simplePagerTitleView.text =
                         mViewPagerAdapter.getPageTitle(index).toString()
-                    simplePagerTitleView.textSize = 18F
+                    simplePagerTitleView.textSize = 18f
                     simplePagerTitleView.normalColor =
                         ResourceUtil.getColor(R.color.wan_android_color_title_0x222222)
                     simplePagerTitleView.selectedColor =
                         ResourceUtil.getColor(R.color.wan_android_colorAccent)
+                    simplePagerTitleView.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
                     simplePagerTitleView.setOnClickListener { mVpHome.currentItem = index }
                     return simplePagerTitleView
                 }
@@ -91,9 +93,9 @@ class WanAndroidHomeFragment : BaseFragment() {
                 override fun getIndicator(context: Context): IPagerIndicator {
                     val indicator = LinePagerIndicator(context)
                     indicator.mode = LinePagerIndicator.MODE_EXACTLY
-                    indicator.lineHeight = SizeUtil.dp2px(3.0F).toFloat()
-                    indicator.lineWidth = SizeUtil.dp2px(24.0F).toFloat()
-                    indicator.roundRadius = SizeUtil.dp2px(3.0F).toFloat()
+                    indicator.lineHeight = SizeUtil.dp2px(5f).toFloat()
+                    indicator.lineWidth = SizeUtil.dp2px(40f).toFloat()
+                    indicator.roundRadius = SizeUtil.dp2px(5f).toFloat()
                     indicator.startInterpolator = AccelerateInterpolator()
                     indicator.endInterpolator = DecelerateInterpolator(2.0f)
                     indicator.setColors(ResourceUtil.getColor(R.color.wan_android_colorAccent))

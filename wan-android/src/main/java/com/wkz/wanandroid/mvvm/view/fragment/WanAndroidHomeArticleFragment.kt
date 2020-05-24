@@ -127,10 +127,7 @@ class WanAndroidHomeArticleFragment : BaseFragment(), OnRefreshLoadMoreListener 
             })
             mBannerList.observe(viewLifecycleOwner, Observer {
                 mBannerAdapter.dataList = it
-                mBannerAdapter.notifyItemRangeChanged(
-                    mBannerAdapter.dataList.size - it.size - 1,
-                    it.size
-                )
+                mBannerAdapter.notifyDataSetChanged()
             })
             mTopArticleList.observe(viewLifecycleOwner, Observer {
                 this@WanAndroidHomeArticleFragment.mTopArticleList = it
@@ -147,10 +144,7 @@ class WanAndroidHomeArticleFragment : BaseFragment(), OnRefreshLoadMoreListener 
                 }
                 if (it.datas.isNonNull()) {
                     mHomeArticleAdapter.dataList.addAll(it.datas)
-                    mHomeArticleAdapter.notifyItemRangeChanged(
-                        mHomeArticleAdapter.dataList.size - it.datas.size - 1,
-                        it.datas.size
-                    )
+                    mHomeArticleAdapter.notifyDataSetChanged()
                 }
             })
         }
@@ -165,7 +159,7 @@ class WanAndroidHomeArticleFragment : BaseFragment(), OnRefreshLoadMoreListener 
     }
 
     private fun initBannerRecyclerView() {
-        mBannerAdapter.showItemAnim(AnimationType.ALPHA, true)
+        mBannerAdapter.showItemAnim(AnimationType.ALPHA, false)
         mRvBanner.apply {
             adapter = mBannerAdapter
             stayEnd(false)
@@ -189,7 +183,7 @@ class WanAndroidHomeArticleFragment : BaseFragment(), OnRefreshLoadMoreListener 
     }
 
     private fun initArticleRecyclerView() {
-        mHomeArticleAdapter.showItemAnim(AnimationType.TRANSLATE_FROM_BOTTOM, true)
+        mHomeArticleAdapter.showItemAnim(AnimationType.TRANSLATE_FROM_BOTTOM, false)
         mRvArticle.apply {
             layoutManager = LinearLayoutManager(mContext)
             adapter = mHomeArticleAdapter

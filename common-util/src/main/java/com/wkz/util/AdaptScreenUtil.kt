@@ -13,6 +13,7 @@ import java.util.*
 class AdaptScreenUtil private constructor() {
     companion object {
         private var sMetricsFields: MutableList<Field>? = null
+
         /**
          * Adapt for the horizontal screen, and call it in [android.app.Activity.getResources].
          */
@@ -152,7 +153,14 @@ class AdaptScreenUtil private constructor() {
             field: Field
         ): DisplayMetrics? {
             return try {
-                field[resources] as DisplayMetrics
+                when {
+                    field[resources] is DisplayMetrics -> {
+                        field[resources] as DisplayMetrics
+                    }
+                    else -> {
+                        null
+                    }
+                }
             } catch (e: Exception) {
                 Logger.e("getMetricsFromField: $e")
                 null
