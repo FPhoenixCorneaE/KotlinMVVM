@@ -47,14 +47,6 @@
             android:theme="@style/AppTheme.Fullscreen"
             android:windowSoftInputMode="adjustNothing"
             tools:ignore="LockedOrientationActivity" />
-        <!-- 设置 -->
-        <activity
-            android:name=".mvvm.view.activity.WanAndroidSettingActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/wan_android_mine_setting"
-            android:screenOrientation="behind"
-            android:windowSoftInputMode="adjustNothing"
-            tools:ignore="LockedOrientationActivity" />
         <!-- 积分排行榜-->
         <activity
             android:name=".mvvm.view.activity.WanAndroidIntegralRankingActivity"

@@ -13,13 +13,13 @@ import com.wkz.adapter.BaseNBAdapter
 import com.wkz.extension.isNonNull
 import com.wkz.extension.navigate
 import com.wkz.extension.viewModel
-import com.wkz.framework.base.fragment.BaseFragment
 import com.wkz.shinebutton.ShineButton
 import com.wkz.util.SizeUtil
 import com.wkz.wanandroid.R
 import com.wkz.wanandroid.manager.WanAndroidUserManager
 import com.wkz.wanandroid.mvvm.model.WanAndroidBannerBean
 import com.wkz.wanandroid.mvvm.model.WanAndroidPageBean
+import com.wkz.wanandroid.mvvm.view.activity.WanAndroidBaseFragment
 import com.wkz.wanandroid.mvvm.view.activity.WanAndroidWebViewActivity
 import com.wkz.wanandroid.mvvm.view.adapter.WanAndroidHomeArticleAdapter
 import com.wkz.wanandroid.mvvm.view.adapter.WanAndroidHomeBannerAdapter
@@ -31,7 +31,7 @@ import kotlinx.android.synthetic.main.wan_android_fragment_home_article.*
  * @desc: 首页文章Fragment
  * @date: 2019-10-24 15:51
  */
-class WanAndroidHomeArticleFragment : BaseFragment(), OnRefreshLoadMoreListener {
+class WanAndroidHomeArticleFragment : WanAndroidBaseFragment(), OnRefreshLoadMoreListener {
     private val mBannerAdapter by lazy(LazyThreadSafetyMode.NONE) {
         WanAndroidHomeBannerAdapter()
     }

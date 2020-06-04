@@ -5,13 +5,12 @@ import android.graphics.Typeface
 import android.view.animation.AccelerateInterpolator
 import android.view.animation.DecelerateInterpolator
 import com.wkz.adapter.app.FragmentPagerItems
-import com.wkz.adapter.app.FragmentStatePagerItemAdapter
 import com.wkz.adapter.viewpager2.FragmentStatePager2ItemAdapter
-import com.wkz.framework.base.fragment.BaseFragment
 import com.wkz.util.ResourceUtil
 import com.wkz.util.SizeUtil
 import com.wkz.util.statusbar.StatusBarUtil
 import com.wkz.wanandroid.R
+import com.wkz.wanandroid.mvvm.view.activity.WanAndroidBaseFragment
 import com.wkz.widget.magicindicator.IPagerIndicator
 import com.wkz.widget.magicindicator.IPagerTitleView
 import com.wkz.widget.magicindicator.adapter.CommonNavigatorAdapter
@@ -25,7 +24,7 @@ import kotlinx.android.synthetic.main.wan_android_fragment_home.*
  * @desc：首页Fragment
  * @date：2020-04-26 12:27
  */
-class WanAndroidHomeFragment : BaseFragment() {
+class WanAndroidHomeFragment : WanAndroidBaseFragment() {
 
     lateinit var mViewPagerAdapter: FragmentStatePager2ItemAdapter
 

@@ -13,22 +13,22 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.Observer
 import com.wkz.extension.androidViewModel
 import com.wkz.extension.navigateUp
-import com.wkz.framework.base.fragment.BaseFragment
 import com.wkz.framework.widget.ProgressButton
 import com.wkz.util.KeyboardUtil
 import com.wkz.util.ResourceUtil
 import com.wkz.util.SpannableStringUtil
 import com.wkz.wanandroid.R
 import com.wkz.wanandroid.mvvm.model.WanAndroidAccountBody
+import com.wkz.wanandroid.mvvm.view.activity.WanAndroidBaseFragment
 import com.wkz.wanandroid.mvvm.view.activity.WanAndroidRegisterActivity
 import com.wkz.wanandroid.mvvm.viewmodel.WanAndroidAccountViewModel
-import kotlinx.android.synthetic.main.wan_android_activity_login.*
+import kotlinx.android.synthetic.main.wan_android_fragment_login.*
 
 /**
  * @desc: 登录Fragment
  * @date: 2020-06-02 17:56
  */
-class WanAndroidLoginFragment : BaseFragment(), TextWatcher {
+class WanAndroidLoginFragment : WanAndroidBaseFragment(), TextWatcher {
 
     /* 账号信息视图模型 */
     private val mAccountViewModel by androidViewModel<WanAndroidAccountViewModel>()

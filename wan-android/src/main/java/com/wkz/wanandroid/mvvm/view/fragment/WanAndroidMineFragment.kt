@@ -6,12 +6,10 @@ import androidx.lifecycle.Observer
 import com.bumptech.glide.GenericTransitionOptions
 import com.wkz.animation_dsl.animSet
 import com.wkz.extension.*
-import com.wkz.framework.base.fragment.BaseFragment
-import com.wkz.util.IntentUtil
 import com.wkz.util.ResourceUtil
 import com.wkz.wanandroid.R
 import com.wkz.wanandroid.manager.WanAndroidUserManager
-import com.wkz.wanandroid.mvvm.view.activity.WanAndroidSettingActivity
+import com.wkz.wanandroid.mvvm.view.activity.WanAndroidBaseFragment
 import com.wkz.wanandroid.mvvm.viewmodel.WanAndroidAccountViewModel
 import com.wkz.wanandroid.mvvm.viewmodel.WanAndroidMineIntegralViewModel
 import kotlinx.android.synthetic.main.wan_android_fragment_mine.*
@@ -20,7 +18,7 @@ import kotlinx.android.synthetic.main.wan_android_fragment_mine.*
  * @desc：我的Fragment
  * @date：2020-04-26 12:53
  */
-class WanAndroidMineFragment : BaseFragment() {
+class WanAndroidMineFragment : WanAndroidBaseFragment() {
 
     /* 账号信息视图模型 */
     private val mAccountViewModel by androidViewModel<WanAndroidAccountViewModel>()
@@ -39,7 +37,7 @@ class WanAndroidMineFragment : BaseFragment() {
             when {
                 !WanAndroidUserManager.sHasLoggedOn -> {
                     // 未登录
-                    goToLoginActivity()
+                    goToLoginUI()
                 }
             }
         }
@@ -50,7 +48,7 @@ class WanAndroidMineFragment : BaseFragment() {
                 }
                 else -> {
                     // 未登录
-                    goToLoginActivity()
+                    goToLoginUI()
                 }
             }
         }
@@ -61,7 +59,7 @@ class WanAndroidMineFragment : BaseFragment() {
                 }
                 else -> {
                     // 未登录
-                    goToLoginActivity()
+                    goToLoginUI()
                 }
             }
         }
@@ -72,7 +70,7 @@ class WanAndroidMineFragment : BaseFragment() {
                 }
                 else -> {
                     // 未登录
-                    goToLoginActivity()
+                    goToLoginUI()
                 }
             }
         }
@@ -83,7 +81,7 @@ class WanAndroidMineFragment : BaseFragment() {
                 }
                 else -> {
                     // 未登录
-                    goToLoginActivity()
+                    goToLoginUI()
                 }
             }
         }
@@ -92,7 +90,7 @@ class WanAndroidMineFragment : BaseFragment() {
         mCvJoin.setOnClickListener {
         }
         mCvSetting.setOnClickListener {
-            IntentUtil.startActivity(mContext, WanAndroidSettingActivity::class.java)
+            goToSettingUI()
         }
         mAccountViewModel.apply {
             // 登录成功
@@ -127,8 +125,15 @@ class WanAndroidMineFragment : BaseFragment() {
     /**
      * 跳转到登录界面
      */
-    private fun goToLoginActivity() {
+    private fun goToLoginUI() {
         navigate(R.id.mMainToLogin)
+    }
+
+    /**
+     * 跳转到设置界面
+     */
+    private fun goToSettingUI() {
+        navigate(R.id.mMainToSetting)
     }
 
     override fun lazyLoadData() {

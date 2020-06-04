@@ -19,10 +19,22 @@
             app:exitAnim="@anim/push_out_left"
             app:popEnterAnim="@anim/pull_in_left"
             app:popExitAnim="@anim/push_out_right" />
+        <action
+            android:id="@+id/mMainToSetting"
+            app:destination="@id/mSettingFragment"
+            app:enterAnim="@anim/pull_in_right"
+            app:exitAnim="@anim/push_out_left"
+            app:popEnterAnim="@anim/pull_in_left"
+            app:popExitAnim="@anim/push_out_right" />
     </fragment>
     <fragment
         android:id="@+id/mLoginFragment"
         android:name="com.wkz.wanandroid.mvvm.view.fragment.WanAndroidLoginFragment"
         android:label="LoginFragment"
         tools:layout="@layout/wan_android_fragment_login" />
+    <fragment
+        android:id="@+id/mSettingFragment"
+        android:name="com.wkz.wanandroid.mvvm.view.fragment.WanAndroidSettingFragment"
+        android:label="SettingFragment"
+        tools:layout="@layout/wan_android_fragment_setting" />
 </navigation>

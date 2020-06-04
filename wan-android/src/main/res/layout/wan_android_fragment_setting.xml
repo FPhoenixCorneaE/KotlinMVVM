@@ -8,6 +8,7 @@
     <com.wkz.titlebar.CommonTitleBar
         android:id="@+id/mTbTitleBar"
         style="@style/CommonTitleBar"
+        app:centerText="@string/wan_android_mine_setting"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints" />
 

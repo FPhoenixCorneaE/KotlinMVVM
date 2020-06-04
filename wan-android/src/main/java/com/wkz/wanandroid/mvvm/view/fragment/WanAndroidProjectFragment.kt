@@ -1,9 +1,9 @@
 package com.wkz.wanandroid.mvvm.view.fragment
 
-import com.wkz.framework.base.fragment.BaseFragment
 import com.wkz.wanandroid.R
+import com.wkz.wanandroid.mvvm.view.activity.WanAndroidBaseFragment
 
-class WanAndroidProjectFragment : BaseFragment() {
+class WanAndroidProjectFragment : WanAndroidBaseFragment() {
     /**
      * 加载布局
      */

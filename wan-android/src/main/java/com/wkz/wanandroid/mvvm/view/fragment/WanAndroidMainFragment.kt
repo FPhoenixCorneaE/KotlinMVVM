@@ -1,18 +1,16 @@
 package com.wkz.wanandroid.mvvm.view.fragment
 
 import android.view.MenuItem
-import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.wkz.framework.base.fragment.BaseFragment
-import com.wkz.util.FragmentUtil
 import com.wkz.wanandroid.R
+import com.wkz.wanandroid.mvvm.view.activity.WanAndroidBaseFragment
 import kotlinx.android.synthetic.main.wan_android_fragment_main.*
 
 /**
  * @desc: 首页Fragment
  * @date: 2020-06-02 16:55
  */
-class WanAndroidMainFragment : BaseFragment() {
+class WanAndroidMainFragment : WanAndroidBaseFragment() {
 
     private val mFragments by lazy {
         listOf(

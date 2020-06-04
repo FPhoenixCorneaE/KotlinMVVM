@@ -8,9 +8,9 @@ import com.wkz.adapter.AnimationType
 import com.wkz.adapter.BaseNBAdapter
 import com.wkz.extension.isNonNull
 import com.wkz.extension.viewModel
-import com.wkz.framework.base.fragment.BaseFragment
 import com.wkz.wanandroid.R
 import com.wkz.wanandroid.mvvm.model.WanAndroidPageBean
+import com.wkz.wanandroid.mvvm.view.activity.WanAndroidBaseFragment
 import com.wkz.wanandroid.mvvm.view.activity.WanAndroidWebViewActivity
 import com.wkz.wanandroid.mvvm.view.adapter.WanAndroidHomeQaAdapter
 import com.wkz.wanandroid.mvvm.viewmodel.WanAndroidHomeQaViewModel
@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.wan_android_fragment_home_qa.*
  * @desc: 首页问答Fragment
  * @date: 2019-11-05 20:20
  */
-class WanAndroidHomeQaFragment : BaseFragment(), OnRefreshLoadMoreListener {
+class WanAndroidHomeQaFragment : WanAndroidBaseFragment(), OnRefreshLoadMoreListener {
 
     private val mHomeQaAdapter by lazy(LazyThreadSafetyMode.NONE) {
         WanAndroidHomeQaAdapter()
