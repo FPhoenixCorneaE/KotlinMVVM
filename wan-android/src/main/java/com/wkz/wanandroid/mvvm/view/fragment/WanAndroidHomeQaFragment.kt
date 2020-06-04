@@ -10,7 +10,6 @@ import com.wkz.extension.isNonNull
 import com.wkz.extension.viewModel
 import com.wkz.wanandroid.R
 import com.wkz.wanandroid.mvvm.model.WanAndroidPageBean
-import com.wkz.wanandroid.mvvm.view.activity.WanAndroidBaseFragment
 import com.wkz.wanandroid.mvvm.view.activity.WanAndroidWebViewActivity
 import com.wkz.wanandroid.mvvm.view.adapter.WanAndroidHomeQaAdapter
 import com.wkz.wanandroid.mvvm.viewmodel.WanAndroidHomeQaViewModel

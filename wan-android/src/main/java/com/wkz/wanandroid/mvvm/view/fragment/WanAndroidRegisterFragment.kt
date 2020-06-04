@@ -1,31 +1,29 @@
-package com.wkz.wanandroid.mvvm.view.activity
+package com.wkz.wanandroid.mvvm.view.fragment
 
-import android.app.Activity
-import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import androidx.lifecycle.Observer
 import com.wkz.extension.androidViewModel
+import com.wkz.extension.navigate
 import com.wkz.extension.showToast
 import com.wkz.framework.widget.ProgressButton
-import com.wkz.util.IntentUtil
 import com.wkz.util.KeyboardUtil
 import com.wkz.util.ResourceUtil
 import com.wkz.wanandroid.R
 import com.wkz.wanandroid.mvvm.model.WanAndroidAccountBody
 import com.wkz.wanandroid.mvvm.viewmodel.WanAndroidAccountViewModel
-import kotlinx.android.synthetic.main.wan_android_activity_register.*
+import kotlinx.android.synthetic.main.wan_android_fragment_register.*
 
 /**
- * @desc: 注册Activity
- * @date: 2020-04-22 11:09
+ * @desc: 注册Fragment
+ * @date: 2020-06-04 17:08
  */
-class WanAndroidRegisterActivity : WanAndroidBaseActivity(), TextWatcher {
+class WanAndroidRegisterFragment : WanAndroidBaseFragment(), TextWatcher {
 
     /* 账号信息视图模型 */
     private val mAccountViewModel by androidViewModel<WanAndroidAccountViewModel>()
 
-    override fun getLayoutId(): Int = R.layout.wan_android_activity_register
+    override fun getLayoutId(): Int = R.layout.wan_android_fragment_register
 
     override fun initView() {
         mBtnRegister.apply {
@@ -34,8 +32,11 @@ class WanAndroidRegisterActivity : WanAndroidBaseActivity(), TextWatcher {
         }
     }
 
-    override fun initData(savedInstanceState: Bundle?) {
+    override fun lazyLoadData() {
+
     }
+
+    override fun isAlreadyLoadedData(): Boolean = true
 
     override fun initListener() {
         mEtAccount.addTextChangedListener(this)
@@ -68,24 +69,19 @@ class WanAndroidRegisterActivity : WanAndroidBaseActivity(), TextWatcher {
             // 需要观察该LiveData,否则不会执行注册接口
             mRegisterSuccess.observe(mContext, Observer {
                 if (!it) {
-                    mBtnRegister.postDelayed({
+                    mBtnRegister?.postDelayed({
                         mBtnRegister?.reset()
                     }, 500)
                 }
             })
             // 需要观察该LiveData,否则不会执行登录接口
             mLoginSuccess.observe(mContext, Observer {
-                mBtnRegister.postDelayed({
+                mBtnRegister?.postDelayed({
                     if (it) {
                         // 登录成功,进入首页
                         mBtnRegister?.stopAnim(object : ProgressButton.OnStopAnim {
                             override fun onStop() {
-                                IntentUtil.startActivity(
-                                    mContext,
-                                    WanAndroidMainActivity::class.java
-                                )
-                                setResult(Activity.RESULT_OK)
-                                finish()
+                                navigate(R.id.mRegisterToMain)
                             }
                         })
                     } else {

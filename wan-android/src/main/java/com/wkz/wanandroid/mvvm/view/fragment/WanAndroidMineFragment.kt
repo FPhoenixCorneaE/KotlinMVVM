@@ -9,7 +9,6 @@ import com.wkz.extension.*
 import com.wkz.util.ResourceUtil
 import com.wkz.wanandroid.R
 import com.wkz.wanandroid.manager.WanAndroidUserManager
-import com.wkz.wanandroid.mvvm.view.activity.WanAndroidBaseFragment
 import com.wkz.wanandroid.mvvm.viewmodel.WanAndroidAccountViewModel
 import com.wkz.wanandroid.mvvm.viewmodel.WanAndroidMineIntegralViewModel
 import kotlinx.android.synthetic.main.wan_android_fragment_mine.*

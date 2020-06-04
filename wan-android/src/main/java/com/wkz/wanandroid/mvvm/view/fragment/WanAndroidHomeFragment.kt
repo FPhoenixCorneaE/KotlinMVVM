@@ -10,7 +10,6 @@ import com.wkz.util.ResourceUtil
 import com.wkz.util.SizeUtil
 import com.wkz.util.statusbar.StatusBarUtil
 import com.wkz.wanandroid.R
-import com.wkz.wanandroid.mvvm.view.activity.WanAndroidBaseFragment
 import com.wkz.widget.magicindicator.IPagerIndicator
 import com.wkz.widget.magicindicator.IPagerTitleView
 import com.wkz.widget.magicindicator.adapter.CommonNavigatorAdapter

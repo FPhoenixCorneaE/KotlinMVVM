@@ -1,17 +1,14 @@
 package com.wkz.wanandroid.mvvm.view.fragment
 
-import android.app.Activity
-import android.content.Intent
 import android.text.Editable
 import android.text.Spanned
 import android.text.TextWatcher
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.view.View
-import androidx.activity.result.ActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.Observer
 import com.wkz.extension.androidViewModel
+import com.wkz.extension.navigate
 import com.wkz.extension.navigateUp
 import com.wkz.framework.widget.ProgressButton
 import com.wkz.util.KeyboardUtil
@@ -19,8 +16,6 @@ import com.wkz.util.ResourceUtil
 import com.wkz.util.SpannableStringUtil
 import com.wkz.wanandroid.R
 import com.wkz.wanandroid.mvvm.model.WanAndroidAccountBody
-import com.wkz.wanandroid.mvvm.view.activity.WanAndroidBaseFragment
-import com.wkz.wanandroid.mvvm.view.activity.WanAndroidRegisterActivity
 import com.wkz.wanandroid.mvvm.viewmodel.WanAndroidAccountViewModel
 import kotlinx.android.synthetic.main.wan_android_fragment_login.*
 
@@ -49,11 +44,7 @@ class WanAndroidLoginFragment : WanAndroidBaseFragment(), TextWatcher {
             .setClickSpan(object : ClickableSpan() {
                 override fun onClick(widget: View) {
                     // 没有账号,去注册
-                    prepareCall(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult? ->
-                        if (result?.resultCode == Activity.RESULT_OK) {
-                            navigateUp()
-                        }
-                    }.launch(Intent(mContext, WanAndroidRegisterActivity::class.java))
+                    navigate(R.id.mLoginToRegister)
                 }
             })
             .create()
@@ -84,7 +75,7 @@ class WanAndroidLoginFragment : WanAndroidBaseFragment(), TextWatcher {
         mAccountViewModel.apply {
             // 需要观察该LiveData,否则不会执行登录接口
             mLoginSuccess.observe(mContext, Observer {
-                mBtnLogin.postDelayed({
+                mBtnLogin?.postDelayed({
                     if (it) {
                         // 登录成功,进入首页
                         mBtnLogin?.stopAnim(object : ProgressButton.OnStopAnim {

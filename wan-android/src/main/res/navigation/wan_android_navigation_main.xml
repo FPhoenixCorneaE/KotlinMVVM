@@ -31,7 +31,28 @@
         android:id="@+id/mLoginFragment"
         android:name="com.wkz.wanandroid.mvvm.view.fragment.WanAndroidLoginFragment"
         android:label="LoginFragment"
-        tools:layout="@layout/wan_android_fragment_login" />
+        tools:layout="@layout/wan_android_fragment_login" >
+        <action
+            android:id="@+id/mLoginToRegister"
+            app:destination="@id/mRegisterFragment"
+            app:enterAnim="@anim/pull_in_right"
+            app:exitAnim="@anim/push_out_left"
+            app:popEnterAnim="@anim/pull_in_left"
+            app:popExitAnim="@anim/push_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/mRegisterFragment"
+        android:name="com.wkz.wanandroid.mvvm.view.fragment.WanAndroidRegisterFragment"
+        android:label="RegisterFragment"
+        tools:layout="@layout/wan_android_fragment_register">
+        <action
+            android:id="@+id/mRegisterToMain"
+            app:destination="@id/mMainFragment"
+            app:enterAnim="@anim/pull_in_right"
+            app:exitAnim="@anim/push_out_left"
+            app:popEnterAnim="@anim/pull_in_left"
+            app:popExitAnim="@anim/push_out_right" />
+    </fragment>
     <fragment
         android:id="@+id/mSettingFragment"
         android:name="com.wkz.wanandroid.mvvm.view.fragment.WanAndroidSettingFragment"

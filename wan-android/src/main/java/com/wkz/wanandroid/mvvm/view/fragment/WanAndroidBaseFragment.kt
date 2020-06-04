@@ -1,4 +1,4 @@
-package com.wkz.wanandroid.mvvm.view.activity
+package com.wkz.wanandroid.mvvm.view.fragment
 
 import android.view.View
 import com.wkz.extension.navigateUp

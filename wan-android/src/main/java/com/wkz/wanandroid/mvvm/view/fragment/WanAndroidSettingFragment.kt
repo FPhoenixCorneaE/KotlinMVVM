@@ -5,7 +5,6 @@ import com.wkz.extension.navigateUp
 import com.wkz.extension.visible
 import com.wkz.wanandroid.R
 import com.wkz.wanandroid.manager.WanAndroidUserManager
-import com.wkz.wanandroid.mvvm.view.activity.WanAndroidBaseFragment
 import com.wkz.wanandroid.mvvm.viewmodel.WanAndroidAccountViewModel
 import kotlinx.android.synthetic.main.wan_android_fragment_setting.*
 

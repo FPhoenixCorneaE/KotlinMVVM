@@ -1,7 +1,6 @@
 package com.wkz.wanandroid.mvvm.view.fragment
 
 import com.wkz.wanandroid.R
-import com.wkz.wanandroid.mvvm.view.activity.WanAndroidBaseFragment
 
 class WanAndroidProjectFragment : WanAndroidBaseFragment() {
     /**

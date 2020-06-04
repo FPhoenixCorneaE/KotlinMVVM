@@ -3,7 +3,6 @@ package com.wkz.wanandroid.mvvm.view.fragment
 import android.view.MenuItem
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.wkz.wanandroid.R
-import com.wkz.wanandroid.mvvm.view.activity.WanAndroidBaseFragment
 import kotlinx.android.synthetic.main.wan_android_fragment_main.*
 
 /**

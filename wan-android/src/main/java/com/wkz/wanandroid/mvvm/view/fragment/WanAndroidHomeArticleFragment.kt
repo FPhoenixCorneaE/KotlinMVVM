@@ -19,7 +19,6 @@ import com.wkz.wanandroid.R
 import com.wkz.wanandroid.manager.WanAndroidUserManager
 import com.wkz.wanandroid.mvvm.model.WanAndroidBannerBean
 import com.wkz.wanandroid.mvvm.model.WanAndroidPageBean
-import com.wkz.wanandroid.mvvm.view.activity.WanAndroidBaseFragment
 import com.wkz.wanandroid.mvvm.view.activity.WanAndroidWebViewActivity
 import com.wkz.wanandroid.mvvm.view.adapter.WanAndroidHomeArticleAdapter
 import com.wkz.wanandroid.mvvm.view.adapter.WanAndroidHomeBannerAdapter

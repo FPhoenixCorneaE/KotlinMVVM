@@ -39,14 +39,6 @@
             android:screenOrientation="behind"
             android:windowSoftInputMode="adjustNothing"
             tools:ignore="LockedOrientationActivity" />
-        <!-- 注册 -->
-        <activity
-            android:name=".mvvm.view.activity.WanAndroidRegisterActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="behind"
-            android:theme="@style/AppTheme.Fullscreen"
-            android:windowSoftInputMode="adjustNothing"
-            tools:ignore="LockedOrientationActivity" />
         <!-- 积分排行榜-->
         <activity
             android:name=".mvvm.view.activity.WanAndroidIntegralRankingActivity"
