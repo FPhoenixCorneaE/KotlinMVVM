@@ -35,10 +35,10 @@ class Config {
 
     /** navigation 扩展插件 */
     static navigation = [
-            common  : 'androidx.navigation:navigation-common-ktx:2.0.0',
-            fragment: 'androidx.navigation:navigation-fragment-ktx:2.0.0',
-            runtime : 'androidx.navigation:navigation-runtime-ktx:2.0.0',
-            ui      : 'androidx.navigation:navigation-ui-ktx:2.0.0',
+            common  : 'androidx.navigation:navigation-common-ktx:2.3.0-beta01',
+            fragment: 'androidx.navigation:navigation-fragment-ktx:2.3.0-beta01',
+            runtime : 'androidx.navigation:navigation-runtime-ktx:2.3.0-beta01',
+            ui      : 'androidx.navigation:navigation-ui-ktx:2.3.0-beta01',
     ]
 
     /** Kotlin */

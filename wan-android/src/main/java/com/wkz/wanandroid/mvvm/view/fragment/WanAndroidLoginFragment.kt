@@ -1,8 +1,7 @@
-package com.wkz.wanandroid.mvvm.view.activity
+package com.wkz.wanandroid.mvvm.view.fragment
 
 import android.app.Activity
 import android.content.Intent
-import android.os.Bundle
 import android.text.Editable
 import android.text.Spanned
 import android.text.TextWatcher
@@ -13,26 +12,28 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.Observer
 import com.wkz.extension.androidViewModel
+import com.wkz.extension.navigateUp
+import com.wkz.framework.base.fragment.BaseFragment
 import com.wkz.framework.widget.ProgressButton
-import com.wkz.util.IntentUtil
 import com.wkz.util.KeyboardUtil
 import com.wkz.util.ResourceUtil
 import com.wkz.util.SpannableStringUtil
 import com.wkz.wanandroid.R
 import com.wkz.wanandroid.mvvm.model.WanAndroidAccountBody
+import com.wkz.wanandroid.mvvm.view.activity.WanAndroidRegisterActivity
 import com.wkz.wanandroid.mvvm.viewmodel.WanAndroidAccountViewModel
 import kotlinx.android.synthetic.main.wan_android_activity_login.*
 
 /**
- * @desc: 登录Activity
- * @date: 2020-02-22 17:08
+ * @desc: 登录Fragment
+ * @date: 2020-06-02 17:56
  */
-class WanAndroidLoginActivity : WanAndroidBaseActivity(), TextWatcher {
+class WanAndroidLoginFragment : BaseFragment(), TextWatcher {
 
     /* 账号信息视图模型 */
     private val mAccountViewModel by androidViewModel<WanAndroidAccountViewModel>()
 
-    override fun getLayoutId(): Int = R.layout.wan_android_activity_login
+    override fun getLayoutId(): Int = R.layout.wan_android_fragment_login
 
     override fun initView() {
         val noAccountStr = ResourceUtil.getString(R.string.wan_android_no_account)
@@ -50,7 +51,7 @@ class WanAndroidLoginActivity : WanAndroidBaseActivity(), TextWatcher {
                     // 没有账号,去注册
                     prepareCall(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult? ->
                         if (result?.resultCode == Activity.RESULT_OK) {
-                            finish()
+                            navigateUp()
                         }
                     }.launch(Intent(mContext, WanAndroidRegisterActivity::class.java))
                 }
@@ -62,8 +63,10 @@ class WanAndroidLoginActivity : WanAndroidBaseActivity(), TextWatcher {
         }
     }
 
-    override fun initData(savedInstanceState: Bundle?) {
+    override fun lazyLoadData() {
     }
+
+    override fun isAlreadyLoadedData(): Boolean = true
 
     override fun initListener() {
         mEtAccount.addTextChangedListener(this)
@@ -86,11 +89,7 @@ class WanAndroidLoginActivity : WanAndroidBaseActivity(), TextWatcher {
                         // 登录成功,进入首页
                         mBtnLogin?.stopAnim(object : ProgressButton.OnStopAnim {
                             override fun onStop() {
-                                IntentUtil.startActivity(
-                                    mContext,
-                                    WanAndroidHomeActivity::class.java
-                                )
-                                finish()
+                                navigateUp()
                             }
                         })
                     } else {

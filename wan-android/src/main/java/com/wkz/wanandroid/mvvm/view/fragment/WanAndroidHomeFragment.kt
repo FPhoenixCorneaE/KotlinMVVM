@@ -6,6 +6,7 @@ import android.view.animation.AccelerateInterpolator
 import android.view.animation.DecelerateInterpolator
 import com.wkz.adapter.app.FragmentPagerItems
 import com.wkz.adapter.app.FragmentStatePagerItemAdapter
+import com.wkz.adapter.viewpager2.FragmentStatePager2ItemAdapter
 import com.wkz.framework.base.fragment.BaseFragment
 import com.wkz.util.ResourceUtil
 import com.wkz.util.SizeUtil
@@ -26,7 +27,7 @@ import kotlinx.android.synthetic.main.wan_android_fragment_home.*
  */
 class WanAndroidHomeFragment : BaseFragment() {
 
-    lateinit var mViewPagerAdapter: FragmentStatePagerItemAdapter
+    lateinit var mViewPagerAdapter: FragmentStatePager2ItemAdapter
 
     /**
      * 加载布局
@@ -49,8 +50,8 @@ class WanAndroidHomeFragment : BaseFragment() {
     }
 
     private fun initViewPager() {
-        mViewPagerAdapter = FragmentStatePagerItemAdapter(
-            childFragmentManager,
+        mViewPagerAdapter = FragmentStatePager2ItemAdapter(
+            this,
             FragmentPagerItems.with(mContext)
                 .add(
                     getString(R.string.wan_android_title_fragment_home_article),
@@ -74,7 +75,7 @@ class WanAndroidHomeFragment : BaseFragment() {
             isSkimOver = true
             adapter = object : CommonNavigatorAdapter() {
                 override val count: Int
-                    get() = mViewPagerAdapter.count
+                    get() = mViewPagerAdapter.itemCount
 
                 override fun getTitleView(context: Context, index: Int): IPagerTitleView {
                     val simplePagerTitleView = ScaleTransitionPagerTitleView(context)

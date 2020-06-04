@@ -11,16 +11,15 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener
 import com.wkz.adapter.AnimationType
 import com.wkz.adapter.BaseNBAdapter
 import com.wkz.extension.isNonNull
+import com.wkz.extension.navigate
 import com.wkz.extension.viewModel
 import com.wkz.framework.base.fragment.BaseFragment
 import com.wkz.shinebutton.ShineButton
-import com.wkz.util.IntentUtil
 import com.wkz.util.SizeUtil
 import com.wkz.wanandroid.R
 import com.wkz.wanandroid.manager.WanAndroidUserManager
 import com.wkz.wanandroid.mvvm.model.WanAndroidBannerBean
 import com.wkz.wanandroid.mvvm.model.WanAndroidPageBean
-import com.wkz.wanandroid.mvvm.view.activity.WanAndroidLoginActivity
 import com.wkz.wanandroid.mvvm.view.activity.WanAndroidWebViewActivity
 import com.wkz.wanandroid.mvvm.view.adapter.WanAndroidHomeArticleAdapter
 import com.wkz.wanandroid.mvvm.view.adapter.WanAndroidHomeBannerAdapter
@@ -109,7 +108,7 @@ class WanAndroidHomeArticleFragment : BaseFragment(), OnRefreshLoadMoreListener 
                     }
                     else -> {
                         // 未登录,跳转登录
-                        IntentUtil.startActivity(mContext, WanAndroidLoginActivity::class.java)
+                        navigate(R.id.mMainToLogin)
                     }
                 }
             }

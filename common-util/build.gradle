@@ -64,6 +64,7 @@ dependencies {
     implementation Config.rxPermissions
     implementation Config.rxJava2Libs
     implementation Config.gson
+    implementation Config.navigationLibs
     api(Config.logger) {
         transitive true
     }

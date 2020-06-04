@@ -98,4 +98,5 @@ dependencies {
     api Config.lottie
     api Config.workManager
     api Config.kenBurnsView
+    api Config.navigationLibs
 }

@@ -9,4 +9,16 @@
         <attr name="pbTextBold" format="boolean" />
         <attr name="pbFontFamily" format="reference" />
     </declare-styleable>
+
+    <declare-styleable name="DialogFragmentNavigator">
+        <attr name="android:name" />
+    </declare-styleable>
+
+    <declare-styleable name="FragmentNavigator">
+        <attr name="android:name" />
+    </declare-styleable>
+
+    <declare-styleable name="NavHostFragment">
+        <attr name="defaultNavHost" format="boolean" />
+    </declare-styleable>
 </resources>

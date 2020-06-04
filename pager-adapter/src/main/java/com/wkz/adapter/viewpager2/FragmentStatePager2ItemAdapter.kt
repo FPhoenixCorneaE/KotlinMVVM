@@ -3,16 +3,28 @@ package com.wkz.adapter.viewpager2
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import androidx.viewpager2.widget.ViewPager2
 import com.wkz.adapter.app.FragmentPagerItem
 import com.wkz.adapter.app.FragmentPagerItems
 
 /**
  * viewpager2适配器
  */
-class FragmentStatePager2ItemAdapter(
-    fragmentActivity: FragmentActivity,
+class FragmentStatePager2ItemAdapter : FragmentStateAdapter {
+
     private val pages: FragmentPagerItems
-) : FragmentStateAdapter(fragmentActivity) {
+
+    constructor(
+        fragmentActivity: FragmentActivity,
+        pages: FragmentPagerItems
+    ) : super(fragmentActivity) {
+        this.pages = pages
+    }
+
+    constructor(fragment: Fragment, pages: FragmentPagerItems) : super(fragment) {
+        this.pages = pages
+    }
+
     /**
      * Provide a new Fragment associated with the specified position.
      *
@@ -24,7 +36,7 @@ class FragmentStatePager2ItemAdapter(
      * will be saved. When the item is close to the viewport again, a new Fragment will be
      * requested, and a previously saved state will be used to initialize it.
      *
-     * @see ViewPager2.setOffscreenPageLimit
+     * @see [ViewPager2.setOffscreenPageLimit]
      */
     override fun createFragment(position: Int): Fragment {
         return getPagerItem(position).instantiate(pages.context, position)

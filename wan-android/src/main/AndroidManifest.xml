@@ -19,7 +19,7 @@
         tools:targetApi="m">
         <!-- 首页 -->
         <activity
-            android:name=".mvvm.view.activity.WanAndroidHomeActivity"
+            android:name=".mvvm.view.activity.WanAndroidMainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
@@ -37,14 +37,6 @@
             android:name=".mvvm.view.activity.WanAndroidWebViewActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="behind"
-            android:windowSoftInputMode="adjustNothing"
-            tools:ignore="LockedOrientationActivity" />
-        <!-- 登录 -->
-        <activity
-            android:name=".mvvm.view.activity.WanAndroidLoginActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="behind"
-            android:theme="@style/AppTheme.Fullscreen"
             android:windowSoftInputMode="adjustNothing"
             tools:ignore="LockedOrientationActivity" />
         <!-- 注册 -->

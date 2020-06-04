@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/wan_android_navigation_main"
+    app:startDestination="@id/mMainFragment"
+    tools:ignore="UnusedNavigation">
+
+    <fragment
+        android:id="@+id/mMainFragment"
+        android:name="com.wkz.wanandroid.mvvm.view.fragment.WanAndroidMainFragment"
+        android:label="MainFragment"
+        tools:layout="@layout/wan_android_fragment_main">
+
+        <action
+            android:id="@+id/mMainToLogin"
+            app:destination="@id/mLoginFragment"
+            app:enterAnim="@anim/pull_in_right"
+            app:exitAnim="@anim/push_out_left"
+            app:popEnterAnim="@anim/pull_in_left"
+            app:popExitAnim="@anim/push_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/mLoginFragment"
+        android:name="com.wkz.wanandroid.mvvm.view.fragment.WanAndroidLoginFragment"
+        android:label="LoginFragment"
+        tools:layout="@layout/wan_android_fragment_login" />
+</navigation>

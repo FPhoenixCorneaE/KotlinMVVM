@@ -5,16 +5,12 @@ import android.view.animation.LinearInterpolator
 import androidx.lifecycle.Observer
 import com.bumptech.glide.GenericTransitionOptions
 import com.wkz.animation_dsl.animSet
-import com.wkz.extension.androidViewModel
-import com.wkz.extension.gone
-import com.wkz.extension.viewModel
-import com.wkz.extension.visible
+import com.wkz.extension.*
 import com.wkz.framework.base.fragment.BaseFragment
 import com.wkz.util.IntentUtil
 import com.wkz.util.ResourceUtil
 import com.wkz.wanandroid.R
 import com.wkz.wanandroid.manager.WanAndroidUserManager
-import com.wkz.wanandroid.mvvm.view.activity.WanAndroidLoginActivity
 import com.wkz.wanandroid.mvvm.view.activity.WanAndroidSettingActivity
 import com.wkz.wanandroid.mvvm.viewmodel.WanAndroidAccountViewModel
 import com.wkz.wanandroid.mvvm.viewmodel.WanAndroidMineIntegralViewModel
@@ -132,7 +128,7 @@ class WanAndroidMineFragment : BaseFragment() {
      * 跳转到登录界面
      */
     private fun goToLoginActivity() {
-        IntentUtil.startActivity(mContext, WanAndroidLoginActivity::class.java)
+        navigate(R.id.mMainToLogin)
     }
 
     override fun lazyLoadData() {

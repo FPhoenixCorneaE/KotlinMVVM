@@ -82,7 +82,7 @@ class WanAndroidRegisterActivity : WanAndroidBaseActivity(), TextWatcher {
                             override fun onStop() {
                                 IntentUtil.startActivity(
                                     mContext,
-                                    WanAndroidHomeActivity::class.java
+                                    WanAndroidMainActivity::class.java
                                 )
                                 setResult(Activity.RESULT_OK)
                                 finish()
