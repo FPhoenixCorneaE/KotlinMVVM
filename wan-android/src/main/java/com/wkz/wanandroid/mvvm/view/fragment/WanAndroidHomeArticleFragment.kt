@@ -19,7 +19,7 @@ import com.wkz.wanandroid.R
 import com.wkz.wanandroid.manager.WanAndroidUserManager
 import com.wkz.wanandroid.mvvm.model.WanAndroidBannerBean
 import com.wkz.wanandroid.mvvm.model.WanAndroidPageBean
-import com.wkz.wanandroid.mvvm.view.activity.WanAndroidWebViewActivity
+import com.wkz.wanandroid.mvvm.view.activity.WanAndroidWebActivity
 import com.wkz.wanandroid.mvvm.view.adapter.WanAndroidHomeArticleAdapter
 import com.wkz.wanandroid.mvvm.view.adapter.WanAndroidHomeBannerAdapter
 import com.wkz.wanandroid.mvvm.viewmodel.WanAndroidCollectViewModel
@@ -63,13 +63,13 @@ class WanAndroidHomeArticleFragment : WanAndroidBaseFragment(), OnRefreshLoadMor
         mBannerAdapter.onItemClickListener =
             object : BaseNBAdapter.OnItemClickListener<WanAndroidBannerBean> {
                 override fun onItemClick(item: WanAndroidBannerBean, position: Int) {
-                    WanAndroidWebViewActivity.start(mContext, item.title, item.url)
+                    WanAndroidWebActivity.start(mContext, item.title, item.url)
                 }
             }
         mHomeArticleAdapter.onItemClickListener =
             object : BaseNBAdapter.OnItemClickListener<WanAndroidPageBean.ArticleBean> {
                 override fun onItemClick(item: WanAndroidPageBean.ArticleBean, position: Int) {
-                    WanAndroidWebViewActivity.start(mContext, item.title, item.link)
+                    WanAndroidWebActivity.start(mContext, item.title, item.link)
                 }
             }
         mHomeArticleAdapter.mOnItemChildClickListener = object :

@@ -1,19 +1,19 @@
-package com.wkz.wanandroid.mvvm.view.activity
+package com.wkz.wanandroid.mvvm.view.fragment
 
 import android.content.Context
-import com.wkz.framework.webview.BaseWebViewActivity
+import com.wkz.framework.web.BaseWebFragment
 import com.wkz.util.BundleBuilder
 import com.wkz.util.IntentUtil
 import com.wkz.util.ResourceUtil
 import com.wkz.wanandroid.R
 
-class WanAndroidWebViewActivity : BaseWebViewActivity() {
+class WanAndroidWebFragment : BaseWebFragment() {
 
     companion object {
         fun start(context: Context, title: String, webUrl: String) {
             IntentUtil.startActivity(
                 context,
-                WanAndroidWebViewActivity::class.java,
+                WanAndroidWebFragment::class.java,
                 BundleBuilder.of()
                     .putString(TITLE, title)
                     .putString(WEB_URL, webUrl)

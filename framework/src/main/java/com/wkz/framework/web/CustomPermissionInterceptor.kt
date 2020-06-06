@@ -1,4 +1,4 @@
-package com.wkz.framework.webview
+package com.wkz.framework.web
 
 import com.just.agentweb.PermissionInterceptor
 import com.orhanobut.logger.Logger

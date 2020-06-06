@@ -1,4 +1,4 @@
-package com.wkz.framework.webview
+package com.wkz.framework.web
 
 import android.graphics.Color
 import android.view.View
@@ -13,12 +13,13 @@ import com.wkz.framework.base.fragment.BaseFragment
 import com.wkz.titlebar.CommonTitleBar
 import com.wkz.util.DeviceIdUtil
 import com.wkz.util.ImageUtil
-import kotlinx.android.synthetic.main.framework_activity_base_web_view.*
+import kotlinx.android.synthetic.main.framework_layout_base_web.*
 
 /**
- * @desc:BaseWebViewActivity基类
+ * @desc:WebFragment基类
+ * @date:2020-06-05 09:27
  */
-open class BaseWebViewFragment : BaseFragment() {
+open class BaseWebFragment : BaseFragment() {
 
     private lateinit var mAgentWeb: AgentWeb
     private var mUrl: String? = ""
@@ -28,7 +29,7 @@ open class BaseWebViewFragment : BaseFragment() {
         const val TITLE = "title"
     }
 
-    override fun getLayoutId(): Int = R.layout.framework_activity_base_web_view
+    override fun getLayoutId(): Int = R.layout.framework_layout_base_web
 
     override fun initView() {
         mTbTitleBar.setBackgroundColor(getTitleBgColor())
@@ -86,7 +87,7 @@ open class BaseWebViewFragment : BaseFragment() {
     }
 
     override fun initListener() {
-        mTbTitleBar.setListener(object : CommonTitleBar.OnTitleBarClickListener {
+        mTbTitleBar.setOnTitleBarClickListener(object : CommonTitleBar.OnTitleBarClickListener {
             override fun onClicked(v: View?, action: Int, extra: String?) {
                 when (action) {
                     CommonTitleBar.MotionAction.ACTION_LEFT_BUTTON -> navigateUp()

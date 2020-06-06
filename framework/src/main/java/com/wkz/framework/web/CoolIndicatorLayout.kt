@@ -1,4 +1,4 @@
-package com.wkz.framework.webview
+package com.wkz.framework.web
 
 import android.app.Activity
 import android.content.Context

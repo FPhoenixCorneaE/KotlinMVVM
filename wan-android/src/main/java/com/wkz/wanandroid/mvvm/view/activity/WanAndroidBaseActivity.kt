@@ -23,7 +23,7 @@ abstract class WanAndroidBaseActivity : BaseActivity() {
                     ResourceUtil.getColor(R.color.wan_android_color_title_0x222222)
                 )
             }
-            setListener(object : CommonTitleBar.OnTitleBarClickListener {
+            setOnTitleBarClickListener(object : CommonTitleBar.OnTitleBarClickListener {
                 override fun onClicked(v: View?, action: Int, extra: String?) {
                     when (action) {
                         CommonTitleBar.MotionAction.ACTION_LEFT_BUTTON -> finish()

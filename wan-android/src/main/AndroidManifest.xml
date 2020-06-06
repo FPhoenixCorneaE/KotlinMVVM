@@ -34,7 +34,7 @@
         </activity>
         <!-- 网页显示 -->
         <activity
-            android:name=".mvvm.view.activity.WanAndroidWebViewActivity"
+            android:name=".mvvm.view.activity.WanAndroidWebActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="behind"
             android:windowSoftInputMode="adjustNothing"

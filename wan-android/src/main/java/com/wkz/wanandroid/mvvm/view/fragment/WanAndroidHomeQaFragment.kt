@@ -10,7 +10,7 @@ import com.wkz.extension.isNonNull
 import com.wkz.extension.viewModel
 import com.wkz.wanandroid.R
 import com.wkz.wanandroid.mvvm.model.WanAndroidPageBean
-import com.wkz.wanandroid.mvvm.view.activity.WanAndroidWebViewActivity
+import com.wkz.wanandroid.mvvm.view.activity.WanAndroidWebActivity
 import com.wkz.wanandroid.mvvm.view.adapter.WanAndroidHomeQaAdapter
 import com.wkz.wanandroid.mvvm.viewmodel.WanAndroidHomeQaViewModel
 import kotlinx.android.synthetic.main.wan_android_fragment_home_qa.*
@@ -44,7 +44,7 @@ class WanAndroidHomeQaFragment : WanAndroidBaseFragment(), OnRefreshLoadMoreList
         mHomeQaAdapter.onItemClickListener =
             object : BaseNBAdapter.OnItemClickListener<WanAndroidPageBean.ArticleBean> {
                 override fun onItemClick(item: WanAndroidPageBean.ArticleBean, position: Int) {
-                    WanAndroidWebViewActivity.start(mContext, item.title, item.link)
+                    WanAndroidWebActivity.start(mContext, item.title, item.link)
                 }
             }
         mHomeQaViewModel.apply {

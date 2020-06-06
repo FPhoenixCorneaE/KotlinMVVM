@@ -1,4 +1,4 @@
-package com.wkz.framework.webview
+package com.wkz.framework.web
 
 import android.webkit.WebView
 import com.just.agentweb.WebChromeClient

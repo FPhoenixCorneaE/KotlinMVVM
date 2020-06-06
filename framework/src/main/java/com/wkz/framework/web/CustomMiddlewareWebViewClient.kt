@@ -1,4 +1,4 @@
-package com.wkz.framework.webview
+package com.wkz.framework.web
 
 import android.webkit.WebResourceRequest
 import android.webkit.WebView

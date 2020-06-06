@@ -1,4 +1,4 @@
-package com.wkz.framework.webview
+package com.wkz.framework.web
 
 import android.content.Context
 import android.graphics.Color
@@ -16,12 +16,13 @@ import com.wkz.util.BundleBuilder
 import com.wkz.util.DeviceIdUtil
 import com.wkz.util.ImageUtil
 import com.wkz.util.IntentUtil
-import kotlinx.android.synthetic.main.framework_activity_base_web_view.*
+import kotlinx.android.synthetic.main.framework_layout_base_web.*
 
 /**
- * @desc:BaseWebViewActivity基类
+ * @desc:WebActivity基类
+ * @date:2020-06-05 09:27
  */
-open class BaseWebViewActivity : BaseActivity() {
+open class BaseWebActivity : BaseActivity() {
 
     private lateinit var mAgentWeb: AgentWeb
     private var mUrl: String? = ""
@@ -33,7 +34,7 @@ open class BaseWebViewActivity : BaseActivity() {
         fun start(context: Context, title: String, webUrl: String) {
             IntentUtil.startActivity(
                 context,
-                BaseWebViewActivity::class.java,
+                BaseWebActivity::class.java,
                 BundleBuilder.of()
                     .putString(TITLE, title)
                     .putString(WEB_URL, webUrl)
@@ -42,7 +43,7 @@ open class BaseWebViewActivity : BaseActivity() {
         }
     }
 
-    override fun getLayoutId(): Int = R.layout.framework_activity_base_web_view
+    override fun getLayoutId(): Int = R.layout.framework_layout_base_web
 
     override fun initView() {
         mTbTitleBar.setBackgroundColor(getTitleBgColor())
@@ -53,7 +54,7 @@ open class BaseWebViewActivity : BaseActivity() {
     }
 
     override fun initListener() {
-        mTbTitleBar.setListener(object : CommonTitleBar.OnTitleBarClickListener {
+        mTbTitleBar.setOnTitleBarClickListener(object : CommonTitleBar.OnTitleBarClickListener {
             override fun onClicked(v: View?, action: Int, extra: String?) {
                 when (action) {
                     CommonTitleBar.MotionAction.ACTION_LEFT_BUTTON -> finish()

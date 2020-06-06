@@ -29,17 +29,17 @@ import kotlin.math.max
 /**
  * 通用标题栏
  */
-class CommonTitleBar(
+class CommonTitleBar @JvmOverloads constructor(
     context: Context,
-    attrs: AttributeSet
-) : RelativeLayout(context, attrs), View.OnClickListener {
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0,
+    defStyleRes: Int = 0
+) : RelativeLayout(context, attrs, defStyleAttr, defStyleRes), View.OnClickListener {
     private var viewStatusBarFill // 状态栏填充视图
             : View? = null
 
     /**
      * 获取标题栏底部横线
-     *
-     * @return
      */
     var bottomLine // 分隔线视图
             : View? = null
@@ -51,8 +51,6 @@ class CommonTitleBar(
 
     /**
      * 获取标题栏左边TextView，对应leftType = textView
-     *
-     * @return
      */
     var leftTextView // 左边TextView
             : TextView? = null
@@ -60,8 +58,6 @@ class CommonTitleBar(
 
     /**
      * 获取标题栏左边ImageButton，对应leftType = imageButton
-     *
-     * @return
      */
     var leftImageButton // 左边ImageButton
             : ImageButton? = null
@@ -69,16 +65,12 @@ class CommonTitleBar(
 
     /**
      * 获取左边自定义布局
-     *
-     * @return
      */
     var leftCustomView: View? = null
         private set
 
     /**
      * 获取标题栏右边TextView，对应rightType = textView
-     *
-     * @return
      */
     var rightTextView // 右边TextView
             : TextView? = null
@@ -86,8 +78,6 @@ class CommonTitleBar(
 
     /**
      * 获取标题栏右边ImageButton，对应rightType = imageButton
-     *
-     * @return
      */
     var rightImageButton // 右边ImageButton
             : ImageButton? = null
@@ -95,8 +85,6 @@ class CommonTitleBar(
 
     /**
      * 获取右边自定义布局
-     *
-     * @return
      */
     var rightCustomView: View? = null
         private set
@@ -105,8 +93,6 @@ class CommonTitleBar(
 
     /**
      * 获取标题栏中间TextView，对应centerType = textView
-     *
-     * @return
      */
     var centerTextView // 标题栏文字
             : TextView? = null
@@ -119,8 +105,6 @@ class CommonTitleBar(
 
     /**
      * 获取搜索框布局，对应centerType = searchView
-     *
-     * @return
      */
     var centerSearchView // 中间搜索框布局
             : RelativeLayout? = null
@@ -128,8 +112,6 @@ class CommonTitleBar(
 
     /**
      * 获取搜索框内部输入框，对应centerType = searchView
-     *
-     * @return
      */
     var centerSearchEditText: EditText? = null
         private set
@@ -138,16 +120,12 @@ class CommonTitleBar(
 
     /**
      * 获取搜索框右边图标ImageView，对应centerType = searchView
-     *
-     * @return
      */
     var centerSearchRightImageView: ImageView? = null
         private set
 
     /**
      * 获取中间自定义布局视图
-     *
-     * @return
      */
     var centerCustomView // 中间自定义视图
             : View? = null
@@ -196,12 +174,12 @@ class CommonTitleBar(
     private var centerCustomViewRes = 0// 中间自定义布局资源 = 0
     private var PADDING_5 = 0
     private var PADDING_16 = 0
-    private var listener: OnTitleBarClickListener? = null
-    private var doubleClickListener: OnTitleBarDoubleClickListener? = null
+    private var onTitleBarClickListener: OnTitleBarClickListener? = null
+    private var onTitleBarDoubleClickListener: OnTitleBarDoubleClickListener? = null
 
     private fun loadAttributes(
         context: Context,
-        attrs: AttributeSet
+        attrs: AttributeSet?
     ) {
         val array = context.obtainStyledAttributes(attrs, R.styleable.CommonTitleBar)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -358,8 +336,7 @@ class CommonTitleBar(
      * @param context 上下文
      */
     private fun initGlobalViews(context: Context) {
-        val globalParams =
-            ViewGroup.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
+        val globalParams = ViewGroup.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
         layoutParams = globalParams
         val transparentStatusBar = StatusBarUtil.supportTransparentStatusBar()
         // 构建标题栏填充视图
@@ -368,8 +345,7 @@ class CommonTitleBar(
             viewStatusBarFill = View(context)
             viewStatusBarFill!!.id = ViewUtil.generateViewId()
             viewStatusBarFill!!.setBackgroundColor(statusBarColor)
-            val statusBarParams =
-                LayoutParams(MATCH_PARENT, statusBarHeight)
+            val statusBarParams = LayoutParams(MATCH_PARENT, statusBarHeight)
             statusBarParams.addRule(ALIGN_PARENT_TOP)
             addView(viewStatusBarFill, statusBarParams)
         }
@@ -377,41 +353,45 @@ class CommonTitleBar(
         rlMain = RelativeLayout(context)
         rlMain!!.id = ViewUtil.generateViewId()
         rlMain!!.setBackgroundColor(titleBarColor)
-        val mainParams =
-            LayoutParams(MATCH_PARENT, titleBarHeight)
+        val mainParams = LayoutParams(MATCH_PARENT, titleBarHeight)
         if (fillStatusBar && transparentStatusBar) {
             mainParams.addRule(BELOW, viewStatusBarFill!!.id)
         } else {
             mainParams.addRule(ALIGN_PARENT_TOP)
         }
         // 计算主布局高度
-        if (showBottomLine) {
-            mainParams.height =
-                titleBarHeight - max(1, context.dp2px(0.4f))
-        } else {
-            mainParams.height = titleBarHeight
+        when {
+            showBottomLine -> {
+                mainParams.height = titleBarHeight - max(1, context.dp2px(0.4f))
+            }
+            else -> {
+                mainParams.height = titleBarHeight
+            }
         }
         addView(rlMain, mainParams)
         // 构建分割线视图
-        if (showBottomLine) {
-            // 已设置显示标题栏分隔线,5.0以下机型,显示分隔线
-            bottomLine = View(context)
-            bottomLine!!.setBackgroundColor(bottomLineColor)
-            val bottomLineParams = LayoutParams(
-                MATCH_PARENT,
-                max(1, context.dp2px(0.4f))
-            )
-            bottomLineParams.addRule(BELOW, rlMain!!.id)
-            addView(bottomLine, bottomLineParams)
-        } else if (bottomShadowHeight != 0f) {
-            viewBottomShadow = View(context)
-            viewBottomShadow!!.setBackgroundResource(R.drawable.common_titlebar_bottom_shadow)
-            val bottomShadowParams = LayoutParams(
-                MATCH_PARENT,
-                context.dp2px(bottomShadowHeight)
-            )
-            bottomShadowParams.addRule(BELOW, rlMain!!.id)
-            addView(viewBottomShadow, bottomShadowParams)
+        when {
+            showBottomLine -> {
+                // 已设置显示标题栏分隔线,5.0以下机型,显示分隔线
+                bottomLine = View(context)
+                bottomLine!!.setBackgroundColor(bottomLineColor)
+                val bottomLineParams = LayoutParams(
+                    MATCH_PARENT,
+                    max(1, context.dp2px(0.4f))
+                )
+                bottomLineParams.addRule(BELOW, rlMain!!.id)
+                addView(bottomLine, bottomLineParams)
+            }
+            bottomShadowHeight != 0f -> {
+                viewBottomShadow = View(context)
+                viewBottomShadow!!.setBackgroundResource(R.drawable.common_titlebar_bottom_shadow)
+                val bottomShadowParams = LayoutParams(
+                    MATCH_PARENT,
+                    context.dp2px(bottomShadowHeight)
+                )
+                bottomShadowParams.addRule(BELOW, rlMain!!.id)
+                addView(viewBottomShadow, bottomShadowParams)
+            }
         }
     }
 
@@ -421,15 +401,9 @@ class CommonTitleBar(
      * @param context 上下文
      */
     private fun initMainViews(context: Context) {
-        if (leftType != TYPE_LEFT_NONE) {
-            initMainLeftViews(context)
-        }
-        if (rightType != TYPE_RIGHT_NONE) {
-            initMainRightViews(context)
-        }
-        if (centerType != TYPE_CENTER_NONE) {
-            initMainCenterViews(context)
-        }
+        initMainLeftViews(context)
+        initMainRightViews(context)
+        initMainCenterViews(context)
     }
 
     /**
@@ -439,8 +413,7 @@ class CommonTitleBar(
      * @param context 上下文
      */
     private fun initMainLeftViews(context: Context) {
-        val leftInnerParams =
-            LayoutParams(WRAP_CONTENT, MATCH_PARENT)
+        val leftInnerParams = LayoutParams(WRAP_CONTENT, MATCH_PARENT)
         leftInnerParams.addRule(ALIGN_PARENT_START)
         leftInnerParams.addRule(CENTER_VERTICAL)
         when (leftType) {
@@ -504,8 +477,7 @@ class CommonTitleBar(
      * @param context 上下文
      */
     private fun initMainRightViews(context: Context) {
-        val rightInnerParams =
-            LayoutParams(WRAP_CONTENT, MATCH_PARENT)
+        val rightInnerParams = LayoutParams(WRAP_CONTENT, MATCH_PARENT)
         rightInnerParams.addRule(ALIGN_PARENT_END)
         rightInnerParams.addRule(CENTER_VERTICAL)
         when (rightType) {
@@ -558,8 +530,7 @@ class CommonTitleBar(
                 centerLayout!!.gravity = Gravity.CENTER
                 centerLayout!!.orientation = LinearLayout.VERTICAL
                 centerLayout!!.setOnClickListener(this)
-                val centerParams =
-                    LayoutParams(WRAP_CONTENT, MATCH_PARENT)
+                val centerParams = LayoutParams(WRAP_CONTENT, MATCH_PARENT)
                 centerParams.marginStart = PADDING_16
                 centerParams.marginEnd = PADDING_16
                 centerParams.addRule(CENTER_IN_PARENT)
@@ -574,25 +545,22 @@ class CommonTitleBar(
                 // 字体加粗
                 centerTextView!!.paint.isFakeBoldText = true
                 // 设置跑马灯效果
-                centerTextView!!.maxWidth =
-                    (context.getScreenWidth * 3 / 5.0).toInt()
+                centerTextView!!.maxWidth = (context.getScreenWidth * 3 / 5.0).toInt()
                 if (centerTextMarquee) {
                     centerTextView!!.ellipsize = TextUtils.TruncateAt.MARQUEE
                     centerTextView!!.marqueeRepeatLimit = -1
                     centerTextView!!.requestFocus()
                     centerTextView!!.isSelected = true
                 }
-                val centerTextParams =
-                    LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT)
+                val centerTextParams = LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT)
                 centerLayout!!.addView(centerTextView, centerTextParams)
                 // 初始化进度条, 显示于标题栏左边
                 progressCenter = ProgressBar(context)
                 progressCenter!!.indeterminateDrawable =
-                    resources.getDrawable(R.drawable.common_titlebar_progress_draw)
+                    ContextCompat.getDrawable(context, R.drawable.common_titlebar_progress_draw)
                 progressCenter!!.visibility = View.GONE
                 val progressWidth = context.dp2px(18f)
-                val progressParams =
-                    LayoutParams(progressWidth, progressWidth)
+                val progressParams = LayoutParams(progressWidth, progressWidth)
                 progressParams.addRule(CENTER_VERTICAL)
                 progressParams.addRule(START_OF, centerLayout!!.id)
                 rlMain!!.addView(progressCenter, progressParams)
@@ -606,16 +574,14 @@ class CommonTitleBar(
                 if (TextUtils.isEmpty(centerSubText)) {
                     centerSubTextView!!.visibility = View.GONE
                 }
-                val centerSubTextParams =
-                    LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT)
+                val centerSubTextParams = LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT)
                 centerLayout!!.addView(centerSubTextView, centerSubTextParams)
             }
             TYPE_CENTER_SEARCH_VIEW -> {
                 // 初始化通用搜索框
                 centerSearchView = RelativeLayout(context)
                 centerSearchView!!.setBackgroundResource(centerSearchBgResource)
-                val centerParams =
-                    LayoutParams(MATCH_PARENT, MATCH_PARENT)
+                val centerParams = LayoutParams(MATCH_PARENT, MATCH_PARENT)
                 // 设置边距
                 centerParams.topMargin = context.dp2px(7f)
                 centerParams.bottomMargin = context.dp2px(7f)
@@ -661,8 +627,7 @@ class CommonTitleBar(
                 centerSearchLeftImageView!!.id = ViewUtil.generateViewId()
                 centerSearchLeftImageView!!.setOnClickListener(this)
                 val searchIconWidth = context.dp2px(15f)
-                val searchParams =
-                    LayoutParams(searchIconWidth, searchIconWidth)
+                val searchParams = LayoutParams(searchIconWidth, searchIconWidth)
                 searchParams.addRule(CENTER_VERTICAL)
                 searchParams.addRule(ALIGN_PARENT_START)
                 searchParams.marginStart = PADDING_16
@@ -672,8 +637,7 @@ class CommonTitleBar(
                 centerSearchRightImageView = ImageView(context)
                 centerSearchRightImageView!!.id = ViewUtil.generateViewId()
                 centerSearchRightImageView!!.setOnClickListener(this)
-                val voiceParams =
-                    LayoutParams(WRAP_CONTENT, WRAP_CONTENT)
+                val voiceParams = LayoutParams(WRAP_CONTENT, WRAP_CONTENT)
                 voiceParams.addRule(CENTER_VERTICAL)
                 voiceParams.addRule(ALIGN_PARENT_END)
                 voiceParams.marginEnd = PADDING_16
@@ -712,8 +676,7 @@ class CommonTitleBar(
                 centerSearchEditText!!.setOnClickListener {
                     centerSearchEditText!!.isCursorVisible = true
                 }
-                val searchHintParams =
-                    LayoutParams(MATCH_PARENT, MATCH_PARENT)
+                val searchHintParams = LayoutParams(MATCH_PARENT, MATCH_PARENT)
                 searchHintParams.addRule(END_OF, centerSearchLeftImageView!!.id)
                 searchHintParams.addRule(START_OF, centerSearchRightImageView!!.id)
                 searchHintParams.addRule(CENTER_VERTICAL)
@@ -729,8 +692,7 @@ class CommonTitleBar(
                         id = ViewUtil.generateViewId()
                     }
                 }
-                val centerCustomParams =
-                    LayoutParams(WRAP_CONTENT, MATCH_PARENT)
+                val centerCustomParams = LayoutParams(WRAP_CONTENT, MATCH_PARENT)
                 centerCustomParams.marginStart = PADDING_16
                 centerCustomParams.marginEnd = PADDING_16
                 centerCustomParams.addRule(CENTER_IN_PARENT)
@@ -760,12 +722,13 @@ class CommonTitleBar(
 
     private val window: Window?
         get() {
-            val context = context
-            val activity: Activity
-            activity = if (context is Activity) {
-                context
-            } else {
-                (context as ContextWrapper).baseContext as Activity
+            val activity: Activity = when (val context = context) {
+                is Activity -> {
+                    context
+                }
+                else -> {
+                    (context as ContextWrapper).baseContext as Activity
+                }
             }
             return activity.window
         }
@@ -787,42 +750,46 @@ class CommonTitleBar(
         ) {
         }
 
-        override fun afterTextChanged(s: Editable) = when (centerSearchRightType) {
-            TYPE_CENTER_SEARCH_RIGHT_VOICE -> {
-                when {
-                    TextUtils.isEmpty(s) -> {
-                        centerSearchRightImageView!!.setImageResource(R.drawable.common_titlebar_voice)
+        override fun afterTextChanged(s: Editable) =
+            when (centerSearchRightType) {
+                TYPE_CENTER_SEARCH_RIGHT_VOICE -> {
+                    when {
+                        TextUtils.isEmpty(s) -> {
+                            centerSearchRightImageView!!.setImageResource(R.drawable.common_titlebar_voice)
+                        }
+                        else -> {
+                            centerSearchRightImageView!!.setImageResource(R.drawable.common_titlebar_delete_normal)
+                        }
                     }
-                    else -> {
-                        centerSearchRightImageView!!.setImageResource(R.drawable.common_titlebar_delete_normal)
+                }
+                else -> {
+                    when {
+                        TextUtils.isEmpty(s) -> {
+                            centerSearchRightImageView!!.visibility = View.GONE
+                        }
+                        else -> {
+                            centerSearchRightImageView!!.visibility = View.VISIBLE
+                        }
                     }
                 }
             }
-            else -> {
-                when {
-                    TextUtils.isEmpty(s) -> {
-                        centerSearchRightImageView!!.visibility = View.GONE
-                    }
-                    else -> {
-                        centerSearchRightImageView!!.visibility = View.VISIBLE
-                    }
-                }
-            }
-        }
     }
-    private val focusChangeListener = OnFocusChangeListener { v, hasFocus ->
+    private val focusChangeListener = OnFocusChangeListener { _, hasFocus ->
         if (centerSearchRightType == TYPE_CENTER_SEARCH_RIGHT_DELETE) {
             val input = centerSearchEditText!!.text.toString()
-            if (hasFocus && !TextUtils.isEmpty(input)) {
-                centerSearchRightImageView!!.visibility = View.VISIBLE
-            } else {
-                centerSearchRightImageView!!.visibility = View.GONE
+            when {
+                hasFocus && !TextUtils.isEmpty(input) -> {
+                    centerSearchRightImageView!!.visibility = View.VISIBLE
+                }
+                else -> {
+                    centerSearchRightImageView!!.visibility = View.GONE
+                }
             }
         }
     }
-    private val editorActionListener = OnEditorActionListener { v, actionId, event ->
-        if (listener != null && actionId == EditorInfo.IME_ACTION_SEARCH) {
-            listener!!.onClicked(
+    private val editorActionListener = OnEditorActionListener { v, actionId, _ ->
+        if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+            onTitleBarClickListener?.onClicked(
                 v,
                 MotionAction.ACTION_SEARCH_SUBMIT,
                 centerSearchEditText!!.text.toString()
@@ -837,66 +804,67 @@ class CommonTitleBar(
     private var lastClickMillis: Long = 0
 
     override fun onClick(v: View) {
-        if (listener == null) {
-            return
-        }
-        when {
-            v == centerLayout && doubleClickListener != null -> {
-                val currentClickMillis = System.currentTimeMillis()
-                if (currentClickMillis - lastClickMillis < 500) {
-                    doubleClickListener!!.onDoubleClicked(v)
+        onTitleBarClickListener?.apply {
+            when (v) {
+                centerLayout -> {
+                    onTitleBarDoubleClickListener?.run {
+                        val currentClickMillis = System.currentTimeMillis()
+                        if (currentClickMillis - lastClickMillis < 500) {
+                            onDoubleClicked(v)
+                        }
+                        lastClickMillis = currentClickMillis
+                    }
                 }
-                lastClickMillis = currentClickMillis
-            }
-            v == leftTextView -> {
-                listener!!.onClicked(
-                    v,
-                    MotionAction.ACTION_LEFT_TEXT, null
-                )
-            }
-            v == leftImageButton -> {
-                listener!!.onClicked(
-                    v,
-                    MotionAction.ACTION_LEFT_BUTTON, null
-                )
-            }
-            v == rightTextView -> {
-                listener!!.onClicked(
-                    v,
-                    MotionAction.ACTION_RIGHT_TEXT, null
-                )
-            }
-            v == rightImageButton -> {
-                listener!!.onClicked(
-                    v,
-                    MotionAction.ACTION_RIGHT_BUTTON, null
-                )
-            }
-            v == centerSearchEditText || v == centerSearchLeftImageView -> {
-                listener!!.onClicked(
-                    v,
-                    MotionAction.ACTION_SEARCH, null
-                )
-            }
-            v == centerSearchRightImageView -> {
-                centerSearchEditText!!.setText("")
-                if (centerSearchRightType == TYPE_CENTER_SEARCH_RIGHT_VOICE) { // 语音按钮被点击
-                    listener!!.onClicked(
+                leftTextView -> {
+                    onClicked(
                         v,
-                        MotionAction.ACTION_SEARCH_VOICE, null
-                    )
-                } else {
-                    listener!!.onClicked(
-                        v,
-                        MotionAction.ACTION_SEARCH_DELETE, null
+                        MotionAction.ACTION_LEFT_TEXT, null
                     )
                 }
-            }
-            v == centerTextView -> {
-                listener!!.onClicked(
-                    v,
-                    MotionAction.ACTION_CENTER_TEXT, null
-                )
+                leftImageButton -> {
+                    onClicked(
+                        v,
+                        MotionAction.ACTION_LEFT_BUTTON, null
+                    )
+                }
+                rightTextView -> {
+                    onClicked(
+                        v,
+                        MotionAction.ACTION_RIGHT_TEXT, null
+                    )
+                }
+                rightImageButton -> {
+                    onClicked(
+                        v,
+                        MotionAction.ACTION_RIGHT_BUTTON, null
+                    )
+                }
+                centerSearchEditText, centerSearchLeftImageView -> {
+                    onClicked(
+                        v,
+                        MotionAction.ACTION_SEARCH, null
+                    )
+                }
+                centerSearchRightImageView -> {
+                    centerSearchEditText!!.setText("")
+                    if (centerSearchRightType == TYPE_CENTER_SEARCH_RIGHT_VOICE) { // 语音按钮被点击
+                        onClicked(
+                            v,
+                            MotionAction.ACTION_SEARCH_VOICE, null
+                        )
+                    } else {
+                        onClicked(
+                            v,
+                            MotionAction.ACTION_SEARCH_DELETE, null
+                        )
+                    }
+                }
+                centerTextView -> {
+                    onClicked(
+                        v,
+                        MotionAction.ACTION_CENTER_TEXT, null
+                    )
+                }
             }
         }
     }
@@ -907,10 +875,8 @@ class CommonTitleBar(
      * @param color
      */
     override fun setBackgroundColor(color: Int) {
-        if (viewStatusBarFill != null) {
-            viewStatusBarFill!!.setBackgroundColor(color)
-        }
-        rlMain!!.setBackgroundColor(color)
+        viewStatusBarFill?.setBackgroundColor(color)
+        rlMain?.setBackgroundColor(color)
     }
 
     /**
@@ -929,9 +895,7 @@ class CommonTitleBar(
      * @param color
      */
     fun setStatusBarColor(color: Int) {
-        if (viewStatusBarFill != null) {
-            viewStatusBarFill!!.setBackgroundColor(color)
-        }
+        viewStatusBarFill?.setBackgroundColor(color)
     }
 
     /**
@@ -940,8 +904,9 @@ class CommonTitleBar(
      * @param show
      */
     fun showStatusBar(show: Boolean) {
-        if (viewStatusBarFill != null) {
-            viewStatusBarFill!!.visibility = if (show) View.VISIBLE else View.GONE
+        viewStatusBarFill?.visibility = when {
+            show -> View.VISIBLE
+            else -> View.GONE
         }
     }
 
@@ -951,12 +916,15 @@ class CommonTitleBar(
     fun toggleStatusBarMode() {
         val window = window ?: return
         StatusBarUtil.transparentStatusBar(window)
-        if (statusBarMode == 0) {
-            statusBarMode = 1
-            StatusBarUtil.setLightMode(window)
-        } else {
-            statusBarMode = 0
-            StatusBarUtil.setDarkMode(window)
+        when (statusBarMode) {
+            0 -> {
+                statusBarMode = 1
+                StatusBarUtil.setLightMode(window)
+            }
+            else -> {
+                statusBarMode = 0
+                StatusBarUtil.setDarkMode(window)
+            }
         }
     }
 
@@ -971,7 +939,7 @@ class CommonTitleBar(
             LayoutParams(WRAP_CONTENT, MATCH_PARENT)
         leftInnerParams.addRule(ALIGN_PARENT_START)
         leftInnerParams.addRule(CENTER_VERTICAL)
-        rlMain!!.addView(leftView, leftInnerParams)
+        rlMain?.addView(leftView, leftInnerParams)
     }
 
     /**
@@ -981,11 +949,10 @@ class CommonTitleBar(
         if (centerView.id == View.NO_ID) {
             centerView.id = ViewUtil.generateViewId()
         }
-        val centerInnerParams =
-            LayoutParams(WRAP_CONTENT, MATCH_PARENT)
+        val centerInnerParams = LayoutParams(WRAP_CONTENT, MATCH_PARENT)
         centerInnerParams.addRule(CENTER_IN_PARENT)
         centerInnerParams.addRule(CENTER_VERTICAL)
-        rlMain!!.addView(centerView, centerInnerParams)
+        rlMain?.addView(centerView, centerInnerParams)
     }
 
     /**
@@ -995,40 +962,42 @@ class CommonTitleBar(
         if (rightView.id == View.NO_ID) {
             rightView.id = ViewUtil.generateViewId()
         }
-        val rightInnerParams =
-            LayoutParams(WRAP_CONTENT, MATCH_PARENT)
+        val rightInnerParams = LayoutParams(WRAP_CONTENT, MATCH_PARENT)
         rightInnerParams.addRule(ALIGN_PARENT_END)
         rightInnerParams.addRule(CENTER_VERTICAL)
-        rlMain!!.addView(rightView, rightInnerParams)
+        rlMain?.addView(rightView, rightInnerParams)
     }
 
     /**
      * 显示中间进度条
      */
     fun showCenterProgress() {
-        progressCenter!!.visibility = View.VISIBLE
+        progressCenter?.visibility = View.VISIBLE
     }
 
     /**
      * 隐藏中间进度条
      */
     fun dismissCenterProgress() {
-        progressCenter!!.visibility = View.GONE
+        progressCenter?.visibility = View.GONE
     }
 
     /**
      * 显示或隐藏输入法,centerType="searchView"模式下有效
-     *
-     * @return
      */
     fun showSoftInputKeyboard(show: Boolean) {
-        if (centerSearchEditable && show) {
-            centerSearchEditText!!.isFocusable = true
-            centerSearchEditText!!.isFocusableInTouchMode = true
-            centerSearchEditText!!.requestFocus()
-            KeyboardUtil.openKeyboard(centerSearchEditText!!)
-        } else {
-            KeyboardUtil.closeKeyboard(centerSearchEditText!!)
+        centerSearchEditText?.run {
+            when {
+                centerSearchEditable && show -> {
+                    isFocusable = true
+                    isFocusableInTouchMode = true
+                    requestFocus()
+                    KeyboardUtil.openKeyboard(this)
+                }
+                else -> {
+                    KeyboardUtil.closeKeyboard(this)
+                }
+            }
         }
     }
 
@@ -1038,33 +1007,29 @@ class CommonTitleBar(
      * @param res
      */
     fun setSearchRightImageResource(res: Int) {
-        if (centerSearchRightImageView != null) {
-            centerSearchRightImageView!!.setImageResource(res)
-        }
+        centerSearchRightImageView?.setImageResource(res)
     }
 
     /**
      * 获取SearchView输入结果
      */
     val searchKey: String
-        get() = if (centerSearchEditText != null) {
-            centerSearchEditText!!.text.toString()
-        } else ""
+        get() = centerSearchEditText?.text?.toString() ?: ""
 
     /**
      * 设置点击事件监听
      *
-     * @param listener
+     * @param onTitleBarClickListener
      */
-    fun setListener(listener: OnTitleBarClickListener?) {
-        this.listener = listener
+    fun setOnTitleBarClickListener(onTitleBarClickListener: OnTitleBarClickListener?) {
+        this.onTitleBarClickListener = onTitleBarClickListener
     }
 
     /**
      * 设置双击监听
      */
-    fun setDoubleClickListener(doubleClickListener: OnTitleBarDoubleClickListener?) {
-        this.doubleClickListener = doubleClickListener
+    fun setOnTitleBarDoubleClickListener(onTitleBarDoubleClickListener: OnTitleBarDoubleClickListener?) {
+        this.onTitleBarDoubleClickListener = onTitleBarDoubleClickListener
     }
 
     @Target(
@@ -1133,7 +1098,8 @@ class CommonTitleBar(
          * @param extra  中间为搜索框时,如果可输入,点击键盘的搜索按钮,会返回输入关键词
          */
         fun onClicked(
-            v: View?, @MotionAction action: Int,
+            v: View?,
+            @MotionAction action: Int,
             extra: String?
         )
     }
