@@ -47,5 +47,10 @@
             android:screenOrientation="behind"
             android:windowSoftInputMode="adjustNothing"
             tools:ignore="LockedOrientationActivity" />
+
+        <!-- 腾讯Bugly AppId-->
+        <meta-data
+            android:name="BUGLY_APPID"
+            android:value="51362dd6c0" />
     </application>
 </manifest>

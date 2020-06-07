@@ -122,6 +122,12 @@ class Config {
             downloader   : 'com.download.library:Downloader:4.1.2',
     ]
 
+    /** 腾讯Bugly异常上报*/
+    static bugly = [
+            crashReport      : 'com.tencent.bugly:crashreport:latest.release',
+            nativeCrashReport: 'com.tencent.bugly:nativecrashreport:latest.release'
+    ]
+
 
     /** 直接在layout文件中去创建drawable */
     static folivora = "cn.cricin:folivora:0.1.0"
@@ -173,4 +179,5 @@ class Config {
     static multiTypeLibs = multiType.values()
     static smartSwipeLibs = smartSwipe.values()
     static agentWebLibs = agentWeb.values()
+    static buglyLibs = bugly.values()
 }

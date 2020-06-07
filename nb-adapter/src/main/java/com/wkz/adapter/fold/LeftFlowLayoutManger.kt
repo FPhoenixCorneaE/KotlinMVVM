@@ -35,7 +35,8 @@ class LeftFlowLayoutManger(private val builder: Builder) : RecyclerView.LayoutMa
      */
     private val screenWidth: Int
         get() {
-            val windowManager = builder.context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+            val windowManager =
+                builder.context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
             val dm = DisplayMetrics()
             windowManager.defaultDisplay?.getMetrics(dm)
             return dm.widthPixels
@@ -191,7 +192,10 @@ class LeftFlowLayoutManger(private val builder: Builder) : RecyclerView.LayoutMa
     }
 
     override fun generateDefaultLayoutParams(): RecyclerView.LayoutParams {
-        return RecyclerView.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        return RecyclerView.LayoutParams(
+            ViewGroup.LayoutParams.WRAP_CONTENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
     }
 
     override fun onLayoutChildren(recycler: RecyclerView.Recycler?, state: RecyclerView.State?) {
@@ -232,7 +236,12 @@ class LeftFlowLayoutManger(private val builder: Builder) : RecyclerView.LayoutMa
             if (frame == null) {
                 frame = Rect()
             }
-            frame.set(offset.roundToInt(), 0, (offset + mDecoratedChildWidth).roundToInt(), mDecoratedChildHeight)
+            frame.set(
+                offset.roundToInt(),
+                0,
+                (offset + mDecoratedChildWidth).roundToInt(),
+                mDecoratedChildHeight
+            )
             mAllItemFrames.put(i, frame)
             mHasAttachedItems.put(i, false)
             //原始位置累加，否则越后面误差越大
@@ -246,7 +255,7 @@ class LeftFlowLayoutManger(private val builder: Builder) : RecyclerView.LayoutMa
             onSelectedCallBack()
         }
 
-        layoutItems(recycler, state!!, SCROLL_RIGHT)
+        layoutItems(recycler, state, SCROLL_RIGHT)
 
         mRecycle = recycler
         mState = state
@@ -256,8 +265,10 @@ class LeftFlowLayoutManger(private val builder: Builder) : RecyclerView.LayoutMa
      * dx : 滑动的距离   >0向左    <0向右
      */
     override
-    fun scrollHorizontallyBy(dx: Int, recycler: RecyclerView.Recycler?,
-                             state: RecyclerView.State?): Int {
+    fun scrollHorizontallyBy(
+        dx: Int, recycler: RecyclerView.Recycler?,
+        state: RecyclerView.State?
+    ): Int {
         if (mAnimation != null && mAnimation!!.isRunning) {
             mAnimation!!.cancel()
         }
@@ -271,7 +282,7 @@ class LeftFlowLayoutManger(private val builder: Builder) : RecyclerView.LayoutMa
 
         //累计偏移量
         mOffsetAll += travel
-        layoutItems(recycler, state!!, if (dx > 0) SCROLL_RIGHT else SCROLL_LEFT)
+        layoutItems(recycler, state, if (dx > 0) SCROLL_RIGHT else SCROLL_LEFT)
         return travel
     }
 
@@ -281,9 +292,11 @@ class LeftFlowLayoutManger(private val builder: Builder) : RecyclerView.LayoutMa
      * 注意：1，先清除已经超出屏幕的item
      *      2，再绘制可以显示在屏幕里面的item
      */
-    private fun layoutItems(recycler: RecyclerView.Recycler?,
-                            state: RecyclerView.State, scrollDirection: Int) {
-        if (state.isPreLayout) {
+    private fun layoutItems(
+        recycler: RecyclerView.Recycler?,
+        state: RecyclerView.State?, scrollDirection: Int
+    ) {
+        if (state == null || state.isPreLayout) {
             return
         }
         val displayFrame = Rect(mOffsetAll, 0, mOffsetAll + horizontalSpace, verticalSpace)
@@ -338,17 +351,21 @@ class LeftFlowLayoutManger(private val builder: Builder) : RecyclerView.LayoutMa
                 child.alpha = computeAlphaX(frame.left - mOffsetAll)
             }
             val left = ((1 - scale) * mDecoratedChildWidth / 2).toInt()
-            layoutDecorated(child,
-                    -left,
-                    frame.top,
-                    frame.right - frame.left - left,
-                    frame.bottom)
+            layoutDecorated(
+                child,
+                -left,
+                frame.top,
+                frame.right - frame.left - left,
+                frame.bottom
+            )
         } else {
-            layoutDecorated(child,
-                    frame.left - mOffsetAll,
-                    frame.top,
-                    frame.right - mOffsetAll,
-                    frame.bottom)
+            layoutDecorated(
+                child,
+                frame.left - mOffsetAll,
+                frame.top,
+                frame.right - mOffsetAll,
+                frame.bottom
+            )
             //缩放
             child.scaleX = 1f
             //缩放
@@ -368,7 +385,12 @@ class LeftFlowLayoutManger(private val builder: Builder) : RecyclerView.LayoutMa
         if (frame == null) {
             frame = Rect()
             val offset = intervalDistance * index //原始位置累加（即累计间隔距离）
-            frame.set(offset.roundToInt(), 0, (offset + mDecoratedChildWidth).roundToInt(), mDecoratedChildHeight)
+            frame.set(
+                offset.roundToInt(),
+                0,
+                (offset + mDecoratedChildWidth).roundToInt(),
+                mDecoratedChildHeight
+            )
         }
         return frame
     }
@@ -397,12 +419,20 @@ class LeftFlowLayoutManger(private val builder: Builder) : RecyclerView.LayoutMa
             //如果RecyclerView还没初始化完，先记录下要滚动的位置
             selectedPos = position
         } else {
-            layoutItems(mRecycle, mState!!, if (position > selectedPos) SCROLL_RIGHT else SCROLL_LEFT)
+            layoutItems(
+                mRecycle,
+                mState,
+                if (position > selectedPos) SCROLL_RIGHT else SCROLL_LEFT
+            )
             onSelectedCallBack()
         }
     }
 
-    override fun smoothScrollToPosition(recyclerView: RecyclerView?, state: RecyclerView.State?, position: Int) {
+    override fun smoothScrollToPosition(
+        recyclerView: RecyclerView?,
+        state: RecyclerView.State?,
+        position: Int
+    ) {
         val finalOffset = calculateOffsetForPosition(position)
         if (mRecycle == null || mState == null) {//如果RecyclerView还没初始化完，先记录下要滚动的位置
             selectedPos = position
@@ -415,7 +445,10 @@ class LeftFlowLayoutManger(private val builder: Builder) : RecyclerView.LayoutMa
         return true
     }
 
-    override fun onAdapterChanged(oldAdapter: RecyclerView.Adapter<*>?, newAdapter: RecyclerView.Adapter<*>?) {
+    override fun onAdapterChanged(
+        oldAdapter: RecyclerView.Adapter<*>?,
+        newAdapter: RecyclerView.Adapter<*>?
+    ) {
         removeAllViews()
         mRecycle = null
         mState = null
@@ -492,7 +525,7 @@ class LeftFlowLayoutManger(private val builder: Builder) : RecyclerView.LayoutMa
         mAnimation!!.interpolator = DecelerateInterpolator()
         mAnimation!!.addUpdateListener { animation ->
             mOffsetAll = (animation.animatedValue as Float).roundToInt()
-            layoutItems(mRecycle, mState!!, direction)
+            layoutItems(mRecycle, mState, direction)
         }
         mAnimation!!.addListener(object : AnimatorListenerAdapter() {
             override fun onAnimationEnd(animation: Animator) {
@@ -506,7 +539,10 @@ class LeftFlowLayoutManger(private val builder: Builder) : RecyclerView.LayoutMa
      * 计算当前选中位置，并回调
      */
     private fun onSelectedCallBack() {
-        selectedPos = (mOffsetAll / intervalDistance).roundToInt()
+        selectedPos = when (intervalDistance) {
+            0f -> 0
+            else -> (mOffsetAll / intervalDistance).roundToInt()
+        }
         if (mSelectedListener != null && selectedPos != mLastSelectPosition) {
             mSelectedListener!!.onItemSelected(selectedPos)
         }
