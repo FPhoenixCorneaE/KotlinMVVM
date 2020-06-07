@@ -32,14 +32,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!-- 积分排行榜-->
-        <activity
-            android:name=".mvvm.view.activity.WanAndroidIntegralRankingActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/wan_android_integral_ranking"
-            android:screenOrientation="behind"
-            android:windowSoftInputMode="adjustNothing"
-            tools:ignore="LockedOrientationActivity" />
 
         <!-- 腾讯Bugly AppId-->
         <meta-data

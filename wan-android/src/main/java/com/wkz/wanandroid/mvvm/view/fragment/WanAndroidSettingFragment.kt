@@ -29,7 +29,7 @@ class WanAndroidSettingFragment : WanAndroidBaseFragment() {
         mCvLogout.visible(WanAndroidUserManager.sHasLoggedOn)
     }
 
-    override fun isAlreadyLoadedData(): Boolean =true
+    override fun isAlreadyLoadedData(): Boolean = true
 
     override fun initListener() {
         mBtnLogout.setOnClickListener {

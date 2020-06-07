@@ -43,7 +43,7 @@ class WanAndroidMineFragment : WanAndroidBaseFragment() {
         mCvIntegral.setOnClickListener {
             when {
                 WanAndroidUserManager.sHasLoggedOn -> {
-
+                    navigate(R.id.mMainToIntegralRanking)
                 }
                 else -> {
                     // 未登录
