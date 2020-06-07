@@ -7,10 +7,12 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener
 import com.wkz.adapter.AnimationType
 import com.wkz.adapter.BaseNBAdapter
 import com.wkz.extension.isNonNull
+import com.wkz.extension.navigate
 import com.wkz.extension.viewModel
+import com.wkz.framework.web.BaseWebFragment
+import com.wkz.util.BundleBuilder
 import com.wkz.wanandroid.R
 import com.wkz.wanandroid.mvvm.model.WanAndroidPageBean
-import com.wkz.wanandroid.mvvm.view.activity.WanAndroidWebActivity
 import com.wkz.wanandroid.mvvm.view.adapter.WanAndroidHomeQaAdapter
 import com.wkz.wanandroid.mvvm.viewmodel.WanAndroidHomeQaViewModel
 import kotlinx.android.synthetic.main.wan_android_fragment_home_qa.*
@@ -44,7 +46,13 @@ class WanAndroidHomeQaFragment : WanAndroidBaseFragment(), OnRefreshLoadMoreList
         mHomeQaAdapter.onItemClickListener =
             object : BaseNBAdapter.OnItemClickListener<WanAndroidPageBean.ArticleBean> {
                 override fun onItemClick(item: WanAndroidPageBean.ArticleBean, position: Int) {
-                    WanAndroidWebActivity.start(mContext, item.title, item.link)
+                    navigate(
+                        R.id.mMainToWeb,
+                        BundleBuilder.of()
+                            .putString(BaseWebFragment.TITLE, item.title)
+                            .putString(BaseWebFragment.WEB_URL, item.link)
+                            .get()
+                    )
                 }
             }
         mHomeQaViewModel.apply {

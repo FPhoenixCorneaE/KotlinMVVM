@@ -13,13 +13,14 @@ import com.wkz.adapter.BaseNBAdapter
 import com.wkz.extension.isNonNull
 import com.wkz.extension.navigate
 import com.wkz.extension.viewModel
+import com.wkz.framework.web.BaseWebFragment
 import com.wkz.shinebutton.ShineButton
+import com.wkz.util.BundleBuilder
 import com.wkz.util.SizeUtil
 import com.wkz.wanandroid.R
 import com.wkz.wanandroid.manager.WanAndroidUserManager
 import com.wkz.wanandroid.mvvm.model.WanAndroidBannerBean
 import com.wkz.wanandroid.mvvm.model.WanAndroidPageBean
-import com.wkz.wanandroid.mvvm.view.activity.WanAndroidWebActivity
 import com.wkz.wanandroid.mvvm.view.adapter.WanAndroidHomeArticleAdapter
 import com.wkz.wanandroid.mvvm.view.adapter.WanAndroidHomeBannerAdapter
 import com.wkz.wanandroid.mvvm.viewmodel.WanAndroidCollectViewModel
@@ -63,13 +64,25 @@ class WanAndroidHomeArticleFragment : WanAndroidBaseFragment(), OnRefreshLoadMor
         mBannerAdapter.onItemClickListener =
             object : BaseNBAdapter.OnItemClickListener<WanAndroidBannerBean> {
                 override fun onItemClick(item: WanAndroidBannerBean, position: Int) {
-                    WanAndroidWebActivity.start(mContext, item.title, item.url)
+                    navigate(
+                        R.id.mMainToWeb,
+                        BundleBuilder.of()
+                            .putString(BaseWebFragment.TITLE, item.title)
+                            .putString(BaseWebFragment.WEB_URL, item.url)
+                            .get()
+                    )
                 }
             }
         mHomeArticleAdapter.onItemClickListener =
             object : BaseNBAdapter.OnItemClickListener<WanAndroidPageBean.ArticleBean> {
                 override fun onItemClick(item: WanAndroidPageBean.ArticleBean, position: Int) {
-                    WanAndroidWebActivity.start(mContext, item.title, item.link)
+                    navigate(
+                        R.id.mMainToWeb,
+                        BundleBuilder.of()
+                            .putString(BaseWebFragment.TITLE, item.title)
+                            .putString(BaseWebFragment.WEB_URL, item.link)
+                            .get()
+                    )
                 }
             }
         mHomeArticleAdapter.mOnItemChildClickListener = object :
