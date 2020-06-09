@@ -10,7 +10,7 @@ import javax.crypto.spec.IvParameterSpec
 import javax.crypto.spec.SecretKeySpec
 
 /**
- * AES对称加密:
+ * AES对称加密(加解密必须使用同一个Key):
  * Advanced Encryption Standard，高级数据加密标准，AES算法可以有效抵制针对DES的攻击算法，对称加密算法
  */
 class AESUtil private constructor() {
