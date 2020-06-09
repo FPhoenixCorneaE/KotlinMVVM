@@ -30,9 +30,14 @@ object WanAndroidUserManager {
                 userInfo.isNonNull() -> {
                     sHasLoggedOn = true
                     /* AES加密 */
+                    val secretKey = AESUtil.initKey()
+                    SharedPreferencesUtil.put(
+                        WanAndroidConstant.WAN_ANDROID_USER_INFO_SECRET_KEY,
+                        String(secretKey, Charsets.ISO_8859_1)
+                    )
                     SharedPreferencesUtil.put(
                         WanAndroidConstant.WAN_ANDROID_USER_INFO,
-                        AESUtil.encrypt(GsonUtil.toJson(userInfo!!))
+                        AESUtil.encrypt(GsonUtil.toJson(userInfo!!), secretKey)
                     )
                 }
                 else -> {
@@ -48,12 +53,17 @@ object WanAndroidUserManager {
             return when {
                 sHasLoggedOn -> {
                     /* AES解密 */
+                    val secretKey = SharedPreferencesUtil.getString(
+                        WanAndroidConstant.WAN_ANDROID_USER_INFO_SECRET_KEY,
+                        ""
+                    ).toByteArray(Charsets.ISO_8859_1)
                     GsonUtil.fromJson(
                         AESUtil.decrypt(
                             SharedPreferencesUtil.getString(
                                 WanAndroidConstant.WAN_ANDROID_USER_INFO,
                                 ""
-                            )
+                            ),
+                            secretKey
                         )
                         , WanAndroidUserInfoBean::class.java
                     )

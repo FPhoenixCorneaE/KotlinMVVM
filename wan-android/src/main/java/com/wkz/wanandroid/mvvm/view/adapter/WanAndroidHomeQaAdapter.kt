@@ -28,7 +28,7 @@ class WanAndroidHomeQaAdapter :
         viewHolder.itemView.apply {
             mTvTitle.text = data.title.replaceFirst("每日一问 ", "")
             mTvDesc.text = Html.fromHtml(data.desc)
-            mNiceDate.text = data.niceDate
+            mTvNiceDate.text = data.niceDate
         }
     }
 }

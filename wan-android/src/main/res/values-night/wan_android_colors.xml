@@ -2,7 +2,7 @@
 <resources>
     <color name="wan_android_colorPrimary">#000000</color>
     <color name="wan_android_colorPrimaryDark">#dd000000</color>
-    <color name="wan_android_colorAccent">#ffffff</color>
+    <color name="wan_android_colorAccent">#D81B60</color>
 
     <color name="wan_android_color_black_alpha10">#10ffffff</color>
     <color name="wan_android_color_black_alpha50">#50ffffff</color>

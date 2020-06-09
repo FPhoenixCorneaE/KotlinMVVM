@@ -3,7 +3,6 @@ package com.wkz.extension
 import android.text.TextUtils
 import com.wkz.util.CloseUtil
 import com.wkz.util.ContextUtil
-import com.wkz.util.SizeUtil
 import com.wkz.util.toast.ToastUtil
 import java.io.BufferedReader
 import java.io.InputStreamReader
@@ -39,6 +38,10 @@ fun Any?.isNull(): Boolean {
  */
 fun Any?.isNonNull(): Boolean {
     return this != null
+}
+
+fun <T> Collection<T>?.isNonNullAndNotEmpty(): Boolean {
+    return !this.isNullOrEmpty()
 }
 
 /**

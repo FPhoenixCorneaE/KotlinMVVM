@@ -15,52 +15,43 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/wan_android_ripple_item_home_article">
+        android:background="@drawable/wan_android_ripple_item_home_article"
+        android:padding="@dimen/dp_16">
 
         <TextView
-            android:id="@+id/mTvTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_16"
-            android:layout_marginTop="@dimen/dp_16"
-            android:layout_marginEnd="@dimen/dp_16"
-            android:ellipsize="end"
-            android:maxLines="2"
-            android:textColor="@color/wan_android_color_title_0x222222"
-            android:textSize="@dimen/sp_16"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="@tools:sample/lorem/random" />
-
-        <TextView
-            android:id="@+id/mTvDesc"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_16"
-            android:layout_marginTop="@dimen/dp_8"
-            android:layout_marginEnd="@dimen/dp_16"
-            android:ellipsize="end"
-            android:maxLines="4"
-            android:textColor="@color/wan_android_color_gray_0x999999"
-            android:textSize="@dimen/sp_14"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/mTvTitle"
-            tools:text="@tools:sample/lorem/random" />
-
-        <TextView
-            android:id="@+id/mTvNiceDate"
+            android:id="@+id/mTvUserRanking"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_8"
-            android:layout_marginEnd="@dimen/dp_16"
-            android:layout_marginBottom="@dimen/dp_16"
-            android:textColor="@color/wan_android_color_gray_0x999999"
-            android:textSize="@dimen/sp_12"
+            android:fontFamily="@font/lobster"
+            android:textColor="@color/wan_android_color_title_0x222222"
+            android:textSize="@dimen/sp_16"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@tools:sample/first_names" />
+
+        <TextView
+            android:id="@+id/mTvUserName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_16"
+            android:textColor="@color/wan_android_color_gray_0x666666"
+            android:textSize="@dimen/sp_16"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/mTvUserRanking"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@tools:sample/last_names" />
+
+        <TextView
+            android:id="@+id/mTvCoinCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/wan_android_color_gray_0x666666"
+            android:textSize="@dimen/sp_16"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/mTvDesc"
+            app:layout_constraintTop_toTopOf="parent"
             tools:text="@tools:sample/date/mmddyy" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
