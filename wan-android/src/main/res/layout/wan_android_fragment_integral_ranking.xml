@@ -10,6 +10,8 @@
         style="@style/CommonTitleBar"
         app:centerText="@string/wan_android_mine_integral_ranking"
         app:layout_constraintTop_toTopOf="parent"
+        app:rightCustomView="@layout/wan_android_layout_title_bar_integral_ranking_right"
+        app:rightType="customView"
         tools:ignore="MissingConstraints" />
 
     <com.scwang.smartrefresh.layout.SmartRefreshLayout

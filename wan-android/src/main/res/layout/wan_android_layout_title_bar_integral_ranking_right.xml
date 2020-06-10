@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    tools:background="@color/wan_android_colorPrimary">
+
+    <ImageButton
+        android:id="@+id/mIvIntegralRecord"
+        android:layout_width="@dimen/dp_28"
+        android:layout_height="@dimen/dp_28"
+        android:layout_marginEnd="@dimen/dp_16"
+        android:background="@null"
+        android:padding="@dimen/dp_0"
+        android:src="@drawable/wan_android_ic_integral_record"
+        android:tint="@color/wan_android_color_title_0x222222"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription" />
+
+    <ImageButton
+        android:id="@+id/mIvIntegralHelp"
+        android:layout_width="@dimen/dp_28"
+        android:layout_height="@dimen/dp_28"
+        android:layout_marginEnd="@dimen/dp_8"
+        android:background="@null"
+        android:padding="@dimen/dp_0"
+        android:src="@drawable/wan_android_ic_integral_help"
+        android:tint="@color/wan_android_color_title_0x222222"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/mIvIntegralRecord"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription" />
+</androidx.constraintlayout.widget.ConstraintLayout>

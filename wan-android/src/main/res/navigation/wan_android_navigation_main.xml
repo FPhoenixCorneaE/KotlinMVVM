@@ -71,7 +71,15 @@
         android:id="@+id/mIntegralRankingFragment"
         android:name="com.wkz.wanandroid.mvvm.view.fragment.WanAndroidIntegralRankingFragment"
         android:label="IntegralRankingFragment"
-        tools:layout="@layout/wan_android_fragment_integral_ranking" />
+        tools:layout="@layout/wan_android_fragment_integral_ranking">
+        <action
+            android:id="@+id/mIntegralRankingToWeb"
+            app:destination="@id/mWebFragment"
+            app:enterAnim="@anim/pull_in_right"
+            app:exitAnim="@anim/push_out_left"
+            app:popEnterAnim="@anim/pull_in_left"
+            app:popExitAnim="@anim/push_out_right" />
+    </fragment>
     <fragment
         android:id="@+id/mSettingFragment"
         android:name="com.wkz.wanandroid.mvvm.view.fragment.WanAndroidSettingFragment"

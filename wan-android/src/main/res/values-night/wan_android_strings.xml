@@ -28,4 +28,5 @@
     <string name="wan_android_mine_join">加入我们</string>
     <string name="wan_android_mine_setting">设置</string>
     <string name="wan_android_mine_integral_ranking">积分排行榜</string>
+    <string name="wan_android_mine_integral_rule">积分规则</string>
 </resources>

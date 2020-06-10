@@ -10,7 +10,7 @@ class Config {
     /** Android */
     static android = [
             compileSdkVersion: 29,
-            buildToolsVersion: "29.0.0",
+            buildToolsVersion: "29.0.2",
             minSdkVersion    : 21,
             targetSdkVersion : 29,
             versionCode      : 1000,
