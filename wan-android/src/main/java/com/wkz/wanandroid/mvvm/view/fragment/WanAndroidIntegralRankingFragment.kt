@@ -60,7 +60,7 @@ class WanAndroidIntegralRankingFragment : WanAndroidBaseFragment(), OnRefreshLoa
             )
         }
         mIvIntegralRecord.setOnClickListener {
-
+            navigate(R.id.mIntegralRankingToIntegralRecord)
         }
         mIntegralRankingViewModel.apply {
             mRefreshingIntegralRanking.observe(viewLifecycleOwner, Observer {

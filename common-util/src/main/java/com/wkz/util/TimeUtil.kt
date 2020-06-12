@@ -115,22 +115,31 @@ class TimeUtil {
         fun getFriendlyTimeSpanByNow(millis: Long): String {
             val now = System.currentTimeMillis()
             val span = now - millis
-            return if (span < 0) {
-                String.format(Locale.getDefault(), "%tc", millis)
-            } else if (span < TimeUnit.MINUTE) {
-                "刚刚"
-            } else if (span < TimeUnit.HOUR) {
-                String.format(Locale.getDefault(), "%d分钟前", span / TimeUnit.MINUTE)
-            } else if (span < TimeUnit.DAY) {
-                String.format(Locale.getDefault(), "%d小时前", span / TimeUnit.HOUR)
-            } else if (span < 2 * TimeUnit.DAY) {
-                String.format("昨天%tR", millis)
-            } else if (span < TimeUnit.MONTH) {
-                String.format(Locale.getDefault(), "%d天前", span / TimeUnit.DAY)
-            } else if (span < TimeUnit.YEAR) {
-                String.format(Locale.getDefault(), "%d个月前", span / TimeUnit.MONTH)
-            } else {
-                SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(millis)
+            return when {
+                span < 0 -> {
+                    String.format(Locale.getDefault(), "%tc", millis)
+                }
+                span < TimeUnit.MINUTE -> {
+                    "刚刚"
+                }
+                span < TimeUnit.HOUR -> {
+                    String.format(Locale.getDefault(), "%d分钟前", span / TimeUnit.MINUTE)
+                }
+                span < TimeUnit.DAY -> {
+                    String.format(Locale.getDefault(), "%d小时前", span / TimeUnit.HOUR)
+                }
+                span < 2 * TimeUnit.DAY -> {
+                    String.format("昨天%tR", millis)
+                }
+                span < TimeUnit.MONTH -> {
+                    String.format(Locale.getDefault(), "%d天前", span / TimeUnit.DAY)
+                }
+                span < TimeUnit.YEAR -> {
+                    String.format(Locale.getDefault(), "%d个月前", span / TimeUnit.MONTH)
+                }
+                else -> {
+                    SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(millis)
+                }
             }
         }
 

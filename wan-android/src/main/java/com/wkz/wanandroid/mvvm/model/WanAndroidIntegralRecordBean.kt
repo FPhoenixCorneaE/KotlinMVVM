@@ -1,12 +1,13 @@
 package com.wkz.wanandroid.mvvm.model
 
 import java.io.Serializable
+import java.util.ArrayList
 
 /**
  * 积分记录
  */
 data class WanAndroidIntegralRecordBean(
-    var datas: MutableList<IntegralRecordPageBean>? = mutableListOf(),
+    var datas: ArrayList<IntegralRecordPageBean>? = arrayListOf(),
     var curPage: Int = 0,
     var offset: Int = 0,
     var over: Boolean = false,

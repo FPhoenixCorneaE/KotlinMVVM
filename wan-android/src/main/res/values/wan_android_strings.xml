@@ -20,9 +20,9 @@
     <string name="wan_android_home_vipcn">公众号</string>
     <string name="wan_android_home_mine">我的</string>
     <string name="wan_android_mine_user_has_not_log_in">请先登录~~~</string>
-    <string name="wan_android_mine_integral">我的积分</string>
-    <string name="wan_android_mine_collect">我的收藏</string>
-    <string name="wan_android_mine_article">我的文章</string>
+    <string name="wan_android_mine_my_integral">我的积分</string>
+    <string name="wan_android_mine_my_collect">我的收藏</string>
+    <string name="wan_android_mine_my_article">我的文章</string>
     <string name="wan_android_mine_to_do_list">待办清单</string>
     <string name="wan_android_mine_website">开源网站</string>
     <string name="wan_android_mine_join">加入我们</string>
@@ -30,4 +30,6 @@
     <string name="wan_android_mine_logout">退出登录</string>
     <string name="wan_android_mine_integral_ranking">积分排行榜</string>
     <string name="wan_android_mine_integral_rule">积分规则</string>
+    <string name="wan_android_mine_integral_record">积分记录</string>
+    <string name="wan_android_mine_integral">积分</string>
 </resources>

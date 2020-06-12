@@ -118,7 +118,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="@dimen/dp_40"
-                    android:text="@string/wan_android_mine_integral"
+                    android:text="@string/wan_android_mine_my_integral"
                     android:textColor="@color/wan_android_color_title_0x222222"
                     android:textSize="@dimen/sp_14"
                     android:textStyle="bold" />
@@ -167,7 +167,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="@dimen/dp_40"
-                    android:text="@string/wan_android_mine_collect"
+                    android:text="@string/wan_android_mine_my_collect"
                     android:textColor="@color/wan_android_color_title_0x222222"
                     android:textSize="@dimen/sp_14"
                     android:textStyle="bold" />
@@ -205,7 +205,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="@dimen/dp_40"
-                    android:text="@string/wan_android_mine_article"
+                    android:text="@string/wan_android_mine_my_article"
                     android:textColor="@color/wan_android_color_title_0x222222"
                     android:textSize="@dimen/sp_14"
                     android:textStyle="bold" />

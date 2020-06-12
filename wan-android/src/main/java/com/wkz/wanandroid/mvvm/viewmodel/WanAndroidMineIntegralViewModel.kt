@@ -5,6 +5,7 @@ import androidx.lifecycle.Transformations
 import com.wkz.wanandroid.mvvm.model.WanAndroidIntegralBean
 import com.wkz.wanandroid.mvvm.model.WanAndroidIntegralRankingBean
 import com.wkz.wanandroid.mvvm.model.WanAndroidIntegralRecordBean
+import com.wkz.wanandroid.mvvm.model.WanAndroidUIState
 
 /**
  *  @desc: 积分ViewModel
@@ -14,9 +15,6 @@ class WanAndroidMineIntegralViewModel : WanAndroidBaseViewModel() {
 
     /* 排行榜页数 */
     private val mRankingPage = MutableLiveData<Int>()
-
-    /* 记录页数 */
-    private val mRecordPage = MutableLiveData<Int>()
 
     /* 刷新积分 */
     val mRefreshingIntegral = MutableLiveData<Boolean>()
@@ -28,10 +26,7 @@ class WanAndroidMineIntegralViewModel : WanAndroidBaseViewModel() {
     val mLoadingMoreIntegralRanking = MutableLiveData<Boolean>()
 
     /* 刷新积分记录 */
-    val mRefreshingIntegralRecord = MutableLiveData<Boolean>()
-
-    /* 加载更多积分记录 */
-    val mLoadingMoreIntegralRecord = MutableLiveData<Boolean>()
+    val mIntegralRecordUIState = WanAndroidUIState()
 
     /* 用户积分 */
     val mUserIntegral = Transformations.switchMap(mRefreshingIntegral) {
@@ -50,11 +45,36 @@ class WanAndroidMineIntegralViewModel : WanAndroidBaseViewModel() {
     }
 
     /* 积分记录 */
-    val mIntegralRecord = Transformations.switchMap(mRecordPage) { page ->
+    val mIntegralRecord = Transformations.switchMap(mIntegralRecordUIState.mPage) { page ->
         Transformations.map(sWanAndroidService.getIntegralRecord(page)) {
-            mRefreshingIntegralRecord.value = false
-            mLoadingMoreIntegralRecord.value = false
-            it.data ?: WanAndroidIntegralRecordBean()
+            when (mIntegralRecordUIState.mRefreshing.value) {
+                true -> {
+                    mIntegralRecordUIState.mRefreshing.value = false
+                    mIntegralRecordUIState.mRefreshSuccess.value = it.errorCode == 0
+                }
+            }
+            when (mIntegralRecordUIState.mLoadingMore.value) {
+                true -> {
+                    mIntegralRecordUIState.mLoadingMore.value = false
+                    mIntegralRecordUIState.mLoadMoreSuccess.value = it.errorCode == 0
+                }
+            }
+            val responseResult = it.data ?: WanAndroidIntegralRecordBean()
+            when (it.errorCode) {
+                0 -> {
+                    when {
+                        // wanandroid 第一页该字段都为0
+                        responseResult.offset == 0 -> {
+                            mIntegralRecordUIState.mRefreshNoData.value = true
+                        }
+                        // 是否还有更多数据
+                        responseResult.over -> {
+                            mIntegralRecordUIState.mLoadMoreNoData.value = true
+                        }
+                    }
+                }
+            }
+            responseResult
         }
     }
 
@@ -70,7 +90,7 @@ class WanAndroidMineIntegralViewModel : WanAndroidBaseViewModel() {
      */
     fun refreshIntegralRanking() {
         mRefreshingIntegralRanking.value = true
-        mRankingPage.value = 0
+        mRankingPage.value = 1
     }
 
     /**
@@ -85,15 +105,15 @@ class WanAndroidMineIntegralViewModel : WanAndroidBaseViewModel() {
      * 刷新积分记录
      */
     fun refreshIntegralRecord() {
-        mRefreshingIntegralRanking.value = true
-        mRankingPage.value = 0
+        mIntegralRecordUIState.mRefreshing.value = true
+        mIntegralRecordUIState.mPage.value = 1
     }
 
     /**
      * 加载更多积分记录
      */
     fun loadMoreIntegralRecord() {
-        mLoadingMoreIntegralRanking.value = true
-        mRankingPage.value = (mRankingPage.value ?: 0) + 1
+        mIntegralRecordUIState.mLoadingMore.value = true
+        mIntegralRecordUIState.mPage.value = (mIntegralRecordUIState.mPage.value ?: 1) + 1
     }
 }

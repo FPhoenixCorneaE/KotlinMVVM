@@ -79,7 +79,19 @@
             app:exitAnim="@anim/push_out_left"
             app:popEnterAnim="@anim/pull_in_left"
             app:popExitAnim="@anim/push_out_right" />
+        <action
+            android:id="@+id/mIntegralRankingToIntegralRecord"
+            app:destination="@id/mIntegralRecordFragment"
+            app:enterAnim="@anim/pull_in_right"
+            app:exitAnim="@anim/push_out_left"
+            app:popEnterAnim="@anim/pull_in_left"
+            app:popExitAnim="@anim/push_out_right" />
     </fragment>
+    <fragment
+        android:id="@+id/mIntegralRecordFragment"
+        android:name="com.wkz.wanandroid.mvvm.view.fragment.WanAndroidIntegralRecordFragment"
+        android:label="IntegralRecordFragment"
+        tools:layout="@layout/wan_android_fragment_integral_record" />
     <fragment
         android:id="@+id/mSettingFragment"
         android:name="com.wkz.wanandroid.mvvm.view.fragment.WanAndroidSettingFragment"
