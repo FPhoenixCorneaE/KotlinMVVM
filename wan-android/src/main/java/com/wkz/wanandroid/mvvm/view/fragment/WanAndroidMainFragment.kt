@@ -1,7 +1,10 @@
 package com.wkz.wanandroid.mvvm.view.fragment
 
-import android.view.MenuItem
+import android.view.View
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.fphoenixcorneae.animated_bottom_view.AnimatedNavigationItem
+import com.fphoenixcorneae.animated_bottom_view.OnNavigationItemClickListener
+import com.wkz.util.ResourceUtil
 import com.wkz.wanandroid.R
 import kotlinx.android.synthetic.main.wan_android_fragment_main.*
 
@@ -37,7 +40,40 @@ class WanAndroidMainFragment : WanAndroidBaseFragment() {
                 override fun getItemCount() = mFragments.size
             }
         }
-        onNavigationItemSelected(mBnvMain.menu.getItem(0))
+        mBnvMain.addImageButtons(
+            arrayOf(
+                AnimatedNavigationItem(
+                    R.mipmap.wan_android_ic_menu_home_main,
+                    getString(R.string.wan_android_home_main),
+                    ResourceUtil.getColor(R.color.wan_android_color_black),
+                    ResourceUtil.getColor(R.color.wan_android_colorPrimary)
+                ),
+                AnimatedNavigationItem(
+                    R.mipmap.wan_android_ic_menu_home_project,
+                    getString(R.string.wan_android_home_project),
+                    ResourceUtil.getColor(R.color.wan_android_color_black),
+                    ResourceUtil.getColor(R.color.wan_android_colorPrimary)
+                ),
+                AnimatedNavigationItem(
+                    R.mipmap.wan_android_ic_menu_home_square,
+                    getString(R.string.wan_android_home_square),
+                    ResourceUtil.getColor(R.color.wan_android_color_black),
+                    ResourceUtil.getColor(R.color.wan_android_colorPrimary)
+                ),
+                AnimatedNavigationItem(
+                    R.mipmap.wan_android_ic_menu_home_vipcn,
+                    getString(R.string.wan_android_home_vipcn),
+                    ResourceUtil.getColor(R.color.wan_android_color_black),
+                    ResourceUtil.getColor(R.color.wan_android_colorPrimary)
+                ),
+                AnimatedNavigationItem(
+                    R.mipmap.wan_android_ic_menu_home_mine,
+                    getString(R.string.wan_android_home_mine),
+                    ResourceUtil.getColor(R.color.wan_android_color_black),
+                    ResourceUtil.getColor(R.color.wan_android_colorPrimary)
+                )
+            )
+        )
     }
 
     override fun lazyLoadData() {
@@ -46,25 +82,10 @@ class WanAndroidMainFragment : WanAndroidBaseFragment() {
     override fun isAlreadyLoadedData(): Boolean = true
 
     override fun initListener() {
-        mBnvMain.setOnNavigationItemSelectedListener {
-            onNavigationItemSelected(it)
-            return@setOnNavigationItemSelectedListener true
-        }
-    }
-
-    private fun onNavigationItemSelected(it: MenuItem) {
-        when (it.itemId) {
-            R.id.mHomeMenuMain -> mVpMain.setCurrentItem(0, false)
-            R.id.mHomeMenuProject -> {
-
+        mBnvMain.onNavigationItemClickListener=object :OnNavigationItemClickListener{
+            override fun onItemClick(itemView: View, index: Int) {
+                mVpMain.setCurrentItem(index, false)
             }
-            R.id.mHomeMenuSquare -> {
-
-            }
-            R.id.mHomeMenuVipcn -> {
-
-            }
-            R.id.mHomeMenuMine -> mVpMain.setCurrentItem(1, false)
         }
     }
 }

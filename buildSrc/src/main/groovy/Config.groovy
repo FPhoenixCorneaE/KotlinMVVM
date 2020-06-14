@@ -10,7 +10,7 @@ class Config {
     /** Android */
     static android = [
             compileSdkVersion: 29,
-            buildToolsVersion: "29.0.2",
+            buildToolsVersion: "29.0.3",
             minSdkVersion    : 21,
             targetSdkVersion : 29,
             versionCode      : 1000,
@@ -43,7 +43,7 @@ class Config {
 
     /** Kotlin */
     static kotlin = [
-            core            : "androidx.core:core-ktx:1.0.2",
+            core            : "androidx.core:core-ktx:1.3.0",
             activity        : "androidx.activity:activity-ktx:1.2.0-alpha02",
             fragment        : "androidx.fragment:fragment-ktx:1.3.0-alpha02",
             kotlinStdlibJdk7: "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$Config.kotlin_version",

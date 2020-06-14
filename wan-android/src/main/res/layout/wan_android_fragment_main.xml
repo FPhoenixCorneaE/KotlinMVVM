@@ -7,18 +7,14 @@
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/mVpMain"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_0"
-        app:layout_constraintBottom_toTopOf="@+id/mBnvMain"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/dp_50"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- app:labelVisibilityMode="labeled" 如果底部超过三个tab,设置此属性可以正常显示 -->
-    <com.google.android.material.bottomnavigation.BottomNavigationView
+    <com.fphoenixcorneae.animated_bottom_view.AnimatedNavigationBar
         android:id="@+id/mBnvMain"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_50"
-        app:itemIconTint="@color/wan_android_selector_color_home_navigation_item"
-        app:itemTextColor="@color/wan_android_selector_color_home_navigation_item"
-        app:labelVisibilityMode="labeled"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:menu="@menu/wan_android_menu_home_bottom_navigation" />
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,5 +1,6 @@
 package com.wkz.util
 
+import android.content.Context
 import android.util.DisplayMetrics
 import android.util.TypedValue
 import android.view.View
@@ -36,6 +37,17 @@ class SizeUtil private constructor() {
         }
 
         /**
+         * dp转px
+         *
+         * @param dpValue dp值
+         * @return px值
+         */
+        fun dpToPx(dpValue: Float): Float {
+            val scale = ContextUtil.context.resources.displayMetrics.density
+            return dpValue * scale + 0.5f
+        }
+
+        /**
          * px转dp
          *
          * @param pxValue px值
@@ -44,6 +56,28 @@ class SizeUtil private constructor() {
         fun px2dp(pxValue: Float): Int {
             val scale = ContextUtil.context.resources.displayMetrics.density
             return (pxValue / scale + 0.5f).toInt()
+        }
+
+        /**
+         * px转dp
+         *
+         * @param pxValue px值
+         * @return dp值
+         */
+        fun pxToDp(pxValue: Float): Float {
+            val scale = ContextUtil.context.resources.displayMetrics.density
+            return pxValue / scale + 0.5f
+        }
+
+        /**
+         * 不同屏幕尺寸的屏幕px转px
+         * @param screenSize 屏幕尺寸
+         * @param pxValue    screenSize屏幕下px值
+         * @return px值
+         */
+        fun pxToPx(pxValue: Float, screenSize: Int): Float {
+            val screenWidth = ContextUtil.context.resources.displayMetrics.widthPixels
+            return screenWidth * pxValue / screenSize
         }
 
         /**
@@ -58,6 +92,17 @@ class SizeUtil private constructor() {
         }
 
         /**
+         * sp转px
+         *
+         * @param spValue sp值
+         * @return px值
+         */
+        fun spToPx(spValue: Float): Float {
+            val fontScale = ContextUtil.context.resources.displayMetrics.scaledDensity
+            return spValue * fontScale + 0.5f
+        }
+
+        /**
          * px转sp
          *
          * @param pxValue px值
@@ -66,6 +111,17 @@ class SizeUtil private constructor() {
         fun px2sp(pxValue: Float): Int {
             val fontScale = ContextUtil.context.resources.displayMetrics.scaledDensity
             return (pxValue / fontScale + 0.5f).toInt()
+        }
+
+        /**
+         * px转sp
+         *
+         * @param pxValue px值
+         * @return sp值
+         */
+        fun pxToSp(pxValue: Float): Float {
+            val fontScale = ContextUtil.context.resources.displayMetrics.scaledDensity
+            return pxValue / fontScale + 0.5f
         }
 
         /**

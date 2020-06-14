@@ -1,3 +1,4 @@
+include ':animated-bottom-view'
 include ':open-eyes'
 include ':common-titlebar'
 include ':bottom-navigation-view'
