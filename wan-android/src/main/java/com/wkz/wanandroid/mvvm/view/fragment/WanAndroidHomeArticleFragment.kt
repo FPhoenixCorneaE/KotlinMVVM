@@ -10,7 +10,6 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener
 import com.wkz.adapter.AnimationType
 import com.wkz.adapter.BaseNBAdapter
-import com.wkz.extension.isNonNull
 import com.wkz.extension.navigate
 import com.wkz.extension.viewModel
 import com.wkz.framework.web.BaseWebFragment
@@ -19,8 +18,8 @@ import com.wkz.util.BundleBuilder
 import com.wkz.util.SizeUtil
 import com.wkz.wanandroid.R
 import com.wkz.wanandroid.manager.WanAndroidUserManager
+import com.wkz.wanandroid.mvvm.model.WanAndroidArticleBean
 import com.wkz.wanandroid.mvvm.model.WanAndroidBannerBean
-import com.wkz.wanandroid.mvvm.model.WanAndroidPageBean
 import com.wkz.wanandroid.mvvm.view.adapter.WanAndroidHomeArticleAdapter
 import com.wkz.wanandroid.mvvm.view.adapter.WanAndroidHomeBannerAdapter
 import com.wkz.wanandroid.mvvm.viewmodel.WanAndroidCollectViewModel
@@ -44,7 +43,7 @@ class WanAndroidHomeArticleFragment : WanAndroidBaseFragment(), OnRefreshLoadMor
 
     /* 收藏文章、网址ViewModel */
     private val mCollectViewModel by viewModel<WanAndroidCollectViewModel>()
-    private var mTopArticleList = ArrayList<WanAndroidPageBean.ArticleBean>()
+    private var mTopArticleList = ArrayList<WanAndroidArticleBean>()
 
     /**
      * 加载布局
@@ -74,8 +73,8 @@ class WanAndroidHomeArticleFragment : WanAndroidBaseFragment(), OnRefreshLoadMor
                 }
             }
         mHomeArticleAdapter.onItemClickListener =
-            object : BaseNBAdapter.OnItemClickListener<WanAndroidPageBean.ArticleBean> {
-                override fun onItemClick(item: WanAndroidPageBean.ArticleBean, position: Int) {
+            object : BaseNBAdapter.OnItemClickListener<WanAndroidArticleBean> {
+                override fun onItemClick(item: WanAndroidArticleBean, position: Int) {
                     navigate(
                         R.id.mMainToWeb,
                         BundleBuilder.of()
@@ -89,7 +88,7 @@ class WanAndroidHomeArticleFragment : WanAndroidBaseFragment(), OnRefreshLoadMor
             WanAndroidHomeArticleAdapter.OnItemChildClickListener {
             override fun onClickAuthorName(
                 view: TextView,
-                data: WanAndroidPageBean.ArticleBean,
+                data: WanAndroidArticleBean,
                 position: Int
             ) {
 
@@ -97,7 +96,7 @@ class WanAndroidHomeArticleFragment : WanAndroidBaseFragment(), OnRefreshLoadMor
 
             override fun onClickCollectIcon(
                 shineButton: ShineButton,
-                data: WanAndroidPageBean.ArticleBean,
+                data: WanAndroidArticleBean,
                 position: Int
             ) {
                 when {
@@ -141,20 +140,22 @@ class WanAndroidHomeArticleFragment : WanAndroidBaseFragment(), OnRefreshLoadMor
                 mBannerAdapter.notifyDataSetChanged()
             })
             mTopArticleList.observe(viewLifecycleOwner, Observer {
-                this@WanAndroidHomeArticleFragment.mTopArticleList = it
+                it?.datas?.let {
+                    this@WanAndroidHomeArticleFragment.mTopArticleList = it
+                }
             })
             mArticleList.observe(viewLifecycleOwner, Observer {
-                when (it.curPage) {
-                    1 -> {
-                        mHomeArticleAdapter.dataList.clear()
-                        mHomeArticleAdapter.dataList.addAll(
-                            0,
-                            this@WanAndroidHomeArticleFragment.mTopArticleList
-                        )
+                it?.apply {
+                    when {
+                        isRefresh() -> {
+                            mHomeArticleAdapter.dataList.clear()
+                            mHomeArticleAdapter.dataList.addAll(
+                                0,
+                                this@WanAndroidHomeArticleFragment.mTopArticleList
+                            )
+                        }
                     }
-                }
-                if (it.datas.isNonNull()) {
-                    mHomeArticleAdapter.dataList.addAll(it.datas)
+                    mHomeArticleAdapter.dataList.addAll(datas)
                     mHomeArticleAdapter.notifyDataSetChanged()
                 }
             })

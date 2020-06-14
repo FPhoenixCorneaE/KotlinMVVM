@@ -3,8 +3,6 @@ package com.wkz.wanandroid.mvvm.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import com.wkz.wanandroid.mvvm.model.WanAndroidIntegralBean
-import com.wkz.wanandroid.mvvm.model.WanAndroidIntegralRankingBean
-import com.wkz.wanandroid.mvvm.model.WanAndroidIntegralRecordBean
 import com.wkz.wanandroid.mvvm.model.WanAndroidUIState
 
 /**
@@ -40,41 +38,41 @@ class WanAndroidMineIntegralViewModel : WanAndroidBaseViewModel() {
         Transformations.map(sWanAndroidService.getIntegralRanking(page)) {
             mRefreshingIntegralRanking.value = false
             mLoadingMoreIntegralRanking.value = false
-            it.data ?: WanAndroidIntegralRankingBean()
+            it.data
         }
     }
 
     /* 积分记录 */
     val mIntegralRecord = Transformations.switchMap(mIntegralRecordUIState.mPage) { page ->
         Transformations.map(sWanAndroidService.getIntegralRecord(page)) {
-            when (mIntegralRecordUIState.mRefreshing.value) {
-                true -> {
-                    mIntegralRecordUIState.mRefreshing.value = false
-                    mIntegralRecordUIState.mRefreshSuccess.value = it.errorCode == 0
-                }
-            }
-            when (mIntegralRecordUIState.mLoadingMore.value) {
-                true -> {
-                    mIntegralRecordUIState.mLoadingMore.value = false
-                    mIntegralRecordUIState.mLoadMoreSuccess.value = it.errorCode == 0
-                }
-            }
-            val responseResult = it.data ?: WanAndroidIntegralRecordBean()
-            when (it.errorCode) {
-                0 -> {
-                    when {
-                        // wanandroid 第一页该字段都为0
-                        responseResult.offset == 0 -> {
-                            mIntegralRecordUIState.mRefreshNoData.value = true
+            mIntegralRecordUIState.mRefreshing.value = false
+            mIntegralRecordUIState.mLoadingMore.value = false
+            it.data?.apply {
+                when {
+                    it.isWanAndroidSuccess() -> {
+                        when {
+                            isRefreshNoData() -> {
+                                mIntegralRecordUIState.mRefreshNoData.value = true
+                            }
+                            isRefreshWithData() -> {
+                                mIntegralRecordUIState.mRefreshSuccess.value = true
+                            }
+                            isLoadMoreNoData() -> {
+                                mIntegralRecordUIState.mLoadMoreNoData.value = true
+                            }
+                            else -> {
+                                mIntegralRecordUIState.mLoadMoreSuccess.value = true
+                            }
                         }
-                        // 是否还有更多数据
-                        responseResult.over -> {
-                            mIntegralRecordUIState.mLoadMoreNoData.value = true
-                        }
+                    }
+                    isRefresh() -> {
+                        mIntegralRecordUIState.mRefreshSuccess.value = false
+                    }
+                    isLoadMore() -> {
+                        mIntegralRecordUIState.mLoadMoreSuccess.value = false
                     }
                 }
             }
-            responseResult
         }
     }
 

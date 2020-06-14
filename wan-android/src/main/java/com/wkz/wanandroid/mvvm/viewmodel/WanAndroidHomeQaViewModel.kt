@@ -2,7 +2,6 @@ package com.wkz.wanandroid.mvvm.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
-import com.wkz.wanandroid.mvvm.model.WanAndroidPageBean
 
 /**
  *  @desc: 首页问答ViewModel
@@ -24,7 +23,7 @@ class WanAndroidHomeQaViewModel : WanAndroidBaseViewModel() {
         Transformations.map(sWanAndroidService.getQaList(page, 440)) {
             mRefreshing.value = false
             mLoadingMore.value = false
-            it.data ?: WanAndroidPageBean(1, ArrayList(), 0, true, 1, 20, 0)
+            it.data
         }
     }
 

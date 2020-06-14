@@ -1,7 +1,6 @@
 package com.wkz.wanandroid.mvvm.view.adapter
 
 import android.annotation.SuppressLint
-import android.text.format.DateUtils
 import androidx.recyclerview.widget.RecyclerView
 import com.wkz.adapter.BaseNBAdapter
 import com.wkz.extension.dp2px
@@ -15,7 +14,7 @@ import kotlinx.android.synthetic.main.wan_android_recycler_item_mine_integral_re
  * @date: 2020-06-10 17:20
  */
 class WanAndroidMineIntegralRecordAdapter :
-    BaseNBAdapter<WanAndroidIntegralRecordBean.IntegralRecordPageBean>() {
+    BaseNBAdapter<WanAndroidIntegralRecordBean>() {
 
     override fun getLayoutId(): Int = R.layout.wan_android_recycler_item_mine_integral_record
 
@@ -25,7 +24,7 @@ class WanAndroidMineIntegralRecordAdapter :
     @SuppressLint("NewApi")
     override fun onBindData(
         viewHolder: RecyclerView.ViewHolder,
-        data: WanAndroidIntegralRecordBean.IntegralRecordPageBean,
+        data: WanAndroidIntegralRecordBean,
         position: Int
     ) {
         viewHolder.itemView.apply {

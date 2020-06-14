@@ -10,7 +10,7 @@ import com.wkz.framework.glide.GlideUtil
 import com.wkz.shinebutton.ShineButton
 import com.wkz.util.SizeUtil
 import com.wkz.wanandroid.R
-import com.wkz.wanandroid.mvvm.model.WanAndroidPageBean
+import com.wkz.wanandroid.mvvm.model.WanAndroidArticleBean
 import kotlinx.android.synthetic.main.wan_android_recycler_item_home_article.view.*
 
 /**
@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.wan_android_recycler_item_home_article.vie
  * @date: 2019-10-28 16:03
  */
 class WanAndroidHomeArticleAdapter :
-    BaseNBAdapter<WanAndroidPageBean.ArticleBean>() {
+    BaseNBAdapter<WanAndroidArticleBean>() {
 
     var mOnItemChildClickListener: OnItemChildClickListener? = null
     override fun getLayoutId(): Int = R.layout.wan_android_recycler_item_home_article
@@ -29,7 +29,7 @@ class WanAndroidHomeArticleAdapter :
     @SuppressLint("NewApi")
     override fun onBindData(
         viewHolder: RecyclerView.ViewHolder,
-        data: WanAndroidPageBean.ArticleBean,
+        data: WanAndroidArticleBean,
         position: Int
     ) {
         viewHolder.itemView.apply {
@@ -84,7 +84,7 @@ class WanAndroidHomeArticleAdapter :
          */
         fun onClickAuthorName(
             view: TextView,
-            data: WanAndroidPageBean.ArticleBean,
+            data: WanAndroidArticleBean,
             position: Int
         )
 
@@ -93,7 +93,7 @@ class WanAndroidHomeArticleAdapter :
          */
         fun onClickCollectIcon(
             shineButton: ShineButton,
-            data: WanAndroidPageBean.ArticleBean,
+            data: WanAndroidArticleBean,
             position: Int
         )
     }

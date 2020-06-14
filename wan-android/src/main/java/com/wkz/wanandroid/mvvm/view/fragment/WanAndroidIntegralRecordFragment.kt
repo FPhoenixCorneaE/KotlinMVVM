@@ -8,7 +8,6 @@ import com.wkz.adapter.AnimationType
 import com.wkz.extension.isNonNullAndNotEmpty
 import com.wkz.extension.viewModel
 import com.wkz.wanandroid.R
-import com.wkz.wanandroid.mvvm.view.adapter.WanAndroidMineIntegralRankingAdapter
 import com.wkz.wanandroid.mvvm.view.adapter.WanAndroidMineIntegralRecordAdapter
 import com.wkz.wanandroid.mvvm.viewmodel.WanAndroidMineIntegralViewModel
 import kotlinx.android.synthetic.main.wan_android_fragment_integral_record.*
@@ -47,26 +46,23 @@ class WanAndroidIntegralRecordFragment : WanAndroidBaseFragment(), OnRefreshLoad
             mIntegralRecordUIState.mRefreshSuccess.observe(viewLifecycleOwner, Observer {
                 when {
                     it -> mSrlRefresh.finishRefresh()
+                    else -> showError()
                 }
             })
             mIntegralRecordUIState.mLoadMoreSuccess.observe(viewLifecycleOwner, Observer {
                 mSrlRefresh.finishLoadMore(it)
             })
             mIntegralRecordUIState.mLoadMoreNoData.observe(viewLifecycleOwner, Observer {
-                when {
-                    it -> {
-                        mSrlRefresh.finishLoadMoreWithNoMoreData()
-                    }
-                }
+                mSrlRefresh.finishLoadMoreWithNoMoreData()
             })
             mIntegralRecord.observe(viewLifecycleOwner, Observer {
-                it.datas?.apply {
-                    when (it.curPage) {
-                        1 -> {
+                it?.apply {
+                    when {
+                        isRefresh() -> {
                             mIntegralRecordAdapter.dataList.clear()
                         }
                     }
-                    mIntegralRecordAdapter.dataList.addAll(this)
+                    mIntegralRecordAdapter.dataList.addAll(it.datas)
                     mIntegralRecordAdapter.notifyDataSetChanged()
                 }
             })

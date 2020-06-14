@@ -12,7 +12,7 @@ import com.wkz.extension.viewModel
 import com.wkz.framework.web.BaseWebFragment
 import com.wkz.util.BundleBuilder
 import com.wkz.wanandroid.R
-import com.wkz.wanandroid.mvvm.model.WanAndroidPageBean
+import com.wkz.wanandroid.mvvm.model.WanAndroidArticleBean
 import com.wkz.wanandroid.mvvm.view.adapter.WanAndroidHomeQaAdapter
 import com.wkz.wanandroid.mvvm.viewmodel.WanAndroidHomeQaViewModel
 import kotlinx.android.synthetic.main.wan_android_fragment_home_qa.*
@@ -44,8 +44,8 @@ class WanAndroidHomeQaFragment : WanAndroidBaseFragment(), OnRefreshLoadMoreList
     override fun initListener() {
         mSrlRefresh.setOnRefreshLoadMoreListener(this)
         mHomeQaAdapter.onItemClickListener =
-            object : BaseNBAdapter.OnItemClickListener<WanAndroidPageBean.ArticleBean> {
-                override fun onItemClick(item: WanAndroidPageBean.ArticleBean, position: Int) {
+            object : BaseNBAdapter.OnItemClickListener<WanAndroidArticleBean> {
+                override fun onItemClick(item: WanAndroidArticleBean, position: Int) {
                     navigate(
                         R.id.mMainToWeb,
                         BundleBuilder.of()
@@ -67,11 +67,11 @@ class WanAndroidHomeQaFragment : WanAndroidBaseFragment(), OnRefreshLoadMoreList
                 }
             })
             mQaList.observe(viewLifecycleOwner, Observer {
-                when (it.curPage) {
-                    1 -> mHomeQaAdapter.dataList.clear()
-                }
-                if (it.datas.isNonNull()) {
-                    mHomeQaAdapter.dataList.addAll(it.datas)
+                it?.apply {
+                    when {
+                        isRefresh() -> mHomeQaAdapter.dataList.clear()
+                    }
+                    mHomeQaAdapter.dataList.addAll(datas)
                     mHomeQaAdapter.notifyDataSetChanged()
                 }
             })

@@ -43,7 +43,7 @@ interface WanAndroidApi {
      * 首页置顶文章集合数据
      */
     @GET("article/top/json")
-    fun getTopArticleList(): LiveData<BaseResponse<ArrayList<WanAndroidPageBean.ArticleBean>>>
+    fun getTopArticleList(): LiveData<BaseResponse<WanAndroidPageResponse<ArrayList<WanAndroidArticleBean>>>>
 
     /**
      * 首页文章列表
@@ -51,7 +51,7 @@ interface WanAndroidApi {
     @GET("article/list/{page}/json")
     fun getArticleList(
         @Path("page") page: Int
-    ): LiveData<BaseResponse<WanAndroidPageBean>>
+    ): LiveData<BaseResponse<WanAndroidPageResponse<ArrayList<WanAndroidArticleBean>>>>
 
     /**
      * 首页问答列表
@@ -60,7 +60,7 @@ interface WanAndroidApi {
     fun getQaList(
         @Path("page") page: Int,
         @Query("cid") cid: Int
-    ): LiveData<BaseResponse<WanAndroidPageBean>>
+    ): LiveData<BaseResponse<WanAndroidPageResponse<ArrayList<WanAndroidArticleBean>>>>
 
     /**
      * 收藏文章
@@ -84,11 +84,11 @@ interface WanAndroidApi {
      * 获取积分排行榜
      */
     @GET("/coin/rank/{page}/json")
-    fun getIntegralRanking(@Path("page") page: Int): LiveData<BaseResponse<WanAndroidIntegralRankingBean>>
+    fun getIntegralRanking(@Path("page") page: Int): LiveData<BaseResponse<WanAndroidPageResponse<ArrayList<WanAndroidIntegralBean>>>>
 
     /**
      * 获取积分记录
      */
     @GET("/lg/coin/list/{page}/json")
-    fun getIntegralRecord(@Path("page") page: Int): LiveData<BaseResponse<WanAndroidIntegralRecordBean>>
+    fun getIntegralRecord(@Path("page") page: Int): LiveData<BaseResponse<WanAndroidPageResponse<ArrayList<WanAndroidIntegralRecordBean>>>>
 }

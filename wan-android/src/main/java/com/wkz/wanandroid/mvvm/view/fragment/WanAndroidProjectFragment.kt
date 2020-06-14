@@ -2,6 +2,10 @@ package com.wkz.wanandroid.mvvm.view.fragment
 
 import com.wkz.wanandroid.R
 
+/**
+ * @desc: 项目Fragment
+ * @date: 2020-06-14 17:31
+ */
 class WanAndroidProjectFragment : WanAndroidBaseFragment() {
     /**
      * 加载布局

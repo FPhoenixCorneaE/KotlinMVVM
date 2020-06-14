@@ -2,7 +2,6 @@ package com.wkz.wanandroid.mvvm.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
-import com.wkz.wanandroid.mvvm.model.WanAndroidPageBean
 
 /**
  *  @desc: 首页文章ViewModel
@@ -12,6 +11,9 @@ class WanAndroidHomeArticleViewModel : WanAndroidBaseViewModel() {
 
     /* 页数 */
     private val mPage = MutableLiveData<Int>()
+
+    /* 是否获取指定文章 */
+    private val mAcquireTopArticle = MutableLiveData<Boolean>()
 
     /* 是否正在刷新 */
     val mRefreshing = MutableLiveData<Boolean>()
@@ -27,13 +29,10 @@ class WanAndroidHomeArticleViewModel : WanAndroidBaseViewModel() {
     }
 
     /* 置顶文章列表 */
-    val mTopArticleList = Transformations.switchMap(mPage) {
+    val mTopArticleList = Transformations.switchMap(mAcquireTopArticle) {
         Transformations.map(sWanAndroidService.getTopArticleList()) {
-            if (mPage.value == 0) {
-                it.data ?: arrayListOf()
-            } else {
-                arrayListOf()
-            }
+            mAcquireTopArticle.value = false
+            it.data
         }
     }
 
@@ -42,7 +41,7 @@ class WanAndroidHomeArticleViewModel : WanAndroidBaseViewModel() {
         Transformations.map(sWanAndroidService.getArticleList(page)) {
             mRefreshing.value = false
             mLoadingMore.value = false
-            it.data ?: WanAndroidPageBean(1, arrayListOf(), 0, true, 1, 20, 0)
+            it.data
         }
     }
 
@@ -51,6 +50,7 @@ class WanAndroidHomeArticleViewModel : WanAndroidBaseViewModel() {
      */
     fun autoRefresh() {
         mRefreshing.value = true
+        mAcquireTopArticle.value = true
         mPage.value = 0
     }
 

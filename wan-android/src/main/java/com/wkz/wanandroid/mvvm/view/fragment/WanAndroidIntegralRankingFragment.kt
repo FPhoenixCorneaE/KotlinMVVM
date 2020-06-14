@@ -74,13 +74,13 @@ class WanAndroidIntegralRankingFragment : WanAndroidBaseFragment(), OnRefreshLoa
                 }
             })
             mIntegralRanking.observe(viewLifecycleOwner, Observer {
-                it.datas?.apply {
-                    when (it.curPage) {
-                        0 -> {
+                it?.apply {
+                    when {
+                        isRefresh() -> {
                             mIntegralRankingAdapter.dataList.clear()
                         }
                     }
-                    mIntegralRankingAdapter.dataList.addAll(this)
+                    mIntegralRankingAdapter.dataList.addAll(it.datas)
                     mIntegralRankingAdapter.notifyDataSetChanged()
                 }
             })
