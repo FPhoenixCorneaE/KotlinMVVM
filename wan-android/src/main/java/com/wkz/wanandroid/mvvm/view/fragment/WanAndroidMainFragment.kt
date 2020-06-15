@@ -45,31 +45,31 @@ class WanAndroidMainFragment : WanAndroidBaseFragment() {
                 AnimatedNavigationItem(
                     R.mipmap.wan_android_ic_menu_home_main,
                     getString(R.string.wan_android_home_main),
-                    ResourceUtil.getColor(R.color.wan_android_color_black),
+                    ResourceUtil.getColor(R.color.wan_android_color_gray_0x666666),
                     ResourceUtil.getColor(R.color.wan_android_colorPrimary)
                 ),
                 AnimatedNavigationItem(
                     R.mipmap.wan_android_ic_menu_home_project,
                     getString(R.string.wan_android_home_project),
-                    ResourceUtil.getColor(R.color.wan_android_color_black),
+                    ResourceUtil.getColor(R.color.wan_android_color_gray_0x666666),
                     ResourceUtil.getColor(R.color.wan_android_colorPrimary)
                 ),
                 AnimatedNavigationItem(
                     R.mipmap.wan_android_ic_menu_home_square,
                     getString(R.string.wan_android_home_square),
-                    ResourceUtil.getColor(R.color.wan_android_color_black),
+                    ResourceUtil.getColor(R.color.wan_android_color_gray_0x666666),
                     ResourceUtil.getColor(R.color.wan_android_colorPrimary)
                 ),
                 AnimatedNavigationItem(
                     R.mipmap.wan_android_ic_menu_home_vipcn,
                     getString(R.string.wan_android_home_vipcn),
-                    ResourceUtil.getColor(R.color.wan_android_color_black),
+                    ResourceUtil.getColor(R.color.wan_android_color_gray_0x666666),
                     ResourceUtil.getColor(R.color.wan_android_colorPrimary)
                 ),
                 AnimatedNavigationItem(
                     R.mipmap.wan_android_ic_menu_home_mine,
                     getString(R.string.wan_android_home_mine),
-                    ResourceUtil.getColor(R.color.wan_android_color_black),
+                    ResourceUtil.getColor(R.color.wan_android_color_gray_0x666666),
                     ResourceUtil.getColor(R.color.wan_android_colorPrimary)
                 )
             )
@@ -82,7 +82,7 @@ class WanAndroidMainFragment : WanAndroidBaseFragment() {
     override fun isAlreadyLoadedData(): Boolean = true
 
     override fun initListener() {
-        mBnvMain.onNavigationItemClickListener=object :OnNavigationItemClickListener{
+        mBnvMain.onNavigationItemClickListener = object : OnNavigationItemClickListener {
             override fun onItemClick(itemView: View, index: Int) {
                 mVpMain.setCurrentItem(index, false)
             }

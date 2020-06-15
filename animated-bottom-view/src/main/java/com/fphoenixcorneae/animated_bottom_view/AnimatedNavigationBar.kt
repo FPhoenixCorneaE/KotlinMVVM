@@ -131,6 +131,7 @@ class AnimatedNavigationBar @JvmOverloads constructor(
             val itemName = TextView(context)
             itemName.text = animatedNavigationItems[i].itemName
             itemName.setTextColor(animatedNavigationItems[i].normalColor)
+            itemName.textSize = 16f
             val itemNameLayoutParams = LinearLayout.LayoutParams(-2, -2)
             itemLayout.addView(itemName, itemNameLayoutParams)
 
