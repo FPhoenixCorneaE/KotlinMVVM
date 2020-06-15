@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+    <com.scwang.smart.refresh.layout.SmartRefreshLayout
         android:id="@+id/mSrlRefresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -13,7 +13,7 @@
         app:srlEnableHeaderTranslationContent="false"
         app:srlPrimaryColor="@color/open_eyes_colorPrimary">
 
-        <com.scwang.smartrefresh.header.MaterialHeader
+        <com.scwang.smart.refresh.header.MaterialHeader
             android:id="@+id/mMhHeader"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -28,7 +28,7 @@
             android:paddingTop="@dimen/dp_68"
             tools:itemCount="10"
             tools:listitem="@layout/open_eyes_item_home_video" />
-    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+    </com.scwang.smart.refresh.layout.SmartRefreshLayout>
 
     <com.wkz.titlebar.CommonTitleBar
         android:id="@+id/mTbTitleBar"

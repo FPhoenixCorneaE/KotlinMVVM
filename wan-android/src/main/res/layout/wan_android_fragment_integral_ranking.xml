@@ -14,7 +14,7 @@
         app:rightType="customView"
         tools:ignore="MissingConstraints" />
 
-    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+    <com.scwang.smart.refresh.layout.SmartRefreshLayout
         android:id="@+id/mSrlRefresh"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_0"
@@ -27,7 +27,7 @@
             android:layout_height="match_parent"
             tools:itemCount="8"
             tools:listitem="@layout/wan_android_recycler_item_mine_integral_ranking" />
-    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+    </com.scwang.smart.refresh.layout.SmartRefreshLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/mClUserIntegralRanking"
