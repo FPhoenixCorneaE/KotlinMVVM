@@ -28,7 +28,7 @@ class Config {
             lifecycleExtensions : "androidx.lifecycle:lifecycle-extensions:2.2.0-alpha02",
             lifecycleRuntime    : 'androidx.lifecycle:lifecycle-runtime-ktx:2.2.0',
             lifecycleCommonJava8: 'androidx.lifecycle:lifecycle-common-java8:2.2.0',
-            flexbox             : "com.google.android:flexbox:1.1.0",
+            flexbox             : "com.google.android:flexbox:2.0.1",
             viewpager2          : "androidx.viewpager2:viewpager2:1.0.0",
             palette             : "androidx.palette:palette-ktx:1.0.0",
     ]
