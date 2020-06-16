@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <View
+        android:id="@+id/mVwStatusBar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_0_1"
+        android:background="@color/wan_android_colorPrimaryDark"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.wkz.widget.magicindicator.MagicIndicator
+        android:id="@+id/mFlMagicIndicator"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_45"
+        android:background="@color/wan_android_colorPrimary"
+        app:layout_constraintBottom_toTopOf="@+id/mVpProject"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/mVpProject"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mFlMagicIndicator" />
+</androidx.constraintlayout.widget.ConstraintLayout>

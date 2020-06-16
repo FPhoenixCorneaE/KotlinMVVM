@@ -4,7 +4,6 @@ import android.graphics.Rect
 import android.view.View
 import android.widget.TextView
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.scwang.smart.refresh.layout.api.RefreshLayout
 import com.scwang.smart.refresh.layout.listener.OnRefreshLoadMoreListener
@@ -136,11 +135,13 @@ class WanAndroidHomeArticleFragment : WanAndroidBaseFragment(), OnRefreshLoadMor
                 }
             })
             mBannerList.observe(viewLifecycleOwner, Observer {
-                mBannerAdapter.dataList = it
-                mBannerAdapter.notifyDataSetChanged()
+                it?.apply {
+                    mBannerAdapter.dataList = it
+                    mBannerAdapter.notifyDataSetChanged()
+                }
             })
             mTopArticleList.observe(viewLifecycleOwner, Observer {
-                it?.datas?.let {
+                it?.let {
                     this@WanAndroidHomeArticleFragment.mTopArticleList = it
                 }
             })
@@ -197,7 +198,6 @@ class WanAndroidHomeArticleFragment : WanAndroidBaseFragment(), OnRefreshLoadMor
     private fun initArticleRecyclerView() {
         mHomeArticleAdapter.showItemAnim(AnimationType.TRANSLATE_FROM_BOTTOM, false)
         mRvArticle.apply {
-            layoutManager = LinearLayoutManager(mContext)
             adapter = mHomeArticleAdapter
             isNestedScrollingEnabled = false
         }

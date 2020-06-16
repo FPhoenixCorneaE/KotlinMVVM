@@ -17,6 +17,7 @@ class WanAndroidMainFragment : WanAndroidBaseFragment() {
     private val mFragments by lazy {
         listOf(
             WanAndroidHomeFragment.getInstance(),
+            WanAndroidProjectFragment.getInstance(),
             WanAndroidMineFragment.getInstance()
         )
     }
@@ -33,7 +34,7 @@ class WanAndroidMainFragment : WanAndroidBaseFragment() {
         mVpMain.run {
             offscreenPageLimit = mFragments.size
             // 是否可滑动
-            this.isUserInputEnabled = isUserInputEnabled
+            this.isUserInputEnabled = false
             // 设置适配器
             adapter = object : FragmentStateAdapter(this@WanAndroidMainFragment) {
                 override fun createFragment(position: Int) = mFragments[position]

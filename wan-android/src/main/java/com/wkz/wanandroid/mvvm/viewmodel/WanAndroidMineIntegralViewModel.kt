@@ -23,7 +23,7 @@ class WanAndroidMineIntegralViewModel : WanAndroidBaseViewModel() {
     /* 加载更多积分排行榜 */
     val mLoadingMoreIntegralRanking = MutableLiveData<Boolean>()
 
-    /* 刷新积分记录 */
+    /* 积分记录UI状态 */
     val mIntegralRecordUIState = WanAndroidUIState()
 
     /* 用户积分 */

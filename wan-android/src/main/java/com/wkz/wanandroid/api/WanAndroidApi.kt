@@ -8,7 +8,7 @@ import retrofit2.http.*
 /**
  * @desc: WanAndroid Api接口
  * @date: 2019-10-28 16:00
- * 注意：@POST请求方式没有参数时不能添加@FormUrlEncoded,有参数时要添加@FormUrlEncoded.
+ * @注意：@POST请求方式没有参数时不能添加@FormUrlEncoded,有参数时要添加@FormUrlEncoded.
  */
 interface WanAndroidApi {
 
@@ -43,7 +43,7 @@ interface WanAndroidApi {
      * 首页置顶文章集合数据
      */
     @GET("article/top/json")
-    fun getTopArticleList(): LiveData<BaseResponse<WanAndroidPageResponse<ArrayList<WanAndroidArticleBean>>>>
+    fun getTopArticleList(): LiveData<BaseResponse<ArrayList<WanAndroidArticleBean>>>
 
     /**
      * 首页文章列表
@@ -66,13 +66,40 @@ interface WanAndroidApi {
      * 收藏文章
      */
     @POST("/lg/collect/{id}/json")
-    fun collectArticle(@Path("id") id: Int): LiveData<BaseResponse<Any>>
+    fun collectArticle(
+        @Path("id") id: Int
+    ): LiveData<BaseResponse<Any>>
 
     /**
      * 取消收藏文章
      */
     @POST("/lg/uncollect_originId/{id}/json")
-    fun cancelCollectArticle(@Path("id") id: Int): LiveData<BaseResponse<Any>>
+    fun cancelCollectArticle(
+        @Path("id") id: Int
+    ): LiveData<BaseResponse<Any>>
+
+    /**
+     * 项目分类
+     */
+    @GET("project/tree/json")
+    fun getProjectClassify(): LiveData<BaseResponse<ArrayList<WanAndroidProjectClassifyBean>>>
+
+    /**
+     * 根据分类id获取项目数据
+     */
+    @GET("project/list/{page}/json")
+    fun getProjectDataByClassifyId(
+        @Path("page") pageNo: Int,
+        @Query("cid") cid: Int
+    ): LiveData<BaseResponse<WanAndroidPageResponse<ArrayList<WanAndroidArticleBean>>>>
+
+    /**
+     * 获取最新项目数据
+     */
+    @GET("article/listproject/{page}/json")
+     fun getProjectNewestData(
+        @Path("page") pageNo: Int
+    ): LiveData<BaseResponse<WanAndroidPageResponse<ArrayList<WanAndroidArticleBean>>>>
 
     /**
      * 获取当前账户的个人积分
@@ -84,11 +111,15 @@ interface WanAndroidApi {
      * 获取积分排行榜
      */
     @GET("/coin/rank/{page}/json")
-    fun getIntegralRanking(@Path("page") page: Int): LiveData<BaseResponse<WanAndroidPageResponse<ArrayList<WanAndroidIntegralBean>>>>
+    fun getIntegralRanking(
+        @Path("page") page: Int
+    ): LiveData<BaseResponse<WanAndroidPageResponse<ArrayList<WanAndroidIntegralBean>>>>
 
     /**
      * 获取积分记录
      */
     @GET("/lg/coin/list/{page}/json")
-    fun getIntegralRecord(@Path("page") page: Int): LiveData<BaseResponse<WanAndroidPageResponse<ArrayList<WanAndroidIntegralRecordBean>>>>
+    fun getIntegralRecord(
+        @Path("page") page: Int
+    ): LiveData<BaseResponse<WanAndroidPageResponse<ArrayList<WanAndroidIntegralRecordBean>>>>
 }

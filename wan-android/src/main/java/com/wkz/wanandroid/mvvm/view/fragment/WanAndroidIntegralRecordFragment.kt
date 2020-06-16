@@ -1,7 +1,6 @@
 package com.wkz.wanandroid.mvvm.view.fragment
 
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.scwang.smart.refresh.layout.api.RefreshLayout
 import com.scwang.smart.refresh.layout.listener.OnRefreshLoadMoreListener
 import com.wkz.adapter.AnimationType
@@ -22,7 +21,8 @@ class WanAndroidIntegralRecordFragment : WanAndroidBaseFragment(), OnRefreshLoad
         WanAndroidMineIntegralRecordAdapter()
     }
 
-    private val mIntegralRankingViewModel by viewModel<WanAndroidMineIntegralViewModel>()
+    /* 积分ViewModel */
+    private val mIntegralViewModel by viewModel<WanAndroidMineIntegralViewModel>()
 
     override fun getLayoutId(): Int = R.layout.wan_android_fragment_integral_record
 
@@ -35,14 +35,13 @@ class WanAndroidIntegralRecordFragment : WanAndroidBaseFragment(), OnRefreshLoad
     private fun initIntegralRankingRecyclerView() {
         mIntegralRecordAdapter.showItemAnim(AnimationType.TRANSLATE_FROM_BOTTOM, false)
         mRvIntegralRecord.apply {
-            layoutManager = LinearLayoutManager(mContext)
             adapter = mIntegralRecordAdapter
         }
     }
 
     override fun initListener() {
         mSrlRefresh.setOnRefreshLoadMoreListener(this)
-        mIntegralRankingViewModel.apply {
+        mIntegralViewModel.apply {
             mIntegralRecordUIState.mRefreshSuccess.observe(viewLifecycleOwner, Observer {
                 when {
                     it -> mSrlRefresh.finishRefresh()
@@ -77,10 +76,10 @@ class WanAndroidIntegralRecordFragment : WanAndroidBaseFragment(), OnRefreshLoad
         mIntegralRecordAdapter.dataList.isNonNullAndNotEmpty()
 
     override fun onLoadMore(refreshLayout: RefreshLayout) {
-        mIntegralRankingViewModel.loadMoreIntegralRecord()
+        mIntegralViewModel.loadMoreIntegralRecord()
     }
 
     override fun onRefresh(refreshLayout: RefreshLayout) {
-        mIntegralRankingViewModel.refreshIntegralRecord()
+        mIntegralViewModel.refreshIntegralRecord()
     }
 }

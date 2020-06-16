@@ -76,29 +76,27 @@ class WanAndroidHomeFragment : WanAndroidBaseFragment() {
                     get() = mViewPagerAdapter.itemCount
 
                 override fun getTitleView(context: Context, index: Int): IPagerTitleView {
-                    val simplePagerTitleView = ScaleTransitionPagerTitleView(context)
-                    simplePagerTitleView.text =
-                        mViewPagerAdapter.getPageTitle(index).toString()
-                    simplePagerTitleView.textSize = 18f
-                    simplePagerTitleView.normalColor =
-                        ResourceUtil.getColor(R.color.wan_android_color_title_0x222222)
-                    simplePagerTitleView.selectedColor =
-                        ResourceUtil.getColor(R.color.wan_android_colorAccent)
-                    simplePagerTitleView.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
-                    simplePagerTitleView.setOnClickListener { mVpHome.currentItem = index }
-                    return simplePagerTitleView
+                    return ScaleTransitionPagerTitleView(context).apply {
+                        text = mViewPagerAdapter.getPageTitle(index).toString()
+                        textSize = 18f
+                        normalColor =
+                            ResourceUtil.getColor(R.color.wan_android_color_title_0x222222)
+                        selectedColor = ResourceUtil.getColor(R.color.wan_android_colorAccent)
+                        typeface = Typeface.defaultFromStyle(Typeface.BOLD)
+                        setOnClickListener { mVpHome.currentItem = index }
+                    }
                 }
 
                 override fun getIndicator(context: Context): IPagerIndicator {
-                    val indicator = LinePagerIndicator(context)
-                    indicator.mode = LinePagerIndicator.MODE_EXACTLY
-                    indicator.lineHeight = SizeUtil.dp2px(5f).toFloat()
-                    indicator.lineWidth = SizeUtil.dp2px(40f).toFloat()
-                    indicator.roundRadius = SizeUtil.dp2px(5f).toFloat()
-                    indicator.startInterpolator = AccelerateInterpolator()
-                    indicator.endInterpolator = DecelerateInterpolator(2.0f)
-                    indicator.setColors(ResourceUtil.getColor(R.color.wan_android_colorAccent))
-                    return indicator
+                    return LinePagerIndicator(context).apply {
+                        mode = LinePagerIndicator.MODE_EXACTLY
+                        lineHeight = SizeUtil.dpToPx(5f)
+                        lineWidth = SizeUtil.dpToPx(40f)
+                        roundRadius = SizeUtil.dpToPx(6f)
+                        startInterpolator = AccelerateInterpolator()
+                        endInterpolator = DecelerateInterpolator(2.0f)
+                        setColors(ResourceUtil.getColor(R.color.wan_android_colorAccent))
+                    }
                 }
             }
         }

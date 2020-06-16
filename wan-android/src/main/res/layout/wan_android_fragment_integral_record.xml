@@ -23,6 +23,7 @@
             android:id="@+id/mRvIntegralRecord"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:itemCount="8"
             tools:listitem="@layout/wan_android_recycler_item_mine_integral_record" />
     </com.scwang.smart.refresh.layout.SmartRefreshLayout>

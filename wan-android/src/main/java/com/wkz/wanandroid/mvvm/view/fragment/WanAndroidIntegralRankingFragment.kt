@@ -1,7 +1,6 @@
 package com.wkz.wanandroid.mvvm.view.fragment
 
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.scwang.smart.refresh.layout.api.RefreshLayout
 import com.scwang.smart.refresh.layout.listener.OnRefreshLoadMoreListener
 import com.wkz.adapter.AnimationType
@@ -23,11 +22,13 @@ import kotlinx.android.synthetic.main.wan_android_layout_title_bar_integral_rank
  */
 class WanAndroidIntegralRankingFragment : WanAndroidBaseFragment(), OnRefreshLoadMoreListener {
 
+    /* 积分排行榜适配器 */
     private val mIntegralRankingAdapter by lazy(LazyThreadSafetyMode.NONE) {
         WanAndroidMineIntegralRankingAdapter()
     }
 
-    private val mIntegralRankingViewModel by viewModel<WanAndroidMineIntegralViewModel>()
+    /* 积分ViewModel */
+    private val mIntegralViewModel by viewModel<WanAndroidMineIntegralViewModel>()
 
     override fun getLayoutId(): Int = R.layout.wan_android_fragment_integral_ranking
 
@@ -40,7 +41,6 @@ class WanAndroidIntegralRankingFragment : WanAndroidBaseFragment(), OnRefreshLoa
     private fun initIntegralRankingRecyclerView() {
         mIntegralRankingAdapter.showItemAnim(AnimationType.TRANSLATE_FROM_BOTTOM, false)
         mRvIntegralRanking.apply {
-            layoutManager = LinearLayoutManager(mContext)
             adapter = mIntegralRankingAdapter
         }
     }
@@ -62,7 +62,7 @@ class WanAndroidIntegralRankingFragment : WanAndroidBaseFragment(), OnRefreshLoa
         mIvIntegralRecord.setOnClickListener {
             navigate(R.id.mIntegralRankingToIntegralRecord)
         }
-        mIntegralRankingViewModel.apply {
+        mIntegralViewModel.apply {
             mRefreshingIntegralRanking.observe(viewLifecycleOwner, Observer {
                 when {
                     !it -> mSrlRefresh.finishRefresh()
@@ -94,7 +94,7 @@ class WanAndroidIntegralRankingFragment : WanAndroidBaseFragment(), OnRefreshLoa
 
     override fun lazyLoadData() {
         // 获取积分
-        mIntegralRankingViewModel.getIntegral()
+        mIntegralViewModel.getIntegral()
         mSrlRefresh.autoRefresh()
     }
 
@@ -102,10 +102,10 @@ class WanAndroidIntegralRankingFragment : WanAndroidBaseFragment(), OnRefreshLoa
         mIntegralRankingAdapter.dataList.isNonNullAndNotEmpty()
 
     override fun onLoadMore(refreshLayout: RefreshLayout) {
-        mIntegralRankingViewModel.loadMoreIntegralRanking()
+        mIntegralViewModel.loadMoreIntegralRanking()
     }
 
     override fun onRefresh(refreshLayout: RefreshLayout) {
-        mIntegralRankingViewModel.refreshIntegralRanking()
+        mIntegralViewModel.refreshIntegralRanking()
     }
 }

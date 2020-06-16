@@ -30,10 +30,10 @@
                 android:id="@+id/mRvArticle"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/mRvBanner"
                 tools:itemCount="10"
-                tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/wan_android_recycler_item_home_article" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>

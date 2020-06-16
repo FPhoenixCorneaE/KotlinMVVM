@@ -80,7 +80,6 @@ class WanAndroidHomeQaFragment : WanAndroidBaseFragment(), OnRefreshLoadMoreList
     private fun initQaRecyclerView() {
         mHomeQaAdapter.showItemAnim(AnimationType.TRANSLATE_FROM_BOTTOM, false)
         mRvQa.apply {
-            layoutManager = LinearLayoutManager(mContext)
             adapter = mHomeQaAdapter
         }
     }
