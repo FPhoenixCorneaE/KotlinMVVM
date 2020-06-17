@@ -8,12 +8,10 @@ import android.view.animation.DecelerateInterpolator
 import androidx.lifecycle.Observer
 import com.wkz.adapter.app.FragmentPagerItems
 import com.wkz.adapter.viewpager2.FragmentStatePager2ItemAdapter
-import com.wkz.extension.loggerJson
 import com.wkz.extension.viewModel
 import com.wkz.util.BundleBuilder
 import com.wkz.util.ResourceUtil
 import com.wkz.util.SizeUtil
-import com.wkz.util.gson.GsonUtil
 import com.wkz.util.statusbar.StatusBarUtil
 import com.wkz.wanandroid.R
 import com.wkz.wanandroid.constant.WanAndroidConstant
@@ -67,7 +65,6 @@ class WanAndroidProjectFragment : WanAndroidBaseFragment() {
 
     private fun initViewPager() {
         mVpProject.apply {
-            offscreenPageLimit = 1
             adapter = mViewPagerAdapter
         }
     }
@@ -75,7 +72,7 @@ class WanAndroidProjectFragment : WanAndroidBaseFragment() {
     private fun initMagicIndicator() {
         val commonNavigator = CommonNavigator(mContext)
         commonNavigator.apply {
-            isAdjustMode = true
+            isAdjustMode = false
             isSkimOver = true
             adapter = object : CommonNavigatorAdapter() {
                 override val count: Int
@@ -118,6 +115,7 @@ class WanAndroidProjectFragment : WanAndroidBaseFragment() {
                     mClassifyData.add(WanAndroidProjectClassifyBean(name = getString(R.string.wan_android_project_newest)))
                     mClassifyData.addAll(it)
 
+                    mFragmentPagerCreator.create().clear()
                     mFragmentPagerCreator.let {
                         mClassifyData.forEach { classifyBean ->
                             it.add(
@@ -137,7 +135,8 @@ class WanAndroidProjectFragment : WanAndroidBaseFragment() {
                         }
                     }
                     mFlMagicIndicator.navigator?.notifyDataSetChanged()
-                    mViewPagerAdapter.notifyDataSetChanged()
+                    mVpProject.adapter?.notifyDataSetChanged()
+                    mVpProject.offscreenPageLimit=mViewPagerAdapter.itemCount
                 }
             })
         }
