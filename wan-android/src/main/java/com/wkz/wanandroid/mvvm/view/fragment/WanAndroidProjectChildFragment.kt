@@ -5,10 +5,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.scwang.smart.refresh.layout.api.RefreshLayout
 import com.scwang.smart.refresh.layout.listener.OnRefreshLoadMoreListener
 import com.wkz.adapter.AnimationType
+import com.wkz.adapter.BaseNBAdapter
 import com.wkz.extension.isNonNullAndNotEmpty
+import com.wkz.extension.navigate
 import com.wkz.extension.viewModel
+import com.wkz.framework.web.BaseWebFragment
+import com.wkz.util.BundleBuilder
 import com.wkz.wanandroid.R
 import com.wkz.wanandroid.constant.WanAndroidConstant
+import com.wkz.wanandroid.mvvm.model.WanAndroidArticleBean
 import com.wkz.wanandroid.mvvm.view.adapter.WanAndroidProjectAdapter
 import com.wkz.wanandroid.mvvm.viewmodel.WanAndroidProjectViewModel
 import kotlinx.android.synthetic.main.wan_android_fragment_integral_record.*
@@ -62,6 +67,18 @@ class WanAndroidProjectChildFragment : WanAndroidBaseFragment(), OnRefreshLoadMo
 
     override fun initListener() {
         mSrlRefresh.setOnRefreshLoadMoreListener(this)
+        mProjectAdapter.onItemClickListener =
+            object : BaseNBAdapter.OnItemClickListener<WanAndroidArticleBean> {
+                override fun onItemClick(item: WanAndroidArticleBean, position: Int) {
+                    navigate(
+                        R.id.mMainToWeb,
+                        BundleBuilder.of()
+                            .putString(BaseWebFragment.TITLE, item.title)
+                            .putString(BaseWebFragment.WEB_URL, item.link)
+                            .get()
+                    )
+                }
+            }
         mProjectViewModel.apply {
             mNewestDataUIState.mRefreshSuccess.observe(viewLifecycleOwner, Observer {
                 when {

@@ -56,7 +56,7 @@ class WanAndroidHomeArticleAdapter :
             mTvTitle.text = Html.fromHtml(data.title)
             mSuperChapterName.text = data.superChapterName
             mChapterName.text = data.chapterName
-            mNiceDate.text = data.niceDate
+            mTvNiceDate.text = data.niceDate
             mSbCollect.setChecked(data.collect)
             mTvAuthor.setOnClickListener {
                 mOnItemChildClickListener?.onClickAuthorName(mTvAuthor, data, position)

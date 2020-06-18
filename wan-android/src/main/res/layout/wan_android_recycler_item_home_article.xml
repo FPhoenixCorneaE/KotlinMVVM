@@ -80,7 +80,7 @@
             tools:text="@string/wan_android_ask" />
 
         <TextView
-            android:id="@+id/mNiceDate"
+            android:id="@+id/mTvNiceDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/dp_16"

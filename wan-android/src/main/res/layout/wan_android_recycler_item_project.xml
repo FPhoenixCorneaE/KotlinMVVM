@@ -17,78 +17,28 @@
         android:layout_height="wrap_content"
         android:background="@drawable/wan_android_ripple_item_home_article">
 
-        <ImageView
-            android:id="@+id/mIvIcon"
-            android:layout_width="@dimen/dp_20"
-            android:layout_height="@dimen/dp_20"
-            android:layout_margin="@dimen/dp_16"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="ContentDescription"
-            tools:src="@tools:sample/avatars" />
-
         <TextView
             android:id="@+id/mTvAuthor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_8"
+            android:layout_margin="@dimen/dp_16"
             android:background="@drawable/wan_android_selector_author"
             android:textColor="@color/wan_android_color_gray_0x666666"
             android:textSize="@dimen/sp_13"
-            app:layout_constraintBottom_toBottomOf="@+id/mIvIcon"
-            app:layout_constraintStart_toEndOf="@+id/mIvIcon"
-            app:layout_constraintTop_toTopOf="@+id/mIvIcon"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             tools:text="@tools:sample/first_names" />
 
         <TextView
-            android:id="@+id/mTvTop"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_8"
-            android:background="@drawable/wan_android_shape_label_top"
-            android:text="@string/wan_android_top"
-            android:textColor="@android:color/holo_red_light"
-            android:textSize="@dimen/sp_10"
-            app:layout_constraintBottom_toBottomOf="@+id/mTvAuthor"
-            app:layout_constraintStart_toEndOf="@+id/mTvAuthor"
-            app:layout_constraintTop_toTopOf="@+id/mTvAuthor" />
-
-        <TextView
-            android:id="@+id/mTvNew"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_8"
-            android:background="@drawable/wan_android_shape_label_top"
-            android:text="@string/wan_android_new"
-            android:textColor="@android:color/holo_red_light"
-            android:textSize="@dimen/sp_10"
-            app:layout_constraintBottom_toBottomOf="@+id/mTvAuthor"
-            app:layout_constraintStart_toEndOf="@+id/mTvTop"
-            app:layout_constraintTop_toTopOf="@+id/mTvAuthor" />
-
-        <TextView
-            android:id="@+id/mTvTag"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_8"
-            android:background="@drawable/wan_android_shape_label_tag"
-            android:textColor="@android:color/holo_green_dark"
-            android:textSize="@dimen/sp_10"
-            app:layout_constraintBottom_toBottomOf="@+id/mTvAuthor"
-            app:layout_constraintStart_toEndOf="@+id/mTvNew"
-            app:layout_constraintTop_toTopOf="@+id/mTvAuthor"
-            tools:text="@string/wan_android_ask" />
-
-        <TextView
-            android:id="@+id/mNiceDate"
+            android:id="@+id/mTvNiceDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/dp_16"
             android:textColor="@color/wan_android_color_gray_0x999999"
             android:textSize="@dimen/sp_12"
-            app:layout_constraintBottom_toBottomOf="@+id/mIvIcon"
+            app:layout_constraintBottom_toBottomOf="@+id/mTvAuthor"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/mIvIcon"
+            app:layout_constraintTop_toTopOf="@+id/mTvAuthor"
             tools:text="@tools:sample/date/mmddyy" />
 
         <TextView
@@ -106,8 +56,30 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/mIvIcon"
+            app:layout_constraintTop_toBottomOf="@+id/mTvAuthor"
             tools:text="@tools:sample/lorem/random" />
+
+        <com.wkz.framework.widget.MixtureTextView
+            android:id="@+id/mTvDesc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dp_16"
+            android:textColor="@color/wan_android_color_darker_gray"
+            android:textSize="@dimen/sp_13"
+            app:layout_constraintTop_toBottomOf="@+id/mTvTitle"
+            tools:text="@tools:sample/lorem/random">
+
+            <ImageView
+                android:id="@+id/mIvEnvelope"
+                android:layout_width="@dimen/dp_88"
+                android:layout_height="@dimen/dp_160"
+                android:paddingEnd="@dimen/dp_8"
+                android:scaleType="centerCrop"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription"
+                tools:src="@tools:sample/backgrounds/scenic" />
+        </com.wkz.framework.widget.MixtureTextView>
 
         <TextView
             android:id="@+id/mSuperChapterName"
@@ -126,7 +98,7 @@
             app:drawableType="shape"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/mTvTitle"
+            app:layout_constraintTop_toBottomOf="@+id/mTvDesc"
             app:shapeCornerRadius="@dimen/dp_4"
             app:shapeSolidColor="@color/wan_android_color_black_alpha10"
             tools:ignore="MissingPrefix"
@@ -162,8 +134,8 @@
             app:shinebutton_btn_color="@color/wan_android_color_gray_0x999999"
             app:shinebutton_btn_fill_color="@android:color/holo_red_dark"
             app:shinebutton_enable_flashing="true"
-            app:shinebutton_shine_count="8"
             app:shinebutton_shape="@mipmap/shinebutton_heart"
+            app:shinebutton_shine_count="8"
             app:shinebutton_shine_size="@dimen/dp_20" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

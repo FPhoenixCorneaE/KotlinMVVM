@@ -58,6 +58,6 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation Config.supportLibs
     implementation Config.kotlinLibs
-    implementation 'com.afollestad.material-dialogs:core:3.0.0-rc4'
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.2.1"
+    implementation 'com.afollestad.material-dialogs:core:3.3.0'
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.1"
 }

@@ -1,13 +1,14 @@
 package com.wkz.wanandroid.mvvm.view.adapter
 
 import android.annotation.SuppressLint
+import android.graphics.drawable.GradientDrawable
 import android.text.Html
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.wkz.adapter.BaseNBAdapter
-import com.wkz.extension.visible
 import com.wkz.framework.glide.GlideUtil
 import com.wkz.shinebutton.ShineButton
+import com.wkz.util.ColorUtil
 import com.wkz.util.SizeUtil
 import com.wkz.wanandroid.R
 import com.wkz.wanandroid.mvvm.model.WanAndroidArticleBean
@@ -34,9 +35,13 @@ class WanAndroidProjectAdapter :
     ) {
         viewHolder.itemView.apply {
             GlideUtil.setupRoundedImage(
-                mIvIcon,
-                getIcon(data.link),
-                SizeUtil.dp2px(4f)
+                mIvEnvelope,
+                data.envelopePic,
+                SizeUtil.dp2px(4f),
+                GradientDrawable().apply {
+                    setColor(ColorUtil.randomColor)
+                    cornerRadius = SizeUtil.dpToPx(4f)
+                }
             )
             mTvAuthor.text =
                 when {
@@ -47,16 +52,19 @@ class WanAndroidProjectAdapter :
                         data.shareUser
                     }
                 }
-            mTvTop.visible(data.type == 1)
-            mTvNew.visible(data.fresh)
-            mTvTag.visible(data.tags.isNotEmpty())
-            if (data.tags.isNotEmpty()) {
-                mTvTag.text = data.tags[0].name
-            }
             mTvTitle.text = Html.fromHtml(data.title)
+            // 最后开始找不满足的开始取值，满足的抛弃尾部
+            mTvDesc.text = Html.fromHtml(data.desc.apply {
+                while (endsWith("\\r\\n")) {
+                    apply {
+                        // 抛弃掉最后的\r\n
+                        substring(lastIndexOf("\\r\\n"))
+                    }
+                }
+            })
             mSuperChapterName.text = data.superChapterName
             mChapterName.text = data.chapterName
-            mNiceDate.text = data.niceDate
+            mTvNiceDate.text = data.niceDate
             mSbCollect.setChecked(data.collect)
             mTvAuthor.setOnClickListener {
                 mOnItemChildClickListener?.onClickAuthorName(mTvAuthor, data, position)
@@ -64,17 +72,6 @@ class WanAndroidProjectAdapter :
             mSbCollect.setOnClickListener {
                 mOnItemChildClickListener?.onClickCollectIcon(mSbCollect, data, position)
             }
-        }
-    }
-
-    private fun getIcon(link: String): Int {
-        return when {
-            link.contains("wanandroid.com") -> R.mipmap.wan_android_ic_logo_android
-            link.contains("www.jianshu.com") -> R.mipmap.wan_android_ic_logo_jianshu
-            link.contains("juejin.im") -> R.mipmap.wan_android_ic_logo_juejin
-            link.contains("blog.csdn.net") -> R.mipmap.wan_android_ic_logo_csdn
-            link.contains("weixin.qq.com") -> R.mipmap.wan_android_ic_logo_wechat
-            else -> R.mipmap.wan_android_ic_logo_other
         }
     }
 
