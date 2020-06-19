@@ -16,12 +16,12 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/wan_android_colorPrimary"
-        app:layout_constraintBottom_toTopOf="@+id/mVpProject"
+        app:layout_constraintBottom_toTopOf="@+id/mVpVipcn"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed" />
 
     <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/mVpProject"
+        android:id="@+id/mVpVipcn"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_0"
         app:layout_constraintBottom_toBottomOf="parent"

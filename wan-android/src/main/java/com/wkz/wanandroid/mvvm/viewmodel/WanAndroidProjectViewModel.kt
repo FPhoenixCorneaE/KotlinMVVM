@@ -122,7 +122,7 @@ class WanAndroidProjectViewModel : WanAndroidBaseViewModel() {
     }
 
     /**
-     * 加载更多最新项目数据
+     * 加载更多项目数据
      * @param isNewest 是否是最新的
      */
     fun loadMoreProjectData(isNewest: Boolean = false) {

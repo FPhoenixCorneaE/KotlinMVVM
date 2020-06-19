@@ -14,34 +14,31 @@ import com.wkz.util.BundleBuilder
 import com.wkz.wanandroid.R
 import com.wkz.wanandroid.constant.WanAndroidConstant
 import com.wkz.wanandroid.mvvm.model.WanAndroidArticleBean
-import com.wkz.wanandroid.mvvm.view.adapter.WanAndroidProjectAdapter
-import com.wkz.wanandroid.mvvm.viewmodel.WanAndroidProjectViewModel
-import kotlinx.android.synthetic.main.wan_android_fragment_project_child.*
+import com.wkz.wanandroid.mvvm.view.adapter.WanAndroidVipcnAdapter
+import com.wkz.wanandroid.mvvm.viewmodel.WanAndroidVipcnViewModel
+import kotlinx.android.synthetic.main.wan_android_fragment_vipcn_child.*
 
 /**
- * @desc: 项目子Fragment
- * @date: 2020-06-14 17:31
+ * @desc: 公众号子Fragment
+ * @date: 2020-06-18 17:42
  */
-class WanAndroidProjectChildFragment : WanAndroidBaseFragment(), OnRefreshLoadMoreListener {
+class WanAndroidVipcnChildFragment : WanAndroidBaseFragment(), OnRefreshLoadMoreListener {
 
-    /* 项目ViewModel */
-    private val mProjectViewModel by viewModel<WanAndroidProjectViewModel>()
+    /* 公众号ViewModel */
+    private val mVipcnViewModel by viewModel<WanAndroidVipcnViewModel>()
 
-    /* 项目适配器 */
-    private val mProjectAdapter by lazy(LazyThreadSafetyMode.NONE) {
-        WanAndroidProjectAdapter()
+    /* 公众号适配器 */
+    private val mVipcnAdapter by lazy(LazyThreadSafetyMode.NONE) {
+        WanAndroidVipcnAdapter()
     }
 
-    /* 项目分类id */
+    /* 公众号分类id */
     private var mClassifyId = 0
-
-    /* 是否是最新的 */
-    private var mIsNewest = false
 
     /**
      * 加载布局
      */
-    override fun getLayoutId(): Int = R.layout.wan_android_fragment_project_child
+    override fun getLayoutId(): Int = R.layout.wan_android_fragment_vipcn_child
 
     /**
      * 初始化View
@@ -49,23 +46,22 @@ class WanAndroidProjectChildFragment : WanAndroidBaseFragment(), OnRefreshLoadMo
     override fun initView() {
         arguments?.apply {
             mClassifyId = getInt(WanAndroidConstant.WAN_ANDROID_CLASSIFY_ID)
-            mIsNewest = getBoolean(WanAndroidConstant.WAN_ANDROID_NEWEST_PROJECT)
         }
         initRecyclerView()
     }
 
     private fun initRecyclerView() {
-        mProjectAdapter.showItemAnim(AnimationType.TRANSLATE_FROM_BOTTOM, false)
-        mRvProject.apply {
+        mVipcnAdapter.showItemAnim(AnimationType.TRANSLATE_FROM_BOTTOM, false)
+        mRvVipcn.apply {
             layoutManager = LinearLayoutManager(mContext)
-            adapter = mProjectAdapter
+            adapter = mVipcnAdapter
             isNestedScrollingEnabled = false
         }
     }
 
     override fun initListener() {
         mSrlRefresh.setOnRefreshLoadMoreListener(this)
-        mProjectAdapter.onItemClickListener =
+        mVipcnAdapter.onItemClickListener =
             object : BaseNBAdapter.OnItemClickListener<WanAndroidArticleBean> {
                 override fun onItemClick(item: WanAndroidArticleBean, position: Int) {
                     navigate(
@@ -77,30 +73,7 @@ class WanAndroidProjectChildFragment : WanAndroidBaseFragment(), OnRefreshLoadMo
                     )
                 }
             }
-        mProjectViewModel.apply {
-            mNewestDataUIState.mRefreshSuccess.observe(viewLifecycleOwner, Observer {
-                when {
-                    it -> mSrlRefresh.finishRefresh()
-                    else -> showError()
-                }
-            })
-            mNewestDataUIState.mLoadMoreSuccess.observe(viewLifecycleOwner, Observer {
-                mSrlRefresh.finishLoadMore(it)
-            })
-            mNewestDataUIState.mLoadMoreNoData.observe(viewLifecycleOwner, Observer {
-                mSrlRefresh.finishLoadMoreWithNoMoreData()
-            })
-            mProjectNewestData.observe(viewLifecycleOwner, Observer {
-                it?.apply {
-                    when {
-                        isRefresh() -> {
-                            mProjectAdapter.dataList.clear()
-                        }
-                    }
-                    mProjectAdapter.dataList.addAll(it.datas)
-                    mProjectAdapter.notifyDataSetChanged()
-                }
-            })
+        mVipcnViewModel.apply {
             mDataUIState.mRefreshSuccess.observe(viewLifecycleOwner, Observer {
                 when {
                     it -> mSrlRefresh.finishRefresh()
@@ -113,15 +86,15 @@ class WanAndroidProjectChildFragment : WanAndroidBaseFragment(), OnRefreshLoadMo
             mDataUIState.mLoadMoreNoData.observe(viewLifecycleOwner, Observer {
                 mSrlRefresh.finishLoadMoreWithNoMoreData()
             })
-            mProjectData.observe(viewLifecycleOwner, Observer {
+            mVipcnData.observe(viewLifecycleOwner, Observer {
                 it?.apply {
                     when {
                         isRefresh() -> {
-                            mProjectAdapter.dataList.clear()
+                            mVipcnAdapter.dataList.clear()
                         }
                     }
-                    mProjectAdapter.dataList.addAll(it.datas)
-                    mProjectAdapter.notifyDataSetChanged()
+                    mVipcnAdapter.dataList.addAll(it.datas)
+                    mVipcnAdapter.notifyDataSetChanged()
                 }
             })
         }
@@ -131,17 +104,17 @@ class WanAndroidProjectChildFragment : WanAndroidBaseFragment(), OnRefreshLoadMo
      * 懒加载数据
      */
     override fun lazyLoadData() {
-        mProjectViewModel.mClassifyId = mClassifyId
+        mVipcnViewModel.mClassifyId = mClassifyId
         mSrlRefresh.autoRefresh()
     }
 
-    override fun isAlreadyLoadedData(): Boolean = mProjectAdapter.dataList.isNonNullAndNotEmpty()
+    override fun isAlreadyLoadedData(): Boolean = mVipcnAdapter.dataList.isNonNullAndNotEmpty()
 
     override fun onLoadMore(refreshLayout: RefreshLayout) {
-        mProjectViewModel.loadMoreProjectData(mIsNewest)
+        mVipcnViewModel.loadMoreVipcnData()
     }
 
     override fun onRefresh(refreshLayout: RefreshLayout) {
-        mProjectViewModel.refreshProjectData(mIsNewest)
+        mVipcnViewModel.refreshVipcnData()
     }
 }

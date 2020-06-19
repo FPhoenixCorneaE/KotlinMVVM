@@ -82,7 +82,7 @@ interface WanAndroidApi {
      * 项目分类
      */
     @GET("project/tree/json")
-    fun getProjectClassify(): LiveData<BaseResponse<ArrayList<WanAndroidProjectClassifyBean>>>
+    fun getProjectClassify(): LiveData<BaseResponse<ArrayList<WanAndroidClassifyBean>>>
 
     /**
      * 根据分类id获取项目数据
@@ -97,8 +97,23 @@ interface WanAndroidApi {
      * 获取最新项目数据
      */
     @GET("article/listproject/{page}/json")
-     fun getProjectNewestData(
+    fun getProjectNewestData(
         @Path("page") pageNo: Int
+    ): LiveData<BaseResponse<WanAndroidPageResponse<ArrayList<WanAndroidArticleBean>>>>
+
+    /**
+     * 公众号分类
+     */
+    @GET("wxarticle/chapters/json")
+    fun getVipcnClassify(): LiveData<BaseResponse<ArrayList<WanAndroidClassifyBean>>>
+
+    /**
+     * 获取公众号数据
+     */
+    @GET("wxarticle/list/{id}/{page}/json")
+    fun getVipcnDataByClassifyId(
+        @Path("page") pageNo: Int,
+        @Path("id") id: Int
     ): LiveData<BaseResponse<WanAndroidPageResponse<ArrayList<WanAndroidArticleBean>>>>
 
     /**

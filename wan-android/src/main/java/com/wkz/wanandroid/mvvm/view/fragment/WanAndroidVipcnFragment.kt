@@ -16,7 +16,7 @@ import com.wkz.util.statusbar.StatusBarUtil
 import com.wkz.wanandroid.R
 import com.wkz.wanandroid.constant.WanAndroidConstant
 import com.wkz.wanandroid.mvvm.model.WanAndroidClassifyBean
-import com.wkz.wanandroid.mvvm.viewmodel.WanAndroidProjectViewModel
+import com.wkz.wanandroid.mvvm.viewmodel.WanAndroidVipcnViewModel
 import com.wkz.widget.magicindicator.IPagerIndicator
 import com.wkz.widget.magicindicator.IPagerTitleView
 import com.wkz.widget.magicindicator.adapter.CommonNavigatorAdapter
@@ -24,18 +24,18 @@ import com.wkz.widget.magicindicator.helper.ViewPagerHelper
 import com.wkz.widget.magicindicator.indicator.LinePagerIndicator
 import com.wkz.widget.magicindicator.navigator.CommonNavigator
 import com.wkz.widget.magicindicator.titleview.ScaleTransitionPagerTitleView
-import kotlinx.android.synthetic.main.wan_android_fragment_project.*
+import kotlinx.android.synthetic.main.wan_android_fragment_vipcn.*
 
 /**
- * @desc: 项目Fragment
- * @date: 2020-06-14 17:31
+ * @desc: 公众号Fragment
+ * @date: 2020-06-18 17:31
  */
-class WanAndroidProjectFragment : WanAndroidBaseFragment() {
+class WanAndroidVipcnFragment : WanAndroidBaseFragment() {
 
-    /* 项目ViewModel */
-    private val mProjectViewModel by viewModel<WanAndroidProjectViewModel>()
+    /* 公众号ViewModel */
+    private val mVipcnViewModel by viewModel<WanAndroidVipcnViewModel>()
 
-    /* 项目分类数据 */
+    /* 公众号分类数据 */
     private val mClassifyData = arrayListOf<WanAndroidClassifyBean>()
     private val mFragmentPagerCreator by lazy {
         FragmentPagerItems.with(mContext)
@@ -50,7 +50,7 @@ class WanAndroidProjectFragment : WanAndroidBaseFragment() {
     /**
      * 加载布局
      */
-    override fun getLayoutId(): Int = R.layout.wan_android_fragment_project
+    override fun getLayoutId(): Int = R.layout.wan_android_fragment_vipcn
 
     /**
      * 初始化View
@@ -64,7 +64,7 @@ class WanAndroidProjectFragment : WanAndroidBaseFragment() {
     }
 
     private fun initViewPager() {
-        mVpProject.apply {
+        mVpVipcn.apply {
             adapter = mViewPagerAdapter
         }
     }
@@ -86,7 +86,7 @@ class WanAndroidProjectFragment : WanAndroidBaseFragment() {
                             ResourceUtil.getColor(R.color.wan_android_color_title_0x222222)
                         selectedColor = ResourceUtil.getColor(R.color.wan_android_colorAccent)
                         typeface = Typeface.defaultFromStyle(Typeface.BOLD)
-                        setOnClickListener { mVpProject.currentItem = index }
+                        setOnClickListener { mVpVipcn.currentItem = index }
                     }
                 }
 
@@ -104,15 +104,14 @@ class WanAndroidProjectFragment : WanAndroidBaseFragment() {
             }
         }
         mFlMagicIndicator.navigator = commonNavigator
-        ViewPagerHelper.bind(mFlMagicIndicator, mVpProject)
+        ViewPagerHelper.bind(mFlMagicIndicator, mVpVipcn)
     }
 
     override fun initListener() {
-        mProjectViewModel.apply {
-            mProjectClassify.observe(viewLifecycleOwner, Observer {
+        mVipcnViewModel.apply {
+            mVipcnClassify.observe(viewLifecycleOwner, Observer {
                 it?.apply {
                     mClassifyData.clear()
-                    mClassifyData.add(WanAndroidClassifyBean(name = getString(R.string.wan_android_project_newest)))
                     mClassifyData.addAll(it)
 
                     mFragmentPagerCreator.create().clear()
@@ -120,23 +119,19 @@ class WanAndroidProjectFragment : WanAndroidBaseFragment() {
                         mClassifyData.forEach { classifyBean ->
                             it.add(
                                 Html.fromHtml(classifyBean.name),
-                                WanAndroidProjectChildFragment::class.java,
+                                WanAndroidVipcnChildFragment::class.java,
                                 BundleBuilder.of()
                                     .putInt(
                                         WanAndroidConstant.WAN_ANDROID_CLASSIFY_ID,
                                         classifyBean.id
-                                    )
-                                    .putBoolean(
-                                        WanAndroidConstant.WAN_ANDROID_NEWEST_PROJECT,
-                                        classifyBean.id == 0
                                     )
                                     .get()
                             )
                         }
                     }
                     mFlMagicIndicator.navigator?.notifyDataSetChanged()
-                    mVpProject.adapter?.notifyDataSetChanged()
-                    mVpProject.offscreenPageLimit = mViewPagerAdapter.itemCount
+                    mVpVipcn.adapter?.notifyDataSetChanged()
+                    mVpVipcn.offscreenPageLimit = mViewPagerAdapter.itemCount
                 }
             })
         }
@@ -146,15 +141,15 @@ class WanAndroidProjectFragment : WanAndroidBaseFragment() {
      * 懒加载数据
      */
     override fun lazyLoadData() {
-        // 获取项目分类
-        mProjectViewModel.getProjectClassify()
+        // 获取公众号分类
+        mVipcnViewModel.getVipcnClassify()
     }
 
     override fun isAlreadyLoadedData(): Boolean = mClassifyData.isNotEmpty()
 
     companion object {
-        fun getInstance(): WanAndroidProjectFragment {
-            return WanAndroidProjectFragment()
+        fun getInstance(): WanAndroidVipcnFragment {
+            return WanAndroidVipcnFragment()
         }
     }
 }
