@@ -1,40 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.scwang.smart.refresh.layout.SmartRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.wkz.framework.widget.FixDragLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/mSrlRefresh"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/mNsvScroll"
+    <com.scwang.smart.refresh.layout.SmartRefreshLayout
+        android:id="@+id/mSrlRefresh"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="none">
+        android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/mClChild"
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/mNsvScroll"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:scrollbars="none">
 
-            <com.wkz.adapter.fold.FoldRecyclerView
-                android:id="@+id/mRvBanner"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/mClChild"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_170"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:itemCount="5"
-                tools:layoutManager="com.wkz.adapter.fold.LeftFlowLayoutManger"
-                tools:listitem="@layout/wan_android_recycler_item_home_banner" />
+                android:layout_height="match_parent">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/mRvArticle"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/mRvBanner"
-                tools:itemCount="10"
-                tools:listitem="@layout/wan_android_recycler_item_home_article" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.core.widget.NestedScrollView>
-</com.scwang.smart.refresh.layout.SmartRefreshLayout>
+                <com.wkz.adapter.fold.FoldRecyclerView
+                    android:id="@+id/mRvBanner"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_170"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:itemCount="5"
+                    tools:layoutManager="com.wkz.adapter.fold.LeftFlowLayoutManger"
+                    tools:listitem="@layout/wan_android_recycler_item_home_banner" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/mRvArticle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/mRvBanner"
+                    tools:itemCount="10"
+                    tools:listitem="@layout/wan_android_recycler_item_home_article" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+    </com.scwang.smart.refresh.layout.SmartRefreshLayout>
+</com.wkz.framework.widget.FixDragLayout>

@@ -174,6 +174,8 @@ class WanAndroidHomeArticleFragment : WanAndroidBaseFragment(), OnRefreshLoadMor
     private fun initBannerRecyclerView() {
         mBannerAdapter.showItemAnim(AnimationType.ALPHA, false)
         mRvBanner.apply {
+            setHasFixedSize(true)
+            isNestedScrollingEnabled = false
             adapter = mBannerAdapter
             stayEnd(false)
             addItemDecoration(object : RecyclerView.ItemDecoration() {
@@ -198,8 +200,9 @@ class WanAndroidHomeArticleFragment : WanAndroidBaseFragment(), OnRefreshLoadMor
     private fun initArticleRecyclerView() {
         mHomeArticleAdapter.showItemAnim(AnimationType.TRANSLATE_FROM_BOTTOM, false)
         mRvArticle.apply {
-            adapter = mHomeArticleAdapter
+            setHasFixedSize(true)
             isNestedScrollingEnabled = false
+            adapter = mHomeArticleAdapter
         }
     }
 

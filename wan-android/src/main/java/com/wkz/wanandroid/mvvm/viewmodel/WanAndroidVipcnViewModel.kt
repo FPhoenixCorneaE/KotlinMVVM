@@ -69,7 +69,6 @@ class WanAndroidVipcnViewModel : WanAndroidBaseViewModel() {
 
     /**
      * 刷新公众号数据
-     * @param isNewest 是否是最新的
      */
     fun refreshVipcnData() {
         mDataUIState.mRefreshing.value = true
@@ -78,7 +77,6 @@ class WanAndroidVipcnViewModel : WanAndroidBaseViewModel() {
 
     /**
      * 加载更多公众号数据
-     * @param isNewest 是否是最新的
      */
     fun loadMoreVipcnData() {
         mDataUIState.mLoadingMore.value = true

@@ -10,78 +10,82 @@ import com.wkz.wanandroid.mvvm.model.WanAndroidUIState
  */
 class WanAndroidSquareViewModel : WanAndroidBaseViewModel() {
 
-    /* 刷新广场分类 */
-    val mRefreshingClassify = MutableLiveData<Boolean>()
+    /* 刷新广场体系 */
+    val mRefreshingSquareSystem = MutableLiveData<Boolean>()
 
-    /* 广场数据UI状态 */
-    val mDataUIState = WanAndroidUIState()
+    /* 广场体系文章数据UI状态 */
+    val mSystemArticleDataUIState = WanAndroidUIState()
 
-    /* 广场分类id */
-    var mClassifyId = 0
+    /* 广场体系id */
+    var mSystemId = 0
 
-    /* 广场分类 */
-    val mVipcnClassify = Transformations.switchMap(mRefreshingClassify) {
-        Transformations.map(sWanAndroidService.getVipcnClassify()) {
+    /* 广场体系数据 */
+    val mSquareSystemData = Transformations.switchMap(mRefreshingSquareSystem) {
+        Transformations.map(sWanAndroidService.getSquareSystem()) {
             it.data
         }
     }
 
-    /* 广场数据 */
-    val mVipcnData = Transformations.switchMap(mDataUIState.mPage) { page ->
-        Transformations.map(sWanAndroidService.getVipcnDataByClassifyId(page, mClassifyId)) {
-            mDataUIState.mRefreshing.value = false
-            mDataUIState.mLoadingMore.value = false
-            it.data?.apply {
-                when {
-                    it.isWanAndroidSuccess() -> {
-                        when {
-                            isRefreshNoData() -> {
-                                mDataUIState.mRefreshNoData.value = true
-                            }
-                            isRefreshWithData() -> {
-                                mDataUIState.mRefreshSuccess.value = true
-                            }
-                            isLoadMoreNoData() -> {
-                                mDataUIState.mLoadMoreNoData.value = true
-                            }
-                            else -> {
-                                mDataUIState.mLoadMoreSuccess.value = true
+    /* 广场体系文章数据 */
+    val mSquareSystemArticleData =
+        Transformations.switchMap(mSystemArticleDataUIState.mPage) { page ->
+            Transformations.map(
+                sWanAndroidService.getSquareSystemArticleBySystemId(
+                    page,
+                    mSystemId
+                )
+            ) {
+                mSystemArticleDataUIState.mRefreshing.value = false
+                mSystemArticleDataUIState.mLoadingMore.value = false
+                it.data?.apply {
+                    when {
+                        it.isWanAndroidSuccess() -> {
+                            when {
+                                isRefreshNoData() -> {
+                                    mSystemArticleDataUIState.mRefreshNoData.value = true
+                                }
+                                isRefreshWithData() -> {
+                                    mSystemArticleDataUIState.mRefreshSuccess.value = true
+                                }
+                                isLoadMoreNoData() -> {
+                                    mSystemArticleDataUIState.mLoadMoreNoData.value = true
+                                }
+                                else -> {
+                                    mSystemArticleDataUIState.mLoadMoreSuccess.value = true
+                                }
                             }
                         }
-                    }
-                    isRefresh() -> {
-                        mDataUIState.mRefreshSuccess.value = false
-                    }
-                    isLoadMore() -> {
-                        mDataUIState.mLoadMoreSuccess.value = false
+                        isRefresh() -> {
+                            mSystemArticleDataUIState.mRefreshSuccess.value = false
+                        }
+                        isLoadMore() -> {
+                            mSystemArticleDataUIState.mLoadMoreSuccess.value = false
+                        }
                     }
                 }
             }
         }
+
+    /**
+     * 获取广场体系
+     */
+    fun getSquareSystem() {
+        mRefreshingSquareSystem.value = true
     }
 
     /**
-     * 获取广场分类
+     * 刷新广场体系文章数据
      */
-    fun getVipcnClassify() {
-        mRefreshingClassify.value = true
+    fun refreshSquareSystemArticleData() {
+        mSystemArticleDataUIState.mRefreshing.value = true
+        mSystemArticleDataUIState.mPage.value = 1
     }
 
     /**
-     * 刷新广场数据
-     * @param isNewest 是否是最新的
+     * 加载更多广场体系文章数据
      */
-    fun refreshVipcnData() {
-        mDataUIState.mRefreshing.value = true
-        mDataUIState.mPage.value = 1
-    }
-
-    /**
-     * 加载更多广场数据
-     * @param isNewest 是否是最新的
-     */
-    fun loadMoreVipcnData() {
-        mDataUIState.mLoadingMore.value = true
-        mDataUIState.mPage.value = (mDataUIState.mPage.value ?: 1) + 1
+    fun loadMoreSquareSystemArticleData() {
+        mSystemArticleDataUIState.mLoadingMore.value = true
+        mSystemArticleDataUIState.mPage.value = (mSystemArticleDataUIState.mPage.value ?: 1) + 1
     }
 }

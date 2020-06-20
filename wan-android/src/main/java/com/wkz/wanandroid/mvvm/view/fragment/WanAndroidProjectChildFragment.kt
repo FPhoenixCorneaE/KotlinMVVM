@@ -57,9 +57,9 @@ class WanAndroidProjectChildFragment : WanAndroidBaseFragment(), OnRefreshLoadMo
     private fun initRecyclerView() {
         mProjectAdapter.showItemAnim(AnimationType.TRANSLATE_FROM_BOTTOM, false)
         mRvProject.apply {
-            layoutManager = LinearLayoutManager(mContext)
-            adapter = mProjectAdapter
+            setHasFixedSize(true)
             isNestedScrollingEnabled = false
+            adapter = mProjectAdapter
         }
     }
 

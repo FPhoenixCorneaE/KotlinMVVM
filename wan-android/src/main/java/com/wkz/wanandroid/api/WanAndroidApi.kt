@@ -140,10 +140,10 @@ interface WanAndroidApi {
     fun getSquareSystem(): LiveData<BaseResponse<ArrayList<WanAndroidSystemBean>>>
 
     /**
-     * 获取广场体系下的文章数据
+     * 获取广场体系文章数据
      */
     @GET("article/list/{page}/json")
-    fun getSquareSystemArticleById(
+    fun getSquareSystemArticleBySystemId(
         @Path("page") pageNo: Int,
         @Query("cid") cid: Int
     ): LiveData<BaseResponse<WanAndroidPageResponse<ArrayList<WanAndroidArticleBean>>>>

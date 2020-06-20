@@ -53,9 +53,9 @@ class WanAndroidVipcnChildFragment : WanAndroidBaseFragment(), OnRefreshLoadMore
     private fun initRecyclerView() {
         mVipcnAdapter.showItemAnim(AnimationType.TRANSLATE_FROM_BOTTOM, false)
         mRvVipcn.apply {
-            layoutManager = LinearLayoutManager(mContext)
-            adapter = mVipcnAdapter
+            setHasFixedSize(true)
             isNestedScrollingEnabled = false
+            adapter = mVipcnAdapter
         }
     }
 

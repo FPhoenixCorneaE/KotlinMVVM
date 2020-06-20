@@ -41,6 +41,8 @@ class WanAndroidIntegralRankingFragment : WanAndroidBaseFragment(), OnRefreshLoa
     private fun initIntegralRankingRecyclerView() {
         mIntegralRankingAdapter.showItemAnim(AnimationType.TRANSLATE_FROM_BOTTOM, false)
         mRvIntegralRanking.apply {
+            setHasFixedSize(true)
+            isNestedScrollingEnabled = false
             adapter = mIntegralRankingAdapter
         }
     }

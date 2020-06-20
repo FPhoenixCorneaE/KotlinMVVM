@@ -2,10 +2,8 @@ package com.wkz.wanandroid.mvvm.view.fragment
 
 import com.wkz.adapter.app.FragmentPagerItems
 import com.wkz.adapter.viewpager2.FragmentStatePager2ItemAdapter
-import com.wkz.extension.viewModel
 import com.wkz.util.statusbar.StatusBarUtil
 import com.wkz.wanandroid.R
-import com.wkz.wanandroid.mvvm.viewmodel.WanAndroidSquareViewModel
 import kotlinx.android.synthetic.main.wan_android_fragment_square.*
 
 /**
@@ -14,16 +12,15 @@ import kotlinx.android.synthetic.main.wan_android_fragment_square.*
  */
 class WanAndroidSquareFragment : WanAndroidBaseFragment() {
 
-    /* 广场ViewModel */
-    private val mSquareViewModel by viewModel<WanAndroidSquareViewModel>()
-
-    private val mFragmentPagerCreator by lazy {
-        FragmentPagerItems.with(mContext)
-    }
     private val mViewPagerAdapter by lazy {
         FragmentStatePager2ItemAdapter(
             this,
-            mFragmentPagerCreator.create()
+            FragmentPagerItems.with(mContext)
+                .add(
+                    getString(R.string.wan_android_square_system),
+                    WanAndroidSquareSystemFragment::class.java
+                )
+                .create()
         )
     }
 
@@ -43,9 +40,7 @@ class WanAndroidSquareFragment : WanAndroidBaseFragment() {
     }
 
     override fun initListener() {
-        mSquareViewModel.apply {
 
-        }
     }
 
     /**

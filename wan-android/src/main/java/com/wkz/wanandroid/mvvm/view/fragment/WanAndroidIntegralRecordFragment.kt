@@ -35,6 +35,8 @@ class WanAndroidIntegralRecordFragment : WanAndroidBaseFragment(), OnRefreshLoad
     private fun initIntegralRankingRecyclerView() {
         mIntegralRecordAdapter.showItemAnim(AnimationType.TRANSLATE_FROM_BOTTOM, false)
         mRvIntegralRecord.apply {
+            setHasFixedSize(true)
+            isNestedScrollingEnabled = false
             adapter = mIntegralRecordAdapter
         }
     }
