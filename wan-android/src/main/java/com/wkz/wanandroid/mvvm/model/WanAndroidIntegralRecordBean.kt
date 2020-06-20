@@ -1,10 +1,13 @@
 package com.wkz.wanandroid.mvvm.model
 
-import java.io.Serializable
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 
 /**
- * 积分记录
+ *  @desc: 积分记录数据
+ *  @date: 2020-06-10 13:17
  */
+@Parcelize
 data class WanAndroidIntegralRecordBean(
     var coinCount: Int = 0,
     var date: Long = 0,
@@ -14,6 +17,6 @@ data class WanAndroidIntegralRecordBean(
     var reason: String = "",
     var userId: Int = 0,
     var userName: String = ""
-) : Serializable
+) : Parcelable
 
 

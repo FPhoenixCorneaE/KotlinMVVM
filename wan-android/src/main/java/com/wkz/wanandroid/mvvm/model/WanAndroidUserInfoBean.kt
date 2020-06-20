@@ -1,10 +1,13 @@
 package com.wkz.wanandroid.mvvm.model
 
-import java.io.Serializable
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 
 /**
- * 账户信息
+ * @desc：账号信息数据
+ * @date：2020-04-23 12:20
  */
+@Parcelize
 data class WanAndroidUserInfoBean(
     var admin: Boolean = false,
     var chapterTops: MutableList<String>? = mutableListOf(),
@@ -17,4 +20,4 @@ data class WanAndroidUserInfoBean(
     var token: String = "",
     var type: Int = 0,
     var username: String = ""
-) : Serializable
+) : Parcelable

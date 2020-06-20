@@ -1,12 +1,27 @@
 package com.wkz.wanandroid.mvvm.view.fragment
 
+import android.content.Context
+import android.graphics.Typeface
 import android.view.View
+import android.view.animation.AccelerateInterpolator
+import android.view.animation.DecelerateInterpolator
+import androidx.viewpager2.widget.ViewPager2
+import com.wkz.adapter.viewpager2.FragmentStatePager2ItemAdapter
 import com.wkz.extension.navigateUp
 import com.wkz.framework.base.fragment.BaseFragment
 import com.wkz.titlebar.CommonTitleBar
 import com.wkz.util.ImageUtil
 import com.wkz.util.ResourceUtil
+import com.wkz.util.SizeUtil
 import com.wkz.wanandroid.R
+import com.wkz.widget.magicindicator.IPagerIndicator
+import com.wkz.widget.magicindicator.IPagerTitleView
+import com.wkz.widget.magicindicator.MagicIndicator
+import com.wkz.widget.magicindicator.adapter.CommonNavigatorAdapter
+import com.wkz.widget.magicindicator.helper.ViewPagerHelper
+import com.wkz.widget.magicindicator.indicator.LinePagerIndicator
+import com.wkz.widget.magicindicator.navigator.CommonNavigator
+import com.wkz.widget.magicindicator.titleview.ScaleTransitionPagerTitleView
 
 /**
  * @desc: WanAndroidBaseFragment
@@ -32,5 +47,54 @@ abstract class WanAndroidBaseFragment : BaseFragment() {
                 }
             })
         }
+    }
+
+    /**
+     * 初始化 ViewPager2 & MagicIndicator
+     */
+    protected fun initViewPager2AndMagicIndicator(
+        fragmentStatePager2ItemAdapter: FragmentStatePager2ItemAdapter,
+        viewPager2: ViewPager2,
+        magicIndicator: MagicIndicator,
+        adjustMode: Boolean = false
+    ) {
+        viewPager2.apply {
+            adapter = fragmentStatePager2ItemAdapter
+        }
+        val commonNavigator = CommonNavigator(mContext)
+        commonNavigator.apply {
+            isAdjustMode = adjustMode
+            isSkimOver = true
+            adapter = object : CommonNavigatorAdapter() {
+                override val count: Int
+                    get() = fragmentStatePager2ItemAdapter.itemCount
+
+                override fun getTitleView(context: Context, index: Int): IPagerTitleView {
+                    return ScaleTransitionPagerTitleView(context).apply {
+                        text = fragmentStatePager2ItemAdapter.getPageTitle(index).toString()
+                        textSize = 18f
+                        normalColor =
+                            ResourceUtil.getColor(R.color.wan_android_color_title_0x222222)
+                        selectedColor = ResourceUtil.getColor(R.color.wan_android_colorAccent)
+                        typeface = Typeface.defaultFromStyle(Typeface.BOLD)
+                        setOnClickListener { viewPager2.currentItem = index }
+                    }
+                }
+
+                override fun getIndicator(context: Context): IPagerIndicator {
+                    return LinePagerIndicator(context).apply {
+                        mode = LinePagerIndicator.MODE_EXACTLY
+                        lineHeight = SizeUtil.dpToPx(5f)
+                        lineWidth = SizeUtil.dpToPx(40f)
+                        roundRadius = SizeUtil.dpToPx(6f)
+                        startInterpolator = AccelerateInterpolator()
+                        endInterpolator = DecelerateInterpolator(2.0f)
+                        setColors(ResourceUtil.getColor(R.color.wan_android_colorAccent))
+                    }
+                }
+            }
+        }
+        magicIndicator.navigator = commonNavigator
+        ViewPagerHelper.bind(magicIndicator, viewPager2)
     }
 }

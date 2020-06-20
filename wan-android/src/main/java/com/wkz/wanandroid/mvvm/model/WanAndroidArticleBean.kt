@@ -1,10 +1,13 @@
 package com.wkz.wanandroid.mvvm.model
 
-import java.io.Serializable
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 
 /**
- * 文章
+ * @desc：文章数据
+ * @date：2019-10-24 13:24
  */
+@Parcelize
 data class WanAndroidArticleBean(
     var apkLink: String,
     var author: String,
@@ -31,12 +34,13 @@ data class WanAndroidArticleBean(
     var userId: Int,
     var visible: Int,
     var zan: Int
-) : Serializable {
+) : Parcelable {
     /**
      * 文章的标签
      */
+    @Parcelize
     data class TagsBean(
         var name: String,
         var url: String
-    ) : Serializable
+    ) : Parcelable
 }

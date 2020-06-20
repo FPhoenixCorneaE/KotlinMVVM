@@ -1,6 +1,5 @@
 package com.wkz.wanandroid.mvvm.model
 
-import android.annotation.SuppressLint
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
@@ -8,7 +7,6 @@ import kotlinx.android.parcel.Parcelize
  * @desc：项目、公众号分类
  * @date：2020-06-16 10:32
  */
-@SuppressLint("ParcelCreator")
 @Parcelize
 data class WanAndroidClassifyBean(
     var children: List<String> = listOf(),

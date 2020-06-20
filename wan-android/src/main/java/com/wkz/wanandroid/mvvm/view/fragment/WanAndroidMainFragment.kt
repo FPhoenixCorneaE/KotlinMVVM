@@ -18,6 +18,7 @@ class WanAndroidMainFragment : WanAndroidBaseFragment() {
         listOf(
             WanAndroidHomeFragment.getInstance(),
             WanAndroidProjectFragment.getInstance(),
+            WanAndroidSquareFragment.getInstance(),
             WanAndroidVipcnFragment.getInstance(),
             WanAndroidMineFragment.getInstance()
         )

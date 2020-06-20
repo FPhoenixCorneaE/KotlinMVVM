@@ -117,6 +117,45 @@ interface WanAndroidApi {
     ): LiveData<BaseResponse<WanAndroidPageResponse<ArrayList<WanAndroidArticleBean>>>>
 
     /**
+     * 获取广场文章列表数据
+     */
+    @GET("user_article/list/{page}/json")
+    fun getSquareArticleList(
+        @Path("page") page: Int
+    ): LiveData<BaseResponse<WanAndroidPageResponse<ArrayList<WanAndroidArticleBean>>>>
+
+    /**
+     * 获取广场每日一问列表数据
+     */
+    @GET("wenda/list/{page}/json")
+    fun getSquareAskList(
+        @Path("page") page: Int
+    ): LiveData<BaseResponse<WanAndroidPageResponse<ArrayList<WanAndroidArticleBean>>>>
+
+
+    /**
+     * 获取广场体系数据
+     */
+    @GET("tree/json")
+    fun getSquareSystem(): LiveData<BaseResponse<ArrayList<WanAndroidSystemBean>>>
+
+    /**
+     * 获取广场体系下的文章数据
+     */
+    @GET("article/list/{page}/json")
+    fun getSquareSystemArticleById(
+        @Path("page") pageNo: Int,
+        @Query("cid") cid: Int
+    ): LiveData<BaseResponse<WanAndroidPageResponse<ArrayList<WanAndroidArticleBean>>>>
+
+
+    /**
+     * 获取广场导航数据
+     */
+    @GET("navi/json")
+    fun getSquareNavigation(): LiveData<BaseResponse<ArrayList<WanAndroidNavigationBean>>>
+
+    /**
      * 获取当前账户的个人积分
      */
     @GET("/lg/coin/userinfo/json")

@@ -4,6 +4,7 @@ import java.io.Serializable
 
 /**
  * @desc：分页数据的基类
+ * @date：2020-06-11 10:20
  */
 data class WanAndroidPageResponse<T>(
     var datas: T,
