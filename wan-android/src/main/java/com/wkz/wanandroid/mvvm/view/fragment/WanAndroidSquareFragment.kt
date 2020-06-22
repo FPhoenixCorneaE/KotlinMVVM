@@ -20,6 +20,10 @@ class WanAndroidSquareFragment : WanAndroidBaseFragment() {
                     getString(R.string.wan_android_square_system),
                     WanAndroidSquareSystemFragment::class.java
                 )
+                .add(
+                    getString(R.string.wan_android_square_navigation),
+                    WanAndroidSquareNavigationFragment::class.java
+                )
                 .create()
         )
     }
@@ -35,7 +39,7 @@ class WanAndroidSquareFragment : WanAndroidBaseFragment() {
     override fun initView() {
         // 模拟状态栏
         StatusBarUtil.setSmartPadding(mContext, mVwStatusBar)
-        StatusBarUtil.setSmartMargin(mContext, mFlMagicIndicator)
+        StatusBarUtil.setSmartMargin(mContext, mLlIndicatorContainer)
         initViewPager2AndMagicIndicator(mViewPagerAdapter, mVpSquare, mFlMagicIndicator)
     }
 

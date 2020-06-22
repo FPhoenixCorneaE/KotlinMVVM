@@ -2,10 +2,10 @@ package com.wkz.wanandroid.mvvm.view.adapter
 
 import android.annotation.SuppressLint
 import android.graphics.drawable.GradientDrawable
-import android.text.Html
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.wkz.adapter.BaseNBAdapter
+import com.wkz.extension.toHtml
 import com.wkz.framework.glide.GlideUtil
 import com.wkz.shinebutton.ShineButton
 import com.wkz.util.ColorUtil
@@ -52,8 +52,8 @@ class WanAndroidProjectAdapter :
                         data.shareUser
                     }
                 }
-            mTvTitle.text = Html.fromHtml(data.title)
-            mTvDesc.text = Html.fromHtml(data.desc)
+            mTvTitle.text = data.title.toHtml()
+            mTvDesc.text = data.desc.toHtml()
             mSuperChapterName.text = data.superChapterName
             mChapterName.text = data.chapterName
             mTvNiceDate.text = data.niceDate

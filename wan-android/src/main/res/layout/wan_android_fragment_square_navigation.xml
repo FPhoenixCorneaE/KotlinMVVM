@@ -12,11 +12,11 @@
         android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/mRvSystem"
+            android:id="@+id/mRvNavigation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:itemCount="10"
-            tools:listitem="@layout/wan_android_recycler_item_square_system" />
+            tools:listitem="@layout/wan_android_recycler_item_square_navigation" />
     </com.scwang.smart.refresh.layout.SmartRefreshLayout>
 </com.wkz.framework.widget.FixDragLayout>

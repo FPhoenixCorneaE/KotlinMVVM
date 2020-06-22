@@ -1,9 +1,9 @@
 package com.wkz.wanandroid.mvvm.view.fragment
 
-import android.text.Html
 import androidx.lifecycle.Observer
 import com.wkz.adapter.app.FragmentPagerItems
 import com.wkz.adapter.viewpager2.FragmentStatePager2ItemAdapter
+import com.wkz.extension.toHtml
 import com.wkz.extension.viewModel
 import com.wkz.util.BundleBuilder
 import com.wkz.util.statusbar.StatusBarUtil
@@ -61,7 +61,7 @@ class WanAndroidProjectFragment : WanAndroidBaseFragment() {
                     mFragmentPagerCreator.let {
                         mClassifyData.forEach { classifyBean ->
                             it.add(
-                                Html.fromHtml(classifyBean.name),
+                                classifyBean.name.toHtml(),
                                 WanAndroidProjectChildFragment::class.java,
                                 BundleBuilder.of()
                                     .putInt(

@@ -11,19 +11,26 @@
         android:background="@color/wan_android_colorPrimaryDark"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.wkz.widget.magicindicator.MagicIndicator
-        android:id="@+id/mFlMagicIndicator"
+    <LinearLayout
+        android:id="@+id/mLlIndicatorContainer"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="wrap_content"
         android:background="@color/wan_android_colorPrimary"
+        android:gravity="center"
         app:layout_constraintBottom_toTopOf="@+id/mVpSquare"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="packed" />
+        app:layout_constraintVertical_chainStyle="packed">
+
+        <com.wkz.widget.magicindicator.MagicIndicator
+            android:id="@+id/mFlMagicIndicator"
+            android:layout_width="wrap_content"
+            android:layout_height="?attr/actionBarSize" />
+    </LinearLayout>
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/mVpSquare"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_0"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mFlMagicIndicator" />
+        app:layout_constraintTop_toBottomOf="@+id/mLlIndicatorContainer" />
 </androidx.constraintlayout.widget.ConstraintLayout>

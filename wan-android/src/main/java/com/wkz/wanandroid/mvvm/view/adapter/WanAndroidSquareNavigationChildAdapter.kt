@@ -6,16 +6,16 @@ import com.wkz.adapter.BaseNBAdapter
 import com.wkz.extension.toHtml
 import com.wkz.util.ColorUtil
 import com.wkz.wanandroid.R
-import com.wkz.wanandroid.mvvm.model.WanAndroidClassifyBean
-import kotlinx.android.synthetic.main.wan_android_recycler_item_square_system_child.view.*
+import com.wkz.wanandroid.mvvm.model.WanAndroidArticleBean
+import kotlinx.android.synthetic.main.wan_android_recycler_item_square_navigation_child.view.*
 
 /**
- * @desc: 广场体系子适配器
- * @date: 2020-06-20 14:45
+ * @desc: 广场导航子适配器
+ * @date: 2020-06-22 10:45
  */
-class WanAndroidSquareSystemChildAdapter : BaseNBAdapter<WanAndroidClassifyBean>() {
+class WanAndroidSquareNavigationChildAdapter : BaseNBAdapter<WanAndroidArticleBean>() {
 
-    override fun getLayoutId(): Int = R.layout.wan_android_recycler_item_square_system_child
+    override fun getLayoutId(): Int = R.layout.wan_android_recycler_item_square_navigation_child
 
     /**
      * 绑定数据
@@ -23,11 +23,11 @@ class WanAndroidSquareSystemChildAdapter : BaseNBAdapter<WanAndroidClassifyBean>
     @SuppressLint("NewApi")
     override fun onBindData(
         viewHolder: RecyclerView.ViewHolder,
-        data: WanAndroidClassifyBean,
+        data: WanAndroidArticleBean,
         position: Int
     ) {
         viewHolder.itemView.apply {
-            mTvName.text = data.name.toHtml()
+            mTvName.text = data.title.toHtml()
             mTvName.setTextColor(ColorUtil.randomColor)
         }
     }

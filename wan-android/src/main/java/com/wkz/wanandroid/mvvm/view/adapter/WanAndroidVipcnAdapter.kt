@@ -1,10 +1,10 @@
 package com.wkz.wanandroid.mvvm.view.adapter
 
 import android.annotation.SuppressLint
-import android.text.Html
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.wkz.adapter.BaseNBAdapter
+import com.wkz.extension.toHtml
 import com.wkz.shinebutton.ShineButton
 import com.wkz.wanandroid.R
 import com.wkz.wanandroid.mvvm.model.WanAndroidArticleBean
@@ -39,7 +39,7 @@ class WanAndroidVipcnAdapter :
                         data.shareUser
                     }
                 }
-            mTvTitle.text = Html.fromHtml(data.title)
+            mTvTitle.text = data.title.toHtml()
             mSuperChapterName.text = data.superChapterName
             mChapterName.text = data.chapterName
             mTvNiceDate.text = data.niceDate

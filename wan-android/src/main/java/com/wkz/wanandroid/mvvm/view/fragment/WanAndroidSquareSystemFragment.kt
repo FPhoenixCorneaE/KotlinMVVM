@@ -1,7 +1,6 @@
 package com.wkz.wanandroid.mvvm.view.fragment
 
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.scwang.smart.refresh.layout.api.RefreshLayout
 import com.scwang.smart.refresh.layout.listener.OnRefreshListener
 import com.wkz.adapter.AnimationType
@@ -12,7 +11,7 @@ import com.wkz.wanandroid.R
 import com.wkz.wanandroid.mvvm.model.WanAndroidSystemBean
 import com.wkz.wanandroid.mvvm.view.adapter.WanAndroidSquareSystemAdapter
 import com.wkz.wanandroid.mvvm.viewmodel.WanAndroidSquareViewModel
-import kotlinx.android.synthetic.main.wan_android_fragment_vipcn_child.*
+import kotlinx.android.synthetic.main.wan_android_fragment_square_system.*
 
 /**
  * @desc: 广场体系Fragment
@@ -43,7 +42,7 @@ class WanAndroidSquareSystemFragment : WanAndroidBaseFragment(), OnRefreshListen
 
     private fun initRecyclerView() {
         mSquareSystemAdapter.showItemAnim(AnimationType.TRANSLATE_FROM_BOTTOM, false)
-        mRvVipcn.apply {
+        mRvSystem.apply {
             setHasFixedSize(true)
             isNestedScrollingEnabled = false
             adapter = mSquareSystemAdapter
@@ -59,8 +58,10 @@ class WanAndroidSquareSystemFragment : WanAndroidBaseFragment(), OnRefreshListen
                 }
             }
         mSquareViewModel.apply {
-            mSquareSystemData.observe(viewLifecycleOwner, Observer {
+            mSystemDataUIState.mRefreshing.observe(viewLifecycleOwner, Observer {
                 mSrlRefresh.finishRefresh()
+            })
+            mSquareSystemData.observe(viewLifecycleOwner, Observer {
                 it?.apply {
                     mSquareSystemAdapter.dataList.clear()
                     mSquareSystemAdapter.dataList.addAll(it)
@@ -77,7 +78,8 @@ class WanAndroidSquareSystemFragment : WanAndroidBaseFragment(), OnRefreshListen
         mSrlRefresh.autoRefresh()
     }
 
-    override fun isAlreadyLoadedData(): Boolean = mSquareSystemAdapter.dataList.isNonNullAndNotEmpty()
+    override fun isAlreadyLoadedData(): Boolean =
+        mSquareSystemAdapter.dataList.isNonNullAndNotEmpty()
 
     override fun onRefresh(refreshLayout: RefreshLayout) {
         mSquareViewModel.getSquareSystem()

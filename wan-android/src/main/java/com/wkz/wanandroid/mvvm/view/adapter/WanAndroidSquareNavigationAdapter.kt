@@ -8,17 +8,17 @@ import com.google.android.flexbox.JustifyContent
 import com.wkz.adapter.BaseNBAdapter
 import com.wkz.extension.toHtml
 import com.wkz.wanandroid.R
-import com.wkz.wanandroid.mvvm.model.WanAndroidClassifyBean
-import com.wkz.wanandroid.mvvm.model.WanAndroidSystemBean
+import com.wkz.wanandroid.mvvm.model.WanAndroidArticleBean
+import com.wkz.wanandroid.mvvm.model.WanAndroidNavigationBean
 import kotlinx.android.synthetic.main.wan_android_recycler_item_square_system.view.*
 
 /**
- * @desc: 广场体系适配器
- * @date: 2020-06-20 14:45
+ * @desc: 广场导航适配器
+ * @date: 2020-06-22 10:44
  */
-class WanAndroidSquareSystemAdapter : BaseNBAdapter<WanAndroidSystemBean>() {
+class WanAndroidSquareNavigationAdapter : BaseNBAdapter<WanAndroidNavigationBean>() {
 
-    override fun getLayoutId(): Int = R.layout.wan_android_recycler_item_square_system
+    override fun getLayoutId(): Int = R.layout.wan_android_recycler_item_square_navigation
 
     /**
      * 绑定数据
@@ -26,7 +26,7 @@ class WanAndroidSquareSystemAdapter : BaseNBAdapter<WanAndroidSystemBean>() {
     @SuppressLint("NewApi")
     override fun onBindData(
         viewHolder: RecyclerView.ViewHolder,
-        data: WanAndroidSystemBean,
+        data: WanAndroidNavigationBean,
         position: Int
     ) {
         viewHolder.itemView.apply {
@@ -41,10 +41,10 @@ class WanAndroidSquareSystemAdapter : BaseNBAdapter<WanAndroidSystemBean>() {
                 setHasFixedSize(true)
                 isNestedScrollingEnabled = false
                 setItemViewCacheSize(200)
-                adapter = WanAndroidSquareSystemChildAdapter().apply {
-                    dataList.addAll(data.children)
-                    onItemClickListener = object : OnItemClickListener<WanAndroidClassifyBean> {
-                        override fun onItemClick(item: WanAndroidClassifyBean, position: Int) {
+                adapter = WanAndroidSquareNavigationChildAdapter().apply {
+                    dataList.addAll(data.articles)
+                    onItemClickListener = object : OnItemClickListener<WanAndroidArticleBean> {
+                        override fun onItemClick(item: WanAndroidArticleBean, position: Int) {
 
                         }
                     }

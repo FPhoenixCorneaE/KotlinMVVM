@@ -59,6 +59,12 @@ abstract class WanAndroidBaseFragment : BaseFragment() {
         adjustMode: Boolean = false
     ) {
         viewPager2.apply {
+            offscreenPageLimit = when {
+                fragmentStatePager2ItemAdapter.itemCount > 1 -> {
+                    fragmentStatePager2ItemAdapter.itemCount
+                }
+                else -> 1
+            }
             adapter = fragmentStatePager2ItemAdapter
         }
         val commonNavigator = CommonNavigator(mContext)

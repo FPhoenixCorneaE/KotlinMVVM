@@ -11,7 +11,7 @@ import com.wkz.wanandroid.mvvm.model.WanAndroidUIState
 class WanAndroidSquareViewModel : WanAndroidBaseViewModel() {
 
     /* 刷新广场体系 */
-    val mRefreshingSquareSystem = MutableLiveData<Boolean>()
+    val mSystemDataUIState = WanAndroidUIState()
 
     /* 广场体系文章数据UI状态 */
     val mSystemArticleDataUIState = WanAndroidUIState()
@@ -19,8 +19,11 @@ class WanAndroidSquareViewModel : WanAndroidBaseViewModel() {
     /* 广场体系id */
     var mSystemId = 0
 
+    /* 刷新广场导航 */
+    val mNavigationDataUIState = WanAndroidUIState()
+
     /* 广场体系数据 */
-    val mSquareSystemData = Transformations.switchMap(mRefreshingSquareSystem) {
+    val mSquareSystemData = Transformations.switchMap(mSystemDataUIState.mRefreshing) {
         Transformations.map(sWanAndroidService.getSquareSystem()) {
             it.data
         }
@@ -66,11 +69,25 @@ class WanAndroidSquareViewModel : WanAndroidBaseViewModel() {
             }
         }
 
+    /* 广场导航数据 */
+    val mSquareNavigationData = Transformations.switchMap(mNavigationDataUIState.mRefreshing) {
+        Transformations.map(sWanAndroidService.getSquareNavigation()) {
+            it.data
+        }
+    }
+
     /**
      * 获取广场体系
      */
     fun getSquareSystem() {
-        mRefreshingSquareSystem.value = true
+        mSystemDataUIState.mRefreshing.value = true
+    }
+
+    /**
+     * 获取广场导航
+     */
+    fun getSquareNavigation() {
+        mNavigationDataUIState.mRefreshing.value = true
     }
 
     /**

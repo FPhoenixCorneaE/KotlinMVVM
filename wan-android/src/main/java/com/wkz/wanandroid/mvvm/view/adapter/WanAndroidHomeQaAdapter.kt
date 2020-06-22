@@ -1,9 +1,9 @@
 package com.wkz.wanandroid.mvvm.view.adapter
 
 import android.annotation.SuppressLint
-import android.text.Html
 import androidx.recyclerview.widget.RecyclerView
 import com.wkz.adapter.BaseNBAdapter
+import com.wkz.extension.toHtml
 import com.wkz.wanandroid.R
 import com.wkz.wanandroid.mvvm.model.WanAndroidArticleBean
 import kotlinx.android.synthetic.main.wan_android_recycler_item_home_qa.view.*
@@ -27,7 +27,7 @@ class WanAndroidHomeQaAdapter :
     ) {
         viewHolder.itemView.apply {
             mTvTitle.text = data.title.replaceFirst("每日一问 ", "")
-            mTvDesc.text = Html.fromHtml(data.desc)
+            mTvDesc.text = data.desc.toHtml()
             mTvNiceDate.text = data.niceDate
         }
     }
