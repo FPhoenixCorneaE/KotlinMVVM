@@ -1,7 +1,6 @@
 package com.wkz.wanandroid.mvvm.view.fragment
 
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.scwang.smart.refresh.layout.api.RefreshLayout
 import com.scwang.smart.refresh.layout.listener.OnRefreshLoadMoreListener
 import com.wkz.adapter.AnimationType
@@ -78,10 +77,14 @@ class WanAndroidProjectChildFragment : WanAndroidBaseFragment(), OnRefreshLoadMo
                 }
             }
         mProjectViewModel.apply {
+            mNewestDataUIState.mRefreshNoData.observe(viewLifecycleOwner, Observer {
+                mSrlRefresh.finishRefresh()
+                showEmpty()
+            })
             mNewestDataUIState.mRefreshSuccess.observe(viewLifecycleOwner, Observer {
+                mSrlRefresh.finishRefresh()
                 when {
-                    it -> mSrlRefresh.finishRefresh()
-                    else -> showError()
+                    !it -> showError()
                 }
             })
             mNewestDataUIState.mLoadMoreSuccess.observe(viewLifecycleOwner, Observer {
@@ -101,10 +104,14 @@ class WanAndroidProjectChildFragment : WanAndroidBaseFragment(), OnRefreshLoadMo
                     mProjectAdapter.notifyDataSetChanged()
                 }
             })
+            mDataUIState.mRefreshNoData.observe(viewLifecycleOwner, Observer {
+                mSrlRefresh.finishRefresh()
+                showEmpty()
+            })
             mDataUIState.mRefreshSuccess.observe(viewLifecycleOwner, Observer {
+                mSrlRefresh.finishRefresh()
                 when {
-                    it -> mSrlRefresh.finishRefresh()
-                    else -> showError()
+                    !it -> showError()
                 }
             })
             mDataUIState.mLoadMoreSuccess.observe(viewLifecycleOwner, Observer {

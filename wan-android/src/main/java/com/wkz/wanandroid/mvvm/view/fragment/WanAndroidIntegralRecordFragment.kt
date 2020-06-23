@@ -44,10 +44,14 @@ class WanAndroidIntegralRecordFragment : WanAndroidBaseFragment(), OnRefreshLoad
     override fun initListener() {
         mSrlRefresh.setOnRefreshLoadMoreListener(this)
         mIntegralViewModel.apply {
+            mIntegralRecordUIState.mRefreshNoData.observe(viewLifecycleOwner, Observer {
+                mSrlRefresh.finishRefresh()
+                showEmpty()
+            })
             mIntegralRecordUIState.mRefreshSuccess.observe(viewLifecycleOwner, Observer {
+                mSrlRefresh.finishRefresh()
                 when {
-                    it -> mSrlRefresh.finishRefresh()
-                    else -> showError()
+                    !it -> showError()
                 }
             })
             mIntegralRecordUIState.mLoadMoreSuccess.observe(viewLifecycleOwner, Observer {

@@ -11,56 +11,49 @@ import com.wkz.extension.viewModel
 import com.wkz.framework.web.BaseWebFragment
 import com.wkz.util.BundleBuilder
 import com.wkz.wanandroid.R
-import com.wkz.wanandroid.constant.WanAndroidConstant
 import com.wkz.wanandroid.mvvm.model.WanAndroidArticleBean
-import com.wkz.wanandroid.mvvm.view.adapter.WanAndroidVipcnAdapter
-import com.wkz.wanandroid.mvvm.viewmodel.WanAndroidVipcnViewModel
-import kotlinx.android.synthetic.main.wan_android_fragment_vipcn_child.*
+import com.wkz.wanandroid.mvvm.view.adapter.WanAndroidSquareAskAdapter
+import com.wkz.wanandroid.mvvm.viewmodel.WanAndroidSquareViewModel
+import kotlinx.android.synthetic.main.wan_android_fragment_square_ask.*
 
 /**
- * @desc: 公众号子Fragment
- * @date: 2020-06-18 17:42
+ * @desc: 广场问答Fragment
+ * @date: 2020-06-22 14:17
  */
-class WanAndroidVipcnChildFragment : WanAndroidBaseFragment(), OnRefreshLoadMoreListener {
+class WanAndroidSquareAskFragment : WanAndroidBaseFragment(), OnRefreshLoadMoreListener {
 
-    /* 公众号ViewModel */
-    private val mVipcnViewModel by viewModel<WanAndroidVipcnViewModel>()
+    /* 广场ViewModel */
+    private val mSquareViewModel by viewModel<WanAndroidSquareViewModel>()
 
-    /* 公众号适配器 */
-    private val mVipcnAdapter by lazy(LazyThreadSafetyMode.NONE) {
-        WanAndroidVipcnAdapter()
+    /* 广场问答适配器 */
+    private val mSquareAskAdapter by lazy(LazyThreadSafetyMode.NONE) {
+        WanAndroidSquareAskAdapter()
     }
-
-    /* 公众号分类id */
-    private var mClassifyId = 0
 
     /**
      * 加载布局
      */
-    override fun getLayoutId(): Int = R.layout.wan_android_fragment_vipcn_child
+    override fun getLayoutId(): Int = R.layout.wan_android_fragment_square_ask
 
     /**
      * 初始化View
      */
     override fun initView() {
-        arguments?.apply {
-            mClassifyId = getInt(WanAndroidConstant.WAN_ANDROID_CLASSIFY_ID)
-        }
         initRecyclerView()
     }
 
     private fun initRecyclerView() {
-        mVipcnAdapter.showItemAnim(AnimationType.TRANSLATE_FROM_BOTTOM, false)
-        mRvVipcn.apply {
+        mSquareAskAdapter.showItemAnim(AnimationType.TRANSLATE_FROM_BOTTOM, false)
+        mRvAsk.apply {
             setHasFixedSize(true)
             isNestedScrollingEnabled = false
-            adapter = mVipcnAdapter
+            adapter = mSquareAskAdapter
         }
     }
 
     override fun initListener() {
         mSrlRefresh.setOnRefreshLoadMoreListener(this)
-        mVipcnAdapter.onItemClickListener =
+        mSquareAskAdapter.onItemClickListener =
             object : BaseNBAdapter.OnItemClickListener<WanAndroidArticleBean> {
                 override fun onItemClick(item: WanAndroidArticleBean, position: Int) {
                     navigate(
@@ -72,32 +65,32 @@ class WanAndroidVipcnChildFragment : WanAndroidBaseFragment(), OnRefreshLoadMore
                     )
                 }
             }
-        mVipcnViewModel.apply {
-            mDataUIState.mRefreshNoData.observe(viewLifecycleOwner, Observer {
+        mSquareViewModel.apply {
+            mAskDataUIState.mRefreshNoData.observe(viewLifecycleOwner, Observer {
                 mSrlRefresh.finishRefresh()
                 showEmpty()
             })
-            mDataUIState.mRefreshSuccess.observe(viewLifecycleOwner, Observer {
+            mAskDataUIState.mRefreshSuccess.observe(viewLifecycleOwner, Observer {
                 mSrlRefresh.finishRefresh()
                 when {
                     !it -> showError()
                 }
             })
-            mDataUIState.mLoadMoreSuccess.observe(viewLifecycleOwner, Observer {
+            mAskDataUIState.mLoadMoreSuccess.observe(viewLifecycleOwner, Observer {
                 mSrlRefresh.finishLoadMore(it)
             })
-            mDataUIState.mLoadMoreNoData.observe(viewLifecycleOwner, Observer {
+            mAskDataUIState.mLoadMoreNoData.observe(viewLifecycleOwner, Observer {
                 mSrlRefresh.finishLoadMoreWithNoMoreData()
             })
-            mVipcnData.observe(viewLifecycleOwner, Observer {
+            mSquareAskData.observe(viewLifecycleOwner, Observer {
                 it?.apply {
                     when {
                         isRefresh() -> {
-                            mVipcnAdapter.dataList.clear()
+                            mSquareAskAdapter.dataList.clear()
                         }
                     }
-                    mVipcnAdapter.dataList.addAll(it.datas)
-                    mVipcnAdapter.notifyDataSetChanged()
+                    mSquareAskAdapter.dataList.addAll(it.datas)
+                    mSquareAskAdapter.notifyDataSetChanged()
                 }
             })
         }
@@ -107,17 +100,17 @@ class WanAndroidVipcnChildFragment : WanAndroidBaseFragment(), OnRefreshLoadMore
      * 懒加载数据
      */
     override fun lazyLoadData() {
-        mVipcnViewModel.mClassifyId = mClassifyId
         mSrlRefresh.autoRefresh()
     }
 
-    override fun isAlreadyLoadedData(): Boolean = mVipcnAdapter.dataList.isNonNullAndNotEmpty()
+    override fun isAlreadyLoadedData(): Boolean =
+        mSquareAskAdapter.dataList.isNonNullAndNotEmpty()
 
     override fun onLoadMore(refreshLayout: RefreshLayout) {
-        mVipcnViewModel.loadMoreVipcnData()
+        mSquareViewModel.loadMoreSquareAskData()
     }
 
     override fun onRefresh(refreshLayout: RefreshLayout) {
-        mVipcnViewModel.refreshVipcnData()
+        mSquareViewModel.refreshSquareAskData()
     }
 }
