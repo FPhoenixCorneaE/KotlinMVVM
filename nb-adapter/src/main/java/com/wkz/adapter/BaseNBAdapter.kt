@@ -51,8 +51,7 @@ abstract class BaseNBAdapter<T> : RecyclerView.Adapter<RecyclerView.ViewHolder>(
     private var alwaysShow: Boolean = false
 
     var onItemClickListener: OnItemClickListener<T>? = null
-
-
+    var onItemChildClickListener: OnItemChildClickListener<T>? = null
     var onItemLongClickListener: OnItemLongClickListener<T>? = null
 
     /**
@@ -259,6 +258,19 @@ abstract class BaseNBAdapter<T> : RecyclerView.Adapter<RecyclerView.ViewHolder>(
 
     interface OnItemClickListener<T> {
         fun onItemClick(item: T, position: Int)
+    }
+
+    interface OnItemChildClickListener<T> {
+        fun onItemChild1Click(view: View?, item: T, position: Int)
+        fun onItemChild2Click(view: View?, item: T, position: Int)
+        fun onItemChild3Click(view: View?, item: T, position: Int)
+        fun onItemChild4Click(view: View?, item: T, position: Int)
+        fun onItemChild5Click(view: View?, item: T, position: Int)
+        fun onItemChild6Click(view: View?, item: T, position: Int)
+        fun onItemChild7Click(view: View?, item: T, position: Int)
+        fun onItemChild8Click(view: View?, item: T, position: Int)
+        fun onItemChild9Click(view: View?, item: T, position: Int)
+        fun onItemChild10Click(view: View?, item: T, position: Int)
     }
 
     interface OnItemLongClickListener<T> {

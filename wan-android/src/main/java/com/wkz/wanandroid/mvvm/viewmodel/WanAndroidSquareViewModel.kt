@@ -9,11 +9,14 @@ import com.wkz.wanandroid.mvvm.model.WanAndroidUIState
  */
 class WanAndroidSquareViewModel : WanAndroidBaseViewModel() {
 
-    /* 广场体系数据UI状态 */
-    val mSystemDataUIState = WanAndroidUIState()
+    /* 广场文章数据UI状态 */
+    val mArticleDataUIState = WanAndroidUIState()
 
     /* 广场问答数据UI状态 */
     val mAskDataUIState = WanAndroidUIState()
+
+    /* 广场体系数据UI状态 */
+    val mSystemDataUIState = WanAndroidUIState()
 
     /* 广场体系文章数据UI状态 */
     val mSystemArticleDataUIState = WanAndroidUIState()
@@ -23,6 +26,41 @@ class WanAndroidSquareViewModel : WanAndroidBaseViewModel() {
 
     /* 广场导航数据UI状态 */
     val mNavigationDataUIState = WanAndroidUIState()
+
+    /* 广场文章数据 */
+    val mSquareArticleData =
+        Transformations.switchMap(mArticleDataUIState.mPage) { page ->
+            Transformations.map(sWanAndroidService.getSquareArticleList(page)) {
+                mArticleDataUIState.mRefreshing.value = false
+                mArticleDataUIState.mLoadingMore.value = false
+                it.data?.apply {
+                    when {
+                        it.isWanAndroidSuccess() -> {
+                            when {
+                                isRefreshNoData() -> {
+                                    mArticleDataUIState.mRefreshNoData.value = true
+                                }
+                                isRefreshWithData() -> {
+                                    mArticleDataUIState.mRefreshSuccess.value = true
+                                }
+                                isLoadMoreNoData() -> {
+                                    mArticleDataUIState.mLoadMoreNoData.value = true
+                                }
+                                else -> {
+                                    mArticleDataUIState.mLoadMoreSuccess.value = true
+                                }
+                            }
+                        }
+                        isRefresh() -> {
+                            mArticleDataUIState.mRefreshSuccess.value = false
+                        }
+                        isLoadMore() -> {
+                            mArticleDataUIState.mLoadMoreSuccess.value = false
+                        }
+                    }
+                }
+            }
+        }
 
     /* 广场问答数据 */
     val mSquareAskData =
@@ -111,6 +149,22 @@ class WanAndroidSquareViewModel : WanAndroidBaseViewModel() {
         Transformations.map(sWanAndroidService.getSquareNavigation()) {
             it.data
         }
+    }
+
+    /**
+     * 刷新广场文章数据
+     */
+    fun refreshSquareArticleData() {
+        mArticleDataUIState.mRefreshing.value = true
+        mArticleDataUIState.mPage.value = 1
+    }
+
+    /**
+     * 加载更多广场文章数据
+     */
+    fun loadMoreSquareArticleData() {
+        mArticleDataUIState.mLoadingMore.value = true
+        mArticleDataUIState.mPage.value = (mArticleDataUIState.mPage.value ?: 1) + 1
     }
 
     /**

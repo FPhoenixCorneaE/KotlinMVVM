@@ -4,6 +4,8 @@ import android.view.View
 import android.view.animation.LinearInterpolator
 import androidx.lifecycle.Observer
 import com.bumptech.glide.GenericTransitionOptions
+import com.scwang.smart.refresh.layout.api.RefreshLayout
+import com.scwang.smart.refresh.layout.listener.OnRefreshListener
 import com.wkz.animation_dsl.animSet
 import com.wkz.extension.*
 import com.wkz.util.ResourceUtil
@@ -17,7 +19,7 @@ import kotlinx.android.synthetic.main.wan_android_fragment_mine.*
  * @desc：我的Fragment
  * @date：2020-04-26 12:53
  */
-class WanAndroidMineFragment : WanAndroidBaseFragment() {
+class WanAndroidMineFragment : WanAndroidBaseFragment(), OnRefreshListener {
 
     /* 账号信息视图模型 */
     private val mAccountViewModel by androidViewModel<WanAndroidAccountViewModel>()
@@ -28,10 +30,11 @@ class WanAndroidMineFragment : WanAndroidBaseFragment() {
     override fun getLayoutId(): Int = R.layout.wan_android_fragment_mine
 
     override fun initView() {
-
+        mSrlRefresh.setEnableLoadMore(false)
     }
 
     override fun initListener() {
+        mSrlRefresh.setOnRefreshListener(this)
         mClUserInfo.setOnClickListener {
             when {
                 !WanAndroidUserManager.sHasLoggedOn -> {
@@ -160,6 +163,16 @@ class WanAndroidMineFragment : WanAndroidBaseFragment() {
     companion object {
         fun getInstance(): WanAndroidMineFragment {
             return WanAndroidMineFragment()
+        }
+    }
+
+    override fun onRefresh(refreshLayout: RefreshLayout) {
+        when {
+            WanAndroidUserManager.sHasLoggedOn -> {
+                // 获取积分
+                mMineIntegralViewModel.getIntegral()
+            }
+            else -> mSrlRefresh.finishRefresh(1500)
         }
     }
 }

@@ -2,13 +2,13 @@ package com.wkz.wanandroid.mvvm.view.fragment
 
 import android.graphics.Rect
 import android.view.View
-import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.scwang.smart.refresh.layout.api.RefreshLayout
 import com.scwang.smart.refresh.layout.listener.OnRefreshLoadMoreListener
 import com.wkz.adapter.AnimationType
 import com.wkz.adapter.BaseNBAdapter
+import com.wkz.adapter.SimpleOnItemChildClickListener
 import com.wkz.extension.navigate
 import com.wkz.extension.toHtml
 import com.wkz.extension.viewModel
@@ -72,57 +72,60 @@ class WanAndroidHomeArticleFragment : WanAndroidBaseFragment(), OnRefreshLoadMor
                     )
                 }
             }
-        mHomeArticleAdapter.onItemClickListener =
-            object : BaseNBAdapter.OnItemClickListener<WanAndroidArticleBean> {
-                override fun onItemClick(item: WanAndroidArticleBean, position: Int) {
-                    navigate(
-                        R.id.mMainToWeb,
-                        BundleBuilder.of()
-                            .putCharSequence(BaseWebFragment.TITLE, item.title.toHtml())
-                            .putString(BaseWebFragment.WEB_URL, item.link)
-                            .get()
-                    )
+        mHomeArticleAdapter.apply {
+            onItemClickListener =
+                object : BaseNBAdapter.OnItemClickListener<WanAndroidArticleBean> {
+                    override fun onItemClick(item: WanAndroidArticleBean, position: Int) {
+                        navigate(
+                            R.id.mMainToWeb,
+                            BundleBuilder.of()
+                                .putCharSequence(BaseWebFragment.TITLE, item.title.toHtml())
+                                .putString(BaseWebFragment.WEB_URL, item.link)
+                                .get()
+                        )
+                    }
                 }
-            }
-        mHomeArticleAdapter.mOnItemChildClickListener = object :
-            WanAndroidHomeArticleAdapter.OnItemChildClickListener {
-            override fun onClickAuthorName(
-                view: TextView,
-                data: WanAndroidArticleBean,
-                position: Int
-            ) {
+            onItemChildClickListener =
+                object : SimpleOnItemChildClickListener<WanAndroidArticleBean>() {
+                    override fun onItemChild1Click(
+                        view: View?,
+                        item: WanAndroidArticleBean,
+                        position: Int
+                    ) {
 
-            }
+                    }
 
-            override fun onClickCollectIcon(
-                shineButton: ShineButton,
-                data: WanAndroidArticleBean,
-                position: Int
-            ) {
-                when {
-                    WanAndroidUserManager.sHasLoggedOn -> {
-                        // 已登录
+                    override fun onItemChild2Click(
+                        view: View?,
+                        item: WanAndroidArticleBean,
+                        position: Int
+                    ) {
+                        val shineButton = view as ShineButton
                         when {
-                            data.collect -> {
-                                // 已收藏
-                                mCollectViewModel.cancelCollectArticle(data.id)
-                                shineButton.setChecked(false)
-                                data.collect = false
+                            WanAndroidUserManager.sHasLoggedOn -> {
+                                // 已登录
+                                when {
+                                    item.collect -> {
+                                        // 已收藏
+                                        mCollectViewModel.cancelCollectArticle(item.id)
+                                        shineButton.setChecked(false)
+                                        item.collect = false
+                                    }
+                                    else -> {
+                                        // 未收藏
+                                        mCollectViewModel.collectArticle(item.id)
+                                        shineButton.setChecked(true)
+                                        item.collect = true
+                                    }
+                                }
                             }
                             else -> {
-                                // 未收藏
-                                mCollectViewModel.collectArticle(data.id)
-                                shineButton.setChecked(true)
-                                data.collect = true
+                                // 未登录,跳转登录
+                                navigate(R.id.mMainToLogin)
                             }
                         }
                     }
-                    else -> {
-                        // 未登录,跳转登录
-                        navigate(R.id.mMainToLogin)
-                    }
                 }
-            }
         }
         mHomeArticleViewModel.apply {
             mRefreshing.observe(viewLifecycleOwner, Observer {

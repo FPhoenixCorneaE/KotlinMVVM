@@ -45,7 +45,11 @@ class WanAndroidSquareNavigationAdapter : BaseNBAdapter<WanAndroidNavigationBean
                     dataList.addAll(data.articles)
                     onItemClickListener = object : OnItemClickListener<WanAndroidArticleBean> {
                         override fun onItemClick(item: WanAndroidArticleBean, position: Int) {
-
+                            this@WanAndroidSquareNavigationAdapter.onItemChildClickListener?.onItemChild1Click(
+                                null,
+                                data,
+                                position
+                            )
                         }
                     }
                 }

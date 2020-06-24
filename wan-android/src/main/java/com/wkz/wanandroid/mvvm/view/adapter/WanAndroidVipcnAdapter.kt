@@ -1,11 +1,9 @@
 package com.wkz.wanandroid.mvvm.view.adapter
 
 import android.annotation.SuppressLint
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.wkz.adapter.BaseNBAdapter
 import com.wkz.extension.toHtml
-import com.wkz.shinebutton.ShineButton
 import com.wkz.wanandroid.R
 import com.wkz.wanandroid.mvvm.model.WanAndroidArticleBean
 import kotlinx.android.synthetic.main.wan_android_recycler_item_vipcn.view.*
@@ -17,7 +15,6 @@ import kotlinx.android.synthetic.main.wan_android_recycler_item_vipcn.view.*
 class WanAndroidVipcnAdapter :
     BaseNBAdapter<WanAndroidArticleBean>() {
 
-    var mOnItemChildClickListener: OnItemChildClickListener? = null
     override fun getLayoutId(): Int = R.layout.wan_android_recycler_item_vipcn
 
     /**
@@ -45,31 +42,13 @@ class WanAndroidVipcnAdapter :
             mTvNiceDate.text = data.niceDate
             mSbCollect.setChecked(data.collect)
             mTvAuthor.setOnClickListener {
-                mOnItemChildClickListener?.onClickAuthorName(mTvAuthor, data, position)
+                // 作者点击
+                onItemChildClickListener?.onItemChild1Click(it, data, position)
             }
             mSbCollect.setOnClickListener {
-                mOnItemChildClickListener?.onClickCollectIcon(mSbCollect, data, position)
+                // 收藏Icon点击
+                onItemChildClickListener?.onItemChild2Click(it, data, position)
             }
         }
-    }
-
-    interface OnItemChildClickListener {
-        /**
-         * 作者点击
-         */
-        fun onClickAuthorName(
-            view: TextView,
-            data: WanAndroidArticleBean,
-            position: Int
-        )
-
-        /**
-         * 收藏Icon点击
-         */
-        fun onClickCollectIcon(
-            shineButton: ShineButton,
-            data: WanAndroidArticleBean,
-            position: Int
-        )
     }
 }

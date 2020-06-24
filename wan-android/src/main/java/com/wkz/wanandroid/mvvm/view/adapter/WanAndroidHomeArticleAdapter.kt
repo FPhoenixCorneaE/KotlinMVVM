@@ -20,7 +20,6 @@ import kotlinx.android.synthetic.main.wan_android_recycler_item_home_article.vie
 class WanAndroidHomeArticleAdapter :
     BaseNBAdapter<WanAndroidArticleBean>() {
 
-    var mOnItemChildClickListener: OnItemChildClickListener? = null
     override fun getLayoutId(): Int = R.layout.wan_android_recycler_item_home_article
 
     /**
@@ -59,10 +58,12 @@ class WanAndroidHomeArticleAdapter :
             mTvNiceDate.text = data.niceDate
             mSbCollect.setChecked(data.collect)
             mTvAuthor.setOnClickListener {
-                mOnItemChildClickListener?.onClickAuthorName(mTvAuthor, data, position)
+                // 作者点击
+                onItemChildClickListener?.onItemChild1Click(it, data, position)
             }
             mSbCollect.setOnClickListener {
-                mOnItemChildClickListener?.onClickCollectIcon(mSbCollect, data, position)
+                // 收藏Icon点击
+                onItemChildClickListener?.onItemChild2Click(it, data, position)
             }
         }
     }
@@ -76,25 +77,5 @@ class WanAndroidHomeArticleAdapter :
             link.contains("weixin.qq.com") -> R.mipmap.wan_android_ic_logo_wechat
             else -> R.mipmap.wan_android_ic_logo_other
         }
-    }
-
-    interface OnItemChildClickListener {
-        /**
-         * 作者点击
-         */
-        fun onClickAuthorName(
-            view: TextView,
-            data: WanAndroidArticleBean,
-            position: Int
-        )
-
-        /**
-         * 收藏Icon点击
-         */
-        fun onClickCollectIcon(
-            shineButton: ShineButton,
-            data: WanAndroidArticleBean,
-            position: Int
-        )
     }
 }

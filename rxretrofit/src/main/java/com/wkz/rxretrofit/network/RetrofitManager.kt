@@ -1,6 +1,5 @@
 package com.wkz.rxretrofit.network
 
-import androidx.collection.ArrayMap
 import com.franmontiel.persistentcookiejar.PersistentCookieJar
 import com.franmontiel.persistentcookiejar.cache.SetCookieCache
 import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor
@@ -16,6 +15,7 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
+import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.TimeUnit
 
 /**
@@ -29,8 +29,8 @@ object RetrofitManager {
     private val mPersistentCookieJar: PersistentCookieJar by lazy {
         PersistentCookieJar(SetCookieCache(), SharedPrefsCookiePersistor(ContextUtil.context))
     }
-    private var mQueryParameterArray = ArrayMap<String, String?>()
-    private var mHeaderArray = ArrayMap<String, String>()
+    private var mQueryParameterArray = ConcurrentHashMap<String, String?>()
+    private var mHeaderArray = ConcurrentHashMap<String, String?>()
 
     /**
      * 添加公共参数拦截器
@@ -63,7 +63,9 @@ object RetrofitManager {
             // Provide your custom header here
             mHeaderArray.apply {
                 forEach { (name, value) ->
-                    requestBuilder.addHeader(name, value)
+                    value?.let {
+                        requestBuilder.addHeader(name, it)
+                    }
                 }
                 // 添加完清空
                 clear()
@@ -188,7 +190,7 @@ object RetrofitManager {
     /**
      * 添加公共请求头
      */
-    fun addHeader(name: String, value: String): RetrofitManager {
+    fun addHeader(name: String, value: String?): RetrofitManager {
         mHeaderArray[name] = value
         return this
     }

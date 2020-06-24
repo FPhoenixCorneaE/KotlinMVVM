@@ -1,12 +1,17 @@
 package com.wkz.wanandroid.mvvm.view.fragment
 
+import android.view.View
 import androidx.lifecycle.Observer
 import com.scwang.smart.refresh.layout.api.RefreshLayout
 import com.scwang.smart.refresh.layout.listener.OnRefreshListener
 import com.wkz.adapter.AnimationType
-import com.wkz.adapter.BaseNBAdapter
+import com.wkz.adapter.SimpleOnItemChildClickListener
 import com.wkz.extension.isNonNullAndNotEmpty
+import com.wkz.extension.navigate
+import com.wkz.extension.toHtml
 import com.wkz.extension.viewModel
+import com.wkz.framework.web.BaseWebFragment
+import com.wkz.util.BundleBuilder
 import com.wkz.wanandroid.R
 import com.wkz.wanandroid.mvvm.model.WanAndroidNavigationBean
 import com.wkz.wanandroid.mvvm.view.adapter.WanAndroidSquareNavigationAdapter
@@ -51,12 +56,27 @@ class WanAndroidSquareNavigationFragment : WanAndroidBaseFragment(), OnRefreshLi
 
     override fun initListener() {
         mSrlRefresh.setOnRefreshListener(this)
-        mSquareNavigationAdapter.onItemClickListener =
-            object : BaseNBAdapter.OnItemClickListener<WanAndroidNavigationBean> {
-                override fun onItemClick(item: WanAndroidNavigationBean, position: Int) {
-
+        mSquareNavigationAdapter.apply {
+            onItemChildClickListener =
+                object : SimpleOnItemChildClickListener<WanAndroidNavigationBean>() {
+                    override fun onItemChild1Click(
+                        view: View?,
+                        item: WanAndroidNavigationBean,
+                        position: Int
+                    ) {
+                        navigate(
+                            R.id.mMainToWeb,
+                            BundleBuilder.of()
+                                .putCharSequence(
+                                    BaseWebFragment.TITLE,
+                                    item.articles[position].title.toHtml()
+                                )
+                                .putString(BaseWebFragment.WEB_URL, item.articles[position].link)
+                                .get()
+                        )
+                    }
                 }
-            }
+        }
         mSquareViewModel.apply {
             mNavigationDataUIState.mRefreshing.observe(viewLifecycleOwner, Observer {
                 mSrlRefresh.finishRefresh()
@@ -78,7 +98,8 @@ class WanAndroidSquareNavigationFragment : WanAndroidBaseFragment(), OnRefreshLi
         mSrlRefresh.autoRefresh()
     }
 
-    override fun isAlreadyLoadedData(): Boolean = mSquareNavigationAdapter.dataList.isNonNullAndNotEmpty()
+    override fun isAlreadyLoadedData(): Boolean =
+        mSquareNavigationAdapter.dataList.isNonNullAndNotEmpty()
 
     override fun onRefresh(refreshLayout: RefreshLayout) {
         mSquareViewModel.getSquareNavigation()
