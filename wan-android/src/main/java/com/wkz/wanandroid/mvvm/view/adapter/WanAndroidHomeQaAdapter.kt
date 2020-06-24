@@ -28,7 +28,9 @@ class WanAndroidHomeQaAdapter :
     ) {
         viewHolder.itemView.apply {
             mTvTitle.text = data.title.run {
-                val pattern = Pattern.compile("每日一问( )+\\|?( )+")
+                val pattern = Pattern.compile(
+                    "${context.getString(R.string.wan_android_title_fragment_home_qa)}\\s*\\|?\\s*"
+                )
                 val matcher = pattern.matcher(this)
                 when {
                     matcher.find() -> {
