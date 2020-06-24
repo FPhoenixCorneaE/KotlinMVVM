@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mCvItem"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/dp_16"
+    android:layout_marginTop="@dimen/dp_8"
+    android:layout_marginEnd="@dimen/dp_16"
+    android:layout_marginBottom="@dimen/dp_8"
+    app:cardCornerRadius="@dimen/dp_8"
+    app:cardElevation="@dimen/dp_8">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/wan_android_ripple_item_home_article">
+
+        <ImageView
+            android:id="@+id/mIvIcon"
+            android:layout_width="@dimen/dp_20"
+            android:layout_height="@dimen/dp_20"
+            android:layout_margin="@dimen/dp_16"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription"
+            tools:src="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/mTvAuthor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_8"
+            android:background="@drawable/wan_android_selector_author"
+            android:textColor="@color/wan_android_color_gray_0x666666"
+            android:textSize="@dimen/sp_13"
+            app:layout_constraintBottom_toBottomOf="@+id/mIvIcon"
+            app:layout_constraintStart_toEndOf="@+id/mIvIcon"
+            app:layout_constraintTop_toTopOf="@+id/mIvIcon"
+            tools:text="@tools:sample/first_names" />
+
+        <TextView
+            android:id="@+id/mTvTop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_8"
+            android:background="@drawable/wan_android_shape_label_top"
+            android:text="@string/wan_android_top"
+            android:textColor="@android:color/holo_red_light"
+            android:textSize="@dimen/sp_10"
+            app:layout_constraintBottom_toBottomOf="@+id/mTvAuthor"
+            app:layout_constraintStart_toEndOf="@+id/mTvAuthor"
+            app:layout_constraintTop_toTopOf="@+id/mTvAuthor" />
+
+        <TextView
+            android:id="@+id/mTvNew"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_8"
+            android:background="@drawable/wan_android_shape_label_top"
+            android:text="@string/wan_android_new"
+            android:textColor="@android:color/holo_red_light"
+            android:textSize="@dimen/sp_10"
+            app:layout_constraintBottom_toBottomOf="@+id/mTvAuthor"
+            app:layout_constraintStart_toEndOf="@+id/mTvTop"
+            app:layout_constraintTop_toTopOf="@+id/mTvAuthor" />
+
+        <TextView
+            android:id="@+id/mTvTag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_8"
+            android:background="@drawable/wan_android_shape_label_tag"
+            android:textColor="@android:color/holo_green_dark"
+            android:textSize="@dimen/sp_10"
+            app:layout_constraintBottom_toBottomOf="@+id/mTvAuthor"
+            app:layout_constraintStart_toEndOf="@+id/mTvNew"
+            app:layout_constraintTop_toTopOf="@+id/mTvAuthor"
+            tools:text="@string/wan_android_ask" />
+
+        <TextView
+            android:id="@+id/mTvNiceDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/dp_16"
+            android:textColor="@color/wan_android_color_gray_0x999999"
+            android:textSize="@dimen/sp_12"
+            app:layout_constraintBottom_toBottomOf="@+id/mIvIcon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/mIvIcon"
+            tools:text="@tools:sample/date/mmddyy" />
+
+        <TextView
+            android:id="@+id/mTvTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_16"
+            android:layout_marginTop="@dimen/dp_12"
+            android:layout_marginEnd="@dimen/dp_16"
+            android:ellipsize="end"
+            android:fontFamily="@font/framework_slender_gold"
+            android:maxLines="2"
+            android:textColor="@color/wan_android_color_title_0x222222"
+            android:textSize="@dimen/sp_14"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mIvIcon"
+            tools:text="@tools:sample/lorem/random" />
+
+        <TextView
+            android:id="@+id/mSuperChapterName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_16"
+            android:layout_marginTop="@dimen/dp_12"
+            android:layout_marginBottom="@dimen/dp_16"
+            android:gravity="center"
+            android:paddingStart="@dimen/dp_4"
+            android:paddingTop="@dimen/dp_2"
+            android:paddingEnd="@dimen/dp_4"
+            android:paddingBottom="@dimen/dp_2"
+            android:textSize="@dimen/sp_12"
+            app:drawableId="shape_rounded_4dp"
+            app:drawableType="shape"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mTvTitle"
+            app:shapeCornerRadius="@dimen/dp_4"
+            app:shapeSolidColor="@color/wan_android_color_black_alpha10"
+            tools:ignore="MissingPrefix"
+            tools:text="@tools:sample/first_names" />
+
+        <TextView
+            android:id="@+id/mChapterName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_8"
+            android:gravity="center"
+            android:paddingStart="@dimen/dp_4"
+            android:paddingTop="@dimen/dp_2"
+            android:paddingEnd="@dimen/dp_4"
+            android:paddingBottom="@dimen/dp_2"
+            android:textSize="@dimen/sp_12"
+            app:drawableId="shape_rounded_4dp"
+            app:layout_constraintBottom_toBottomOf="@+id/mSuperChapterName"
+            app:layout_constraintStart_toEndOf="@+id/mSuperChapterName"
+            app:layout_constraintTop_toTopOf="@+id/mSuperChapterName"
+            tools:ignore="MissingPrefix"
+            tools:text="@tools:sample/last_names" />
+
+        <com.wkz.shinebutton.ShineButton
+            android:id="@+id/mSbCollect"
+            android:layout_width="@dimen/dp_24"
+            android:layout_height="@dimen/dp_24"
+            android:layout_marginEnd="@dimen/dp_16"
+            app:layout_constraintBottom_toBottomOf="@+id/mSuperChapterName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/mSuperChapterName"
+            app:shinebutton_allow_random_color="true"
+            app:shinebutton_btn_color="@color/wan_android_color_gray_0x999999"
+            app:shinebutton_btn_fill_color="@android:color/holo_red_dark"
+            app:shinebutton_enable_flashing="true"
+            app:shinebutton_shine_count="8"
+            app:shinebutton_shape="@mipmap/shinebutton_heart"
+            app:shinebutton_shine_size="@dimen/dp_20" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

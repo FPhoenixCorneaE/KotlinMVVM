@@ -9,16 +9,16 @@ import com.wkz.framework.glide.GlideUtil
 import com.wkz.util.SizeUtil
 import com.wkz.wanandroid.R
 import com.wkz.wanandroid.mvvm.model.WanAndroidArticleBean
-import kotlinx.android.synthetic.main.wan_android_recycler_item_home_article.view.*
+import kotlinx.android.synthetic.main.wan_android_recycler_item_square_article.view.*
 
 /**
- * @desc: 首页文章适配器
- * @date: 2019-10-28 16:03
+ * @desc: 广场文章适配器
+ * @date: 2020-06-24 16:15
  */
-class WanAndroidHomeArticleAdapter :
+class WanAndroidSquareArticleAdapter :
     BaseNBAdapter<WanAndroidArticleBean>() {
 
-    override fun getLayoutId(): Int = R.layout.wan_android_recycler_item_home_article
+    override fun getLayoutId(): Int = R.layout.wan_android_recycler_item_square_article
 
     /**
      * 绑定数据

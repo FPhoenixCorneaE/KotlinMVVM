@@ -17,6 +17,10 @@ class WanAndroidSquareFragment : WanAndroidBaseFragment() {
             this,
             FragmentPagerItems.with(mContext)
                 .add(
+                    getString(R.string.wan_android_square_article),
+                    WanAndroidSquareArticleFragment::class.java
+                )
+                .add(
                     getString(R.string.wan_android_square_ask),
                     WanAndroidSquareAskFragment::class.java
                 )
