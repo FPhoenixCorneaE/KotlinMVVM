@@ -7,6 +7,7 @@ import com.wkz.extension.toHtml
 import com.wkz.wanandroid.R
 import com.wkz.wanandroid.mvvm.model.WanAndroidArticleBean
 import kotlinx.android.synthetic.main.wan_android_recycler_item_square_ask.view.*
+import java.util.regex.Pattern
 
 /**
  * @desc: 广场问答适配器
@@ -26,7 +27,18 @@ class WanAndroidSquareAskAdapter :
         position: Int
     ) {
         viewHolder.itemView.apply {
-            mTvTitle.text = data.title.replaceFirst("每日一问 ", "")
+            mTvTitle.text = data.title.run {
+                val pattern = Pattern.compile("每日一问( )+\\|?( )+")
+                val matcher = pattern.matcher(this)
+                when {
+                    matcher.find() -> {
+                        replaceFirst(matcher.group(), "")
+                    }
+                    else -> {
+                        this
+                    }
+                }
+            }.toHtml()
             mTvDesc.text = data.desc.toHtml()
             mTvNiceDate.text = data.niceDate
         }

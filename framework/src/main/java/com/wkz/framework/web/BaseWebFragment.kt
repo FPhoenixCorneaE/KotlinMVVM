@@ -40,7 +40,7 @@ open class BaseWebFragment : BaseFragment() {
     }
 
     override fun lazyLoadData() {
-        mTbTitleBar.centerTextView?.text = arguments?.getString(TITLE)
+        mTbTitleBar.centerTextView?.text = arguments?.getCharSequence(TITLE)
         mUrl = arguments?.getString(WEB_URL)
 
         // 加载网页

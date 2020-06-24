@@ -53,7 +53,7 @@ class WanAndroidIntegralRankingFragment : WanAndroidBaseFragment(), OnRefreshLoa
             navigate(
                 R.id.mIntegralRankingToWeb,
                 BundleBuilder.of()
-                    .putString(
+                    .putCharSequence(
                         BaseWebFragment.TITLE,
                         getString(R.string.wan_android_mine_integral_rule)
                     )

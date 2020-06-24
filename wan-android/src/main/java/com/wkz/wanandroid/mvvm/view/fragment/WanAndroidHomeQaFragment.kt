@@ -6,6 +6,7 @@ import com.scwang.smart.refresh.layout.listener.OnRefreshLoadMoreListener
 import com.wkz.adapter.AnimationType
 import com.wkz.adapter.BaseNBAdapter
 import com.wkz.extension.navigate
+import com.wkz.extension.toHtml
 import com.wkz.extension.viewModel
 import com.wkz.framework.web.BaseWebFragment
 import com.wkz.util.BundleBuilder
@@ -47,7 +48,7 @@ class WanAndroidHomeQaFragment : WanAndroidBaseFragment(), OnRefreshLoadMoreList
                     navigate(
                         R.id.mMainToWeb,
                         BundleBuilder.of()
-                            .putString(BaseWebFragment.TITLE, item.title)
+                            .putCharSequence(BaseWebFragment.TITLE, item.title.toHtml())
                             .putString(BaseWebFragment.WEB_URL, item.link)
                             .get()
                     )
