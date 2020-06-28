@@ -40,6 +40,23 @@ android {
         }
     }
 
+    compileOptions {
+        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+
+    dexOptions {
+        jumboMode true
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+
     /* 开启实验性标志 */
     androidExtensions {
         experimental = true

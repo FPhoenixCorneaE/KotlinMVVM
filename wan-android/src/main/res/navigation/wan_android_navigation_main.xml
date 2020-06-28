@@ -34,6 +34,13 @@
             app:popEnterAnim="@anim/pull_in_left"
             app:popExitAnim="@anim/push_out_right" />
         <action
+            android:id="@+id/mMainToSearch"
+            app:destination="@id/mSearchFragment"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit" />
+        <action
             android:id="@+id/mMainToWeb"
             app:destination="@id/mWebFragment"
             app:enterAnim="@anim/pull_in_right"
@@ -97,6 +104,11 @@
         android:name="com.wkz.wanandroid.mvvm.view.fragment.WanAndroidSettingFragment"
         android:label="SettingFragment"
         tools:layout="@layout/wan_android_fragment_setting" />
+    <fragment
+        android:id="@+id/mSearchFragment"
+        android:name="com.wkz.wanandroid.mvvm.view.fragment.WanAndroidSearchFragment"
+        android:label="SearchFragment"
+        tools:layout="@layout/wan_android_fragment_search" />
     <fragment
         android:id="@+id/mWebFragment"
         android:name="com.wkz.wanandroid.mvvm.view.fragment.WanAndroidWebFragment"

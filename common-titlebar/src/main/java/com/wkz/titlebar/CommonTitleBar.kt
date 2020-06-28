@@ -167,10 +167,18 @@ class CommonTitleBar @JvmOverloads constructor(
             : String? = null
     private var centerSubTextColor = Color.parseColor("#666666")// 中间subTextView字体颜色 = 0
     private var centerSubTextSize = 0f// 中间subTextView字体大小 = 0f
-    private var centerSearchEditable = true// 搜索框是否可输入 = false
-    private var centerSearchBgResource = R.drawable.common_titlebar_search_gray_shape // 搜索框背景图片 = 0
-    private var centerSearchRightType =
-        TYPE_CENTER_SEARCH_RIGHT_VOICE// 搜索框右边按钮类型  0: voice 1: delete = 0
+
+    /**
+     * 搜索输入框:是否可输入、提示文字、提示文字颜色、文字颜色、文字大小、背景图片、
+     *           右边按钮类型  0: voice 1: delete = 0
+     */
+    private var centerSearchEditable = true
+    private var centerSearchHintText: String? = resources.getString(R.string.titlebar_search_hint)
+    private var centerSearchHintTextColor = Color.parseColor("#999999")
+    private var centerSearchTextColor = Color.parseColor("#666666")
+    private var centerSearchTextSize = 0f
+    private var centerSearchBgResource = R.drawable.common_titlebar_search_gray_shape
+    private var centerSearchRightType = TYPE_CENTER_SEARCH_RIGHT_VOICE
     private var centerCustomViewRes = 0// 中间自定义布局资源 = 0
     private var PADDING_5 = 0
     private var PADDING_16 = 0
@@ -310,6 +318,23 @@ class CommonTitleBar @JvmOverloads constructor(
             TYPE_CENTER_SEARCH_VIEW -> {
                 centerSearchEditable =
                     array.getBoolean(R.styleable.CommonTitleBar_centerSearchEditable, true)
+                centerSearchHintText =
+                    array.getString(R.styleable.CommonTitleBar_centerSearchHintText)
+                centerSearchHintTextColor =
+                    array.getColor(
+                        R.styleable.CommonTitleBar_centerSearchHintTextColor,
+                        Color.parseColor("#999999")
+                    )
+                centerSearchTextColor =
+                    array.getColor(
+                        R.styleable.CommonTitleBar_centerSearchTextColor,
+                        Color.parseColor("#666666")
+                    )
+                centerSearchTextSize =
+                    array.getDimension(
+                        R.styleable.CommonTitleBar_centerSearchTextSize,
+                        context.spToPx(14f)
+                    )
                 centerSearchBgResource = array.getResourceId(
                     R.styleable.CommonTitleBar_centerSearchBg,
                     R.drawable.common_titlebar_search_gray_shape
@@ -652,12 +677,12 @@ class CommonTitleBar @JvmOverloads constructor(
                 centerSearchEditText = EditText(context)
                 centerSearchEditText!!.setBackgroundColor(Color.TRANSPARENT)
                 centerSearchEditText!!.gravity = Gravity.START or Gravity.CENTER_VERTICAL
-                centerSearchEditText!!.hint = resources.getString(R.string.titlebar_search_hint)
-                centerSearchEditText!!.setTextColor(Color.parseColor("#666666"))
-                centerSearchEditText!!.setHintTextColor(Color.parseColor("#999999"))
+                centerSearchEditText!!.hint = centerSearchHintText
+                centerSearchEditText!!.setHintTextColor(centerSearchHintTextColor)
+                centerSearchEditText!!.setTextColor(centerSearchTextColor)
                 centerSearchEditText!!.setTextSize(
                     TypedValue.COMPLEX_UNIT_PX,
-                    context.spToPx(14f)
+                    centerSearchTextSize
                 )
                 centerSearchEditText!!.setPadding(PADDING_5, 0, PADDING_5, 0)
                 if (!centerSearchEditable) {
@@ -804,6 +829,11 @@ class CommonTitleBar @JvmOverloads constructor(
     private var lastClickMillis: Long = 0
 
     override fun onClick(v: View) {
+        when (v) {
+            centerSearchRightImageView -> {
+                centerSearchEditText!!.setText("")
+            }
+        }
         onTitleBarClickListener?.apply {
             when (v) {
                 centerLayout -> {

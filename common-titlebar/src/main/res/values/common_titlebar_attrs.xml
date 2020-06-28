@@ -88,6 +88,14 @@
         <attr name="centerSubTextSize" format="dimension" />
         <!-- 搜索输入框是否可输入 -->
         <attr name="centerSearchEditable" format="boolean" />
+        <!-- 搜索输入框提示文字 -->
+        <attr name="centerSearchHintText" format="string" />
+        <!-- 搜索输入框提示文字颜色 -->
+        <attr name="centerSearchHintTextColor" format="color" />
+        <!-- 搜索输入框文字颜色 -->
+        <attr name="centerSearchTextColor" format="color" />
+        <!-- 搜索输入框文字大小 -->
+        <attr name="centerSearchTextSize" format="dimension" />
         <!-- 搜索框背景 -->
         <attr name="centerSearchBg" format="reference" />
         <!-- 中间自定义布局, 对应centerType_CustomView -->

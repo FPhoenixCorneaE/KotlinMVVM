@@ -2,6 +2,7 @@ package com.wkz.wanandroid.mvvm.view.fragment
 
 import com.wkz.adapter.app.FragmentPagerItems
 import com.wkz.adapter.viewpager2.FragmentStatePager2ItemAdapter
+import com.wkz.extension.navigate
 import com.wkz.util.statusbar.StatusBarUtil
 import com.wkz.wanandroid.R
 import kotlinx.android.synthetic.main.wan_android_fragment_home.*
@@ -23,7 +24,7 @@ class WanAndroidHomeFragment : WanAndroidBaseFragment() {
     override fun initView() {
         // 模拟状态栏
         StatusBarUtil.setSmartPadding(mContext, mVwStatusBar)
-        StatusBarUtil.setSmartMargin(mContext, mFlMagicIndicator)
+        StatusBarUtil.setSmartMargin(mContext, mFlIndicatorContainer)
         initViewPager2AndMagicIndicator(
             FragmentStatePager2ItemAdapter(
                 this@WanAndroidHomeFragment,
@@ -39,13 +40,14 @@ class WanAndroidHomeFragment : WanAndroidBaseFragment() {
                     .create()
             ),
             mVpHome,
-            mFlMagicIndicator,
-            true
+            mFlMagicIndicator
         )
     }
 
     override fun initListener() {
-
+        mIvSearch.setOnClickListener {
+            navigate(R.id.mMainToSearch)
+        }
     }
 
     /**

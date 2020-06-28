@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.wkz.titlebar.CommonTitleBar
+        style="@style/CommonTitleBar"
+        app:centerSearchBg="@drawable/wan_android_shape_titlebar_search_bg"
+        app:centerSearchHintText="@string/wan_android_search_hint_text"
+        app:centerSearchHintTextColor="@color/wan_android_color_gray_0x666666"
+        app:centerSearchTextColor="@color/wan_android_color_black"
+        app:centerSearchTextSize="@dimen/sp_16"
+        app:centerType="searchView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:leftType="none" />
+</androidx.constraintlayout.widget.ConstraintLayout>

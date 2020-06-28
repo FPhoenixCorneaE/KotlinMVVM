@@ -20,4 +20,5 @@
     <color name="wan_android_color_title_white">#ffffff</color>
     <color name="wan_android_color_title_0x222222">#000000</color>
     <color name="wan_android_color_name">#222222</color>
+    <color name="wan_android_color_gray_0x22f6f6f6">#22f6f6f6</color>
 </resources>
