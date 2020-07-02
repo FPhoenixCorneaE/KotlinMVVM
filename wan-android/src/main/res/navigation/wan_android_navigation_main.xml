@@ -35,11 +35,7 @@
             app:popExitAnim="@anim/push_out_right" />
         <action
             android:id="@+id/mMainToSearch"
-            app:destination="@id/mSearchFragment"
-            app:enterAnim="@anim/fragment_fade_enter"
-            app:exitAnim="@anim/fragment_fade_exit"
-            app:popEnterAnim="@anim/fragment_fade_enter"
-            app:popExitAnim="@anim/fragment_fade_exit" />
+            app:destination="@id/mSearchFragment" />
         <action
             android:id="@+id/mMainToWeb"
             app:destination="@id/mWebFragment"

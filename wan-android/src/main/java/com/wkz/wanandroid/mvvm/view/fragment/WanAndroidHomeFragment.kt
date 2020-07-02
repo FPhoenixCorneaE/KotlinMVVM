@@ -1,5 +1,6 @@
 package com.wkz.wanandroid.mvvm.view.fragment
 
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import com.wkz.adapter.app.FragmentPagerItems
 import com.wkz.adapter.viewpager2.FragmentStatePager2ItemAdapter
 import com.wkz.extension.navigate
@@ -46,7 +47,12 @@ class WanAndroidHomeFragment : WanAndroidBaseFragment() {
 
     override fun initListener() {
         mIvSearch.setOnClickListener {
-            navigate(R.id.mMainToSearch)
+            navigate(
+                R.id.mMainToSearch,
+                navigatorExtras = FragmentNavigatorExtras(
+                    mIvSearch to mIvSearch.transitionName
+                )
+            )
         }
     }
 

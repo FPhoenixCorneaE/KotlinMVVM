@@ -33,8 +33,10 @@
             android:layout_height="@dimen/dp_36"
             android:layout_gravity="end|center_vertical"
             android:layout_marginEnd="@dimen/dp_10"
+            android:background="@drawable/wan_android_shape_circle_color_primary"
             android:padding="@dimen/dp_6"
             android:src="@drawable/wan_android_ic_search"
+            android:transitionName="@string/titlebar_search_hint"
             tools:ignore="ContentDescription" />
     </FrameLayout>
 
