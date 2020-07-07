@@ -47,6 +47,7 @@ class Config {
             activity        : "androidx.activity:activity-ktx:1.2.0-alpha02",
             fragment        : "androidx.fragment:fragment-ktx:1.3.0-alpha02",
             kotlinStdlibJdk7: "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$Config.kotlin_version",
+            coroutines      : 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.1',
     ]
 
     /** Retrofit2 */
@@ -143,6 +144,16 @@ class Config {
             nativeCrashReport: 'com.tencent.bugly:nativecrashreport:latest.release'
     ]
 
+    /* MaterialDialogs */
+    static materialDialogs = [
+            core        : 'com.afollestad.material-dialogs:core:3.3.0',
+            input       : 'com.afollestad.material-dialogs:input:3.3.0',
+            files       : 'com.afollestad.material-dialogs:files:3.3.0',
+            color       : 'com.afollestad.material-dialogs:color:3.3.0',
+            datetime    : 'com.afollestad.material-dialogs:datetime:3.3.0',
+            bottomsheets: 'com.afollestad.material-dialogs:bottomsheets:3.3.0',
+            lifecycle   : 'com.afollestad.material-dialogs:lifecycle:3.3.0',
+    ]
 
     /** 直接在layout文件中去创建drawable */
     static folivora = "cn.cricin:folivora:0.1.0"
@@ -195,4 +206,5 @@ class Config {
     static smartSwipeLibs = smartSwipe.values()
     static agentWebLibs = agentWeb.values()
     static buglyLibs = bugly.values()
+    static materialDialogsLibs = materialDialogs.values()
 }

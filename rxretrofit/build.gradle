@@ -60,8 +60,8 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation Config.kotlinLibs
     implementation project(':common-util')
+    implementation Config.kotlinLibs
     api Config.retrofit2Libs
     api Config.rxJava2Libs
     api Config.persistentCookieJar
