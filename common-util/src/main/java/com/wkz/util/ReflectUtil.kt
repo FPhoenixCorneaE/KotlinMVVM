@@ -377,34 +377,40 @@ class ReflectUtil private constructor(
     fun <P> proxy(proxyType: Class<P>): P {
         val isMap = `object` is Map<*, *>
         val handler =
-            label@ InvocationHandler { proxy: Any?, method: Method, args: Array<Any>? ->
-                val name = method.name
-                try {
-                    return@label reflect(`object`)
-                        .method(name, *args!!)?.get<Any>()
-                } catch (e: ReflectException) {
-                    if (isMap) {
-                        val map =
-                            `object` as MutableMap<String, Any>?
-                        val length = args?.size ?: 0
-                        if (length == 0 && name.startsWith("get")) {
-                            return@label map!![property(
-                                name.substring(
-                                    3
-                                )
-                            )]
-                        } else if (length == 0 && name.startsWith("is")) {
-                            return@label map!![property(
-                                name.substring(
-                                    2
-                                )
-                            )]
-                        } else if (length == 1 && name.startsWith("set")) {
-                            map!![property(name.substring(3))] = args!![0]
-                            return@label null
+            kotlin.run {
+                InvocationHandler { proxy: Any?, method: Method, args: Array<Any>? ->
+                    val name = method.name
+                    try {
+                        reflect(`object`)
+                            .method(name, *args!!)?.get<Any>()
+                    } catch (e: ReflectException) {
+                        if (isMap) {
+                            val map =
+                                `object` as MutableMap<String, Any>?
+                            val length = args?.size ?: 0
+                            when {
+                                length == 0 && name.startsWith("get") -> {
+                                    map!![property(
+                                        name.substring(
+                                            3
+                                        )
+                                    )]
+                                }
+                                length == 0 && name.startsWith("is") -> {
+                                    map!![property(
+                                        name.substring(
+                                            2
+                                        )
+                                    )]
+                                }
+                                length == 1 && name.startsWith("set") -> {
+                                    map!![property(name.substring(3))] = args!![0]
+                                    null
+                                }
+                            }
                         }
+                        throw e
                     }
-                    throw e
                 }
             }
         return Proxy.newProxyInstance(
