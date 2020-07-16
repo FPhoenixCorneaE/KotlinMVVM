@@ -43,6 +43,11 @@ fun Fragment.navigateUp(): Boolean {
         .navigateUp()
 }
 
+fun Fragment.popBackStack(): Boolean {
+    return NavHostFragment.findNavController(this)
+        .popBackStack()
+}
+
 fun View.navigate(
     @IdRes resId: Int,
     args: Bundle? = null,

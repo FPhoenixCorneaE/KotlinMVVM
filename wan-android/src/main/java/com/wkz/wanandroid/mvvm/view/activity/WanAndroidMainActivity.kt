@@ -1,7 +1,6 @@
 package com.wkz.wanandroid.mvvm.view.activity
 
 import android.os.Bundle
-import com.wkz.extension.navigateUp
 import com.wkz.wanandroid.R
 
 /**
@@ -34,8 +33,4 @@ class WanAndroidMainActivity : WanAndroidBaseActivity() {
     }
 
     override fun isAlreadyLoadedData(): Boolean = true
-
-    override fun onSupportNavigateUp(): Boolean {
-        return navigateUp(R.id.wan_android_navigation_main)
-    }
 }

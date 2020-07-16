@@ -1,10 +1,12 @@
 class Config {
-    static gradle_version = '4.0.0'
+    static gradle_version = '4.0.1'
     static kotlin_version = '1.3.72'
+    static navigation_version = '2.3.0'
 
     static classpath = [
-            gradle: "com.android.tools.build:gradle:$Config.gradle_version",
-            kotlin: "org.jetbrains.kotlin:kotlin-gradle-plugin:$Config.kotlin_version",
+            gradle            : "com.android.tools.build:gradle:$gradle_version",
+            kotlin            : "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version",
+            navigationSafeArgs: "androidx.navigation:navigation-safe-args-gradle-plugin:$navigation_version",
     ]
 
     /** Android */
@@ -35,10 +37,10 @@ class Config {
 
     /** navigation 扩展插件 */
     static navigation = [
-            common  : 'androidx.navigation:navigation-common-ktx:2.3.0-beta01',
-            fragment: 'androidx.navigation:navigation-fragment-ktx:2.3.0-beta01',
-            runtime : 'androidx.navigation:navigation-runtime-ktx:2.3.0-beta01',
-            ui      : 'androidx.navigation:navigation-ui-ktx:2.3.0-beta01',
+            common  : "androidx.navigation:navigation-common-ktx:$navigation_version",
+            fragment: "androidx.navigation:navigation-fragment-ktx:$navigation_version",
+            runtime : "androidx.navigation:navigation-runtime-ktx:$navigation_version",
+            ui      : "androidx.navigation:navigation-ui-ktx:$navigation_version",
     ]
 
     /** Kotlin */
@@ -46,7 +48,7 @@ class Config {
             core            : "androidx.core:core-ktx:1.3.0",
             activity        : "androidx.activity:activity-ktx:1.2.0-alpha02",
             fragment        : "androidx.fragment:fragment-ktx:1.3.0-alpha02",
-            kotlinStdlibJdk7: "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$Config.kotlin_version",
+            kotlinStdlibJdk7: "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version",
             coroutines      : 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.1',
     ]
 

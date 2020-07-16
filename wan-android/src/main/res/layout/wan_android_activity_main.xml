@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/wan_android_color_bg_default">
 
-    <androidx.fragment.app.FragmentContainerView
+    <fragment
         android:id="@+id/mHostFragment"
         android:name="com.wkz.framework.navigation.NavHostFragment"
         android:layout_width="match_parent"

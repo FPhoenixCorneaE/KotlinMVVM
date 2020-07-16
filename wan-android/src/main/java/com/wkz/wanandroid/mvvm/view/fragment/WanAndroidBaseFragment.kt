@@ -2,12 +2,16 @@ package com.wkz.wanandroid.mvvm.view.fragment
 
 import android.content.Context
 import android.graphics.Typeface
+import android.os.Bundle
 import android.view.View
 import android.view.animation.AccelerateInterpolator
 import android.view.animation.DecelerateInterpolator
+import androidx.activity.OnBackPressedCallback
+import androidx.navigation.fragment.NavHostFragment
 import androidx.viewpager2.widget.ViewPager2
 import com.wkz.adapter.viewpager2.FragmentStatePager2ItemAdapter
 import com.wkz.extension.navigateUp
+import com.wkz.extension.popBackStack
 import com.wkz.framework.base.fragment.BaseFragment
 import com.wkz.titlebar.CommonTitleBar
 import com.wkz.util.ImageUtil
@@ -28,6 +32,21 @@ import com.wkz.widget.magicindicator.titleview.ScaleTransitionPagerTitleView
  * @date: 2020-06-04 16:20
  */
 abstract class WanAndroidBaseFragment : BaseFragment() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        // 重写返回键,以便于手动退回到上一个Fragment
+        requireActivity().onBackPressedDispatcher.addCallback(
+            this,
+            object : OnBackPressedCallback(true /* enabled by default */) {
+                override fun handleOnBackPressed() {
+                    // Handle the back button event
+                    popBackStack()
+                }
+            }
+        )
+    }
+
     /**
      * 设置标题栏主题样式
      */
