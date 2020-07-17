@@ -9,6 +9,7 @@
     <application
         android:name=".application.WanAndroidApplication"
         android:allowBackup="true"
+        android:hardwareAccelerated="true"
         android:icon="@mipmap/wan_android_ic_launcher"
         android:label="@string/wan_android_app_name"
         android:largeHeap="true"
@@ -20,7 +21,7 @@
         <!-- 首页 -->
         <activity
             android:name=".mvvm.view.activity.WanAndroidMainActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:configChanges="orientation|keyboardHidden|screenSize|screenLayout"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Fullscreen"

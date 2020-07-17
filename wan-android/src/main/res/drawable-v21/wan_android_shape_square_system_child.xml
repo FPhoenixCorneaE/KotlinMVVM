@@ -4,7 +4,7 @@
     <item>
         <shape android:shape="rectangle">
             <solid android:color="@color/wan_android_color_gray_0xf1f1f1" />
-            <corners android:radius="@dimen/dp_2" />
+            <corners android:radius="@dimen/dp_8" />
             <padding
                 android:bottom="@dimen/dp_2"
                 android:left="@dimen/dp_4"
@@ -15,7 +15,7 @@
     <item android:id="@android:id/mask">
         <shape android:shape="rectangle">
             <solid android:color="@color/wan_android_color_gray_0xf1f1f1" />
-            <corners android:radius="@dimen/dp_2" />
+            <corners android:radius="@dimen/dp_8" />
             <padding
                 android:bottom="@dimen/dp_2"
                 android:left="@dimen/dp_4"

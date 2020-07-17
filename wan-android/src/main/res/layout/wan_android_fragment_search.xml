@@ -24,7 +24,6 @@
         android:id="@+id/mClSearch"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/wan_android_color_black"
         android:visibility="gone">
 
         <com.wkz.titlebar.CommonTitleBar

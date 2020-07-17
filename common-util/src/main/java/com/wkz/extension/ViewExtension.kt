@@ -3,6 +3,7 @@ package com.wkz.extension
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.annotation.TargetApi
+import android.graphics.Color
 import android.os.Build
 import android.view.View
 import android.view.ViewAnimationUtils
@@ -64,7 +65,7 @@ fun View.clickNoRepeat(interval: Long = 500, action: (view: View) -> Unit) {
  * @param interval 时间间隔 默认0.5秒
  * @param onClick 点击触发的方法
  */
-fun setOnclickNoRepeat(vararg views: View?, interval: Long, onClick: (View) -> Unit) {
+fun setOnclickNoRepeat(vararg views: View?, interval: Long = 500, onClick: (View) -> Unit) {
     views.forEach {
         it?.clickNoRepeat(interval) { view ->
             onClick.invoke(view)
@@ -77,9 +78,9 @@ fun setOnclickNoRepeat(vararg views: View?, interval: Long, onClick: (View) -> U
  * @date：2020-06-28 17:22
  */
 interface OnRevealAnimationListener {
-    fun onRevealHide()
+    fun onRevealHide() {}
 
-    fun onRevealShow()
+    fun onRevealShow() {}
 }
 
 /**
@@ -89,7 +90,7 @@ interface OnRevealAnimationListener {
 fun View.animateRevealShow(
     startRadius: Int,
     @ColorRes color: Int,
-    onRevealAnimationListener: OnRevealAnimationListener
+    onRevealAnimationListener: OnRevealAnimationListener? = null
 ) {
     val cx = (left + right) / 2
     val cy = (top + bottom) / 2
@@ -97,15 +98,20 @@ fun View.animateRevealShow(
     val finalRadius = hypot(width.toDouble(), height.toDouble()).toFloat()
 
     // 设置圆形显示动画
-    val anim =
-        ViewAnimationUtils.createCircularReveal(this, cx, cy, startRadius.toFloat(), finalRadius)
+    val anim = ViewAnimationUtils.createCircularReveal(
+        this,
+        cx,
+        cy,
+        startRadius.toFloat(),
+        finalRadius
+    )
     anim.duration = 300
     anim.interpolator = AccelerateDecelerateInterpolator()
     anim.addListener(object : AnimatorListenerAdapter() {
         override fun onAnimationEnd(animation: Animator) {
             super.onAnimationEnd(animation)
-            visibility = View.VISIBLE
-            onRevealAnimationListener.onRevealShow()
+            visible()
+            onRevealAnimationListener?.onRevealShow()
         }
 
         override fun onAnimationStart(animation: Animator) {
@@ -121,8 +127,9 @@ fun View.animateRevealShow(
  */
 @TargetApi(Build.VERSION_CODES.LOLLIPOP)
 fun View.animateRevealHide(
-    finalRadius: Int, @ColorRes color: Int,
-    onRevealAnimationListener: OnRevealAnimationListener
+    finalRadius: Int,
+    @ColorRes color: Int,
+    onRevealAnimationListener: OnRevealAnimationListener? = null
 ) {
     val cx = (left + right) / 2
     val cy = (top + bottom) / 2
@@ -145,8 +152,9 @@ fun View.animateRevealHide(
 
         override fun onAnimationEnd(animation: Animator) {
             super.onAnimationEnd(animation)
-            onRevealAnimationListener.onRevealHide()
-            visibility = View.INVISIBLE
+            setBackgroundColor(Color.TRANSPARENT)
+            onRevealAnimationListener?.onRevealHide()
+            invisible()
         }
     })
     anim.start()

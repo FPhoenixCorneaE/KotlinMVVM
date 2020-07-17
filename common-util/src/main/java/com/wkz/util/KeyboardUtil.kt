@@ -19,14 +19,16 @@ object KeyboardUtil {
      *
      * @param editText 输入框
      */
-    fun openKeyboard(editText: EditText) {
-        val imm =
-            editText.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.showSoftInput(editText, InputMethodManager.RESULT_SHOWN)
-        imm.toggleSoftInput(
-            InputMethodManager.SHOW_FORCED,
-            InputMethodManager.HIDE_IMPLICIT_ONLY
-        )
+    fun openKeyboard(editText: EditText?) {
+        editText?.let {
+            val imm =
+                it.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.showSoftInput(it, InputMethodManager.RESULT_SHOWN)
+            imm.toggleSoftInput(
+                InputMethodManager.SHOW_FORCED,
+                InputMethodManager.HIDE_IMPLICIT_ONLY
+            )
+        }
     }
 
     /**
@@ -34,10 +36,12 @@ object KeyboardUtil {
      *
      * @param editText 输入框
      */
-    fun closeKeyboard(editText: EditText) {
-        val imm =
-            editText.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(editText.windowToken, 0)
+    fun closeKeyboard(editText: EditText?) {
+        editText?.let {
+            val imm =
+                it.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(it.windowToken, 0)
+        }
     }
 
     /**
@@ -45,8 +49,8 @@ object KeyboardUtil {
      *
      * @param activity
      */
-    fun closeKeyboard(activity: Activity) {
-        activity.currentFocus?.apply {
+    fun closeKeyboard(activity: Activity?) {
+        activity?.currentFocus?.apply {
             val imm = activity
                 .getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(windowToken, 0)
@@ -56,58 +60,66 @@ object KeyboardUtil {
     /**
      * 通过定时器强制隐藏虚拟键盘
      */
-    fun timerHideKeyboard(view: View) {
-        val scheduledExecutorService =
-            Executors.newSingleThreadScheduledExecutor()
-        scheduledExecutorService.schedule({
-            val imm =
-                view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            if (imm.isActive) {
-                imm.hideSoftInputFromWindow(view.applicationWindowToken, 0)
-            }
-        }, 10, TimeUnit.MILLISECONDS)
+    fun timerHideKeyboard(view: View?) {
+        view?.let {
+            val scheduledExecutorService =
+                Executors.newSingleThreadScheduledExecutor()
+            scheduledExecutorService.schedule({
+                val imm =
+                    it.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                if (imm.isActive) {
+                    imm.hideSoftInputFromWindow(it.applicationWindowToken, 0)
+                }
+            }, 10, TimeUnit.MILLISECONDS)
+        }
     }
 
     /**
      * 切换软键盘的状态
      * 如当前为收起变为弹出,若当前为弹出变为收起
      */
-    fun toggleKeyboard(editText: EditText) {
-        val inputMethodManager =
-            editText.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputMethodManager.toggleSoftInput(
-            0,
-            InputMethodManager.HIDE_NOT_ALWAYS
-        )
+    fun toggleKeyboard(editText: EditText?) {
+        editText?.let {
+            val inputMethodManager =
+                it.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            inputMethodManager.toggleSoftInput(
+                0,
+                InputMethodManager.HIDE_NOT_ALWAYS
+            )
+        }
     }
 
     /**
      * 强制隐藏输入法键盘
      */
-    fun hideKeyboard(editText: EditText) {
-        val inputMethodManager =
-            editText.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        if (inputMethodManager.isActive) {
-            inputMethodManager.hideSoftInputFromWindow(editText.windowToken, 0)
+    fun hideKeyboardForced(editText: EditText?) {
+        editText?.let {
+            val inputMethodManager =
+                it.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            if (inputMethodManager.isActive) {
+                inputMethodManager.hideSoftInputFromWindow(it.windowToken, 0)
+            }
         }
     }
 
     /**
      * 强制显示输入法键盘
      */
-    fun showKeyboard(editText: EditText) {
-        val inputMethodManager =
-            editText.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputMethodManager.showSoftInput(
-            editText,
-            InputMethodManager.SHOW_FORCED
-        )
+    fun showKeyboardForced(editText: EditText?) {
+        editText?.let {
+            val inputMethodManager =
+                it.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            inputMethodManager.showSoftInput(
+                it,
+                InputMethodManager.SHOW_FORCED
+            )
+        }
     }
 
     /**
      * 输入法是否显示
      */
-    fun keyboardIsShowing(editText: EditText): Boolean {
+    fun isKeyboardShowing(editText: EditText): Boolean {
         val imm =
             editText.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         return imm.isActive

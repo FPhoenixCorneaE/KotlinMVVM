@@ -11,7 +11,7 @@
 
         <activity
             android:name=".web.BaseWebActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:configChanges="orientation|keyboardHidden|screenSize|screenLayout"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait" />
 

@@ -7,7 +7,6 @@ import android.view.View
 import android.view.animation.AccelerateInterpolator
 import android.view.animation.DecelerateInterpolator
 import androidx.activity.OnBackPressedCallback
-import androidx.navigation.fragment.NavHostFragment
 import androidx.viewpager2.widget.ViewPager2
 import com.wkz.adapter.viewpager2.FragmentStatePager2ItemAdapter
 import com.wkz.extension.navigateUp
@@ -33,15 +32,15 @@ import com.wkz.widget.magicindicator.titleview.ScaleTransitionPagerTitleView
  */
 abstract class WanAndroidBaseFragment : BaseFragment() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         // 重写返回键,以便于手动退回到上一个Fragment
         requireActivity().onBackPressedDispatcher.addCallback(
-            this,
+            viewLifecycleOwner,
             object : OnBackPressedCallback(true /* enabled by default */) {
                 override fun handleOnBackPressed() {
                     // Handle the back button event
-                    popBackStack()
+                    onBackPressed()
                 }
             }
         )
@@ -121,5 +120,12 @@ abstract class WanAndroidBaseFragment : BaseFragment() {
         }
         magicIndicator.navigator = commonNavigator
         ViewPagerHelper.bind(magicIndicator, viewPager2)
+    }
+
+    /**
+     * 点击手机返回键
+     */
+    open fun onBackPressed() {
+        popBackStack()
     }
 }
