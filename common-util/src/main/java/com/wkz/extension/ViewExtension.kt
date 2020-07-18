@@ -8,9 +8,12 @@ import android.os.Build
 import android.view.View
 import android.view.ViewAnimationUtils
 import android.view.animation.AccelerateDecelerateInterpolator
+import android.widget.ImageView
 import androidx.annotation.ColorRes
+import androidx.annotation.DrawableRes
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
+import com.wkz.util.ImageUtil
 import kotlin.math.hypot
 
 fun View.visible(visible: Boolean) = when {
@@ -158,4 +161,17 @@ fun View.animateRevealHide(
         }
     })
     anim.start()
+}
+
+fun ImageView.setTintColor(
+    tintColor: Int
+) {
+    ImageUtil.setTintColor(this, tintColor)
+}
+
+fun ImageView.setTintColor(
+    @DrawableRes drawableResId: Int,
+    tintColor: Int
+) {
+    ImageUtil.setTintColor(this, drawableResId, tintColor)
 }

@@ -9,6 +9,7 @@ import android.view.animation.DecelerateInterpolator
 import androidx.activity.OnBackPressedCallback
 import androidx.viewpager2.widget.ViewPager2
 import com.wkz.adapter.viewpager2.FragmentStatePager2ItemAdapter
+import com.wkz.extension.loggerD
 import com.wkz.extension.navigateUp
 import com.wkz.extension.popBackStack
 import com.wkz.framework.base.fragment.BaseFragment
@@ -40,6 +41,7 @@ abstract class WanAndroidBaseFragment : BaseFragment() {
             object : OnBackPressedCallback(true /* enabled by default */) {
                 override fun handleOnBackPressed() {
                     // Handle the back button event
+                    loggerD("handleOnBackPressed:${javaClass.name}")
                     onBackPressed()
                 }
             }
@@ -49,7 +51,10 @@ abstract class WanAndroidBaseFragment : BaseFragment() {
     /**
      * 设置标题栏主题样式
      */
-    protected fun setCommonTitleBarTheme(commonTitleBar: CommonTitleBar?) {
+    protected fun setCommonTitleBarTheme(
+        commonTitleBar: CommonTitleBar?,
+        onTitleBarClickListener: CommonTitleBar.OnTitleBarClickListener? = null
+    ) {
         commonTitleBar?.apply {
             leftImageButton?.let {
                 ImageUtil.setTintColor(
@@ -62,6 +67,7 @@ abstract class WanAndroidBaseFragment : BaseFragment() {
                     when (action) {
                         CommonTitleBar.MotionAction.ACTION_LEFT_BUTTON -> navigateUp()
                     }
+                    onTitleBarClickListener?.onClicked(v, action, extra)
                 }
             })
         }

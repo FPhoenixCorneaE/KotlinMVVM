@@ -2217,7 +2217,8 @@ class ImageUtil private constructor() {
          * @param tintColor     着色的颜色值
          */
         fun setTintColor(
-            imageView: ImageView, @DrawableRes drawableResId: Int,
+            imageView: ImageView,
+            @DrawableRes drawableResId: Int,
             tintColor: Int
         ) {
             ResourceUtil.getDrawable(drawableResId)?.let {

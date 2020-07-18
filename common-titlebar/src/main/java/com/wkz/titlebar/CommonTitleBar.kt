@@ -17,10 +17,7 @@ import android.view.inputmethod.EditorInfo
 import android.widget.*
 import android.widget.TextView.OnEditorActionListener
 import androidx.core.content.ContextCompat
-import com.wkz.extension.dp2px
-import com.wkz.extension.dpToPx
-import com.wkz.extension.getScreenWidth
-import com.wkz.extension.spToPx
+import com.wkz.extension.*
 import com.wkz.util.KeyboardUtil
 import com.wkz.util.ViewUtil
 import com.wkz.util.statusbar.StatusBarUtil
@@ -177,6 +174,7 @@ class CommonTitleBar @JvmOverloads constructor(
     private var centerSearchHintTextColor = Color.parseColor("#999999")
     private var centerSearchTextColor = Color.parseColor("#666666")
     private var centerSearchTextSize = 0f
+    private var centerSearchIconTint = Color.WHITE
     private var centerSearchBgResource = R.drawable.common_titlebar_search_gray_shape
     private var centerSearchRightType = TYPE_CENTER_SEARCH_RIGHT_VOICE
     private var centerCustomViewRes = 0// 中间自定义布局资源 = 0
@@ -335,6 +333,10 @@ class CommonTitleBar @JvmOverloads constructor(
                         R.styleable.CommonTitleBar_centerSearchTextSize,
                         context.spToPx(14f)
                     )
+                centerSearchIconTint = array.getColor(
+                    R.styleable.CommonTitleBar_centerSearchIconTint,
+                    Color.WHITE
+                )
                 centerSearchBgResource = array.getResourceId(
                     R.styleable.CommonTitleBar_centerSearchBg,
                     R.drawable.common_titlebar_search_gray_shape
@@ -658,6 +660,7 @@ class CommonTitleBar @JvmOverloads constructor(
                 searchParams.marginStart = PADDING_16
                 centerSearchView!!.addView(centerSearchLeftImageView, searchParams)
                 centerSearchLeftImageView!!.setImageResource(R.drawable.common_titlebar_search_normal)
+                centerSearchLeftImageView!!.setTintColor(centerSearchIconTint)
                 // 初始化搜索框语音ImageView
                 centerSearchRightImageView = ImageView(context)
                 centerSearchRightImageView!!.id = ViewUtil.generateViewId()
@@ -669,6 +672,7 @@ class CommonTitleBar @JvmOverloads constructor(
                 centerSearchView!!.addView(centerSearchRightImageView, voiceParams)
                 if (centerSearchRightType == TYPE_CENTER_SEARCH_RIGHT_VOICE) {
                     centerSearchRightImageView!!.setImageResource(R.drawable.common_titlebar_voice)
+                    centerSearchRightImageView!!.setTintColor(centerSearchIconTint)
                 } else {
                     centerSearchRightImageView!!.setImageResource(R.drawable.common_titlebar_delete_normal)
                     centerSearchRightImageView!!.visibility = View.GONE

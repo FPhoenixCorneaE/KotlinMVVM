@@ -24,20 +24,118 @@
         android:id="@+id/mClSearch"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone">
+        android:visibility="gone"
+        tools:visibility="visible">
 
         <com.wkz.titlebar.CommonTitleBar
             android:id="@+id/mTbTitleBar"
             style="@style/CommonTitleBar"
+            android:layout_width="@dimen/dp_0"
             app:centerSearchBg="@drawable/wan_android_shape_titlebar_search_bg"
             app:centerSearchHintText="@string/wan_android_search_hint_text"
             app:centerSearchHintTextColor="@color/wan_android_color_gray_0x666666"
+            app:centerSearchIconTint="@color/wan_android_color_white"
             app:centerSearchTextColor="@color/wan_android_color_black"
             app:centerSearchTextSize="@dimen/sp_16"
             app:centerType="searchView"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/mFlCancel"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:leftType="none" />
+
+        <FrameLayout
+            android:id="@+id/mFlCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_0"
+            android:background="@color/wan_android_colorPrimary"
+            app:layout_constraintBottom_toBottomOf="@+id/mTbTitleBar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/mTvCancel"
+                android:layout_width="wrap_content"
+                android:layout_height="?attr/actionBarSize"
+                android:layout_gravity="bottom"
+                android:layout_marginEnd="@dimen/dp_16"
+                android:gravity="center"
+                android:text="@string/wan_android_cancel"
+                android:textColor="@color/wan_android_color_white"
+                android:textSize="@dimen/sp_16" />
+        </FrameLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_0"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mTbTitleBar">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/mTvHotSearch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_16"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:text="@string/wan_android_search_hot_key"
+                    android:textColor="@color/wan_android_colorPrimary"
+                    android:textSize="@dimen/sp_16"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/mRvHotSearch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_8"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:layout_marginEnd="@dimen/dp_8"
+                    android:scrollbars="none"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/mTvHotSearch" />
+
+                <TextView
+                    android:id="@+id/mTvSearchHistory"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_16"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:text="@string/wan_android_search_history"
+                    android:textColor="@color/wan_android_colorPrimary"
+                    android:textSize="@dimen/sp_16"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/mRvHotSearch" />
+
+                <TextView
+                    android:id="@+id/mTvEmpty"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/dp_12"
+                    android:padding="@dimen/dp_4"
+                    android:text="@string/wan_android_empty"
+                    android:textColor="@color/wan_android_color_gray_0x666666"
+                    android:textSize="@dimen/sp_14"
+                    app:layout_constraintBottom_toBottomOf="@+id/mTvSearchHistory"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/mTvSearchHistory" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/mRvSearchHistory"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_8"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:layout_marginEnd="@dimen/dp_8"
+                    android:scrollbars="none"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/mTvSearchHistory" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

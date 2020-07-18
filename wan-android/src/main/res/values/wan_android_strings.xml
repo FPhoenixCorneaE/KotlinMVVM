@@ -38,4 +38,8 @@
     <string name="wan_android_square_ask">每日一问</string>
     <string name="wan_android_square_article">文章</string>
     <string name="wan_android_search_hint_text">请输入关键字搜索</string>
+    <string name="wan_android_cancel">取消</string>
+    <string name="wan_android_search_hot_key">热门搜索</string>
+    <string name="wan_android_empty">清空</string>
+    <string name="wan_android_search_history">搜索历史</string>
 </resources>

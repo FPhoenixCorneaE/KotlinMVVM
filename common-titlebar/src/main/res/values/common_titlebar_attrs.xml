@@ -96,6 +96,8 @@
         <attr name="centerSearchTextColor" format="color" />
         <!-- 搜索输入框文字大小 -->
         <attr name="centerSearchTextSize" format="dimension" />
+        <!-- 搜索输入框图标着色 -->
+        <attr name="centerSearchIconTint" format="color" />
         <!-- 搜索框背景 -->
         <attr name="centerSearchBg" format="reference" />
         <!-- 中间自定义布局, 对应centerType_CustomView -->

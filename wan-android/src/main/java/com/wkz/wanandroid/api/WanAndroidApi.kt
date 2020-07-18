@@ -79,6 +79,21 @@ interface WanAndroidApi {
     ): LiveData<BaseResponse<Any>>
 
     /**
+     * 获取热门搜索数据
+     */
+    @GET("hotkey/json")
+    fun getHotSearchData(): LiveData<BaseResponse<ArrayList<WanAndroidSearchBean>>>
+
+    /**
+     * 根据关键词搜索数据
+     */
+    @POST("article/query/{page}/json")
+    fun getSearchDataByKey(
+        @Path("page") pageNo: Int,
+        @Query("k") searchKey: String
+    ): LiveData<BaseResponse<WanAndroidPageResponse<ArrayList<WanAndroidArticleBean>>>>
+
+    /**
      * 项目分类
      */
     @GET("project/tree/json")
