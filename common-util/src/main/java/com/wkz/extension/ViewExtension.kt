@@ -45,16 +45,20 @@ fun View.isGone(): Boolean {
     return visibility == View.GONE
 }
 
+var lastClickTime = 0L
+
 /**
- * 防止重复点击事件 默认0.5秒内不可重复点击
- * @param interval 时间间隔 默认0.5秒
+ * 防止重复点击事件 默认2秒内不可重复点击
+ * @param interval 时间间隔 默认2秒
  * @param action   执行方法
  */
-var lastClickTime = 0L
-fun View.clickNoRepeat(interval: Long = 500, action: (view: View) -> Unit) {
+fun View.clickNoRepeat(
+    interval: Long = 2000,
+    action: (view: View) -> Unit
+) {
     setOnClickListener {
         val currentTime = System.currentTimeMillis()
-        if (lastClickTime != 0L && (currentTime - lastClickTime < interval)) {
+        if (lastClickTime != 0L && currentTime - lastClickTime < interval) {
             return@setOnClickListener
         }
         lastClickTime = currentTime
@@ -65,10 +69,10 @@ fun View.clickNoRepeat(interval: Long = 500, action: (view: View) -> Unit) {
 /**
  * 设置防止重复点击事件
  * @param views 需要设置点击事件的view集合
- * @param interval 时间间隔 默认0.5秒
+ * @param interval 时间间隔 默认2秒
  * @param onClick 点击触发的方法
  */
-fun setOnclickNoRepeat(vararg views: View?, interval: Long = 500, onClick: (View) -> Unit) {
+fun setOnclickNoRepeat(vararg views: View?, interval: Long = 2000, onClick: (View) -> Unit) {
     views.forEach {
         it?.clickNoRepeat(interval) { view ->
             onClick.invoke(view)
