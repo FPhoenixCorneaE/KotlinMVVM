@@ -11,8 +11,8 @@ import com.wkz.framework.web.BaseWebFragment
 import com.wkz.util.BundleBuilder
 import com.wkz.wanandroid.R
 import com.wkz.wanandroid.api.WanAndroidUrlConstant
-import com.wkz.wanandroid.mvvm.view.adapter.WanAndroidMineIntegralRankingAdapter
-import com.wkz.wanandroid.mvvm.viewmodel.WanAndroidMineIntegralViewModel
+import com.wkz.wanandroid.mvvm.view.adapter.WanAndroidIntegralRankingAdapter
+import com.wkz.wanandroid.mvvm.viewmodel.WanAndroidIntegralViewModel
 import kotlinx.android.synthetic.main.wan_android_fragment_integral_ranking.*
 import kotlinx.android.synthetic.main.wan_android_layout_title_bar_integral_ranking_right.*
 
@@ -24,11 +24,11 @@ class WanAndroidIntegralRankingFragment : WanAndroidBaseFragment(), OnRefreshLoa
 
     /* 积分排行榜适配器 */
     private val mIntegralRankingAdapter by lazy(LazyThreadSafetyMode.NONE) {
-        WanAndroidMineIntegralRankingAdapter()
+        WanAndroidIntegralRankingAdapter()
     }
 
     /* 积分ViewModel */
-    private val mIntegralViewModel by viewModel<WanAndroidMineIntegralViewModel>()
+    private val mIntegralViewModel by viewModel<WanAndroidIntegralViewModel>()
 
     override fun getLayoutId(): Int = R.layout.wan_android_fragment_integral_ranking
 

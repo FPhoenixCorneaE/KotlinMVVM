@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.wan_android_recycler_item_mine_integral_ra
  * @desc: 积分排行榜适配器
  * @date: 2020-06-08 17:21
  */
-class WanAndroidMineIntegralRankingAdapter :
+class WanAndroidIntegralRankingAdapter :
     BaseNBAdapter<WanAndroidIntegralBean>() {
 
     private var mUserId: Int = 0

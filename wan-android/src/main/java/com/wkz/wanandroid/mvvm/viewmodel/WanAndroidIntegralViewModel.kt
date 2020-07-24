@@ -9,7 +9,7 @@ import com.wkz.wanandroid.mvvm.model.WanAndroidUIState
  *  @desc: 积分ViewModel
  *  @date: 2020-05-17 21:51
  */
-class WanAndroidMineIntegralViewModel : WanAndroidBaseViewModel() {
+class WanAndroidIntegralViewModel : WanAndroidBaseViewModel() {
 
     /* 排行榜页数 */
     private val mRankingPage = MutableLiveData<Int>()

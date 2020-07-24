@@ -12,7 +12,7 @@ import com.wkz.util.ResourceUtil
 import com.wkz.wanandroid.R
 import com.wkz.wanandroid.manager.WanAndroidUserManager
 import com.wkz.wanandroid.mvvm.viewmodel.WanAndroidAccountViewModel
-import com.wkz.wanandroid.mvvm.viewmodel.WanAndroidMineIntegralViewModel
+import com.wkz.wanandroid.mvvm.viewmodel.WanAndroidIntegralViewModel
 import kotlinx.android.synthetic.main.wan_android_fragment_mine.*
 
 /**
@@ -25,7 +25,7 @@ class WanAndroidMineFragment : WanAndroidBaseFragment(), OnRefreshListener {
     private val mAccountViewModel by androidViewModel<WanAndroidAccountViewModel>()
 
     /* 积分视图模型 */
-    private val mMineIntegralViewModel by viewModel<WanAndroidMineIntegralViewModel>()
+    private val mMineIntegralViewModel by viewModel<WanAndroidIntegralViewModel>()
 
     override fun getLayoutId(): Int = R.layout.wan_android_fragment_mine
 

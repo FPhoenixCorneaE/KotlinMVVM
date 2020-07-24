@@ -70,6 +70,8 @@ class AnimatedNavigationBar @JvmOverloads constructor(
     var onNavigationItemClickListener: OnNavigationItemClickListener? = null
 
     init {
+        // 使用硬件的方式离屏缓冲
+        setLayerType(LAYER_TYPE_HARDWARE, null)
         navigationBottom = SizeUtil.dp2px(50.0f)
         navigationTop = SizeUtil.dp2px(30.0f)
         distanceTop = SizeUtil.dp2px(10.0f)

@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.wan_android_recycler_item_mine_integral_re
  * @desc: 积分记录适配器
  * @date: 2020-06-10 17:20
  */
-class WanAndroidMineIntegralRecordAdapter :
+class WanAndroidIntegralRecordAdapter :
     BaseNBAdapter<WanAndroidIntegralRecordBean>() {
 
     override fun getLayoutId(): Int = R.layout.wan_android_recycler_item_mine_integral_record

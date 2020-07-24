@@ -1,6 +1,5 @@
 package com.fphoenixcorneae.animated_bottom_view
 
-import android.animation.ObjectAnimator
 import android.view.View
 
 /**
@@ -9,21 +8,18 @@ import android.view.View
 class RotateAnimationManager : AnimationInterface {
 
     var view: View? = null
-    private var animator: ObjectAnimator? = null
     private var onAnimationUpdate: AnimationUpdate? = null
-
 
     override fun startAnimation() {
         view?.let {
-            if (animator == null) {
-                animator = ObjectAnimator.ofFloat(it, "rotation", 360.0f)
-            }
-
-            animator?.duration = 333L
-            animator?.start()
-            animator?.addUpdateListener { animation ->
-                onAnimationUpdate?.onAnimationUpdate(animation.animatedFraction)
-            }
+            it.animate()
+                .rotation(it.rotation + 360f)
+                .setDuration(333L)
+                .setUpdateListener { animation ->
+                    onAnimationUpdate?.onAnimationUpdate(animation.animatedFraction)
+                }
+                .withLayer()
+                .start()
         }
     }
 
@@ -35,7 +31,7 @@ class RotateAnimationManager : AnimationInterface {
 
     override fun cancelAnimation() {
         view?.let {
-            animator?.cancel()
+            it.animate().cancel()
             it.scaleX = 1.0f
             it.scaleY = 1.0f
         }

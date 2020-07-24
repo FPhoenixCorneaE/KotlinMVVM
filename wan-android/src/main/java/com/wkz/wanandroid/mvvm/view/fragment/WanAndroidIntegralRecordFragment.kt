@@ -7,8 +7,8 @@ import com.wkz.adapter.AnimationType
 import com.wkz.extension.isNonNullAndNotEmpty
 import com.wkz.extension.viewModel
 import com.wkz.wanandroid.R
-import com.wkz.wanandroid.mvvm.view.adapter.WanAndroidMineIntegralRecordAdapter
-import com.wkz.wanandroid.mvvm.viewmodel.WanAndroidMineIntegralViewModel
+import com.wkz.wanandroid.mvvm.view.adapter.WanAndroidIntegralRecordAdapter
+import com.wkz.wanandroid.mvvm.viewmodel.WanAndroidIntegralViewModel
 import kotlinx.android.synthetic.main.wan_android_fragment_integral_record.*
 
 /**
@@ -18,11 +18,11 @@ import kotlinx.android.synthetic.main.wan_android_fragment_integral_record.*
 class WanAndroidIntegralRecordFragment : WanAndroidBaseFragment(), OnRefreshLoadMoreListener {
 
     private val mIntegralRecordAdapter by lazy(LazyThreadSafetyMode.NONE) {
-        WanAndroidMineIntegralRecordAdapter()
+        WanAndroidIntegralRecordAdapter()
     }
 
     /* 积分ViewModel */
-    private val mIntegralViewModel by viewModel<WanAndroidMineIntegralViewModel>()
+    private val mIntegralViewModel by viewModel<WanAndroidIntegralViewModel>()
 
     override fun getLayoutId(): Int = R.layout.wan_android_fragment_integral_record
 
