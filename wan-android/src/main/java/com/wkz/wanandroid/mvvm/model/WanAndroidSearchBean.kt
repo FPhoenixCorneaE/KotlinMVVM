@@ -2,6 +2,7 @@ package com.wkz.wanandroid.mvvm.model
 
 import android.annotation.SuppressLint
 import android.os.Parcelable
+import com.fphoenixcorneae.flowlayout.FlowItem
 import kotlinx.android.parcel.Parcelize
 
 /**
@@ -16,4 +17,8 @@ data class WanAndroidSearchBean(
     var name: String,
     var order: Int,
     var visible: Int
-) : Parcelable
+) : Parcelable, FlowItem {
+    override fun getItemName(): CharSequence? {
+        return name
+    }
+}

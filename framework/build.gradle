@@ -68,7 +68,6 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    api project(':android-util-code-ktx')
     api project(':animated-bottom-view')
     api project(':bottom-navigation-view')
     api project(':common-titlebar')
