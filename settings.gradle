@@ -1,3 +1,4 @@
+include ':flow-layout'
 include ':animated-bottom-view'
 include ':open-eyes'
 include ':common-titlebar'

@@ -25,3 +25,5 @@
 /common-titlebar/build
 /shine-button/build
 /shape-image-view/build/
+/flow-layout/src/test
+/flow-layout/src/androidTest

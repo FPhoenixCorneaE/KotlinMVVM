@@ -9,12 +9,12 @@ import android.view.animation.AnimationUtils
 import androidx.lifecycle.Observer
 import androidx.transition.Transition
 import androidx.transition.TransitionInflater
-import com.google.android.flexbox.*
+import com.fphoenixcorneae.flowlayout.FlowItem
+import com.fphoenixcorneae.flowlayout.FlowLayout
 import com.wkz.extension.*
 import com.wkz.titlebar.CommonTitleBar
 import com.wkz.util.KeyboardUtil
 import com.wkz.wanandroid.R
-import com.wkz.wanandroid.mvvm.view.adapter.WanAndroidSearchHotKeyAdapter
 import com.wkz.wanandroid.mvvm.viewmodel.WanAndroidSearchViewModel
 import kotlinx.android.synthetic.main.wan_android_fragment_search.*
 
@@ -26,11 +26,6 @@ class WanAndroidSearchFragment : WanAndroidBaseFragment() {
 
     /* 搜索ViewModel */
     private val mSearchViewModel by viewModel<WanAndroidSearchViewModel>()
-
-    /* 搜索热词适配器 */
-    private val mSearchHotKeyAdapter by lazy(LazyThreadSafetyMode.NONE) {
-        WanAndroidSearchHotKeyAdapter()
-    }
 
     override fun getLayoutId(): Int = R.layout.wan_android_fragment_search
 
@@ -54,34 +49,29 @@ class WanAndroidSearchFragment : WanAndroidBaseFragment() {
                 }
             }
         })
-
-        mRvHotSearch.apply {
-            setHasFixedSize(true)
-            isNestedScrollingEnabled = false
-            setItemViewCacheSize(200)
-            layoutManager = FlexboxLayoutManager(mContext).apply {
-                // 按正常方向换行
-                flexWrap = FlexWrap.WRAP
-                // 主轴为水平方向，起点在左端
-                flexDirection = FlexDirection.ROW
-                // 定义项目在副轴轴上如何对齐
-                alignItems = AlignItems.CENTER
-                // 多个轴对齐方式
-                justifyContent = JustifyContent.FLEX_START
-            }
-            adapter = mSearchHotKeyAdapter
-        }
     }
+
 
     override fun initListener() {
         mTvCancel.setOnClickListener {
             onBackPressed()
         }
+        mRvHotSearch.mOnItemClickListener = object : FlowLayout.OnItemClickListener {
+            override fun onItemClick(
+                itemName: CharSequence?,
+                position: Int,
+                isSelected: Boolean,
+                selectedData: ArrayList<in FlowItem>
+            ) {
+
+            }
+        }
         mSearchViewModel.apply {
             mSearchViewModel.mHotSearch.observe(viewLifecycleOwner, Observer {
                 it?.let {
-                    mSearchHotKeyAdapter.dataList.clear()
-                    mSearchHotKeyAdapter.dataList.addAll(it)
+                    mRvHotSearch.apply {
+                        mDatas = it as ArrayList<in FlowItem>
+                    }
                 }
             })
         }
@@ -97,6 +87,7 @@ class WanAndroidSearchFragment : WanAndroidBaseFragment() {
     }
 
     override fun lazyLoadData() {
+        mSearchViewModel.getHotSearchData()
     }
 
     override fun isAlreadyLoadedData(): Boolean = true

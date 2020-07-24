@@ -23,7 +23,7 @@ class Config {
     static support = [
             appcompat           : "androidx.appcompat:appcompat:1.1.0",
             constraintLayout    : "androidx.constraintlayout:constraintlayout:1.1.3",
-            material            : "com.google.android.material:material:1.0.0",
+            material            : "com.google.android.material:material:1.1.0",
             recyclerView        : "androidx.recyclerview:recyclerview:1.1.0",
             cardView            : "androidx.cardview:cardview:1.0.0",
             lifecycleViewmodel  : "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0-alpha02",
@@ -49,7 +49,7 @@ class Config {
             activity        : "androidx.activity:activity-ktx:1.2.0-alpha02",
             fragment        : "androidx.fragment:fragment-ktx:1.3.0-alpha02",
             kotlinStdlibJdk7: "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version",
-            coroutines      : 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.1',
+            coroutines      : 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.2',
     ]
 
     /** Retrofit2 */
