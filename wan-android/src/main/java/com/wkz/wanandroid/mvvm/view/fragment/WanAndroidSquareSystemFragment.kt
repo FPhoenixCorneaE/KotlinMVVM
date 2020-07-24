@@ -1,10 +1,12 @@
 package com.wkz.wanandroid.mvvm.view.fragment
 
+import android.view.View
 import androidx.lifecycle.Observer
 import com.scwang.smart.refresh.layout.api.RefreshLayout
 import com.scwang.smart.refresh.layout.listener.OnRefreshListener
 import com.wkz.adapter.AnimationType
 import com.wkz.adapter.BaseNBAdapter
+import com.wkz.adapter.SimpleOnItemChildClickListener
 import com.wkz.extension.isNonNullAndNotEmpty
 import com.wkz.extension.viewModel
 import com.wkz.wanandroid.R
@@ -51,12 +53,23 @@ class WanAndroidSquareSystemFragment : WanAndroidBaseFragment(), OnRefreshListen
 
     override fun initListener() {
         mSrlRefresh.setOnRefreshListener(this)
-        mSquareSystemAdapter.onItemClickListener =
-            object : BaseNBAdapter.OnItemClickListener<WanAndroidSystemBean> {
+        mSquareSystemAdapter.apply {
+            onItemClickListener = object : BaseNBAdapter.OnItemClickListener<WanAndroidSystemBean> {
                 override fun onItemClick(item: WanAndroidSystemBean, position: Int) {
 
                 }
             }
+            onItemChildClickListener =
+                object : SimpleOnItemChildClickListener<WanAndroidSystemBean>() {
+                    override fun onItemChild1Click(
+                        view: View?,
+                        item: WanAndroidSystemBean,
+                        position: Int
+                    ) {
+
+                    }
+                }
+        }
         mSquareViewModel.apply {
             mSystemDataUIState.mRefreshing.observe(viewLifecycleOwner, Observer {
                 mSrlRefresh.finishRefresh()

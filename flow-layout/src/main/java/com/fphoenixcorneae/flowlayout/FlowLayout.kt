@@ -699,7 +699,8 @@ fun getRandomColor(supportAlpha: Boolean = false): Int {
     return high or (Math.random() * 0x1000000).toInt()
 }
 
-var lastClickTime = 0L
+var lastClickTime = System.currentTimeMillis()
+
 /**
  * 防止重复点击事件 默认0.5秒内不可重复点击
  * @param interval 时间间隔 默认0.5秒
@@ -711,7 +712,7 @@ fun View.clickNoRepeat(
 ) {
     setOnClickListener {
         val currentTime = System.currentTimeMillis()
-        if (lastClickTime != 0L && (currentTime - lastClickTime < interval)) {
+        if (currentTime - lastClickTime < interval) {
             return@setOnClickListener
         }
         lastClickTime = currentTime

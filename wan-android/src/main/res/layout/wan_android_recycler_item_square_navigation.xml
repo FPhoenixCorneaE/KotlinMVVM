@@ -18,7 +18,7 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/mTvSystemName"
+            android:id="@+id/mTvName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp_16"
@@ -35,18 +35,25 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="@tools:sample/last_names" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/mRvSystem"
+        <com.fphoenixcorneae.flowlayout.FlowLayout
+            android:id="@+id/mRvNavigationChild"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_10"
-            android:layout_marginEnd="@dimen/dp_10"
-            android:layout_marginBottom="@dimen/dp_6"
-            android:overScrollMode="never"
-            app:layoutManager="com.google.android.flexbox.FlexboxLayoutManager"
+            app:flowLayoutClickable="true"
+            app:flowLayoutCornerRadius="@dimen/dp_8"
+            app:flowLayoutHorizontalSpacing="@dimen/dp_6"
+            app:flowLayoutMode="none"
+            app:flowLayoutNormalBgColor="@color/wan_android_color_lighter_gray"
+            app:flowLayoutPaddingBottom="@dimen/dp_6"
+            app:flowLayoutPaddingEnd="@dimen/dp_10"
+            app:flowLayoutPaddingStart="@dimen/dp_10"
+            app:flowLayoutPaddingTop="@dimen/dp_6"
+            app:flowLayoutRandomTextColor="true"
+            app:flowLayoutSelectedBgColor="@color/wan_android_color_darker_gray"
+            app:flowLayoutTextFontFamily="@font/framework_arial"
+            app:flowLayoutTextSize="@dimen/sp_16"
+            app:flowLayoutVerticalSpacing="@dimen/dp_6"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/mTvSystemName"
-            tools:itemCount="10"
-            tools:listitem="@android:layout/simple_list_item_1" />
+            app:layout_constraintTop_toBottomOf="@+id/mTvName" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>
