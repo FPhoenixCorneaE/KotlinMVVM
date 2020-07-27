@@ -75,7 +75,7 @@ class WanAndroidLoginFragment : WanAndroidBaseFragment(), TextWatcher {
         }
         mAccountViewModel.apply {
             // 需要观察该LiveData,否则不会执行登录接口
-            mLoginSuccess.observe(mContext, Observer {
+            mLoginSuccess.observe(viewLifecycleOwner, Observer {
                 mBtnLogin?.postDelayed({
                     if (it) {
                         // 登录成功,进入首页

@@ -14,7 +14,10 @@ import com.fphoenixcorneae.flowlayout.FlowLayout
 import com.wkz.extension.*
 import com.wkz.titlebar.CommonTitleBar
 import com.wkz.util.KeyboardUtil
+import com.wkz.util.SharedPreferencesUtil
 import com.wkz.wanandroid.R
+import com.wkz.wanandroid.constant.WanAndroidConstant
+import com.wkz.wanandroid.mvvm.model.WanAndroidSearchBean
 import com.wkz.wanandroid.mvvm.view.fragment.WanAndroidBaseFragment
 import com.wkz.wanandroid.mvvm.viewmodel.WanAndroidSearchViewModel
 import kotlinx.android.synthetic.main.wan_android_fragment_search.*
@@ -46,6 +49,7 @@ class WanAndroidSearchFragment : WanAndroidBaseFragment() {
                 when (action) {
                     CommonTitleBar.MotionAction.ACTION_SEARCH_SUBMIT -> {
                         // 搜索框输入状态下,键盘提交触发
+                        updateSearchHistory(extra ?: "")
                     }
                 }
             }
@@ -64,17 +68,72 @@ class WanAndroidSearchFragment : WanAndroidBaseFragment() {
                 isSelected: Boolean,
                 selectedData: ArrayList<in FlowItem>
             ) {
+                updateSearchHistory(itemName.toString())
+            }
+        }
+        mRvSearchHistory.mOnItemClickListener = object : FlowLayout.OnItemClickListener {
+            override fun onItemClick(
+                itemName: CharSequence?,
+                position: Int,
+                isSelected: Boolean,
+                selectedData: ArrayList<in FlowItem>
+            ) {
+                updateSearchHistory(itemName.toString())
+            }
 
+            override fun onDelete(
+                itemName: CharSequence?,
+                position: Int,
+                selectedData: ArrayList<in FlowItem>
+            ) {
+                updateSearchHistory(itemName.toString(), true)
             }
         }
         mSearchViewModel.apply {
-            mSearchViewModel.mHotSearch.observe(viewLifecycleOwner, Observer {
+            mHotSearch.observe(viewLifecycleOwner, Observer {
                 it?.let {
                     mRvHotSearch.apply {
                         mDatas = it as ArrayList<in FlowItem>
                     }
                 }
             })
+            mSearchHistory.observe(viewLifecycleOwner, Observer {
+                mRvSearchHistory.apply {
+                    mDatas = it as ArrayList<in FlowItem>
+                }
+                // 保存搜索历史
+                SharedPreferencesUtil.put(
+                    WanAndroidConstant.WAN_ANDROID_SEARCH_HISTORY,
+                    it.toJson()
+                )
+            })
+        }
+    }
+
+    /**
+     * 更新搜索历史
+     */
+    private fun updateSearchHistory(itemName: String, isDelete: Boolean = false) {
+        mSearchViewModel.mSearchHistory.apply {
+            value?.let {
+                when {
+                    it.size >= 20 -> {
+                        it.removeAt(it.lastIndex)
+                    }
+                }
+                // 这里必须从后面开始轮询，否则会出现ConcurrentModificationException异常
+                for (index in it.size - 1 downTo 0) {
+                    if (it[index].name == itemName) {
+                        it.removeAt(index)
+                    }
+                }
+                when {
+                    !isDelete -> {
+                        it.add(0, WanAndroidSearchBean(name = itemName))
+                    }
+                }
+            }
+            postValue(value)
         }
     }
 
@@ -89,6 +148,7 @@ class WanAndroidSearchFragment : WanAndroidBaseFragment() {
 
     override fun lazyLoadData() {
         mSearchViewModel.getHotSearchData()
+        mSearchViewModel.getSearchHistoryData()
     }
 
     override fun isAlreadyLoadedData(): Boolean = true

@@ -702,12 +702,12 @@ fun getRandomColor(supportAlpha: Boolean = false): Int {
 var lastClickTime = 0L
 
 /**
- * 防止重复点击事件 默认2秒内不可重复点击
- * @param interval 时间间隔 默认2秒
+ * 防止重复点击事件 默认1秒内不可重复点击
+ * @param interval 时间间隔 默认1秒
  * @param action   执行方法
  */
 fun View.clickNoRepeat(
-    interval: Long = 2000,
+    interval: Long = 1000,
     action: (view: View) -> Unit
 ) {
     setOnClickListener {

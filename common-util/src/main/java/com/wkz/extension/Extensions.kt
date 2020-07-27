@@ -3,6 +3,7 @@ package com.wkz.extension
 import android.text.TextUtils
 import com.wkz.util.CloseUtil
 import com.wkz.util.ContextUtil
+import com.wkz.util.gson.GsonUtil
 import com.wkz.util.toast.ToastUtil
 import java.io.BufferedReader
 import java.io.InputStreamReader
@@ -80,6 +81,13 @@ fun readFileFromAssets(fileName: String): String {
         CloseUtil.closeIOQuietly(bufferedReader)
         return stringBuilder.toString()
     }
+}
+
+/**
+ * 将对象转为JSON字符串
+ */
+fun Any?.toJson(): String {
+    return GsonUtil.toJson(this)
 }
 
 

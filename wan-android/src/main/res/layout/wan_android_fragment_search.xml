@@ -129,14 +129,21 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/mTvSearchHistory" />
 
-                <androidx.recyclerview.widget.RecyclerView
+                <com.fphoenixcorneae.flowlayout.FlowLayout
                     android:id="@+id/mRvSearchHistory"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dp_8"
-                    android:layout_marginTop="@dimen/dp_16"
-                    android:layout_marginEnd="@dimen/dp_8"
-                    android:overScrollMode="never"
+                    app:flowLayoutClickable="true"
+                    app:flowLayoutCornerRadius="@dimen/dp_8"
+                    app:flowLayoutHorizontalSpacing="@dimen/dp_8"
+                    app:flowLayoutMode="none"
+                    app:flowLayoutNormalBgColor="@color/wan_android_color_lighter_gray"
+                    app:flowLayoutRandomTextColor="true"
+                    app:flowLayoutSelectedBgColor="@color/wan_android_color_darker_gray"
+                    app:flowLayoutShowDelete="true"
+                    app:flowLayoutTextFontFamily="@font/framework_arial"
+                    app:flowLayoutTextSize="@dimen/sp_16"
+                    app:flowLayoutVerticalSpacing="@dimen/dp_8"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

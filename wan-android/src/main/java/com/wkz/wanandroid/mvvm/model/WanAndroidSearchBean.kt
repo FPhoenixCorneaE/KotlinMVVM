@@ -12,11 +12,11 @@ import kotlinx.android.parcel.Parcelize
 @SuppressLint("ParcelCreator")
 @Parcelize
 data class WanAndroidSearchBean(
-    var id: Int,
-    var link: String,
+    var id: Int = 0,
+    var link: String = "",
     var name: String,
-    var order: Int,
-    var visible: Int
+    var order: Int = 0,
+    var visible: Int = 0
 ) : Parcelable, FlowItem {
     override fun getItemName(): CharSequence? {
         return name

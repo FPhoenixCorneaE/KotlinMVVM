@@ -49,7 +49,7 @@ class GsonUtil private constructor() {
          * @return object serialized into json.
          */
         @JvmOverloads
-        fun toJson(`object`: Any, includeNulls: Boolean = true): String {
+        fun toJson(`object`: Any?, includeNulls: Boolean = true): String {
             return when {
                 includeNulls -> GSON.toJson(`object`)
                 else -> GSON_NO_NULLS.toJson(`object`)
@@ -72,7 +72,7 @@ class GsonUtil private constructor() {
          */
         @JvmOverloads
         fun toJson(
-            src: Any,
+            src: Any?,
             typeOfSrc: Type,
             includeNulls: Boolean = true
         ): String {

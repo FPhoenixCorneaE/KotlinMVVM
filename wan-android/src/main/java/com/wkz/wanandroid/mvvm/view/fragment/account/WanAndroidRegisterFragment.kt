@@ -68,7 +68,7 @@ class WanAndroidRegisterFragment : WanAndroidBaseFragment(), TextWatcher {
         }
         mAccountViewModel.apply {
             // 需要观察该LiveData,否则不会执行注册接口
-            mRegisterSuccess.observe(mContext, Observer {
+            mRegisterSuccess.observe(viewLifecycleOwner, Observer {
                 if (!it) {
                     mBtnRegister?.postDelayed({
                         mBtnRegister?.reset()
@@ -76,7 +76,7 @@ class WanAndroidRegisterFragment : WanAndroidBaseFragment(), TextWatcher {
                 }
             })
             // 需要观察该LiveData,否则不会执行登录接口
-            mLoginSuccess.observe(mContext, Observer {
+            mLoginSuccess.observe(viewLifecycleOwner, Observer {
                 mBtnRegister?.postDelayed({
                     if (it) {
                         // 登录成功,进入首页

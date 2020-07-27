@@ -48,12 +48,12 @@ fun View.isGone(): Boolean {
 var lastClickTime = 0L
 
 /**
- * 防止重复点击事件 默认2秒内不可重复点击
- * @param interval 时间间隔 默认2秒
+ * 防止重复点击事件 默认1秒内不可重复点击
+ * @param interval 时间间隔 默认1秒
  * @param action   执行方法
  */
 fun View.clickNoRepeat(
-    interval: Long = 2000,
+    interval: Long = 1000,
     action: (view: View) -> Unit
 ) {
     setOnClickListener {
@@ -69,10 +69,10 @@ fun View.clickNoRepeat(
 /**
  * 设置防止重复点击事件
  * @param views 需要设置点击事件的view集合
- * @param interval 时间间隔 默认2秒
+ * @param interval 时间间隔 默认1秒
  * @param onClick 点击触发的方法
  */
-fun setOnclickNoRepeat(vararg views: View?, interval: Long = 2000, onClick: (View) -> Unit) {
+fun setOnclickNoRepeat(vararg views: View?, interval: Long = 1000, onClick: (View) -> Unit) {
     views.forEach {
         it?.clickNoRepeat(interval) { view ->
             onClick.invoke(view)
