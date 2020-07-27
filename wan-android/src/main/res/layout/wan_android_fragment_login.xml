@@ -24,7 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_128"
-        android:fontFamily="@font/lobster"
+        android:fontFamily="@font/framework_lobster"
         android:text="@string/wan_android_app_name"
         android:textColor="@color/wan_android_color_title_0x222222"
         android:textSize="@dimen/sp_28"
