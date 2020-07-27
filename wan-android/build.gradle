@@ -6,6 +6,10 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'androidx.navigation.safeargs.kotlin'
 
+static def getDate() {
+    return new Date().format("yyyyMMddHHmmss")
+}
+
 android {
     compileSdkVersion Config.android.compileSdkVersion
     buildToolsVersion Config.android.buildToolsVersion
@@ -28,6 +32,10 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
+        manifestPlaceholders = [
+                BuglyAppId: "02c30f2095"
+        ]
     }
 
     signingConfigs {
@@ -59,6 +67,8 @@ android {
             signingConfig signingConfigs.release
         }
         debug {
+            // 版本名后缀
+            versionNameSuffix "_" + getDate()
             // 执行proguard混淆
             minifyEnabled false
             // Zipalign优化

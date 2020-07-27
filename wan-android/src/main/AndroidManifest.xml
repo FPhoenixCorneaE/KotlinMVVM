@@ -21,7 +21,7 @@
         <!-- 首页 -->
         <activity
             android:name=".mvvm.view.activity.WanAndroidMainActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize|screenLayout"
+            android:configChanges="orientation|keyboardHidden|screenSize|screenLayout|uiMode"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Fullscreen"
@@ -37,6 +37,6 @@
         <!-- 腾讯Bugly AppId-->
         <meta-data
             android:name="BUGLY_APPID"
-            android:value="51362dd6c0" />
+            android:value="${BuglyAppId}" />
     </application>
 </manifest>
