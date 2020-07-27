@@ -11,6 +11,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.scwang.smart.refresh.layout.SmartRefreshLayout
+        android:id="@+id/mSrlRefresh"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_0"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -83,7 +83,6 @@ class ProgressButton @JvmOverloads constructor(
         mStrokeWidth = dip2px(2f)
         mPadding = dip2px(2f)
         mProRadius = measuredHeight / 5
-        mProgressButtonAnim = ProgressButtonAnim()
         mProgressRotateAnim = RotateAnimation(
             0f, 360f, Animation.RELATIVE_TO_SELF,
             0.5f, Animation.RELATIVE_TO_SELF, 0.5f
@@ -143,11 +142,12 @@ class ProgressButton @JvmOverloads constructor(
         mReset = false
         mStop = false
         isClickable = false
-        if (mProgressButtonAnim != null) {
-            clearAnimation()
+        if (mProgressButtonAnim == null) {
+            mProgressButtonAnim = ProgressButtonAnim()
             mProgressButtonAnim!!.duration = progressButtonDuration.toLong()
-            startAnimation(mProgressButtonAnim)
         }
+        clearAnimation()
+        startAnimation(mProgressButtonAnim)
     }
 
     fun startProAnim() {
