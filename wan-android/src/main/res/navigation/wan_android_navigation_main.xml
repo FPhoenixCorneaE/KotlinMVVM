@@ -46,7 +46,7 @@
     </fragment>
     <fragment
         android:id="@+id/mLoginFragment"
-        android:name="com.wkz.wanandroid.mvvm.view.fragment.WanAndroidLoginFragment"
+        android:name="com.wkz.wanandroid.mvvm.view.fragment.account.WanAndroidLoginFragment"
         android:label="LoginFragment"
         tools:layout="@layout/wan_android_fragment_login">
         <action
@@ -59,7 +59,7 @@
     </fragment>
     <fragment
         android:id="@+id/mRegisterFragment"
-        android:name="com.wkz.wanandroid.mvvm.view.fragment.WanAndroidRegisterFragment"
+        android:name="com.wkz.wanandroid.mvvm.view.fragment.account.WanAndroidRegisterFragment"
         android:label="RegisterFragment"
         tools:layout="@layout/wan_android_fragment_register">
         <action
@@ -72,7 +72,7 @@
     </fragment>
     <fragment
         android:id="@+id/mIntegralRankingFragment"
-        android:name="com.wkz.wanandroid.mvvm.view.fragment.WanAndroidIntegralRankingFragment"
+        android:name="com.wkz.wanandroid.mvvm.view.fragment.integral.WanAndroidIntegralRankingFragment"
         android:label="IntegralRankingFragment"
         tools:layout="@layout/wan_android_fragment_integral_ranking">
         <action
@@ -92,22 +92,35 @@
     </fragment>
     <fragment
         android:id="@+id/mIntegralRecordFragment"
-        android:name="com.wkz.wanandroid.mvvm.view.fragment.WanAndroidIntegralRecordFragment"
+        android:name="com.wkz.wanandroid.mvvm.view.fragment.integral.WanAndroidIntegralRecordFragment"
         android:label="IntegralRecordFragment"
         tools:layout="@layout/wan_android_fragment_integral_record" />
     <fragment
         android:id="@+id/mSettingFragment"
-        android:name="com.wkz.wanandroid.mvvm.view.fragment.WanAndroidSettingFragment"
+        android:name="com.wkz.wanandroid.mvvm.view.fragment.setting.WanAndroidSettingFragment"
         android:label="SettingFragment"
         tools:layout="@layout/wan_android_fragment_setting" />
     <fragment
         android:id="@+id/mSearchFragment"
-        android:name="com.wkz.wanandroid.mvvm.view.fragment.WanAndroidSearchFragment"
+        android:name="com.wkz.wanandroid.mvvm.view.fragment.search.WanAndroidSearchFragment"
         android:label="SearchFragment"
-        tools:layout="@layout/wan_android_fragment_search" />
+        tools:layout="@layout/wan_android_fragment_search">
+        <action
+            android:id="@+id/mSearchToSearchResult"
+            app:destination="@+id/mSearchResultFragment"
+            app:enterAnim="@anim/pull_in_right"
+            app:exitAnim="@anim/push_out_left"
+            app:popEnterAnim="@anim/pull_in_left"
+            app:popExitAnim="@anim/push_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/mSearchResultFragment"
+        android:name="com.wkz.wanandroid.mvvm.view.fragment.search.WanAndroidSearchResultFragment"
+        android:label="SearchResultFragment"
+        tools:layout="@layout/wan_android_fragment_search_result" />
     <fragment
         android:id="@+id/mWebFragment"
-        android:name="com.wkz.wanandroid.mvvm.view.fragment.WanAndroidWebFragment"
+        android:name="com.wkz.wanandroid.mvvm.view.fragment.web.WanAndroidWebFragment"
         android:label="WebFragment"
         tools:layout="@layout/framework_layout_base_web" />
 </navigation>

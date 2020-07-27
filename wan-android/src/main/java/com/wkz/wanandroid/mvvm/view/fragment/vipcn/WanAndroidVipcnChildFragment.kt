@@ -1,4 +1,4 @@
-package com.wkz.wanandroid.mvvm.view.fragment
+package com.wkz.wanandroid.mvvm.view.fragment.vipcn
 
 import androidx.lifecycle.Observer
 import com.scwang.smart.refresh.layout.api.RefreshLayout
@@ -15,6 +15,7 @@ import com.wkz.wanandroid.R
 import com.wkz.wanandroid.constant.WanAndroidConstant
 import com.wkz.wanandroid.mvvm.model.WanAndroidArticleBean
 import com.wkz.wanandroid.mvvm.view.adapter.WanAndroidVipcnAdapter
+import com.wkz.wanandroid.mvvm.view.fragment.WanAndroidBaseFragment
 import com.wkz.wanandroid.mvvm.viewmodel.WanAndroidVipcnViewModel
 import kotlinx.android.synthetic.main.wan_android_fragment_vipcn_child.*
 

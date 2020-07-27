@@ -1,4 +1,4 @@
-package com.wkz.wanandroid.mvvm.view.fragment
+package com.wkz.wanandroid.mvvm.view.fragment.vipcn
 
 import androidx.lifecycle.Observer
 import com.wkz.adapter.app.FragmentPagerItems
@@ -10,6 +10,7 @@ import com.wkz.util.statusbar.StatusBarUtil
 import com.wkz.wanandroid.R
 import com.wkz.wanandroid.constant.WanAndroidConstant
 import com.wkz.wanandroid.mvvm.model.WanAndroidClassifyBean
+import com.wkz.wanandroid.mvvm.view.fragment.WanAndroidBaseFragment
 import com.wkz.wanandroid.mvvm.viewmodel.WanAndroidVipcnViewModel
 import kotlinx.android.synthetic.main.wan_android_fragment_vipcn.*
 

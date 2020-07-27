@@ -1,9 +1,10 @@
-package com.wkz.wanandroid.mvvm.view.fragment
+package com.wkz.wanandroid.mvvm.view.fragment.square
 
 import com.wkz.adapter.app.FragmentPagerItems
 import com.wkz.adapter.viewpager2.FragmentStatePager2ItemAdapter
 import com.wkz.util.statusbar.StatusBarUtil
 import com.wkz.wanandroid.R
+import com.wkz.wanandroid.mvvm.view.fragment.WanAndroidBaseFragment
 import kotlinx.android.synthetic.main.wan_android_fragment_square.*
 
 /**

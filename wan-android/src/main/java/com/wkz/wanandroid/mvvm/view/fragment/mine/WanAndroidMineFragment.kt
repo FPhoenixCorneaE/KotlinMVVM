@@ -1,4 +1,4 @@
-package com.wkz.wanandroid.mvvm.view.fragment
+package com.wkz.wanandroid.mvvm.view.fragment.mine
 
 import android.view.View
 import android.view.animation.LinearInterpolator
@@ -11,6 +11,7 @@ import com.wkz.extension.*
 import com.wkz.util.ResourceUtil
 import com.wkz.wanandroid.R
 import com.wkz.wanandroid.manager.WanAndroidUserManager
+import com.wkz.wanandroid.mvvm.view.fragment.WanAndroidBaseFragment
 import com.wkz.wanandroid.mvvm.viewmodel.WanAndroidAccountViewModel
 import com.wkz.wanandroid.mvvm.viewmodel.WanAndroidIntegralViewModel
 import kotlinx.android.synthetic.main.wan_android_fragment_mine.*

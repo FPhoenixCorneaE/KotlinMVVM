@@ -1,4 +1,4 @@
-package com.wkz.wanandroid.mvvm.view.fragment
+package com.wkz.wanandroid.mvvm.view.fragment.web
 
 import com.wkz.framework.web.BaseWebFragment
 import com.wkz.util.ResourceUtil

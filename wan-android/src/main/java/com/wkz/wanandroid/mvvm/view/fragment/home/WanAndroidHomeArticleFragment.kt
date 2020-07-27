@@ -1,4 +1,4 @@
-package com.wkz.wanandroid.mvvm.view.fragment
+package com.wkz.wanandroid.mvvm.view.fragment.home
 
 import android.graphics.Rect
 import android.view.View
@@ -22,6 +22,7 @@ import com.wkz.wanandroid.mvvm.model.WanAndroidArticleBean
 import com.wkz.wanandroid.mvvm.model.WanAndroidBannerBean
 import com.wkz.wanandroid.mvvm.view.adapter.WanAndroidHomeArticleAdapter
 import com.wkz.wanandroid.mvvm.view.adapter.WanAndroidHomeBannerAdapter
+import com.wkz.wanandroid.mvvm.view.fragment.WanAndroidBaseFragment
 import com.wkz.wanandroid.mvvm.viewmodel.WanAndroidCollectViewModel
 import com.wkz.wanandroid.mvvm.viewmodel.WanAndroidHomeArticleViewModel
 import kotlinx.android.synthetic.main.wan_android_fragment_home_article.*

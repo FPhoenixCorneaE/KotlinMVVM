@@ -1,4 +1,4 @@
-package com.wkz.wanandroid.mvvm.view.fragment
+package com.wkz.wanandroid.mvvm.view.fragment.integral
 
 import androidx.lifecycle.Observer
 import com.scwang.smart.refresh.layout.api.RefreshLayout
@@ -12,6 +12,7 @@ import com.wkz.util.BundleBuilder
 import com.wkz.wanandroid.R
 import com.wkz.wanandroid.api.WanAndroidUrlConstant
 import com.wkz.wanandroid.mvvm.view.adapter.WanAndroidIntegralRankingAdapter
+import com.wkz.wanandroid.mvvm.view.fragment.WanAndroidBaseFragment
 import com.wkz.wanandroid.mvvm.viewmodel.WanAndroidIntegralViewModel
 import kotlinx.android.synthetic.main.wan_android_fragment_integral_ranking.*
 import kotlinx.android.synthetic.main.wan_android_layout_title_bar_integral_ranking_right.*

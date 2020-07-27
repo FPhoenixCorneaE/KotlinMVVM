@@ -1,4 +1,4 @@
-package com.wkz.wanandroid.mvvm.view.fragment
+package com.wkz.wanandroid.mvvm.view.fragment.account
 
 import android.text.Editable
 import android.text.TextWatcher
@@ -11,6 +11,7 @@ import com.wkz.util.KeyboardUtil
 import com.wkz.util.ResourceUtil
 import com.wkz.wanandroid.R
 import com.wkz.wanandroid.mvvm.model.WanAndroidAccountBody
+import com.wkz.wanandroid.mvvm.view.fragment.WanAndroidBaseFragment
 import com.wkz.wanandroid.mvvm.viewmodel.WanAndroidAccountViewModel
 import kotlinx.android.synthetic.main.wan_android_fragment_register.*
 

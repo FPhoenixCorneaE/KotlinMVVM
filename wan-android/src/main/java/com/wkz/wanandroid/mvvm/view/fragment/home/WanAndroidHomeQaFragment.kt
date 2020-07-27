@@ -1,4 +1,4 @@
-package com.wkz.wanandroid.mvvm.view.fragment
+package com.wkz.wanandroid.mvvm.view.fragment.home
 
 import androidx.lifecycle.Observer
 import com.scwang.smart.refresh.layout.api.RefreshLayout
@@ -13,6 +13,7 @@ import com.wkz.util.BundleBuilder
 import com.wkz.wanandroid.R
 import com.wkz.wanandroid.mvvm.model.WanAndroidArticleBean
 import com.wkz.wanandroid.mvvm.view.adapter.WanAndroidHomeQaAdapter
+import com.wkz.wanandroid.mvvm.view.fragment.WanAndroidBaseFragment
 import com.wkz.wanandroid.mvvm.viewmodel.WanAndroidHomeQaViewModel
 import kotlinx.android.synthetic.main.wan_android_fragment_home_qa.*
 

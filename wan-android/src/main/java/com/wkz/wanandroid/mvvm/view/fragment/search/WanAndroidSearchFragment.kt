@@ -1,4 +1,4 @@
-package com.wkz.wanandroid.mvvm.view.fragment
+package com.wkz.wanandroid.mvvm.view.fragment.search
 
 import android.annotation.TargetApi
 import android.graphics.Color
@@ -15,6 +15,7 @@ import com.wkz.extension.*
 import com.wkz.titlebar.CommonTitleBar
 import com.wkz.util.KeyboardUtil
 import com.wkz.wanandroid.R
+import com.wkz.wanandroid.mvvm.view.fragment.WanAndroidBaseFragment
 import com.wkz.wanandroid.mvvm.viewmodel.WanAndroidSearchViewModel
 import kotlinx.android.synthetic.main.wan_android_fragment_search.*
 

@@ -6,6 +6,11 @@ import com.fphoenixcorneae.animated_bottom_view.AnimatedNavigationItem
 import com.fphoenixcorneae.animated_bottom_view.OnNavigationItemClickListener
 import com.wkz.util.ResourceUtil
 import com.wkz.wanandroid.R
+import com.wkz.wanandroid.mvvm.view.fragment.home.WanAndroidHomeFragment
+import com.wkz.wanandroid.mvvm.view.fragment.mine.WanAndroidMineFragment
+import com.wkz.wanandroid.mvvm.view.fragment.project.WanAndroidProjectFragment
+import com.wkz.wanandroid.mvvm.view.fragment.square.WanAndroidSquareFragment
+import com.wkz.wanandroid.mvvm.view.fragment.vipcn.WanAndroidVipcnFragment
 import kotlinx.android.synthetic.main.wan_android_fragment_main.*
 
 /**
