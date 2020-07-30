@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.app.SkinAppCompatDelegateImpl
 import androidx.fragment.app.FragmentActivity
 import cn.cricin.folivora.Folivora
 import com.wkz.extension.showToast
@@ -70,6 +71,10 @@ abstract class BaseActivity : AppCompatActivity() {
      */
     protected open fun initListener() {
 
+    }
+
+    override fun getDelegate(): AppCompatDelegate {
+        return SkinAppCompatDelegateImpl.get(this, this)
     }
 
     open fun showLoading() {

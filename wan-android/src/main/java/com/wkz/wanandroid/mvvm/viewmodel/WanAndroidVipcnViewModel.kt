@@ -40,6 +40,11 @@ class WanAndroidVipcnViewModel : WanAndroidBaseViewModel() {
                             }
                             isRefreshWithData() -> {
                                 mDataUIState.mRefreshSuccess.value = true
+                                when {
+                                    isLoadMoreNoData() -> {
+                                        mDataUIState.mLoadMoreNoData.value = true
+                                    }
+                                }
                             }
                             isLoadMoreNoData() -> {
                                 mDataUIState.mLoadMoreNoData.value = true

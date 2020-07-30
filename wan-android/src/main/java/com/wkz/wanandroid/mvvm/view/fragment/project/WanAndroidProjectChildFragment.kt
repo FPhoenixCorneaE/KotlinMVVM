@@ -3,7 +3,6 @@ package com.wkz.wanandroid.mvvm.view.fragment.project
 import androidx.lifecycle.Observer
 import com.scwang.smart.refresh.layout.api.RefreshLayout
 import com.scwang.smart.refresh.layout.listener.OnRefreshLoadMoreListener
-import com.wkz.adapter.AnimationType
 import com.wkz.adapter.BaseNBAdapter
 import com.wkz.extension.isNonNullAndNotEmpty
 import com.wkz.extension.navigate
@@ -29,7 +28,7 @@ class WanAndroidProjectChildFragment : WanAndroidBaseFragment(), OnRefreshLoadMo
     private val mProjectViewModel by viewModel<WanAndroidProjectViewModel>()
 
     /* 项目适配器 */
-    private val mProjectAdapter by lazy(LazyThreadSafetyMode.NONE) {
+    private val mProjectAdapter by lazy(LazyThreadSafetyMode.SYNCHRONIZED) {
         WanAndroidProjectAdapter()
     }
 
@@ -56,12 +55,7 @@ class WanAndroidProjectChildFragment : WanAndroidBaseFragment(), OnRefreshLoadMo
     }
 
     private fun initRecyclerView() {
-        mProjectAdapter.showItemAnim(AnimationType.TRANSLATE_FROM_BOTTOM, false)
-        mRvProject.apply {
-            setHasFixedSize(true)
-            isNestedScrollingEnabled = false
-            adapter = mProjectAdapter
-        }
+        mRvProject.init(mProjectAdapter)
     }
 
     override fun initListener() {

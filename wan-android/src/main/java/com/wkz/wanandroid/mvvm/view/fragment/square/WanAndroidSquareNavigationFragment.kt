@@ -29,7 +29,7 @@ class WanAndroidSquareNavigationFragment : WanAndroidBaseFragment(), OnRefreshLi
     private val mSquareViewModel by viewModel<WanAndroidSquareViewModel>()
 
     /* 广场导航适配器 */
-    private val mSquareNavigationAdapter by lazy(LazyThreadSafetyMode.NONE) {
+    private val mSquareNavigationAdapter by lazy(LazyThreadSafetyMode.SYNCHRONIZED) {
         WanAndroidSquareNavigationAdapter()
     }
 
@@ -47,12 +47,7 @@ class WanAndroidSquareNavigationFragment : WanAndroidBaseFragment(), OnRefreshLi
     }
 
     private fun initRecyclerView() {
-        mSquareNavigationAdapter.showItemAnim(AnimationType.TRANSLATE_FROM_BOTTOM, false)
-        mRvNavigation.apply {
-            setHasFixedSize(true)
-            isNestedScrollingEnabled = false
-            adapter = mSquareNavigationAdapter
-        }
+        mRvNavigation.init(mSquareNavigationAdapter)
     }
 
     override fun initListener() {

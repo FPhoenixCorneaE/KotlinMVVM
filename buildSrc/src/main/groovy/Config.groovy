@@ -35,6 +35,15 @@ class Config {
             palette             : "androidx.palette:palette-ktx:1.0.0",
     ]
 
+    /* Android 换肤框架 */
+    static androidSkinSupport = [
+            skinSupport                : 'skin.support:skin-support:4.0.5',
+            skinSupportAppcompat       : 'skin.support:skin-support-appcompat:4.0.5',
+            skinSupportDesign          : 'skin.support:skin-support-design:4.0.5',
+            skinSupportCardView        : 'skin.support:skin-support-cardview:4.0.5',
+            skinSupportConstraintLayout: 'skin.support:skin-support-constraint-layout:4.0.5',
+    ]
+
     /** navigation 扩展插件 */
     static navigation = [
             common  : "androidx.navigation:navigation-common-ktx:$navigation_version",
@@ -142,8 +151,8 @@ class Config {
 
     /** 腾讯Bugly异常上报*/
     static bugly = [
-            crashReport      : 'com.tencent.bugly:crashreport:latest.release',
-            nativeCrashReport: 'com.tencent.bugly:nativecrashreport:latest.release'
+            crashReport      : 'com.tencent.bugly:crashreport:3.2.33',
+            nativeCrashReport: 'com.tencent.bugly:nativecrashreport:3.7.3'
     ]
 
     /* MaterialDialogs */
@@ -209,4 +218,5 @@ class Config {
     static agentWebLibs = agentWeb.values()
     static buglyLibs = bugly.values()
     static materialDialogsLibs = materialDialogs.values()
+    static androidSkinSupportLibs = androidSkinSupport.values()
 }

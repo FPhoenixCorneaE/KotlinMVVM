@@ -6,5 +6,6 @@ object WanAndroidConstant {
     const val WAN_ANDROID_USER_INFO_SECRET_KEY = "user_info_secret_key"
     const val WAN_ANDROID_CLASSIFY_ID = "classify_id"
     const val WAN_ANDROID_NEWEST_PROJECT = "newest_project"
+    const val WAN_ANDROID_SEARCH_KEY = "search_key"
     const val WAN_ANDROID_SEARCH_HISTORY = "search_history"
 }

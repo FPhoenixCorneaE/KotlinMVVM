@@ -24,7 +24,7 @@ import kotlinx.android.synthetic.main.wan_android_layout_title_bar_integral_rank
 class WanAndroidIntegralRankingFragment : WanAndroidBaseFragment(), OnRefreshLoadMoreListener {
 
     /* 积分排行榜适配器 */
-    private val mIntegralRankingAdapter by lazy(LazyThreadSafetyMode.NONE) {
+    private val mIntegralRankingAdapter by lazy(LazyThreadSafetyMode.SYNCHRONIZED) {
         WanAndroidIntegralRankingAdapter()
     }
 
@@ -40,12 +40,7 @@ class WanAndroidIntegralRankingFragment : WanAndroidBaseFragment(), OnRefreshLoa
     }
 
     private fun initIntegralRankingRecyclerView() {
-        mIntegralRankingAdapter.showItemAnim(AnimationType.TRANSLATE_FROM_BOTTOM, false)
-        mRvIntegralRanking.apply {
-            setHasFixedSize(true)
-            isNestedScrollingEnabled = false
-            adapter = mIntegralRankingAdapter
-        }
+        mRvIntegralRanking.init(mIntegralRankingAdapter)
     }
 
     override fun initListener() {

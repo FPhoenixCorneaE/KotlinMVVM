@@ -3,7 +3,6 @@ package com.wkz.wanandroid.mvvm.view.fragment.integral
 import androidx.lifecycle.Observer
 import com.scwang.smart.refresh.layout.api.RefreshLayout
 import com.scwang.smart.refresh.layout.listener.OnRefreshLoadMoreListener
-import com.wkz.adapter.AnimationType
 import com.wkz.extension.isNonNullAndNotEmpty
 import com.wkz.extension.viewModel
 import com.wkz.wanandroid.R
@@ -18,7 +17,7 @@ import kotlinx.android.synthetic.main.wan_android_fragment_integral_record.*
  */
 class WanAndroidIntegralRecordFragment : WanAndroidBaseFragment(), OnRefreshLoadMoreListener {
 
-    private val mIntegralRecordAdapter by lazy(LazyThreadSafetyMode.NONE) {
+    private val mIntegralRecordAdapter by lazy(LazyThreadSafetyMode.SYNCHRONIZED) {
         WanAndroidIntegralRecordAdapter()
     }
 
@@ -34,12 +33,7 @@ class WanAndroidIntegralRecordFragment : WanAndroidBaseFragment(), OnRefreshLoad
     }
 
     private fun initIntegralRankingRecyclerView() {
-        mIntegralRecordAdapter.showItemAnim(AnimationType.TRANSLATE_FROM_BOTTOM, false)
-        mRvIntegralRecord.apply {
-            setHasFixedSize(true)
-            isNestedScrollingEnabled = false
-            adapter = mIntegralRecordAdapter
-        }
+        mRvIntegralRecord.init(mIntegralRecordAdapter)
     }
 
     override fun initListener() {

@@ -106,4 +106,5 @@ dependencies {
     api Config.workManager
     api Config.kenBurnsView
     api Config.navigationLibs
+    api Config.androidSkinSupportLibs
 }

@@ -62,6 +62,6 @@ data class WanAndroidPageResponse<T>(
      * 是否还有更多数据
      */
     fun isLoadMoreNoData(): Boolean {
-        return isLoadMore() && over
+        return over
     }
 }

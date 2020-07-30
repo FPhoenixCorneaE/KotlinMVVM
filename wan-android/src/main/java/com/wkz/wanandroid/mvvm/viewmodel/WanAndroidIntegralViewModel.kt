@@ -56,6 +56,11 @@ class WanAndroidIntegralViewModel : WanAndroidBaseViewModel() {
                             }
                             isRefreshWithData() -> {
                                 mIntegralRecordUIState.mRefreshSuccess.value = true
+                                when {
+                                    isLoadMoreNoData() -> {
+                                        mIntegralRecordUIState.mLoadMoreNoData.value = true
+                                    }
+                                }
                             }
                             isLoadMoreNoData() -> {
                                 mIntegralRecordUIState.mLoadMoreNoData.value = true

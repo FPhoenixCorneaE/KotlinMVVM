@@ -42,6 +42,11 @@ class WanAndroidSquareViewModel : WanAndroidBaseViewModel() {
                                 }
                                 isRefreshWithData() -> {
                                     mArticleDataUIState.mRefreshSuccess.value = true
+                                    when {
+                                        isLoadMoreNoData() -> {
+                                            mArticleDataUIState.mLoadMoreNoData.value = true
+                                        }
+                                    }
                                 }
                                 isLoadMoreNoData() -> {
                                     mArticleDataUIState.mLoadMoreNoData.value = true
@@ -77,6 +82,11 @@ class WanAndroidSquareViewModel : WanAndroidBaseViewModel() {
                                 }
                                 isRefreshWithData() -> {
                                     mAskDataUIState.mRefreshSuccess.value = true
+                                    when {
+                                        isLoadMoreNoData() -> {
+                                            mAskDataUIState.mLoadMoreNoData.value = true
+                                        }
+                                    }
                                 }
                                 isLoadMoreNoData() -> {
                                     mAskDataUIState.mLoadMoreNoData.value = true
@@ -124,6 +134,11 @@ class WanAndroidSquareViewModel : WanAndroidBaseViewModel() {
                                 }
                                 isRefreshWithData() -> {
                                     mSystemArticleDataUIState.mRefreshSuccess.value = true
+                                    when {
+                                        isLoadMoreNoData() -> {
+                                            mSystemArticleDataUIState.mLoadMoreNoData.value = true
+                                        }
+                                    }
                                 }
                                 isLoadMoreNoData() -> {
                                     mSystemArticleDataUIState.mLoadMoreNoData.value = true

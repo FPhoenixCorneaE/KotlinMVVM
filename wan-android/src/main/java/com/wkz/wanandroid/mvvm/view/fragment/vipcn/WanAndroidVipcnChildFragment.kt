@@ -29,7 +29,7 @@ class WanAndroidVipcnChildFragment : WanAndroidBaseFragment(), OnRefreshLoadMore
     private val mVipcnViewModel by viewModel<WanAndroidVipcnViewModel>()
 
     /* 公众号适配器 */
-    private val mVipcnAdapter by lazy(LazyThreadSafetyMode.NONE) {
+    private val mVipcnAdapter by lazy(LazyThreadSafetyMode.SYNCHRONIZED) {
         WanAndroidVipcnAdapter()
     }
 
@@ -52,12 +52,7 @@ class WanAndroidVipcnChildFragment : WanAndroidBaseFragment(), OnRefreshLoadMore
     }
 
     private fun initRecyclerView() {
-        mVipcnAdapter.showItemAnim(AnimationType.TRANSLATE_FROM_BOTTOM, false)
-        mRvVipcn.apply {
-            setHasFixedSize(true)
-            isNestedScrollingEnabled = false
-            adapter = mVipcnAdapter
-        }
+        mRvVipcn.init(mVipcnAdapter)
     }
 
     override fun initListener() {

@@ -23,7 +23,7 @@ import kotlinx.android.synthetic.main.wan_android_fragment_home_qa.*
  */
 class WanAndroidHomeQaFragment : WanAndroidBaseFragment(), OnRefreshLoadMoreListener {
 
-    private val mHomeQaAdapter by lazy(LazyThreadSafetyMode.NONE) {
+    private val mHomeQaAdapter by lazy(LazyThreadSafetyMode.SYNCHRONIZED) {
         WanAndroidHomeQaAdapter()
     }
 
@@ -79,12 +79,7 @@ class WanAndroidHomeQaFragment : WanAndroidBaseFragment(), OnRefreshLoadMoreList
     }
 
     private fun initQaRecyclerView() {
-        mHomeQaAdapter.showItemAnim(AnimationType.TRANSLATE_FROM_BOTTOM, false)
-        mRvQa.apply {
-            setHasFixedSize(true)
-            isNestedScrollingEnabled = false
-            adapter = mHomeQaAdapter
-        }
+        mRvQa.init(mHomeQaAdapter)
     }
 
     /**

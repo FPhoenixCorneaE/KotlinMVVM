@@ -37,7 +37,39 @@ class WanAndroidSearchViewModel : WanAndroidBaseViewModel() {
     /* 搜索结果 */
     val mSearchData = Transformations.switchMap(mSearchDataUIState.mPage) { page ->
         Transformations.map(sWanAndroidService.getSearchDataByKey(page, mSearchKey)) {
-            it.data
+            mSearchDataUIState.mRefreshing.value = false
+            mSearchDataUIState.mLoadingMore.value = false
+            it.data?.apply {
+                when {
+                    it.isWanAndroidSuccess() -> {
+                        when {
+                            isRefreshNoData() -> {
+                                mSearchDataUIState.mRefreshNoData.value = true
+                            }
+                            isRefreshWithData() -> {
+                                mSearchDataUIState.mRefreshSuccess.value = true
+                                when {
+                                    isLoadMoreNoData() -> {
+                                        mSearchDataUIState.mLoadMoreNoData.value = true
+                                    }
+                                }
+                            }
+                            isLoadMoreNoData() -> {
+                                mSearchDataUIState.mLoadMoreNoData.value = true
+                            }
+                            else -> {
+                                mSearchDataUIState.mLoadMoreSuccess.value = true
+                            }
+                        }
+                    }
+                    isRefresh() -> {
+                        mSearchDataUIState.mRefreshSuccess.value = false
+                    }
+                    isLoadMore() -> {
+                        mSearchDataUIState.mLoadMoreSuccess.value = false
+                    }
+                }
+            }
         }
     }
 
@@ -68,6 +100,7 @@ class WanAndroidSearchViewModel : WanAndroidBaseViewModel() {
      */
     fun refreshSearchDataByKey(searchKey: String) {
         mSearchKey = searchKey
+        mSearchDataUIState.mRefreshing.value = true
         mSearchDataUIState.mPage.value = 0
     }
 
@@ -77,6 +110,7 @@ class WanAndroidSearchViewModel : WanAndroidBaseViewModel() {
      */
     fun loadMoreSearchDataByKey(searchKey: String) {
         mSearchKey = searchKey
+        mSearchDataUIState.mLoadingMore.value = true
         mSearchDataUIState.mPage.value = (mSearchDataUIState.mPage.value ?: 0) + 1
     }
 }

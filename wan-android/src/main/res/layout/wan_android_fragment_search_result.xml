@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <com.wkz.titlebar.CommonTitleBar
         android:id="@+id/mTbTitleBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/CommonTitleBar"
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.scwang.smart.refresh.layout.SmartRefreshLayout
@@ -20,6 +20,9 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/mRvSearchResult"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:itemCount="10"
+            tools:listitem="@layout/wan_android_recycler_item_search_result" />
     </com.scwang.smart.refresh.layout.SmartRefreshLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -43,6 +43,11 @@ class WanAndroidProjectViewModel : WanAndroidBaseViewModel() {
                             }
                             isRefreshWithData() -> {
                                 mNewestDataUIState.mRefreshSuccess.value = true
+                                when {
+                                    isLoadMoreNoData() -> {
+                                        mNewestDataUIState.mLoadMoreNoData.value = true
+                                    }
+                                }
                             }
                             isLoadMoreNoData() -> {
                                 mNewestDataUIState.mLoadMoreNoData.value = true
@@ -77,6 +82,11 @@ class WanAndroidProjectViewModel : WanAndroidBaseViewModel() {
                             }
                             isRefreshWithData() -> {
                                 mDataUIState.mRefreshSuccess.value = true
+                                when {
+                                    isLoadMoreNoData() -> {
+                                        mDataUIState.mLoadMoreNoData.value = true
+                                    }
+                                }
                             }
                             isLoadMoreNoData() -> {
                                 mDataUIState.mLoadMoreNoData.value = true

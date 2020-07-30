@@ -13,6 +13,7 @@ import com.fphoenixcorneae.flowlayout.FlowItem
 import com.fphoenixcorneae.flowlayout.FlowLayout
 import com.wkz.extension.*
 import com.wkz.titlebar.CommonTitleBar
+import com.wkz.util.BundleBuilder
 import com.wkz.util.KeyboardUtil
 import com.wkz.util.SharedPreferencesUtil
 import com.wkz.wanandroid.R
@@ -50,6 +51,7 @@ class WanAndroidSearchFragment : WanAndroidBaseFragment() {
                     CommonTitleBar.MotionAction.ACTION_SEARCH_SUBMIT -> {
                         // 搜索框输入状态下,键盘提交触发
                         updateSearchHistory(extra ?: "")
+                        goToSearchResult(extra)
                     }
                 }
             }
@@ -69,6 +71,7 @@ class WanAndroidSearchFragment : WanAndroidBaseFragment() {
                 selectedData: ArrayList<in FlowItem>
             ) {
                 updateSearchHistory(itemName.toString())
+                goToSearchResult(itemName)
             }
         }
         mRvSearchHistory.mOnItemClickListener = object : FlowLayout.OnItemClickListener {
@@ -79,6 +82,7 @@ class WanAndroidSearchFragment : WanAndroidBaseFragment() {
                 selectedData: ArrayList<in FlowItem>
             ) {
                 updateSearchHistory(itemName.toString())
+                goToSearchResult(itemName)
             }
 
             override fun onDelete(
@@ -88,6 +92,9 @@ class WanAndroidSearchFragment : WanAndroidBaseFragment() {
             ) {
                 updateSearchHistory(itemName.toString(), true)
             }
+        }
+        mTvEmpty.setOnClickListener {
+            mSearchViewModel.mSearchHistory.postValue(arrayListOf())
         }
         mSearchViewModel.apply {
             mHotSearch.observe(viewLifecycleOwner, Observer {
@@ -135,6 +142,18 @@ class WanAndroidSearchFragment : WanAndroidBaseFragment() {
             }
             postValue(value)
         }
+    }
+
+    /**
+     * 跳转搜索结果页面
+     */
+    private fun goToSearchResult(itemName: CharSequence?) {
+        navigate(
+            R.id.mSearchToSearchResult,
+            BundleBuilder.of()
+                .putString(WanAndroidConstant.WAN_ANDROID_SEARCH_KEY, itemName.toString())
+                .get()
+        )
     }
 
     private fun setUpView() {

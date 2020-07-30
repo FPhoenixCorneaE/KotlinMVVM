@@ -28,7 +28,7 @@ class WanAndroidSquareAskFragment : WanAndroidBaseFragment(), OnRefreshLoadMoreL
     private val mSquareViewModel by viewModel<WanAndroidSquareViewModel>()
 
     /* 广场问答适配器 */
-    private val mSquareAskAdapter by lazy(LazyThreadSafetyMode.NONE) {
+    private val mSquareAskAdapter by lazy(LazyThreadSafetyMode.SYNCHRONIZED) {
         WanAndroidSquareAskAdapter()
     }
 
@@ -45,12 +45,7 @@ class WanAndroidSquareAskFragment : WanAndroidBaseFragment(), OnRefreshLoadMoreL
     }
 
     private fun initRecyclerView() {
-        mSquareAskAdapter.showItemAnim(AnimationType.TRANSLATE_FROM_BOTTOM, false)
-        mRvAsk.apply {
-            setHasFixedSize(true)
-            isNestedScrollingEnabled = false
-            adapter = mSquareAskAdapter
-        }
+        mRvAsk.init(mSquareAskAdapter)
     }
 
     override fun initListener() {

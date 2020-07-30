@@ -32,10 +32,10 @@ import kotlinx.android.synthetic.main.wan_android_fragment_home_article.*
  * @date: 2019-10-24 15:51
  */
 class WanAndroidHomeArticleFragment : WanAndroidBaseFragment(), OnRefreshLoadMoreListener {
-    private val mBannerAdapter by lazy(LazyThreadSafetyMode.NONE) {
+    private val mBannerAdapter by lazy(LazyThreadSafetyMode.SYNCHRONIZED) {
         WanAndroidHomeBannerAdapter()
     }
-    private val mHomeArticleAdapter by lazy(LazyThreadSafetyMode.NONE) {
+    private val mHomeArticleAdapter by lazy(LazyThreadSafetyMode.SYNCHRONIZED) {
         WanAndroidHomeArticleAdapter()
     }
 
@@ -177,11 +177,8 @@ class WanAndroidHomeArticleFragment : WanAndroidBaseFragment(), OnRefreshLoadMor
     }
 
     private fun initBannerRecyclerView() {
-        mBannerAdapter.showItemAnim(AnimationType.ALPHA, false)
+        mRvBanner.init(mBannerAdapter, AnimationType.ALPHA)
         mRvBanner.apply {
-            setHasFixedSize(true)
-            isNestedScrollingEnabled = false
-            adapter = mBannerAdapter
             stayEnd(false)
             addItemDecoration(object : RecyclerView.ItemDecoration() {
                 override fun getItemOffsets(
@@ -203,12 +200,7 @@ class WanAndroidHomeArticleFragment : WanAndroidBaseFragment(), OnRefreshLoadMor
     }
 
     private fun initArticleRecyclerView() {
-        mHomeArticleAdapter.showItemAnim(AnimationType.TRANSLATE_FROM_BOTTOM, false)
-        mRvArticle.apply {
-            setHasFixedSize(true)
-            isNestedScrollingEnabled = false
-            adapter = mHomeArticleAdapter
-        }
+        mRvArticle.init(mHomeArticleAdapter)
     }
 
     /**

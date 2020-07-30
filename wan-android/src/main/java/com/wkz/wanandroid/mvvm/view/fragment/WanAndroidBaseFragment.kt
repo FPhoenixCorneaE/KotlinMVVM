@@ -7,7 +7,10 @@ import android.view.View
 import android.view.animation.AccelerateInterpolator
 import android.view.animation.DecelerateInterpolator
 import androidx.activity.OnBackPressedCallback
+import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
+import com.wkz.adapter.AnimationType
+import com.wkz.adapter.BaseNBAdapter
 import com.wkz.adapter.viewpager2.FragmentStatePager2ItemAdapter
 import com.wkz.extension.loggerD
 import com.wkz.extension.navigateUp
@@ -70,6 +73,21 @@ abstract class WanAndroidBaseFragment : BaseFragment() {
                     onTitleBarClickListener?.onClicked(v, action, extra)
                 }
             })
+        }
+    }
+
+    /**
+     * 初始化 RecyclerView
+     */
+    protected fun <T> RecyclerView.init(
+        baseNBAdapter: BaseNBAdapter<T>,
+        animationType: AnimationType = AnimationType.TRANSLATE_FROM_BOTTOM
+    ) {
+        baseNBAdapter.showItemAnim(animationType, false)
+        apply {
+            setHasFixedSize(true)
+            isNestedScrollingEnabled = false
+            adapter = baseNBAdapter
         }
     }
 

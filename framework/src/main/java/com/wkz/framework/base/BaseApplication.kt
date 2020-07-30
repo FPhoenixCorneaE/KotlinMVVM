@@ -10,6 +10,11 @@ import com.scwang.smart.refresh.layout.SmartRefreshLayout
 import com.wkz.util.AppUtil
 import com.wkz.util.DynamicTimeFormat
 import io.reactivex.plugins.RxJavaPlugins
+import skin.support.SkinCompatManager
+import skin.support.app.SkinCardViewInflater
+import skin.support.constraint.app.SkinConstraintViewInflater
+import skin.support.design.app.SkinMaterialViewInflater
+
 
 /**
  * @desc: 基类 Application
@@ -31,6 +36,9 @@ open class BaseApplication : Application(), ViewModelStoreOwner {
 
         // 初始化SmartRefreshLayout默认设置
         initSmartRefreshLayoutDefaultConfig()
+
+        // 初始化 Android 换肤框架
+        initAndroidSkinSupport()
     }
 
     /**
@@ -56,6 +64,19 @@ open class BaseApplication : Application(), ViewModelStoreOwner {
         SmartRefreshLayout.setDefaultRefreshFooterCreator { context, _ ->
             ClassicsFooter(context)
         }
+    }
+
+    /**
+     * 初始化 Android 换肤框架
+     */
+    private fun initAndroidSkinSupport() {
+        SkinCompatManager.withoutActivity(this) // 基础控件换肤初始化
+            .addInflater(SkinMaterialViewInflater()) // material design 控件换肤初始化[可选]
+            .addInflater(SkinConstraintViewInflater()) // ConstraintLayout 控件换肤初始化[可选]
+            .addInflater(SkinCardViewInflater()) // CardView v7 控件换肤初始化[可选]
+            .setSkinStatusBarColorEnable(true) // 打开状态栏换肤，默认打开[可选]
+            .setSkinWindowBackgroundEnable(true) // 打开windowBackground换肤，默认打开[可选]
+            .loadSkin()
     }
 
     override fun getViewModelStore(): ViewModelStore {
