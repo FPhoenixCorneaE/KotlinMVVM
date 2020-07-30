@@ -38,31 +38,13 @@
             app:centerSearchTextColor="@color/wan_android_color_black"
             app:centerSearchTextSize="@dimen/sp_16"
             app:centerType="searchView"
-            app:layout_constraintEnd_toStartOf="@+id/mFlCancel"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:leftType="none" />
-
-        <FrameLayout
-            android:id="@+id/mFlCancel"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/dp_0"
-            android:background="@color/wan_android_colorPrimary"
-            app:layout_constraintBottom_toBottomOf="@+id/mTbTitleBar"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <TextView
-                android:id="@+id/mTvCancel"
-                android:layout_width="wrap_content"
-                android:layout_height="?attr/actionBarSize"
-                android:layout_gravity="bottom"
-                android:layout_marginEnd="@dimen/dp_16"
-                android:gravity="center"
-                android:text="@string/wan_android_cancel"
-                android:textColor="@color/wan_android_color_white"
-                android:textSize="@dimen/sp_16" />
-        </FrameLayout>
+            app:leftType="none"
+            app:rightText="@string/wan_android_cancel"
+            app:rightTextColor="@color/wan_android_color_white"
+            app:rightTextSize="@dimen/sp_16"
+            app:rightType="textView" />
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"

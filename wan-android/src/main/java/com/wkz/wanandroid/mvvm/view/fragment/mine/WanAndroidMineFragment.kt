@@ -58,7 +58,7 @@ class WanAndroidMineFragment : WanAndroidBaseFragment(), OnRefreshListener {
         mCvCollect.setOnClickListener {
             when {
                 WanAndroidUserManager.sHasLoggedOn -> {
-
+                    navigate(R.id.mMainToCollect)
                 }
                 else -> {
                     // 未登录
@@ -159,14 +159,6 @@ class WanAndroidMineFragment : WanAndroidBaseFragment(), OnRefreshListener {
         )
     }
 
-    override fun isAlreadyLoadedData(): Boolean = true
-
-    companion object {
-        fun getInstance(): WanAndroidMineFragment {
-            return WanAndroidMineFragment()
-        }
-    }
-
     override fun onRefresh(refreshLayout: RefreshLayout) {
         when {
             WanAndroidUserManager.sHasLoggedOn -> {
@@ -174,6 +166,14 @@ class WanAndroidMineFragment : WanAndroidBaseFragment(), OnRefreshListener {
                 mMineIntegralViewModel.getIntegral()
             }
             else -> mSrlRefresh.finishRefresh(1500)
+        }
+    }
+
+    override fun isAlreadyLoadedData(): Boolean = true
+
+    companion object {
+        fun getInstance(): WanAndroidMineFragment {
+            return WanAndroidMineFragment()
         }
     }
 }

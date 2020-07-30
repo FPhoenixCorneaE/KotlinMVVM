@@ -41,4 +41,6 @@
     <string name="wan_android_search_hot_key">热门搜索</string>
     <string name="wan_android_empty">清空</string>
     <string name="wan_android_search_history">搜索历史</string>
+    <string name="wan_android_collect_article">文章</string>
+    <string name="wan_android_collect_website">网址</string>
 </resources>

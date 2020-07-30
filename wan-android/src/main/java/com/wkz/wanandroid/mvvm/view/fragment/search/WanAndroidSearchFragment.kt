@@ -53,6 +53,9 @@ class WanAndroidSearchFragment : WanAndroidBaseFragment() {
                         updateSearchHistory(extra ?: "")
                         goToSearchResult(extra)
                     }
+                    CommonTitleBar.MotionAction.ACTION_RIGHT_TEXT->{
+                        onBackPressed()
+                    }
                 }
             }
         })
@@ -60,9 +63,6 @@ class WanAndroidSearchFragment : WanAndroidBaseFragment() {
 
 
     override fun initListener() {
-        mTvCancel.setOnClickListener {
-            onBackPressed()
-        }
         mRvHotSearch.mOnItemClickListener = object : FlowLayout.OnItemClickListener {
             override fun onItemClick(
                 itemName: CharSequence?,

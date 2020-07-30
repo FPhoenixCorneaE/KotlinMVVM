@@ -20,15 +20,22 @@
             app:popEnterAnim="@anim/pull_in_left"
             app:popExitAnim="@anim/push_out_right" />
         <action
-            android:id="@+id/mMainToSetting"
-            app:destination="@id/mSettingFragment"
+            android:id="@+id/mMainToIntegralRanking"
+            app:destination="@id/mIntegralRankingFragment"
             app:enterAnim="@anim/pull_in_right"
             app:exitAnim="@anim/push_out_left"
             app:popEnterAnim="@anim/pull_in_left"
             app:popExitAnim="@anim/push_out_right" />
         <action
-            android:id="@+id/mMainToIntegralRanking"
-            app:destination="@id/mIntegralRankingFragment"
+            android:id="@+id/mMainToCollect"
+            app:destination="@id/mCollectFragment"
+            app:enterAnim="@anim/pull_in_right"
+            app:exitAnim="@anim/push_out_left"
+            app:popEnterAnim="@anim/pull_in_left"
+            app:popExitAnim="@anim/push_out_right" />
+        <action
+            android:id="@+id/mMainToSetting"
+            app:destination="@id/mSettingFragment"
             app:enterAnim="@anim/pull_in_right"
             app:exitAnim="@anim/push_out_left"
             app:popEnterAnim="@anim/pull_in_left"
@@ -95,6 +102,11 @@
         android:name="com.wkz.wanandroid.mvvm.view.fragment.integral.WanAndroidIntegralRecordFragment"
         android:label="IntegralRecordFragment"
         tools:layout="@layout/wan_android_fragment_integral_record" />
+    <fragment
+        android:id="@+id/mCollectFragment"
+        android:name="com.wkz.wanandroid.mvvm.view.fragment.collect.WanAndroidCollectFragment"
+        android:label="CollectFragment"
+        tools:layout="@layout/wan_android_fragment_collect" />
     <fragment
         android:id="@+id/mSettingFragment"
         android:name="com.wkz.wanandroid.mvvm.view.fragment.setting.WanAndroidSettingFragment"

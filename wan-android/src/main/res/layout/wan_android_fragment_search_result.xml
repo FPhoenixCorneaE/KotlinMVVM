@@ -8,6 +8,7 @@
     <com.wkz.titlebar.CommonTitleBar
         android:id="@+id/mTbTitleBar"
         style="@style/CommonTitleBar"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.scwang.smart.refresh.layout.SmartRefreshLayout
