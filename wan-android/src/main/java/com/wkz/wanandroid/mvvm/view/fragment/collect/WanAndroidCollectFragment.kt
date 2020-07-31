@@ -14,7 +14,7 @@ class WanAndroidCollectFragment : WanAndroidBaseFragment() {
     override fun getLayoutId(): Int = R.layout.wan_android_fragment_collect
 
     override fun initView() {
-        setCommonTitleBarTheme(mTbTitleBar)
+        mTbTitleBar.init()
         initViewPager2AndMagicIndicator(
             FragmentStatePager2ItemAdapter(
                 this@WanAndroidCollectFragment,

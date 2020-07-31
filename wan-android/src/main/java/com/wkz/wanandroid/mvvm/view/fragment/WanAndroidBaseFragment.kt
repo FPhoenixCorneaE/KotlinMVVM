@@ -17,7 +17,6 @@ import com.wkz.extension.navigateUp
 import com.wkz.extension.popBackStack
 import com.wkz.framework.base.fragment.BaseFragment
 import com.wkz.titlebar.CommonTitleBar
-import com.wkz.util.ImageUtil
 import com.wkz.util.ResourceUtil
 import com.wkz.util.SizeUtil
 import com.wkz.wanandroid.R
@@ -52,19 +51,12 @@ abstract class WanAndroidBaseFragment : BaseFragment() {
     }
 
     /**
-     * 设置标题栏主题样式
+     * 初始化标题栏
      */
-    protected fun setCommonTitleBarTheme(
-        commonTitleBar: CommonTitleBar?,
+    protected fun CommonTitleBar.init(
         onTitleBarClickListener: CommonTitleBar.OnTitleBarClickListener? = null
     ) {
-        commonTitleBar?.apply {
-            leftImageButton?.let {
-                ImageUtil.setTintColor(
-                    it,
-                    ResourceUtil.getColor(R.color.wan_android_color_title_0x222222)
-                )
-            }
+        apply {
             setOnTitleBarClickListener(object : CommonTitleBar.OnTitleBarClickListener {
                 override fun onClicked(v: View?, action: Int, extra: String?) {
                     when (action) {

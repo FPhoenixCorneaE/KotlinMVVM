@@ -8,6 +8,7 @@
         <item name="centerTextSize">@dimen/sp_18</item>
         <item name="centerType">textView</item>
         <item name="leftType">imageButton</item>
+        <item name="leftImageTint">@color/wan_android_color_title_0x222222</item>
         <item name="showBottomLine">true</item>
         <item name="statusBarColor">@color/wan_android_colorPrimaryDark</item>
         <item name="titleBarColor">@color/wan_android_colorPrimary</item>

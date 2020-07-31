@@ -45,7 +45,7 @@ class WanAndroidSearchFragment : WanAndroidBaseFragment() {
             }
         }
 
-        setCommonTitleBarTheme(mTbTitleBar, object : CommonTitleBar.OnTitleBarClickListener {
+        mTbTitleBar.init(object : CommonTitleBar.OnTitleBarClickListener {
             override fun onClicked(v: View?, action: Int, extra: String?) {
                 when (action) {
                     CommonTitleBar.MotionAction.ACTION_SEARCH_SUBMIT -> {
@@ -53,7 +53,7 @@ class WanAndroidSearchFragment : WanAndroidBaseFragment() {
                         updateSearchHistory(extra ?: "")
                         goToSearchResult(extra)
                     }
-                    CommonTitleBar.MotionAction.ACTION_RIGHT_TEXT->{
+                    CommonTitleBar.MotionAction.ACTION_RIGHT_TEXT -> {
                         onBackPressed()
                     }
                 }

@@ -26,7 +26,7 @@ class WanAndroidSettingFragment : WanAndroidBaseFragment() {
 
     override fun lazyLoadData() {
         // 设置标题栏主题样式
-        setCommonTitleBarTheme(mTbTitleBar)
+        mTbTitleBar.init()
         mCvLogout.visible(WanAndroidUserManager.sHasLoggedOn)
     }
 

@@ -2,7 +2,7 @@ package com.wkz.wanandroid.mvvm.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
-import com.wkz.wanandroid.mvvm.model.WanAndroidUIState
+import com.wkz.wanandroid.mvvm.model.WanAndroidUiState
 
 /**
  *  @desc: 项目ViewModel
@@ -14,10 +14,10 @@ class WanAndroidProjectViewModel : WanAndroidBaseViewModel() {
     val mRefreshingClassify = MutableLiveData<Boolean>()
 
     /* 最新项目数据UI状态 */
-    val mNewestDataUIState = WanAndroidUIState()
+    val mNewestDataUIState = WanAndroidUiState()
 
     /* 项目数据UI状态 */
-    val mDataUIState = WanAndroidUIState()
+    val mDataUIState = WanAndroidUiState()
 
     /* 项目分类id */
     var mClassifyId = 0
@@ -32,78 +32,14 @@ class WanAndroidProjectViewModel : WanAndroidBaseViewModel() {
     /* 最新项目数据 */
     val mProjectNewestData = Transformations.switchMap(mNewestDataUIState.mPage) { page ->
         Transformations.map(sWanAndroidService.getProjectNewestData(page)) {
-            mNewestDataUIState.mRefreshing.value = false
-            mNewestDataUIState.mLoadingMore.value = false
-            it.data?.apply {
-                when {
-                    it.isWanAndroidSuccess() -> {
-                        when {
-                            isRefreshNoData() -> {
-                                mNewestDataUIState.mRefreshNoData.value = true
-                            }
-                            isRefreshWithData() -> {
-                                mNewestDataUIState.mRefreshSuccess.value = true
-                                when {
-                                    isLoadMoreNoData() -> {
-                                        mNewestDataUIState.mLoadMoreNoData.value = true
-                                    }
-                                }
-                            }
-                            isLoadMoreNoData() -> {
-                                mNewestDataUIState.mLoadMoreNoData.value = true
-                            }
-                            else -> {
-                                mNewestDataUIState.mLoadMoreSuccess.value = true
-                            }
-                        }
-                    }
-                    isRefresh() -> {
-                        mNewestDataUIState.mRefreshSuccess.value = false
-                    }
-                    isLoadMore() -> {
-                        mNewestDataUIState.mLoadMoreSuccess.value = false
-                    }
-                }
-            }
+            it.setPageDataUiState(mNewestDataUIState)
         }
     }
 
     /* 项目数据 */
     val mProjectData = Transformations.switchMap(mDataUIState.mPage) { page ->
         Transformations.map(sWanAndroidService.getProjectDataByClassifyId(page, mClassifyId)) {
-            mDataUIState.mRefreshing.value = false
-            mDataUIState.mLoadingMore.value = false
-            it.data?.apply {
-                when {
-                    it.isWanAndroidSuccess() -> {
-                        when {
-                            isRefreshNoData() -> {
-                                mDataUIState.mRefreshNoData.value = true
-                            }
-                            isRefreshWithData() -> {
-                                mDataUIState.mRefreshSuccess.value = true
-                                when {
-                                    isLoadMoreNoData() -> {
-                                        mDataUIState.mLoadMoreNoData.value = true
-                                    }
-                                }
-                            }
-                            isLoadMoreNoData() -> {
-                                mDataUIState.mLoadMoreNoData.value = true
-                            }
-                            else -> {
-                                mDataUIState.mLoadMoreSuccess.value = true
-                            }
-                        }
-                    }
-                    isRefresh() -> {
-                        mDataUIState.mRefreshSuccess.value = false
-                    }
-                    isLoadMore() -> {
-                        mDataUIState.mLoadMoreSuccess.value = false
-                    }
-                }
-            }
+            it.setPageDataUiState(mDataUIState)
         }
     }
 

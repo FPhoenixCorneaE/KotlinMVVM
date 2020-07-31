@@ -3,7 +3,7 @@ package com.wkz.wanandroid.mvvm.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import com.wkz.wanandroid.mvvm.model.WanAndroidIntegralBean
-import com.wkz.wanandroid.mvvm.model.WanAndroidUIState
+import com.wkz.wanandroid.mvvm.model.WanAndroidUiState
 
 /**
  *  @desc: 积分ViewModel
@@ -24,7 +24,7 @@ class WanAndroidIntegralViewModel : WanAndroidBaseViewModel() {
     val mLoadingMoreIntegralRanking = MutableLiveData<Boolean>()
 
     /* 积分记录UI状态 */
-    val mIntegralRecordUIState = WanAndroidUIState()
+    val mIntegralRecordUIState = WanAndroidUiState()
 
     /* 用户积分 */
     val mUserIntegral = Transformations.switchMap(mRefreshingIntegral) {
@@ -45,39 +45,7 @@ class WanAndroidIntegralViewModel : WanAndroidBaseViewModel() {
     /* 积分记录 */
     val mIntegralRecord = Transformations.switchMap(mIntegralRecordUIState.mPage) { page ->
         Transformations.map(sWanAndroidService.getIntegralRecord(page)) {
-            mIntegralRecordUIState.mRefreshing.value = false
-            mIntegralRecordUIState.mLoadingMore.value = false
-            it.data?.apply {
-                when {
-                    it.isWanAndroidSuccess() -> {
-                        when {
-                            isRefreshNoData() -> {
-                                mIntegralRecordUIState.mRefreshNoData.value = true
-                            }
-                            isRefreshWithData() -> {
-                                mIntegralRecordUIState.mRefreshSuccess.value = true
-                                when {
-                                    isLoadMoreNoData() -> {
-                                        mIntegralRecordUIState.mLoadMoreNoData.value = true
-                                    }
-                                }
-                            }
-                            isLoadMoreNoData() -> {
-                                mIntegralRecordUIState.mLoadMoreNoData.value = true
-                            }
-                            else -> {
-                                mIntegralRecordUIState.mLoadMoreSuccess.value = true
-                            }
-                        }
-                    }
-                    isRefresh() -> {
-                        mIntegralRecordUIState.mRefreshSuccess.value = false
-                    }
-                    isLoadMore() -> {
-                        mIntegralRecordUIState.mLoadMoreSuccess.value = false
-                    }
-                }
-            }
+            it.setPageDataUiState(mIntegralRecordUIState)
         }
     }
 

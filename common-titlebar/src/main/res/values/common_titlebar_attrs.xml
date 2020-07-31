@@ -40,6 +40,8 @@
         <attr name="leftDrawablePadding" format="dimension" />
         <!-- ImageView 资源, 对应leftType_ImageBotton -->
         <attr name="leftImageResource" format="reference" />
+        <!-- ImageView 色调, 对应leftType_ImageBotton -->
+        <attr name="leftImageTint" format="color" />
         <!-- 左边自定义布局, 对应leftType_CustomView -->
         <attr name="leftCustomView" format="reference" />
 
@@ -58,6 +60,8 @@
         <attr name="rightTextSize" format="dimension" />
         <!-- ImageView 资源, 对应rightType_ImageBotton -->
         <attr name="rightImageResource" format="reference" />
+        <!-- ImageView 色调, 对应rightType_ImageBotton -->
+        <attr name="rightImageTint" format="reference" />
         <!-- 右边自定义布局, 对应rightType_CustomView -->
         <attr name="rightCustomView" format="reference" />
 

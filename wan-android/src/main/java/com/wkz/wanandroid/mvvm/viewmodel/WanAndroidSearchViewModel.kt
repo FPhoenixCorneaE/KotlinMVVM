@@ -7,7 +7,7 @@ import com.wkz.util.SharedPreferencesUtil
 import com.wkz.util.gson.GsonUtil
 import com.wkz.wanandroid.constant.WanAndroidConstant
 import com.wkz.wanandroid.mvvm.model.WanAndroidSearchBean
-import com.wkz.wanandroid.mvvm.model.WanAndroidUIState
+import com.wkz.wanandroid.mvvm.model.WanAndroidUiState
 
 /**
  *  @desc: 搜索ViewModel
@@ -19,7 +19,7 @@ class WanAndroidSearchViewModel : WanAndroidBaseViewModel() {
     val mRefreshingHotSearch = MutableLiveData<Boolean>()
 
     /* 搜索数据UI状态 */
-    val mSearchDataUIState = WanAndroidUIState()
+    val mSearchDataUIState = WanAndroidUiState()
 
     /* 搜索关键词 */
     var mSearchKey: String = ""
@@ -37,39 +37,7 @@ class WanAndroidSearchViewModel : WanAndroidBaseViewModel() {
     /* 搜索结果 */
     val mSearchData = Transformations.switchMap(mSearchDataUIState.mPage) { page ->
         Transformations.map(sWanAndroidService.getSearchDataByKey(page, mSearchKey)) {
-            mSearchDataUIState.mRefreshing.value = false
-            mSearchDataUIState.mLoadingMore.value = false
-            it.data?.apply {
-                when {
-                    it.isWanAndroidSuccess() -> {
-                        when {
-                            isRefreshNoData() -> {
-                                mSearchDataUIState.mRefreshNoData.value = true
-                            }
-                            isRefreshWithData() -> {
-                                mSearchDataUIState.mRefreshSuccess.value = true
-                                when {
-                                    isLoadMoreNoData() -> {
-                                        mSearchDataUIState.mLoadMoreNoData.value = true
-                                    }
-                                }
-                            }
-                            isLoadMoreNoData() -> {
-                                mSearchDataUIState.mLoadMoreNoData.value = true
-                            }
-                            else -> {
-                                mSearchDataUIState.mLoadMoreSuccess.value = true
-                            }
-                        }
-                    }
-                    isRefresh() -> {
-                        mSearchDataUIState.mRefreshSuccess.value = false
-                    }
-                    isLoadMore() -> {
-                        mSearchDataUIState.mLoadMoreSuccess.value = false
-                    }
-                }
-            }
+            it.setPageDataUiState(mSearchDataUIState)
         }
     }
 

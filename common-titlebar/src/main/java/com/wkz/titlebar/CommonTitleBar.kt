@@ -144,6 +144,7 @@ class CommonTitleBar @JvmOverloads constructor(
     private var leftDrawable = 0// 左边TextView drawableLeft资源 = 0
     private var leftDrawablePadding = 5f // 左边TextView drawablePadding = 0f
     private var leftImageResource = R.drawable.common_titlebar_reback_selector // 左边图片资源 = 0
+    private var leftImageTint = Color.BLACK
     private var leftCustomViewRes = 0// 左边自定义视图布局资源 = 0
     private var rightType =
         TYPE_RIGHT_NONE // 右边视图类型 = 0
@@ -152,6 +153,7 @@ class CommonTitleBar @JvmOverloads constructor(
     private var rightTextColor = 0// 右边TextView颜色 = 0
     private var rightTextSize = 0f// 右边TextView文字大小 = 0f
     private var rightImageResource = 0// 右边图片资源 = 0
+    private var rightImageTint = Color.BLACK
     private var rightCustomViewRes = 0// 右边自定义视图布局资源 = 0
     private var centerType =
         TYPE_CENTER_NONE // 中间视图类型 = 0
@@ -234,6 +236,10 @@ class CommonTitleBar @JvmOverloads constructor(
                     R.styleable.CommonTitleBar_leftImageResource,
                     R.drawable.common_titlebar_reback_selector
                 )
+                leftImageTint = array.getColor(
+                    R.styleable.CommonTitleBar_leftImageTint,
+                    Color.BLACK
+                )
             }
             TYPE_LEFT_CUSTOM_VIEW -> {
                 leftCustomViewRes =
@@ -259,6 +265,10 @@ class CommonTitleBar @JvmOverloads constructor(
             TYPE_RIGHT_IMAGE_BUTTON -> {
                 rightImageResource =
                     array.getResourceId(R.styleable.CommonTitleBar_rightImageResource, 0)
+                rightImageTint = array.getColor(
+                    R.styleable.CommonTitleBar_rightImageTint,
+                    Color.BLACK
+                )
             }
             TYPE_RIGHT_CUSTOM_VIEW -> {
                 rightCustomViewRes =
@@ -480,6 +490,7 @@ class CommonTitleBar @JvmOverloads constructor(
                 leftImageButton!!.id = ViewUtil.generateViewId()
                 leftImageButton!!.setBackgroundColor(Color.TRANSPARENT)
                 leftImageButton!!.setImageResource(leftImageResource)
+                leftImageButton!!.setTintColor(leftImageTint)
                 leftImageButton!!.setPadding(PADDING_16, 0, PADDING_16, 0)
                 leftImageButton!!.setOnClickListener(this)
                 rlMain!!.addView(leftImageButton, leftInnerParams)
@@ -524,6 +535,7 @@ class CommonTitleBar @JvmOverloads constructor(
                 rightImageButton = ImageButton(context)
                 rightImageButton!!.id = ViewUtil.generateViewId()
                 rightImageButton!!.setImageResource(rightImageResource)
+                rightImageButton!!.setTintColor(rightImageTint)
                 rightImageButton!!.setBackgroundColor(Color.TRANSPARENT)
                 rightImageButton!!.scaleType = ImageView.ScaleType.CENTER_INSIDE
                 rightImageButton!!.setPadding(PADDING_16, 0, PADDING_16, 0)

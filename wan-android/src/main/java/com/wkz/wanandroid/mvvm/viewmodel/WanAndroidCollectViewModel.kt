@@ -2,6 +2,7 @@ package com.wkz.wanandroid.mvvm.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
+import com.wkz.wanandroid.mvvm.model.WanAndroidUiState
 
 /**
  *  @desc: 收藏文章、网址ViewModel
@@ -9,23 +10,17 @@ import androidx.lifecycle.Transformations
  */
 class WanAndroidCollectViewModel : WanAndroidBaseViewModel() {
 
-    /* 页数 */
-    private val mPage = MutableLiveData<Int>()
-
-    /* 是否正在刷新 */
-    val mRefreshing = MutableLiveData<Boolean>()
-
-    /* 是否正在加载更多 */
-    val mLoadingMore = MutableLiveData<Boolean>()
-
     /* 收藏文章id */
     private val mCollectArticleId = MutableLiveData<Int>()
 
     /* 取消收藏文章id */
     private val mCancelCollectArticleId = MutableLiveData<Int>()
 
-    /* 收藏文章/取消收藏文章 */
-    private val mIsCollectArticle = MutableLiveData<Boolean>()
+    /* 收藏文章数据UI状态 */
+    val mCollectArticleDataUIState = WanAndroidUiState()
+
+    /* 收藏网址数据UI状态 */
+    val mCollectWebsiteDataUIState = WanAndroidUiState()
 
 
     /* 收藏文章 */
@@ -42,20 +37,18 @@ class WanAndroidCollectViewModel : WanAndroidBaseViewModel() {
         }
     }
 
-    /**
-     * 下拉刷新
-     */
-    fun autoRefresh() {
-        mRefreshing.value = true
-        mPage.value = 0
+    /* 收藏文章数据 */
+    val mCollectArticleData = Transformations.switchMap(mCollectArticleDataUIState.mPage) { page ->
+        Transformations.map(sWanAndroidService.getCollectArticleData(page)) {
+            it.setPageDataUiState(mCollectArticleDataUIState)
+        }
     }
 
-    /**
-     * 上拉加载更多
-     */
-    fun loadMore() {
-        mLoadingMore.value = true
-        mPage.value = (mPage.value ?: 0) + 1
+    /* 收藏网址数据 */
+    val mCollectWebsiteData = Transformations.switchMap(mCollectWebsiteDataUIState.mRefreshing) {
+        Transformations.map(sWanAndroidService.getCollectWebsiteData()) {
+
+        }
     }
 
     /**
@@ -63,7 +56,6 @@ class WanAndroidCollectViewModel : WanAndroidBaseViewModel() {
      */
     fun collectArticle(id: Int) {
         mCollectArticleId.value = id
-        mIsCollectArticle.value = true
     }
 
     /**
@@ -71,6 +63,5 @@ class WanAndroidCollectViewModel : WanAndroidBaseViewModel() {
      */
     fun cancelCollectArticle(id: Int) {
         mCancelCollectArticleId.value = id
-        mIsCollectArticle.value = false
     }
 }

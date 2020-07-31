@@ -28,7 +28,7 @@ class WanAndroidIntegralRecordFragment : WanAndroidBaseFragment(), OnRefreshLoad
 
     override fun initView() {
         // 设置标题栏主题样式
-        setCommonTitleBarTheme(mTbTitleBar)
+        mTbTitleBar.init()
         initIntegralRankingRecyclerView()
     }
 

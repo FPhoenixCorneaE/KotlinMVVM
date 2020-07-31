@@ -6,7 +6,7 @@ import java.io.Serializable
  * @desc：分页数据的基类
  * @date：2020-06-11 10:20
  */
-data class WanAndroidPageResponse<T>(
+data class WanAndroidPageBean<T>(
     var datas: T,
     var curPage: Int,
     var offset: Int,
@@ -20,13 +20,6 @@ data class WanAndroidPageResponse<T>(
      */
     fun isEmptyData(): Boolean {
         return (datas as List<*>).size == 0
-    }
-
-    /**
-     * 数据不为空
-     */
-    fun isNotEmptyData(): Boolean {
-        return !isEmptyData()
     }
 
     /**
@@ -55,7 +48,7 @@ data class WanAndroidPageResponse<T>(
      * 是否为刷新有数据
      */
     fun isRefreshWithData(): Boolean {
-        return isRefresh() && isNotEmptyData()
+        return isRefresh() && !isEmptyData()
     }
 
     /**

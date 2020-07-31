@@ -51,7 +51,7 @@ interface WanAndroidApi {
     @GET("article/list/{page}/json")
     fun getArticleList(
         @Path("page") page: Int
-    ): LiveData<BaseResponse<WanAndroidPageResponse<ArrayList<WanAndroidArticleBean>>>>
+    ): LiveData<BaseResponse<WanAndroidPageBean<ArrayList<WanAndroidArticleBean>>>>
 
     /**
      * 首页问答列表
@@ -60,23 +60,7 @@ interface WanAndroidApi {
     fun getQaList(
         @Path("page") page: Int,
         @Query("cid") cid: Int
-    ): LiveData<BaseResponse<WanAndroidPageResponse<ArrayList<WanAndroidArticleBean>>>>
-
-    /**
-     * 收藏文章
-     */
-    @POST("/lg/collect/{id}/json")
-    fun collectArticle(
-        @Path("id") id: Int
-    ): LiveData<BaseResponse<Any>>
-
-    /**
-     * 取消收藏文章
-     */
-    @POST("/lg/uncollect_originId/{id}/json")
-    fun cancelCollectArticle(
-        @Path("id") id: Int
-    ): LiveData<BaseResponse<Any>>
+    ): LiveData<BaseResponse<WanAndroidPageBean<ArrayList<WanAndroidArticleBean>>>>
 
     /**
      * 获取热门搜索数据
@@ -91,7 +75,7 @@ interface WanAndroidApi {
     fun getSearchDataByKey(
         @Path("page") pageNo: Int,
         @Query("k") searchKey: String
-    ): LiveData<BaseResponse<WanAndroidPageResponse<ArrayList<WanAndroidArticleBean>>>>
+    ): LiveData<BaseResponse<WanAndroidPageBean<ArrayList<WanAndroidArticleBean>>>>
 
     /**
      * 项目分类
@@ -106,7 +90,7 @@ interface WanAndroidApi {
     fun getProjectDataByClassifyId(
         @Path("page") pageNo: Int,
         @Query("cid") cid: Int
-    ): LiveData<BaseResponse<WanAndroidPageResponse<ArrayList<WanAndroidArticleBean>>>>
+    ): LiveData<BaseResponse<WanAndroidPageBean<ArrayList<WanAndroidArticleBean>>>>
 
     /**
      * 获取最新项目数据
@@ -114,7 +98,7 @@ interface WanAndroidApi {
     @GET("article/listproject/{page}/json")
     fun getProjectNewestData(
         @Path("page") pageNo: Int
-    ): LiveData<BaseResponse<WanAndroidPageResponse<ArrayList<WanAndroidArticleBean>>>>
+    ): LiveData<BaseResponse<WanAndroidPageBean<ArrayList<WanAndroidArticleBean>>>>
 
     /**
      * 公众号分类
@@ -129,7 +113,7 @@ interface WanAndroidApi {
     fun getVipcnDataByClassifyId(
         @Path("page") pageNo: Int,
         @Path("id") id: Int
-    ): LiveData<BaseResponse<WanAndroidPageResponse<ArrayList<WanAndroidArticleBean>>>>
+    ): LiveData<BaseResponse<WanAndroidPageBean<ArrayList<WanAndroidArticleBean>>>>
 
     /**
      * 获取广场文章列表数据
@@ -137,7 +121,7 @@ interface WanAndroidApi {
     @GET("user_article/list/{page}/json")
     fun getSquareArticleList(
         @Path("page") page: Int
-    ): LiveData<BaseResponse<WanAndroidPageResponse<ArrayList<WanAndroidArticleBean>>>>
+    ): LiveData<BaseResponse<WanAndroidPageBean<ArrayList<WanAndroidArticleBean>>>>
 
     /**
      * 获取广场每日一问列表数据
@@ -145,7 +129,7 @@ interface WanAndroidApi {
     @GET("wenda/list/{page}/json")
     fun getSquareAskList(
         @Path("page") page: Int
-    ): LiveData<BaseResponse<WanAndroidPageResponse<ArrayList<WanAndroidArticleBean>>>>
+    ): LiveData<BaseResponse<WanAndroidPageBean<ArrayList<WanAndroidArticleBean>>>>
 
 
     /**
@@ -161,7 +145,7 @@ interface WanAndroidApi {
     fun getSquareSystemArticleBySystemId(
         @Path("page") pageNo: Int,
         @Query("cid") cid: Int
-    ): LiveData<BaseResponse<WanAndroidPageResponse<ArrayList<WanAndroidArticleBean>>>>
+    ): LiveData<BaseResponse<WanAndroidPageBean<ArrayList<WanAndroidArticleBean>>>>
 
 
     /**
@@ -182,7 +166,7 @@ interface WanAndroidApi {
     @GET("/coin/rank/{page}/json")
     fun getIntegralRanking(
         @Path("page") page: Int
-    ): LiveData<BaseResponse<WanAndroidPageResponse<ArrayList<WanAndroidIntegralBean>>>>
+    ): LiveData<BaseResponse<WanAndroidPageBean<ArrayList<WanAndroidIntegralBean>>>>
 
     /**
      * 获取积分记录
@@ -190,5 +174,52 @@ interface WanAndroidApi {
     @GET("/lg/coin/list/{page}/json")
     fun getIntegralRecord(
         @Path("page") page: Int
-    ): LiveData<BaseResponse<WanAndroidPageResponse<ArrayList<WanAndroidIntegralRecordBean>>>>
+    ): LiveData<BaseResponse<WanAndroidPageBean<ArrayList<WanAndroidIntegralRecordBean>>>>
+
+    /**
+     * 收藏文章
+     */
+    @POST("/lg/collect/{id}/json")
+    fun collectArticle(
+        @Path("id") id: Int
+    ): LiveData<BaseResponse<Any>>
+
+    /**
+     * 取消收藏文章
+     */
+    @POST("/lg/uncollect_originId/{id}/json")
+    fun cancelCollectArticle(
+        @Path("id") id: Int
+    ): LiveData<BaseResponse<Any>>
+
+    /**
+     * 收藏网址
+     */
+    @POST("lg/collect/addtool/json")
+    fun collectWebsite(
+        @Query("name") name: String,
+        @Query("link") link: String
+    ): LiveData<BaseResponse<WanAndroidCollectWebsiteBean>>
+
+    /**
+     * 取消收藏网址
+     */
+    @POST("lg/collect/deletetool/json")
+    fun cancelCollectWebsite(
+        @Query("id") id: Int
+    ): LiveData<BaseResponse<Any>>
+
+    /**
+     * 获取收藏文章数据
+     */
+    @GET("lg/collect/list/{page}/json")
+    fun getCollectArticleData(
+        @Path("page") pageNo: Int
+    ): LiveData<BaseResponse<WanAndroidPageBean<ArrayList<WanAndroidCollectArticleBean>>>>
+
+    /**
+     * 获取收藏网址数据
+     */
+    @GET("lg/collect/usertools/json")
+    fun getCollectWebsiteData(): LiveData<BaseResponse<ArrayList<WanAndroidCollectWebsiteBean>>>
 }

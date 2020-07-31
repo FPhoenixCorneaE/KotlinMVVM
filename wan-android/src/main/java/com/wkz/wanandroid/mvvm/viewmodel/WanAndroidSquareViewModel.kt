@@ -1,7 +1,7 @@
 package com.wkz.wanandroid.mvvm.viewmodel
 
 import androidx.lifecycle.Transformations
-import com.wkz.wanandroid.mvvm.model.WanAndroidUIState
+import com.wkz.wanandroid.mvvm.model.WanAndroidUiState
 
 /**
  *  @desc: 广场ViewModel
@@ -10,60 +10,28 @@ import com.wkz.wanandroid.mvvm.model.WanAndroidUIState
 class WanAndroidSquareViewModel : WanAndroidBaseViewModel() {
 
     /* 广场文章数据UI状态 */
-    val mArticleDataUIState = WanAndroidUIState()
+    val mArticleDataUIState = WanAndroidUiState()
 
     /* 广场问答数据UI状态 */
-    val mAskDataUIState = WanAndroidUIState()
+    val mAskDataUIState = WanAndroidUiState()
 
     /* 广场体系数据UI状态 */
-    val mSystemDataUIState = WanAndroidUIState()
+    val mSystemDataUIState = WanAndroidUiState()
 
     /* 广场体系文章数据UI状态 */
-    val mSystemArticleDataUIState = WanAndroidUIState()
+    val mSystemArticleDataUIState = WanAndroidUiState()
 
     /* 广场体系id */
     var mSystemId = 0
 
     /* 广场导航数据UI状态 */
-    val mNavigationDataUIState = WanAndroidUIState()
+    val mNavigationDataUIState = WanAndroidUiState()
 
     /* 广场文章数据 */
     val mSquareArticleData =
         Transformations.switchMap(mArticleDataUIState.mPage) { page ->
             Transformations.map(sWanAndroidService.getSquareArticleList(page)) {
-                mArticleDataUIState.mRefreshing.value = false
-                mArticleDataUIState.mLoadingMore.value = false
-                it.data?.apply {
-                    when {
-                        it.isWanAndroidSuccess() -> {
-                            when {
-                                isRefreshNoData() -> {
-                                    mArticleDataUIState.mRefreshNoData.value = true
-                                }
-                                isRefreshWithData() -> {
-                                    mArticleDataUIState.mRefreshSuccess.value = true
-                                    when {
-                                        isLoadMoreNoData() -> {
-                                            mArticleDataUIState.mLoadMoreNoData.value = true
-                                        }
-                                    }
-                                }
-                                isLoadMoreNoData() -> {
-                                    mArticleDataUIState.mLoadMoreNoData.value = true
-                                }
-                                else -> {
-                                    mArticleDataUIState.mLoadMoreSuccess.value = true
-                                }
-                            }
-                        }
-                        isRefresh() -> {
-                            mArticleDataUIState.mRefreshSuccess.value = false
-                        }
-                        isLoadMore() -> {
-                            mArticleDataUIState.mLoadMoreSuccess.value = false
-                        }
-                    }
-                }
+                it.setPageDataUiState(mArticleDataUIState)
             }
         }
 
@@ -71,39 +39,7 @@ class WanAndroidSquareViewModel : WanAndroidBaseViewModel() {
     val mSquareAskData =
         Transformations.switchMap(mAskDataUIState.mPage) { page ->
             Transformations.map(sWanAndroidService.getSquareAskList(page)) {
-                mAskDataUIState.mRefreshing.value = false
-                mAskDataUIState.mLoadingMore.value = false
-                it.data?.apply {
-                    when {
-                        it.isWanAndroidSuccess() -> {
-                            when {
-                                isRefreshNoData() -> {
-                                    mAskDataUIState.mRefreshNoData.value = true
-                                }
-                                isRefreshWithData() -> {
-                                    mAskDataUIState.mRefreshSuccess.value = true
-                                    when {
-                                        isLoadMoreNoData() -> {
-                                            mAskDataUIState.mLoadMoreNoData.value = true
-                                        }
-                                    }
-                                }
-                                isLoadMoreNoData() -> {
-                                    mAskDataUIState.mLoadMoreNoData.value = true
-                                }
-                                else -> {
-                                    mAskDataUIState.mLoadMoreSuccess.value = true
-                                }
-                            }
-                        }
-                        isRefresh() -> {
-                            mAskDataUIState.mRefreshSuccess.value = false
-                        }
-                        isLoadMore() -> {
-                            mAskDataUIState.mLoadMoreSuccess.value = false
-                        }
-                    }
-                }
+                it.setPageDataUiState(mAskDataUIState)
             }
         }
 
@@ -123,39 +59,7 @@ class WanAndroidSquareViewModel : WanAndroidBaseViewModel() {
                     mSystemId
                 )
             ) {
-                mSystemArticleDataUIState.mRefreshing.value = false
-                mSystemArticleDataUIState.mLoadingMore.value = false
-                it.data?.apply {
-                    when {
-                        it.isWanAndroidSuccess() -> {
-                            when {
-                                isRefreshNoData() -> {
-                                    mSystemArticleDataUIState.mRefreshNoData.value = true
-                                }
-                                isRefreshWithData() -> {
-                                    mSystemArticleDataUIState.mRefreshSuccess.value = true
-                                    when {
-                                        isLoadMoreNoData() -> {
-                                            mSystemArticleDataUIState.mLoadMoreNoData.value = true
-                                        }
-                                    }
-                                }
-                                isLoadMoreNoData() -> {
-                                    mSystemArticleDataUIState.mLoadMoreNoData.value = true
-                                }
-                                else -> {
-                                    mSystemArticleDataUIState.mLoadMoreSuccess.value = true
-                                }
-                            }
-                        }
-                        isRefresh() -> {
-                            mSystemArticleDataUIState.mRefreshSuccess.value = false
-                        }
-                        isLoadMore() -> {
-                            mSystemArticleDataUIState.mLoadMoreSuccess.value = false
-                        }
-                    }
-                }
+                it.setPageDataUiState(mSystemArticleDataUIState)
             }
         }
 

@@ -1,6 +1,7 @@
 package com.wkz.wanandroid.mvvm.viewmodel
 
 import androidx.lifecycle.ViewModel
+import com.wkz.rxretrofit.network.BaseResponse
 import com.wkz.rxretrofit.network.IBaseUrl
 import com.wkz.rxretrofit.network.RetrofitManager
 import com.wkz.util.AppUtil
@@ -8,6 +9,8 @@ import com.wkz.util.DeviceIdUtil
 import com.wkz.util.LanguageUtil
 import com.wkz.wanandroid.api.WanAndroidApi
 import com.wkz.wanandroid.api.WanAndroidUrlConstant
+import com.wkz.wanandroid.mvvm.model.WanAndroidPageBean
+import com.wkz.wanandroid.mvvm.model.WanAndroidUiState
 
 open class WanAndroidBaseViewModel : ViewModel(), IBaseUrl {
 
@@ -23,4 +26,43 @@ open class WanAndroidBaseViewModel : ViewModel(), IBaseUrl {
     }
 
     override fun getBaseUrl(): String = WanAndroidUrlConstant.BASE_URL
+
+    /**
+     * 设置分页数据Ui状态
+     */
+    protected fun <T> BaseResponse<WanAndroidPageBean<T>>.setPageDataUiState(uiState: WanAndroidUiState): WanAndroidPageBean<T>? {
+        uiState.mRefreshing.value = false
+        uiState.mLoadingMore.value = false
+        return data?.apply {
+            when {
+                isWanAndroidSuccess() -> {
+                    when {
+                        isRefreshNoData() -> {
+                            uiState.mRefreshNoData.value = true
+                        }
+                        isRefreshWithData() -> {
+                            uiState.mRefreshSuccess.value = true
+                            when {
+                                isLoadMoreNoData() -> {
+                                    uiState.mLoadMoreNoData.value = true
+                                }
+                            }
+                        }
+                        isLoadMoreNoData() -> {
+                            uiState.mLoadMoreNoData.value = true
+                        }
+                        else -> {
+                            uiState.mLoadMoreSuccess.value = true
+                        }
+                    }
+                }
+                isRefresh() -> {
+                    uiState.mRefreshSuccess.value = false
+                }
+                isLoadMore() -> {
+                    uiState.mLoadMoreSuccess.value = false
+                }
+            }
+        }
+    }
 }

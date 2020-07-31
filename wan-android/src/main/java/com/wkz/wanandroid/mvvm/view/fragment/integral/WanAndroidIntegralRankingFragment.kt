@@ -3,7 +3,6 @@ package com.wkz.wanandroid.mvvm.view.fragment.integral
 import androidx.lifecycle.Observer
 import com.scwang.smart.refresh.layout.api.RefreshLayout
 import com.scwang.smart.refresh.layout.listener.OnRefreshLoadMoreListener
-import com.wkz.adapter.AnimationType
 import com.wkz.extension.isNonNullAndNotEmpty
 import com.wkz.extension.navigate
 import com.wkz.extension.viewModel
@@ -35,7 +34,7 @@ class WanAndroidIntegralRankingFragment : WanAndroidBaseFragment(), OnRefreshLoa
 
     override fun initView() {
         // 设置标题栏主题样式
-        setCommonTitleBarTheme(mTbTitleBar)
+        mTbTitleBar.init()
         initIntegralRankingRecyclerView()
     }
 

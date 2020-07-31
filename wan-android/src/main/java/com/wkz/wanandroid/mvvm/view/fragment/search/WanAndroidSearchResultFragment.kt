@@ -30,7 +30,7 @@ class WanAndroidSearchResultFragment : WanAndroidBaseFragment(), OnRefreshLoadMo
     override fun initView() {
         mSearchKey = arguments?.getString(WanAndroidConstant.WAN_ANDROID_SEARCH_KEY) ?: ""
         mTbTitleBar.centerTextView?.text = mSearchKey
-        setCommonTitleBarTheme(mTbTitleBar)
+        mTbTitleBar.init()
 
         mRvSearchResult.init(mSearchResultAdapter)
     }
