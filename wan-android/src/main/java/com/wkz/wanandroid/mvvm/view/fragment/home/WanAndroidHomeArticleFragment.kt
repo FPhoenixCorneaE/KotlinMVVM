@@ -42,7 +42,7 @@ class WanAndroidHomeArticleFragment : WanAndroidBaseFragment(), OnRefreshLoadMor
     /* 首页文章ViewModel */
     private val mHomeArticleViewModel by viewModel<WanAndroidHomeArticleViewModel>()
 
-    /* 收藏文章、网址ViewModel */
+    /* 收藏ViewModel */
     private val mCollectViewModel by viewModel<WanAndroidCollectViewModel>()
     private var mTopArticleList = ArrayList<WanAndroidArticleBean>()
 
@@ -129,15 +129,22 @@ class WanAndroidHomeArticleFragment : WanAndroidBaseFragment(), OnRefreshLoadMor
                 }
         }
         mHomeArticleViewModel.apply {
-            mRefreshing.observe(viewLifecycleOwner, Observer {
+            mArticleDataUIState.mRefreshNoData.observe(viewLifecycleOwner, Observer {
+                mSrlRefresh.finishRefresh()
+                showEmpty()
+            })
+            mArticleDataUIState.mRefreshSuccess.observe(viewLifecycleOwner, Observer {
+                mSrlRefresh.finishRefresh()
                 when {
-                    !it -> mSrlRefresh.finishRefresh()
+                    it -> showContent()
+                    else -> showError()
                 }
             })
-            mLoadingMore.observe(viewLifecycleOwner, Observer {
-                when {
-                    !it -> mSrlRefresh.finishLoadMore()
-                }
+            mArticleDataUIState.mLoadMoreSuccess.observe(viewLifecycleOwner, Observer {
+                mSrlRefresh.finishLoadMore(it)
+            })
+            mArticleDataUIState.mLoadMoreNoData.observe(viewLifecycleOwner, Observer {
+                mSrlRefresh.finishLoadMoreWithNoMoreData()
             })
             mBannerList.observe(viewLifecycleOwner, Observer {
                 it?.apply {

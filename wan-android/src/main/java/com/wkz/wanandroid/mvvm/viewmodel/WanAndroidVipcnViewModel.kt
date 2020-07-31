@@ -22,14 +22,14 @@ class WanAndroidVipcnViewModel : WanAndroidBaseViewModel() {
     /* 公众号分类 */
     val mVipcnClassify = Transformations.switchMap(mRefreshingClassify) {
         Transformations.map(sWanAndroidService.getVipcnClassify()) {
-            it.data
+            it?.data
         }
     }
 
     /* 公众号数据 */
     val mVipcnData = Transformations.switchMap(mDataUIState.mPage) { page ->
         Transformations.map(sWanAndroidService.getVipcnDataByClassifyId(page, mClassifyId)) {
-            it.setPageDataUiState(mDataUIState)
+            it?.setPageDataUiState(mDataUIState)
         }
     }
 

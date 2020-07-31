@@ -31,7 +31,7 @@ class WanAndroidSquareViewModel : WanAndroidBaseViewModel() {
     val mSquareArticleData =
         Transformations.switchMap(mArticleDataUIState.mPage) { page ->
             Transformations.map(sWanAndroidService.getSquareArticleList(page)) {
-                it.setPageDataUiState(mArticleDataUIState)
+                it?.setPageDataUiState(mArticleDataUIState)
             }
         }
 
@@ -39,14 +39,14 @@ class WanAndroidSquareViewModel : WanAndroidBaseViewModel() {
     val mSquareAskData =
         Transformations.switchMap(mAskDataUIState.mPage) { page ->
             Transformations.map(sWanAndroidService.getSquareAskList(page)) {
-                it.setPageDataUiState(mAskDataUIState)
+                it?.setPageDataUiState(mAskDataUIState)
             }
         }
 
     /* 广场体系数据 */
     val mSquareSystemData = Transformations.switchMap(mSystemDataUIState.mRefreshing) {
         Transformations.map(sWanAndroidService.getSquareSystem()) {
-            it.data
+            it?.data
         }
     }
 
@@ -59,14 +59,14 @@ class WanAndroidSquareViewModel : WanAndroidBaseViewModel() {
                     mSystemId
                 )
             ) {
-                it.setPageDataUiState(mSystemArticleDataUIState)
+                it?.setPageDataUiState(mSystemArticleDataUIState)
             }
         }
 
     /* 广场导航数据 */
     val mSquareNavigationData = Transformations.switchMap(mNavigationDataUIState.mRefreshing) {
         Transformations.map(sWanAndroidService.getSquareNavigation()) {
-            it.data
+            it?.data
         }
     }
 

@@ -30,14 +30,14 @@ class WanAndroidSearchViewModel : WanAndroidBaseViewModel() {
     /* 搜索热词 */
     val mHotSearch = Transformations.switchMap(mRefreshingHotSearch) {
         Transformations.map(sWanAndroidService.getHotSearchData()) {
-            it.data
+            it?.data
         }
     }
 
     /* 搜索结果 */
     val mSearchData = Transformations.switchMap(mSearchDataUIState.mPage) { page ->
         Transformations.map(sWanAndroidService.getSearchDataByKey(page, mSearchKey)) {
-            it.setPageDataUiState(mSearchDataUIState)
+            it?.setPageDataUiState(mSearchDataUIState)
         }
     }
 

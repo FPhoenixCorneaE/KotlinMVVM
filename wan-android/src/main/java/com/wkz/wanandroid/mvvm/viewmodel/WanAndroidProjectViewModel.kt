@@ -25,21 +25,21 @@ class WanAndroidProjectViewModel : WanAndroidBaseViewModel() {
     /* 项目分类 */
     val mProjectClassify = Transformations.switchMap(mRefreshingClassify) {
         Transformations.map(sWanAndroidService.getProjectClassify()) {
-            it.data
+            it?.data
         }
     }
 
     /* 最新项目数据 */
     val mProjectNewestData = Transformations.switchMap(mNewestDataUIState.mPage) { page ->
         Transformations.map(sWanAndroidService.getProjectNewestData(page)) {
-            it.setPageDataUiState(mNewestDataUIState)
+            it?.setPageDataUiState(mNewestDataUIState)
         }
     }
 
     /* 项目数据 */
     val mProjectData = Transformations.switchMap(mDataUIState.mPage) { page ->
         Transformations.map(sWanAndroidService.getProjectDataByClassifyId(page, mClassifyId)) {
-            it.setPageDataUiState(mDataUIState)
+            it?.setPageDataUiState(mDataUIState)
         }
     }
 

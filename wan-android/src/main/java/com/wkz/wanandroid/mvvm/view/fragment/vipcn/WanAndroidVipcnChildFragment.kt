@@ -3,7 +3,6 @@ package com.wkz.wanandroid.mvvm.view.fragment.vipcn
 import androidx.lifecycle.Observer
 import com.scwang.smart.refresh.layout.api.RefreshLayout
 import com.scwang.smart.refresh.layout.listener.OnRefreshLoadMoreListener
-import com.wkz.adapter.AnimationType
 import com.wkz.adapter.BaseNBAdapter
 import com.wkz.extension.isNonNullAndNotEmpty
 import com.wkz.extension.navigate
@@ -77,7 +76,8 @@ class WanAndroidVipcnChildFragment : WanAndroidBaseFragment(), OnRefreshLoadMore
             mDataUIState.mRefreshSuccess.observe(viewLifecycleOwner, Observer {
                 mSrlRefresh.finishRefresh()
                 when {
-                    !it -> showError()
+                    it -> showContent()
+                    else -> showError()
                 }
             })
             mDataUIState.mLoadMoreSuccess.observe(viewLifecycleOwner, Observer {

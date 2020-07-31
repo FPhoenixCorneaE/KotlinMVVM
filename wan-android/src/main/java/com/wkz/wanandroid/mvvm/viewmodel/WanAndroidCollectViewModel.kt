@@ -5,7 +5,7 @@ import androidx.lifecycle.Transformations
 import com.wkz.wanandroid.mvvm.model.WanAndroidUiState
 
 /**
- *  @desc: 收藏文章、网址ViewModel
+ *  @desc: 收藏ViewModel
  *  @date: 2020-05-22 14:33
  */
 class WanAndroidCollectViewModel : WanAndroidBaseViewModel() {
@@ -40,7 +40,7 @@ class WanAndroidCollectViewModel : WanAndroidBaseViewModel() {
     /* 收藏文章数据 */
     val mCollectArticleData = Transformations.switchMap(mCollectArticleDataUIState.mPage) { page ->
         Transformations.map(sWanAndroidService.getCollectArticleData(page)) {
-            it.setPageDataUiState(mCollectArticleDataUIState)
+            it?.setPageDataUiState(mCollectArticleDataUIState)
         }
     }
 
@@ -63,5 +63,21 @@ class WanAndroidCollectViewModel : WanAndroidBaseViewModel() {
      */
     fun cancelCollectArticle(id: Int) {
         mCancelCollectArticleId.value = id
+    }
+
+    /**
+     * 刷新收藏文章数据
+     */
+    fun refreshCollectArticleData() {
+        mCollectArticleDataUIState.mRefreshing.value = true
+        mCollectArticleDataUIState.mPage.value = 0
+    }
+
+    /**
+     * 加载更多收藏文章数据
+     */
+    fun loadMoreCollectArticleData() {
+        mCollectArticleDataUIState.mLoadingMore.value = true
+        mCollectArticleDataUIState.mPage.value = (mCollectArticleDataUIState.mPage.value ?: 0) + 1
     }
 }

@@ -80,7 +80,8 @@ class WanAndroidProjectChildFragment : WanAndroidBaseFragment(), OnRefreshLoadMo
             mNewestDataUIState.mRefreshSuccess.observe(viewLifecycleOwner, Observer {
                 mSrlRefresh.finishRefresh()
                 when {
-                    !it -> showError()
+                    it -> showContent()
+                    else -> showError()
                 }
             })
             mNewestDataUIState.mLoadMoreSuccess.observe(viewLifecycleOwner, Observer {
@@ -107,7 +108,8 @@ class WanAndroidProjectChildFragment : WanAndroidBaseFragment(), OnRefreshLoadMo
             mDataUIState.mRefreshSuccess.observe(viewLifecycleOwner, Observer {
                 mSrlRefresh.finishRefresh()
                 when {
-                    !it -> showError()
+                    it -> showContent()
+                    else -> showError()
                 }
             })
             mDataUIState.mLoadMoreSuccess.observe(viewLifecycleOwner, Observer {

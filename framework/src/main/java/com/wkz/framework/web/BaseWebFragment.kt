@@ -33,6 +33,7 @@ open class BaseWebFragment : BaseFragment() {
 
     override fun initView() {
         mTbTitleBar.setBackgroundColor(getTitleBgColor())
+        mTbTitleBar.setStatusBarColor(getStatusBarColor())
         mTbTitleBar.centerTextView?.setTextColor(getCenterTextColor())
         mTbTitleBar.leftImageButton?.let {
             ImageUtil.setTintColor(it, getLeftImageColor())
@@ -67,7 +68,7 @@ open class BaseWebFragment : BaseFragment() {
             // 自定义UI  AgentWeb3.0.0 加入
             .setAgentWebUIController(CustomUIController(mContext))
             // 参数1是错误显示的布局，参数2点击刷新控件ID -1表示点击整个布局都刷新， AgentWeb 3.0.0 加入
-            .setMainFrameErrorView(R.layout.agentweb_error_page, -1)
+            .setMainFrameErrorView(R.layout.multiple_status_layout_error, -1)
             // 设置WebChromeClient中间件，支持多个WebChromeClient，AgentWeb 3.0.0 加入
             .useMiddlewareWebChrome(CustomMiddlewareChromeClient())
             .additionalHttpHeader(getUrl(), "cookie", DeviceIdUtil.uniqueID)
@@ -134,6 +135,10 @@ open class BaseWebFragment : BaseFragment() {
     }
 
     open fun getTitleBgColor(): Int {
+        return Color.WHITE
+    }
+
+    open fun getStatusBarColor(): Int {
         return Color.WHITE
     }
 

@@ -46,7 +46,8 @@ class WanAndroidIntegralRecordFragment : WanAndroidBaseFragment(), OnRefreshLoad
             mIntegralRecordUIState.mRefreshSuccess.observe(viewLifecycleOwner, Observer {
                 mSrlRefresh.finishRefresh()
                 when {
-                    !it -> showError()
+                    it -> showContent()
+                    else -> showError()
                 }
             })
             mIntegralRecordUIState.mLoadMoreSuccess.observe(viewLifecycleOwner, Observer {

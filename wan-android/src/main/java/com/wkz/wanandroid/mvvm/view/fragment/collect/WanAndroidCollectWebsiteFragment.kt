@@ -17,10 +17,4 @@ class WanAndroidCollectWebsiteFragment : WanAndroidBaseFragment() {
     }
 
     override fun isAlreadyLoadedData(): Boolean = true
-
-    companion object {
-        fun getInstance(): WanAndroidCollectWebsiteFragment {
-            return WanAndroidCollectWebsiteFragment()
-        }
-    }
 }

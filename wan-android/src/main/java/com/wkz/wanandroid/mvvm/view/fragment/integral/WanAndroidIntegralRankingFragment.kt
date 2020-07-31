@@ -60,15 +60,22 @@ class WanAndroidIntegralRankingFragment : WanAndroidBaseFragment(), OnRefreshLoa
             navigate(R.id.mIntegralRankingToIntegralRecord)
         }
         mIntegralViewModel.apply {
-            mRefreshingIntegralRanking.observe(viewLifecycleOwner, Observer {
+            mIntegralRankingUIState.mRefreshNoData.observe(viewLifecycleOwner, Observer {
+                mSrlRefresh.finishRefresh()
+                showEmpty()
+            })
+            mIntegralRankingUIState.mRefreshSuccess.observe(viewLifecycleOwner, Observer {
+                mSrlRefresh.finishRefresh()
                 when {
-                    !it -> mSrlRefresh.finishRefresh()
+                    it -> showContent()
+                    else -> showError()
                 }
             })
-            mLoadingMoreIntegralRanking.observe(viewLifecycleOwner, Observer {
-                when {
-                    !it -> mSrlRefresh.finishLoadMore()
-                }
+            mIntegralRankingUIState.mLoadMoreSuccess.observe(viewLifecycleOwner, Observer {
+                mSrlRefresh.finishLoadMore(it)
+            })
+            mIntegralRankingUIState.mLoadMoreNoData.observe(viewLifecycleOwner, Observer {
+                mSrlRefresh.finishLoadMoreWithNoMoreData()
             })
             mIntegralRanking.observe(viewLifecycleOwner, Observer {
                 it?.apply {

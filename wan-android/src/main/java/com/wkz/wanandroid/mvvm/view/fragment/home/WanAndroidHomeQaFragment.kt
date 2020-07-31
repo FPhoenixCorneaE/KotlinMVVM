@@ -3,7 +3,6 @@ package com.wkz.wanandroid.mvvm.view.fragment.home
 import androidx.lifecycle.Observer
 import com.scwang.smart.refresh.layout.api.RefreshLayout
 import com.scwang.smart.refresh.layout.listener.OnRefreshLoadMoreListener
-import com.wkz.adapter.AnimationType
 import com.wkz.adapter.BaseNBAdapter
 import com.wkz.extension.navigate
 import com.wkz.extension.toHtml
@@ -27,6 +26,7 @@ class WanAndroidHomeQaFragment : WanAndroidBaseFragment(), OnRefreshLoadMoreList
         WanAndroidHomeQaAdapter()
     }
 
+    /* 首页问答ViewModel */
     private val mHomeQaViewModel by viewModel<WanAndroidHomeQaViewModel>()
 
     /**
@@ -56,15 +56,22 @@ class WanAndroidHomeQaFragment : WanAndroidBaseFragment(), OnRefreshLoadMoreList
                 }
             }
         mHomeQaViewModel.apply {
-            mRefreshing.observe(viewLifecycleOwner, Observer {
+            mQaDataUIState.mRefreshNoData.observe(viewLifecycleOwner, Observer {
+                mSrlRefresh.finishRefresh()
+                showEmpty()
+            })
+            mQaDataUIState.mRefreshSuccess.observe(viewLifecycleOwner, Observer {
+                mSrlRefresh.finishRefresh()
                 when {
-                    !it -> mSrlRefresh.finishRefresh()
+                    it -> showContent()
+                    else -> showError()
                 }
             })
-            mLoadingMore.observe(viewLifecycleOwner, Observer {
-                when {
-                    !it -> mSrlRefresh.finishLoadMore()
-                }
+            mQaDataUIState.mLoadMoreSuccess.observe(viewLifecycleOwner, Observer {
+                mSrlRefresh.finishLoadMore(it)
+            })
+            mQaDataUIState.mLoadMoreNoData.observe(viewLifecycleOwner, Observer {
+                mSrlRefresh.finishLoadMoreWithNoMoreData()
             })
             mQaList.observe(viewLifecycleOwner, Observer {
                 it?.apply {

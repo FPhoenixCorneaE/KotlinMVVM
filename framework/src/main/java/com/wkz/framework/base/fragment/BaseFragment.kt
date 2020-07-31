@@ -127,6 +127,7 @@ abstract class BaseFragment : Fragment(), View.OnClickListener {
     }
 
     override fun onClick(v: View) {
+        showLoading()
         lazyLoadData()
     }
 

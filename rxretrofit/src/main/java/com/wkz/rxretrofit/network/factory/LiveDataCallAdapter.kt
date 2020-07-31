@@ -32,7 +32,17 @@ class LiveDataCallAdapter<T>(private val responseType: Type) : CallAdapter<T, Li
                         }
 
                         override fun onResponse(call: Call<T>, response: Response<T>) {
-                            postValue(response.body())
+                            when (response.code()) {
+                                200 -> postValue(response.body())
+                                else -> {
+                                    val value = BaseResponse<T>(
+                                        response.code(),
+                                        response.message() ?: "",
+                                        null
+                                    ) as T
+                                    postValue(value)
+                                }
+                            }
                         }
                     })
                 }

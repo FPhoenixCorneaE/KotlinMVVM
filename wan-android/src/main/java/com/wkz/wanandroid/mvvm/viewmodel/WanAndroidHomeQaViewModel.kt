@@ -1,7 +1,7 @@
 package com.wkz.wanandroid.mvvm.viewmodel
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
+import com.wkz.wanandroid.mvvm.model.WanAndroidUiState
 
 /**
  *  @desc: 首页问答ViewModel
@@ -9,31 +9,23 @@ import androidx.lifecycle.Transformations
  */
 class WanAndroidHomeQaViewModel : WanAndroidBaseViewModel() {
 
-    /* 页数 */
-    private val mPage = MutableLiveData<Int>()
-
-    /* 是否正在刷新 */
-    val mRefreshing = MutableLiveData<Boolean>()
-
-    /* 是否正在加载更多 */
-    val mLoadingMore = MutableLiveData<Boolean>()
+    /* 问答数据UI状态 */
+    val mQaDataUIState = WanAndroidUiState()
 
     /* 问答列表 */
-    val mQaList = Transformations.switchMap(mPage) { page ->
+    val mQaList = Transformations.switchMap(mQaDataUIState.mPage) { page ->
         Transformations.map(sWanAndroidService.getQaList(page, 440)) {
-            mRefreshing.value = false
-            mLoadingMore.value = false
-            it.data
+            it?.setPageDataUiState(mQaDataUIState)
         }
     }
 
     fun autoRefresh() {
-        mRefreshing.value = true
-        mPage.value = 0
+        mQaDataUIState.mRefreshing.value = true
+        mQaDataUIState.mPage.value = 0
     }
 
     fun loadMore() {
-        mLoadingMore.value = true
-        mPage.value = (mPage.value ?: 0) + 1
+        mQaDataUIState.mLoadingMore.value = true
+        mQaDataUIState.mPage.value = (mQaDataUIState.mPage.value ?: 0) + 1
     }
 }

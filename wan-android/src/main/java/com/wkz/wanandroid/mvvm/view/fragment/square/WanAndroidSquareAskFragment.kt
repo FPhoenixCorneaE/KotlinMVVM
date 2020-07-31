@@ -70,7 +70,8 @@ class WanAndroidSquareAskFragment : WanAndroidBaseFragment(), OnRefreshLoadMoreL
             mAskDataUIState.mRefreshSuccess.observe(viewLifecycleOwner, Observer {
                 mSrlRefresh.finishRefresh()
                 when {
-                    !it -> showError()
+                    it -> showContent()
+                    else -> showError()
                 }
             })
             mAskDataUIState.mLoadMoreSuccess.observe(viewLifecycleOwner, Observer {

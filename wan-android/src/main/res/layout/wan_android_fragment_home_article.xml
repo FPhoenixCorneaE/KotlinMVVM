@@ -34,9 +34,8 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/mRvArticle"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/mRvBanner"
                     tools:itemCount="10"
                     tools:listitem="@layout/wan_android_recycler_item_home_article" />

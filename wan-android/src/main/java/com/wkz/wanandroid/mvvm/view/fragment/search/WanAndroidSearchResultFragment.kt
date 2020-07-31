@@ -45,7 +45,8 @@ class WanAndroidSearchResultFragment : WanAndroidBaseFragment(), OnRefreshLoadMo
             mSearchDataUIState.mRefreshSuccess.observe(viewLifecycleOwner, Observer {
                 mSrlRefresh.finishRefresh()
                 when {
-                    !it -> showError()
+                    it -> showContent()
+                    else -> showError()
                 }
             })
             mSearchDataUIState.mLoadMoreSuccess.observe(viewLifecycleOwner, Observer {

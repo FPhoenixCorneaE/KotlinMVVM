@@ -24,9 +24,9 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/mRvIntegralRanking"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:itemCount="8"
+            tools:itemCount="10"
             tools:listitem="@layout/wan_android_recycler_item_mine_integral_ranking" />
     </com.scwang.smart.refresh.layout.SmartRefreshLayout>
 

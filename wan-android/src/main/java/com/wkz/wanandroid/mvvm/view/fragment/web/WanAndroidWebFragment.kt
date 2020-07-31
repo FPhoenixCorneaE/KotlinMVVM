@@ -10,6 +10,10 @@ class WanAndroidWebFragment : BaseWebFragment() {
         return ResourceUtil.getColor(R.color.wan_android_colorPrimary)
     }
 
+    override fun getStatusBarColor(): Int {
+        return ResourceUtil.getColor(R.color.wan_android_colorPrimaryDark)
+    }
+
     override fun getLeftImageColor(): Int {
         return ResourceUtil.getColor(R.color.wan_android_color_title_0x222222)
     }
