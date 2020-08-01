@@ -85,12 +85,29 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/dp_16"
-                        android:layout_marginTop="@dimen/dp_16"
                         android:text="排名：--"
                         android:textColor="@color/wan_android_color_white"
                         android:textSize="@dimen/sp_15"
+                        app:layout_constraintBottom_toBottomOf="@+id/mTvUserId"
                         app:layout_constraintStart_toEndOf="@+id/mTvUserId"
-                        app:layout_constraintTop_toBottomOf="@+id/mTvUserName"
+                        app:layout_constraintTop_toTopOf="@+id/mTvUserId"
+                        tools:ignore="HardcodedText" />
+
+                    <TextView
+                        android:id="@+id/mTvUserLevel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_16"
+                        android:drawableStart="@drawable/wan_android_ic_level"
+                        android:fontFamily="@font/framework_arial"
+                        android:gravity="center"
+                        android:text="1"
+                        android:textColor="@color/wan_android_color_white"
+                        android:textSize="@dimen/sp_20"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@+id/mTvUserId"
+                        app:layout_constraintStart_toEndOf="@+id/mTvUserRanking"
+                        app:layout_constraintTop_toTopOf="@+id/mTvUserId"
                         tools:ignore="HardcodedText" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.wkz.arclayout.ArcLayout>

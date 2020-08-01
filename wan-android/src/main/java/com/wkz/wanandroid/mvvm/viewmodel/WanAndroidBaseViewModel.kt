@@ -48,6 +48,9 @@ open class WanAndroidBaseViewModel : ViewModel(), IBaseUrl {
                                 isEmpty() -> {
                                     uiState.mRefreshNoData.value = true
                                 }
+                                else -> {
+                                    uiState.mLoadMoreNoData.value = true
+                                }
                             }
                         }
                         else -> {

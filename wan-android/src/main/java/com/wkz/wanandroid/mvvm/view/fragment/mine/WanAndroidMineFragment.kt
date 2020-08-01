@@ -120,6 +120,7 @@ class WanAndroidMineFragment : WanAndroidBaseFragment(), OnRefreshListener {
                     mTvUserRanking.text = "排名：${rank}"
                     mTvCurrentIntegral.visible()
                     mTvCurrentIntegral.text = "当前积分：$coinCount"
+                    mTvUserLevel.text = level.toString()
                 }
             })
         }

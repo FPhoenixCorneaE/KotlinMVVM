@@ -93,7 +93,7 @@ class WanAndroidHomeArticleFragment : WanAndroidBaseFragment(), OnRefreshLoadMor
                         item: WanAndroidArticleBean,
                         position: Int
                     ) {
-
+                        // 作者点击
                     }
 
                     override fun onItemChild2Click(
@@ -101,6 +101,7 @@ class WanAndroidHomeArticleFragment : WanAndroidBaseFragment(), OnRefreshLoadMor
                         item: WanAndroidArticleBean,
                         position: Int
                     ) {
+                        // 收藏Icon点击
                         val shineButton = view as ShineButton
                         when {
                             WanAndroidUserManager.sHasLoggedOn -> {

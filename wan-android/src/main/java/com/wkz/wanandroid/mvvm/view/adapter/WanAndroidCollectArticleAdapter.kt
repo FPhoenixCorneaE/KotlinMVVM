@@ -44,14 +44,9 @@ class WanAndroidCollectArticleAdapter :
             mSuperChapterName.text = data.chapterName
             mChapterName.gone()
             mTvNiceDate.text = data.niceDate
-            mSbCollect.setChecked(true)
             mTvAuthor.setOnClickListener {
                 // 作者点击
                 onItemChildClickListener?.onItemChild1Click(it, data, position)
-            }
-            mSbCollect.setOnClickListener {
-                // 收藏Icon点击
-                onItemChildClickListener?.onItemChild2Click(it, data, position)
             }
         }
     }

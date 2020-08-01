@@ -106,7 +106,15 @@
         android:id="@+id/mCollectFragment"
         android:name="com.wkz.wanandroid.mvvm.view.fragment.collect.WanAndroidCollectFragment"
         android:label="CollectFragment"
-        tools:layout="@layout/wan_android_fragment_collect" />
+        tools:layout="@layout/wan_android_fragment_collect">
+        <action
+            android:id="@+id/mCollectToWeb"
+            app:destination="@id/mWebFragment"
+            app:enterAnim="@anim/pull_in_right"
+            app:exitAnim="@anim/push_out_left"
+            app:popEnterAnim="@anim/pull_in_left"
+            app:popExitAnim="@anim/push_out_right" />
+    </fragment>
     <fragment
         android:id="@+id/mSettingFragment"
         android:name="com.wkz.wanandroid.mvvm.view.fragment.setting.WanAndroidSettingFragment"

@@ -3,9 +3,14 @@ package com.wkz.wanandroid.mvvm.view.fragment.collect
 import androidx.lifecycle.Observer
 import com.scwang.smart.refresh.layout.api.RefreshLayout
 import com.scwang.smart.refresh.layout.listener.OnRefreshListener
+import com.wkz.adapter.BaseNBAdapter
 import com.wkz.extension.isNonNullAndNotEmpty
+import com.wkz.extension.navigate
 import com.wkz.extension.viewModel
+import com.wkz.framework.web.BaseWebFragment
+import com.wkz.util.BundleBuilder
 import com.wkz.wanandroid.R
+import com.wkz.wanandroid.mvvm.model.WanAndroidCollectWebsiteBean
 import com.wkz.wanandroid.mvvm.view.adapter.WanAndroidCollectWebsiteAdapter
 import com.wkz.wanandroid.mvvm.view.fragment.WanAndroidBaseFragment
 import com.wkz.wanandroid.mvvm.viewmodel.WanAndroidCollectViewModel
@@ -33,6 +38,20 @@ class WanAndroidCollectWebsiteFragment : WanAndroidBaseFragment(), OnRefreshList
 
     override fun initListener() {
         mSrlRefresh.setOnRefreshListener(this)
+        mCollectWebsiteAdapter.apply {
+            onItemClickListener =
+                object : BaseNBAdapter.OnItemClickListener<WanAndroidCollectWebsiteBean> {
+                    override fun onItemClick(item: WanAndroidCollectWebsiteBean, position: Int) {
+                        navigate(
+                            R.id.mCollectToWeb,
+                            BundleBuilder.of()
+                                .putCharSequence(BaseWebFragment.TITLE, item.name)
+                                .putString(BaseWebFragment.WEB_URL, item.link)
+                                .get()
+                        )
+                    }
+                }
+        }
         mCollectViewModel.apply {
             mCollectWebsiteDataUIState.mRefreshNoData.observe(viewLifecycleOwner, Observer {
                 mSrlRefresh.finishRefresh()
