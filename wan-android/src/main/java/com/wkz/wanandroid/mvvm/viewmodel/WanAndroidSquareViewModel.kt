@@ -1,6 +1,7 @@
 package com.wkz.wanandroid.mvvm.viewmodel
 
 import androidx.lifecycle.Transformations
+import com.wkz.extension.isNonNullAndNotEmpty
 import com.wkz.wanandroid.mvvm.model.WanAndroidUiState
 
 /**
@@ -46,6 +47,7 @@ class WanAndroidSquareViewModel : WanAndroidBaseViewModel() {
     /* 广场体系数据 */
     val mSquareSystemData = Transformations.switchMap(mSystemDataUIState.mRefreshing) {
         Transformations.map(sWanAndroidService.getSquareSystem()) {
+            mSystemDataUIState.mRefreshSuccess.value = it?.data.isNonNullAndNotEmpty()
             it?.data
         }
     }
@@ -66,6 +68,7 @@ class WanAndroidSquareViewModel : WanAndroidBaseViewModel() {
     /* 广场导航数据 */
     val mSquareNavigationData = Transformations.switchMap(mNavigationDataUIState.mRefreshing) {
         Transformations.map(sWanAndroidService.getSquareNavigation()) {
+            mNavigationDataUIState.mRefreshSuccess.value = it?.data.isNonNullAndNotEmpty()
             it?.data
         }
     }

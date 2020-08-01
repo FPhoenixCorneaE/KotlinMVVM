@@ -1,7 +1,7 @@
 package com.wkz.wanandroid.mvvm.viewmodel
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
+import com.wkz.extension.isNonNullAndNotEmpty
 import com.wkz.wanandroid.mvvm.model.WanAndroidUiState
 
 /**
@@ -10,8 +10,8 @@ import com.wkz.wanandroid.mvvm.model.WanAndroidUiState
  */
 class WanAndroidProjectViewModel : WanAndroidBaseViewModel() {
 
-    /* 刷新项目分类 */
-    val mRefreshingClassify = MutableLiveData<Boolean>()
+    /* 项目分类数据UI状态 */
+    val mClassifyDataUIState = WanAndroidUiState()
 
     /* 最新项目数据UI状态 */
     val mNewestDataUIState = WanAndroidUiState()
@@ -23,8 +23,9 @@ class WanAndroidProjectViewModel : WanAndroidBaseViewModel() {
     var mClassifyId = 0
 
     /* 项目分类 */
-    val mProjectClassify = Transformations.switchMap(mRefreshingClassify) {
+    val mProjectClassify = Transformations.switchMap(mClassifyDataUIState.mRefreshing) {
         Transformations.map(sWanAndroidService.getProjectClassify()) {
+            mClassifyDataUIState.mRefreshSuccess.value = it?.data.isNonNullAndNotEmpty()
             it?.data
         }
     }
@@ -47,7 +48,7 @@ class WanAndroidProjectViewModel : WanAndroidBaseViewModel() {
      * 获取项目分类
      */
     fun getProjectClassify() {
-        mRefreshingClassify.value = true
+        mClassifyDataUIState.mRefreshing.value = true
     }
 
     /**

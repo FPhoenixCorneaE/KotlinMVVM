@@ -4,7 +4,6 @@ import android.view.View
 import androidx.lifecycle.Observer
 import com.scwang.smart.refresh.layout.api.RefreshLayout
 import com.scwang.smart.refresh.layout.listener.OnRefreshListener
-import com.wkz.adapter.AnimationType
 import com.wkz.adapter.BaseNBAdapter
 import com.wkz.adapter.SimpleOnItemChildClickListener
 import com.wkz.extension.isNonNullAndNotEmpty
@@ -67,8 +66,12 @@ class WanAndroidSquareSystemFragment : WanAndroidBaseFragment(), OnRefreshListen
                 }
         }
         mSquareViewModel.apply {
-            mSystemDataUIState.mRefreshing.observe(viewLifecycleOwner, Observer {
+            mSystemDataUIState.mRefreshSuccess.observe(viewLifecycleOwner, Observer {
                 mSrlRefresh.finishRefresh()
+                when {
+                    it -> showContent()
+                    else -> showError()
+                }
             })
             mSquareSystemData.observe(viewLifecycleOwner, Observer {
                 it?.apply {

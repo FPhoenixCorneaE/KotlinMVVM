@@ -74,8 +74,12 @@ class WanAndroidSquareNavigationFragment : WanAndroidBaseFragment(), OnRefreshLi
                 }
         }
         mSquareViewModel.apply {
-            mNavigationDataUIState.mRefreshing.observe(viewLifecycleOwner, Observer {
+            mNavigationDataUIState.mRefreshSuccess.observe(viewLifecycleOwner, Observer {
                 mSrlRefresh.finishRefresh()
+                when {
+                    it -> showContent()
+                    else -> showError()
+                }
             })
             mSquareNavigationData.observe(viewLifecycleOwner, Observer {
                 it?.apply {

@@ -52,6 +52,12 @@ class WanAndroidProjectFragment : WanAndroidBaseFragment() {
 
     override fun initListener() {
         mProjectViewModel.apply {
+            mClassifyDataUIState.mRefreshSuccess.observe(viewLifecycleOwner, Observer {
+                when {
+                    it -> showContent()
+                    else -> showError()
+                }
+            })
             mProjectClassify.observe(viewLifecycleOwner, Observer {
                 it?.apply {
                     mClassifyData.clear()

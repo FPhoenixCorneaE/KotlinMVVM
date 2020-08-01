@@ -29,6 +29,32 @@ open class WanAndroidBaseViewModel : ViewModel(), IBaseUrl {
     override fun getBaseUrl(): String = WanAndroidUrlConstant.BASE_URL
 
     /**
+     * 设置数据Ui状态
+     */
+    protected fun <T> BaseResponse<T>.setDataUiState(uiState: WanAndroidUiState): T? {
+        uiState.mRefreshing.value = false
+        uiState.mLoadingMore.value = false
+        return when {
+            data.isNull() -> {
+                uiState.mRefreshSuccess.value = false
+                data
+            }
+            else -> {
+                data?.apply {
+                    when {
+                        isWanAndroidSuccess() -> {
+                            uiState.mRefreshSuccess.value = true
+                        }
+                        else -> {
+                            uiState.mRefreshSuccess.value = false
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    /**
      * 设置分页数据Ui状态
      */
     protected fun <T> BaseResponse<WanAndroidPageBean<T>>.setPageDataUiState(uiState: WanAndroidUiState): WanAndroidPageBean<T>? {

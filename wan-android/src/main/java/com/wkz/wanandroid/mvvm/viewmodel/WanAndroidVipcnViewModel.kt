@@ -1,7 +1,7 @@
 package com.wkz.wanandroid.mvvm.viewmodel
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
+import com.wkz.extension.isNonNullAndNotEmpty
 import com.wkz.wanandroid.mvvm.model.WanAndroidUiState
 
 /**
@@ -10,8 +10,8 @@ import com.wkz.wanandroid.mvvm.model.WanAndroidUiState
  */
 class WanAndroidVipcnViewModel : WanAndroidBaseViewModel() {
 
-    /* 刷新公众号分类 */
-    val mRefreshingClassify = MutableLiveData<Boolean>()
+    /* 公众号分类数据UI状态 */
+    val mClassifyDataUIState = WanAndroidUiState()
 
     /* 公众号数据UI状态 */
     val mDataUIState = WanAndroidUiState()
@@ -20,8 +20,9 @@ class WanAndroidVipcnViewModel : WanAndroidBaseViewModel() {
     var mClassifyId = 0
 
     /* 公众号分类 */
-    val mVipcnClassify = Transformations.switchMap(mRefreshingClassify) {
+    val mVipcnClassify = Transformations.switchMap(mClassifyDataUIState.mRefreshing) {
         Transformations.map(sWanAndroidService.getVipcnClassify()) {
+            mClassifyDataUIState.mRefreshSuccess.value = it?.data.isNonNullAndNotEmpty()
             it?.data
         }
     }
@@ -37,7 +38,7 @@ class WanAndroidVipcnViewModel : WanAndroidBaseViewModel() {
      * 获取公众号分类
      */
     fun getVipcnClassify() {
-        mRefreshingClassify.value = true
+        mClassifyDataUIState.mRefreshing.value = true
     }
 
     /**

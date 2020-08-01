@@ -52,6 +52,12 @@ class WanAndroidVipcnFragment : WanAndroidBaseFragment() {
 
     override fun initListener() {
         mVipcnViewModel.apply {
+            mClassifyDataUIState.mRefreshSuccess.observe(viewLifecycleOwner, Observer {
+                when {
+                    it -> showContent()
+                    else -> showError()
+                }
+            })
             mVipcnClassify.observe(viewLifecycleOwner, Observer {
                 it?.apply {
                     mClassifyData.clear()
