@@ -165,8 +165,8 @@ class WanAndroidMineFragment : WanAndroidBaseFragment(), OnRefreshListener {
                 // 获取积分
                 mMineIntegralViewModel.getIntegral()
             }
-            else -> mSrlRefresh.finishRefresh(1500)
         }
+        mSrlRefresh.finishRefresh(1500)
     }
 
     override fun isAlreadyLoadedData(): Boolean = true

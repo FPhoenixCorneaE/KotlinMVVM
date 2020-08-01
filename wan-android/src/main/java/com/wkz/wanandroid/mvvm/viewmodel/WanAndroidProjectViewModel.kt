@@ -23,10 +23,9 @@ class WanAndroidProjectViewModel : WanAndroidBaseViewModel() {
     var mClassifyId = 0
 
     /* 项目分类 */
-    val mProjectClassify = Transformations.switchMap(mClassifyDataUIState.mRefreshing) {
+    val mProjectClassify = Transformations.switchMap(mClassifyDataUIState.mPage) {
         Transformations.map(sWanAndroidService.getProjectClassify()) {
-            mClassifyDataUIState.mRefreshSuccess.value = it?.data.isNonNullAndNotEmpty()
-            it?.data
+            it.setArrayListDataUiState(mClassifyDataUIState)
         }
     }
 
@@ -48,7 +47,7 @@ class WanAndroidProjectViewModel : WanAndroidBaseViewModel() {
      * 获取项目分类
      */
     fun getProjectClassify() {
-        mClassifyDataUIState.mRefreshing.value = true
+        mClassifyDataUIState.mPage.postValue(0)
     }
 
     /**

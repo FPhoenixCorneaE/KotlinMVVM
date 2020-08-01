@@ -45,10 +45,9 @@ class WanAndroidSquareViewModel : WanAndroidBaseViewModel() {
         }
 
     /* 广场体系数据 */
-    val mSquareSystemData = Transformations.switchMap(mSystemDataUIState.mRefreshing) {
+    val mSquareSystemData = Transformations.switchMap(mSystemDataUIState.mPage) {
         Transformations.map(sWanAndroidService.getSquareSystem()) {
-            mSystemDataUIState.mRefreshSuccess.value = it?.data.isNonNullAndNotEmpty()
-            it?.data
+            it.setArrayListDataUiState(mSystemDataUIState)
         }
     }
 
@@ -66,10 +65,9 @@ class WanAndroidSquareViewModel : WanAndroidBaseViewModel() {
         }
 
     /* 广场导航数据 */
-    val mSquareNavigationData = Transformations.switchMap(mNavigationDataUIState.mRefreshing) {
+    val mSquareNavigationData = Transformations.switchMap(mNavigationDataUIState.mPage) {
         Transformations.map(sWanAndroidService.getSquareNavigation()) {
-            mNavigationDataUIState.mRefreshSuccess.value = it?.data.isNonNullAndNotEmpty()
-            it?.data
+            it.setArrayListDataUiState(mNavigationDataUIState)
         }
     }
 
@@ -109,7 +107,7 @@ class WanAndroidSquareViewModel : WanAndroidBaseViewModel() {
      * 获取广场体系
      */
     fun getSquareSystem() {
-        mSystemDataUIState.mRefreshing.value = true
+        mSystemDataUIState.mPage.postValue(0)
     }
 
     /**
@@ -132,6 +130,6 @@ class WanAndroidSquareViewModel : WanAndroidBaseViewModel() {
      * 获取广场导航
      */
     fun getSquareNavigation() {
-        mNavigationDataUIState.mRefreshing.value = true
+        mNavigationDataUIState.mPage.postValue(0)
     }
 }

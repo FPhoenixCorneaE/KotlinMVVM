@@ -2,7 +2,6 @@ package com.wkz.wanandroid.mvvm.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
-import com.wkz.extension.isNonNullAndNotEmpty
 import com.wkz.wanandroid.mvvm.model.WanAndroidUiState
 
 /**
@@ -46,10 +45,9 @@ class WanAndroidCollectViewModel : WanAndroidBaseViewModel() {
     }
 
     /* 收藏网址数据 */
-    val mCollectWebsiteData = Transformations.switchMap(mCollectWebsiteDataUIState.mRefreshing) {
+    val mCollectWebsiteData = Transformations.switchMap(mCollectWebsiteDataUIState.mPage) {
         Transformations.map(sWanAndroidService.getCollectWebsiteData()) {
-            mCollectWebsiteDataUIState.mRefreshSuccess.value = it?.data?.isNonNullAndNotEmpty()
-            it?.data
+            it?.setArrayListDataUiState(mCollectWebsiteDataUIState)
         }
     }
 
@@ -87,6 +85,6 @@ class WanAndroidCollectViewModel : WanAndroidBaseViewModel() {
      * 获取收藏网址数据
      */
     fun getCollectWebsiteData() {
-        mCollectWebsiteDataUIState.mRefreshing.value = true
+        mCollectWebsiteDataUIState.mPage.postValue(0)
     }
 }

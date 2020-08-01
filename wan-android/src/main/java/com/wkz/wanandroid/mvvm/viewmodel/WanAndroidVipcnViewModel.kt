@@ -20,10 +20,9 @@ class WanAndroidVipcnViewModel : WanAndroidBaseViewModel() {
     var mClassifyId = 0
 
     /* 公众号分类 */
-    val mVipcnClassify = Transformations.switchMap(mClassifyDataUIState.mRefreshing) {
+    val mVipcnClassify = Transformations.switchMap(mClassifyDataUIState.mPage) {
         Transformations.map(sWanAndroidService.getVipcnClassify()) {
-            mClassifyDataUIState.mRefreshSuccess.value = it?.data.isNonNullAndNotEmpty()
-            it?.data
+            it.setArrayListDataUiState(mClassifyDataUIState)
         }
     }
 
@@ -38,7 +37,7 @@ class WanAndroidVipcnViewModel : WanAndroidBaseViewModel() {
      * 获取公众号分类
      */
     fun getVipcnClassify() {
-        mClassifyDataUIState.mRefreshing.value = true
+        mClassifyDataUIState.mPage.postValue(0)
     }
 
     /**

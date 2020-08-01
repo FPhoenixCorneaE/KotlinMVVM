@@ -29,9 +29,9 @@ open class WanAndroidBaseViewModel : ViewModel(), IBaseUrl {
     override fun getBaseUrl(): String = WanAndroidUrlConstant.BASE_URL
 
     /**
-     * 设置数据Ui状态
+     * 设置数组列表数据Ui状态
      */
-    protected fun <T> BaseResponse<T>.setDataUiState(uiState: WanAndroidUiState): T? {
+    protected fun <T> BaseResponse<ArrayList<T>>.setArrayListDataUiState(uiState: WanAndroidUiState): ArrayList<T>? {
         uiState.mRefreshing.value = false
         uiState.mLoadingMore.value = false
         return when {
@@ -44,6 +44,11 @@ open class WanAndroidBaseViewModel : ViewModel(), IBaseUrl {
                     when {
                         isWanAndroidSuccess() -> {
                             uiState.mRefreshSuccess.value = true
+                            when {
+                                isEmpty() -> {
+                                    uiState.mRefreshNoData.value = true
+                                }
+                            }
                         }
                         else -> {
                             uiState.mRefreshSuccess.value = false
