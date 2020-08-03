@@ -4,6 +4,7 @@ import android.view.View
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.fphoenixcorneae.animated_bottom_view.AnimatedNavigationItem
 import com.fphoenixcorneae.animated_bottom_view.OnNavigationItemClickListener
+import com.wkz.util.ContextUtil
 import com.wkz.util.ResourceUtil
 import com.wkz.wanandroid.R
 import com.wkz.wanandroid.mvvm.view.fragment.home.WanAndroidHomeFragment
@@ -47,6 +48,10 @@ class WanAndroidMainFragment : WanAndroidBaseFragment() {
                 override fun createFragment(position: Int) = mFragments[position]
                 override fun getItemCount() = mFragments.size
             }
+            ContextUtil.runOnUiThreadDelayed(Runnable {
+                // 直接设置当前Item不生效,需要延迟设置
+                setCurrentItem(0, false)
+            }, 300)
         }
         mBnvMain.addImageButtons(
             arrayOf(

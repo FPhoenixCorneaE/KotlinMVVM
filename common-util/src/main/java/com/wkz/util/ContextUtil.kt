@@ -65,7 +65,7 @@ class ContextUtil private constructor() {
             return sActivityLifecycleCallbacks
         }
 
-        fun getActivityList(): LinkedList<Activity> {
+        fun getActivityList(): MutableList<Activity> {
             return sActivityLifecycleCallbacks.mActivityList
         }
 
@@ -99,7 +99,7 @@ class ContextUtil private constructor() {
  * 2、可以统计Activity的个数等;
  */
 class ActivityLifecycleCallbacksImpl : ActivityLifecycleCallbacks {
-    val mActivityList = LinkedList<Activity>()
+    val mActivityList = Collections.synchronizedList(LinkedList<Activity>())
     val mStatusListeners: MutableList<OnAppStatusChangedListener?> =
         ArrayList()
     val mDestroyedListenerMap: MutableMap<Activity, MutableList<OnActivityDestroyedListener?>> =

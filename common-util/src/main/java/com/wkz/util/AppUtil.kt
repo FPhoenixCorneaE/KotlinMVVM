@@ -443,7 +443,7 @@ class AppUtil private constructor() {
          * Exit the application.
          */
         fun exitApp() {
-            val activityList: LinkedList<Activity> = ContextUtil.getActivityList()
+            val activityList = ContextUtil.getActivityList()
             for (i in activityList.indices.reversed()) {
                 // remove from top
                 val activity = activityList[i]

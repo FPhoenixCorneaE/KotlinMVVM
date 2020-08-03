@@ -3,6 +3,8 @@ package com.wkz.wanandroid.mvvm.view.activity
 import android.content.res.Configuration
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatDelegate
+import com.wkz.util.ActivityUtil
+import com.wkz.util.ContextUtil
 import com.wkz.wanandroid.R
 
 /**
@@ -42,14 +44,15 @@ class WanAndroidMainActivity : WanAndroidBaseActivity() {
         when (newConfig.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
             Configuration.UI_MODE_NIGHT_NO -> {
                 // Night mode is not active, we're using the light theme
-                // TODO 验证无效
-                delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_NO
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             }
             Configuration.UI_MODE_NIGHT_YES -> {
                 // Night mode is active, we're using dark theme
-                // TODO 验证无效
-                delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_YES
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
             }
         }
+        ContextUtil.runOnUiThreadDelayed(Runnable {
+            ActivityUtil.recreate()
+        }, 300)
     }
 }

@@ -6,7 +6,6 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import com.orhanobut.logger.Logger
-import java.util.*
 
 /**
  * Activity工具类
@@ -14,7 +13,7 @@ import java.util.*
 class ActivityUtil private constructor() {
 
     companion object {
-        val activityList: LinkedList<Activity>
+        val activityList: MutableList<Activity>
             get() = ContextUtil.getActivityList()
 
         val launcherActivity: String
@@ -22,7 +21,7 @@ class ActivityUtil private constructor() {
 
         val topActivity: Activity?
             get() {
-                if (!activityList.isEmpty()) {
+                if (activityList.isNotEmpty()) {
                     for (i in activityList.indices.reversed()) {
                         val activity = activityList[i]
                         if (activity.isFinishing || (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1 && activity.isDestroyed)
@@ -39,12 +38,12 @@ class ActivityUtil private constructor() {
 
         fun setTopActivity(activity: Activity) {
             if (activityList.contains(activity)) {
-                if (activityList.last != activity) {
+                if (activityList.last() != activity) {
                     activityList.remove(activity)
-                    activityList.addLast(activity)
+                    activityList.add(activity)
                 }
             } else {
-                activityList.addLast(activity)
+                activityList.add(activity)
             }
         }
 
@@ -94,6 +93,14 @@ class ActivityUtil private constructor() {
                 }
                 return null
             }
+
+        fun recreate() {
+            if (activityList.isNotEmpty()) {
+                for (activity in activityList) {
+                    activity.recreate()
+                }
+            }
+        }
     }
 
     init {
