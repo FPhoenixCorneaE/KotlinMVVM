@@ -8,8 +8,12 @@ import com.scwang.smart.refresh.layout.api.RefreshLayout
 import com.scwang.smart.refresh.layout.listener.OnRefreshListener
 import com.wkz.animation_dsl.animSet
 import com.wkz.extension.*
+import com.wkz.framework.web.BaseWebFragment
+import com.wkz.util.AppUtil
+import com.wkz.util.BundleBuilder
 import com.wkz.util.ResourceUtil
 import com.wkz.wanandroid.R
+import com.wkz.wanandroid.api.WanAndroidUrlConstant
 import com.wkz.wanandroid.manager.WanAndroidUserManager
 import com.wkz.wanandroid.mvvm.view.fragment.WanAndroidBaseFragment
 import com.wkz.wanandroid.mvvm.viewmodel.WanAndroidAccountViewModel
@@ -89,8 +93,16 @@ class WanAndroidMineFragment : WanAndroidBaseFragment(), OnRefreshListener {
             }
         }
         mCvWebsite.setOnClickListener {
+            navigate(
+                R.id.mMainToWeb,
+                BundleBuilder.of()
+                    .putCharSequence(BaseWebFragment.TITLE, AppUtil.appName)
+                    .putString(BaseWebFragment.WEB_URL, WanAndroidUrlConstant.BASE_URL)
+                    .get()
+            )
         }
         mCvJoin.setOnClickListener {
+            joinQQGroup("mBewO84lNNVZMZfPpXaF3ZyhGiPHgvdt")
         }
         mCvSetting.setOnClickListener {
             goToSettingUI()
