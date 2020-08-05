@@ -23,7 +23,7 @@ class Config {
     static support = [
             appcompat           : "androidx.appcompat:appcompat:1.1.0",
             constraintLayout    : "androidx.constraintlayout:constraintlayout:1.1.3",
-            material            : "com.google.android.material:material:1.0.0",
+            material            : "com.google.android.material:material:1.1.0",
             recyclerView        : "androidx.recyclerview:recyclerview:1.1.0",
             cardView            : "androidx.cardview:cardview:1.0.0",
             lifecycleViewmodel  : "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0-alpha02",

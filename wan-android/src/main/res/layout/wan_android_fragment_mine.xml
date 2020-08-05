@@ -119,6 +119,7 @@
                 android:layout_marginStart="@dimen/dp_20"
                 android:layout_marginTop="@dimen/dp_12"
                 android:layout_marginEnd="@dimen/dp_20"
+                android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"
                 app:cardCornerRadius="@dimen/dp_8"
                 app:cardElevation="@dimen/dp_4"
                 app:layout_constraintTop_toBottomOf="@+id/mFlArc">
@@ -168,6 +169,7 @@
                 android:layout_marginStart="@dimen/dp_20"
                 android:layout_marginTop="@dimen/dp_12"
                 android:layout_marginEnd="@dimen/dp_20"
+                android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"
                 app:cardCornerRadius="@dimen/dp_8"
                 app:cardElevation="@dimen/dp_4"
                 app:layout_constraintTop_toBottomOf="@+id/mCvIntegral">
@@ -206,6 +208,7 @@
                 android:layout_marginStart="@dimen/dp_20"
                 android:layout_marginTop="@dimen/dp_12"
                 android:layout_marginEnd="@dimen/dp_20"
+                android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"
                 app:cardCornerRadius="@dimen/dp_8"
                 app:cardElevation="@dimen/dp_4"
                 app:layout_constraintTop_toBottomOf="@+id/mCvCollect">
@@ -244,6 +247,7 @@
                 android:layout_marginStart="@dimen/dp_20"
                 android:layout_marginTop="@dimen/dp_12"
                 android:layout_marginEnd="@dimen/dp_20"
+                android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"
                 app:cardCornerRadius="@dimen/dp_8"
                 app:cardElevation="@dimen/dp_4"
                 app:layout_constraintTop_toBottomOf="@+id/mCvArticle">
@@ -282,6 +286,7 @@
                 android:layout_marginStart="@dimen/dp_20"
                 android:layout_marginTop="@dimen/dp_12"
                 android:layout_marginEnd="@dimen/dp_20"
+                android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"
                 app:cardCornerRadius="@dimen/dp_8"
                 app:cardElevation="@dimen/dp_4"
                 app:layout_constraintTop_toBottomOf="@+id/mCvToDoList">
@@ -320,6 +325,7 @@
                 android:layout_marginStart="@dimen/dp_20"
                 android:layout_marginTop="@dimen/dp_12"
                 android:layout_marginEnd="@dimen/dp_20"
+                android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"
                 app:cardCornerRadius="@dimen/dp_8"
                 app:cardElevation="@dimen/dp_4"
                 app:layout_constraintTop_toBottomOf="@+id/mCvWebsite">
@@ -359,6 +365,7 @@
                 android:layout_marginTop="@dimen/dp_12"
                 android:layout_marginEnd="@dimen/dp_20"
                 android:layout_marginBottom="@dimen/dp_20"
+                android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"
                 app:cardCornerRadius="@dimen/dp_8"
                 app:cardElevation="@dimen/dp_4"
                 app:layout_constraintBottom_toBottomOf="parent"

@@ -63,10 +63,12 @@
             android:name="com.wkz.CommonUtilFileProvider"
             android:authorities="${applicationId}.FileProvider"
             android:exported="false"
-            android:grantUriPermissions="true">
+            android:grantUriPermissions="true"
+            tools:replace="name,authorities,exported,grantUriPermissions">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_provider" />
+                android:resource="@xml/file_provider"
+                tools:replace="name,resource" />
         </provider>
     </application>
 </manifest>

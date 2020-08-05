@@ -72,4 +72,5 @@ dependencies {
     api(Config.logger) {
         transitive true
     }
+    api project(':android-util-code-ktx')
 }

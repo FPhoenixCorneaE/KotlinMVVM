@@ -10,6 +10,7 @@
         android:id="@+id/mFabCircle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"
         android:transitionName="@string/titlebar_search_hint"
         app:backgroundTint="@color/wan_android_colorPrimary"
         app:elevation="0dp"
