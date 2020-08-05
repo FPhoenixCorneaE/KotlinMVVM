@@ -1,8 +1,14 @@
 package com.wkz.wanandroid.mvvm.view.fragment.setting
 
+import android.widget.TextView
+import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.WhichButton
+import com.afollestad.materialdialogs.actions.getActionButton
+import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import com.wkz.extension.androidViewModel
 import com.wkz.extension.navigateUp
 import com.wkz.extension.visible
+import com.wkz.util.ResourceUtil
 import com.wkz.wanandroid.R
 import com.wkz.wanandroid.manager.WanAndroidUserManager
 import com.wkz.wanandroid.mvvm.view.fragment.WanAndroidBaseFragment
@@ -34,11 +40,32 @@ class WanAndroidSettingFragment : WanAndroidBaseFragment() {
 
     override fun initListener() {
         mBtnLogout.setOnClickListener {
-            // 退出登录
-            mAccountViewModel.mLoginSuccess.postValue(false)
-            WanAndroidUserManager.logout()
+            MaterialDialog(mContext).show {
+                title(text = "退出登录")
+                message(text = "确定退出登录吗？")
+                positiveButton(text = "确定") {
+                    // 退出登录
+                    logout()
+                }
+                negativeButton(text = "取消") {
 
-            navigateUp()
+                }
+                lifecycleOwner(viewLifecycleOwner)
+                view.titleLayout.findViewById<TextView>(R.id.md_text_title)
+                    .setTextColor(ResourceUtil.getColor(R.color.wan_android_colorAccent))
+                getActionButton(WhichButton.POSITIVE)
+                    .updateTextColor(ResourceUtil.getColor(R.color.wan_android_colorAccent))
+            }
         }
+    }
+
+    /**
+     * 退出登录
+     */
+    private fun logout() {
+        mAccountViewModel.mLoginSuccess.postValue(false)
+        WanAndroidUserManager.logout()
+
+        navigateUp()
     }
 }

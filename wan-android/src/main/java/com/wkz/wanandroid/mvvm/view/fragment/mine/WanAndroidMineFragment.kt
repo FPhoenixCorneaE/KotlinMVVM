@@ -1,5 +1,6 @@
 package com.wkz.wanandroid.mvvm.view.fragment.mine
 
+import android.annotation.SuppressLint
 import android.view.View
 import android.view.animation.LinearInterpolator
 import androidx.lifecycle.Observer
@@ -36,8 +37,13 @@ class WanAndroidMineFragment : WanAndroidBaseFragment(), OnRefreshListener {
 
     override fun initView() {
         mSrlRefresh.setEnableLoadMore(false)
+        // 设置级别CompoundDrawables
+        val compoundStartDrawable = ResourceUtil.getDrawable(R.drawable.wan_android_ic_level)
+        compoundStartDrawable?.setBounds(0, 0, dp2px(24f), dp2px(20f))
+        mTvUserLevel.setCompoundDrawables(compoundStartDrawable, null, null, null)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun initListener() {
         mSrlRefresh.setOnRefreshListener(this)
         mClUserInfo.setOnClickListener {
@@ -120,6 +126,7 @@ class WanAndroidMineFragment : WanAndroidBaseFragment(), OnRefreshListener {
                     mTvUserId.text = "id：--"
                     mTvUserRanking.text = "排名：--"
                     mTvCurrentIntegral.gone()
+                    mTvUserLevel.gone()
                 }
             })
         }
@@ -132,6 +139,7 @@ class WanAndroidMineFragment : WanAndroidBaseFragment(), OnRefreshListener {
                     mTvUserRanking.text = "排名：${rank}"
                     mTvCurrentIntegral.visible()
                     mTvCurrentIntegral.text = "当前积分：$coinCount"
+                    mTvUserLevel.visible()
                     mTvUserLevel.text = level.toString()
                 }
             })

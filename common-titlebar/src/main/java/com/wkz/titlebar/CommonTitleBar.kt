@@ -584,7 +584,7 @@ class CommonTitleBar @JvmOverloads constructor(
                 // 字体加粗
                 centerTextView!!.paint.isFakeBoldText = true
                 // 设置跑马灯效果
-                centerTextView!!.maxWidth = (context.getScreenWidth * 3 / 5.0).toInt()
+                centerTextView!!.maxWidth = (context.screenWidth * 3 / 5.0).toInt()
                 if (centerTextMarquee) {
                     centerTextView!!.ellipsize = TextUtils.TruncateAt.MARQUEE
                     centerTextView!!.marqueeRepeatLimit = -1

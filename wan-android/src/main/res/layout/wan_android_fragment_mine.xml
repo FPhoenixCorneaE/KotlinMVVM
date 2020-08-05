@@ -98,17 +98,19 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/dp_16"
-                        android:drawableStart="@drawable/wan_android_ic_level"
                         android:fontFamily="@font/framework_arial"
                         android:gravity="center"
                         android:text="1"
                         android:textColor="@color/wan_android_color_white"
                         android:textSize="@dimen/sp_20"
                         android:textStyle="bold"
+                        android:visibility="gone"
                         app:layout_constraintBottom_toBottomOf="@+id/mTvUserId"
                         app:layout_constraintStart_toEndOf="@+id/mTvUserRanking"
                         app:layout_constraintTop_toTopOf="@+id/mTvUserId"
-                        tools:ignore="HardcodedText" />
+                        tools:drawableStart="@drawable/wan_android_ic_level"
+                        tools:ignore="HardcodedText"
+                        tools:visibility="visible" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.wkz.arclayout.ArcLayout>
 

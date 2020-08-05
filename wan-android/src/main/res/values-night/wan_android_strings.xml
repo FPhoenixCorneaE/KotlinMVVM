@@ -44,4 +44,5 @@
     <string name="wan_android_collect_article">文章</string>
     <string name="wan_android_collect_website">网址</string>
     <string name="wan_android_anonymous_user">匿名用户</string>
+    <string name="wan_android_search_no_search_history">暂无搜索历史</string>
 </resources>

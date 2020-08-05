@@ -6,15 +6,21 @@ import android.os.Build
 import android.transition.Fade
 import android.view.View
 import android.view.animation.AnimationUtils
+import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.transition.Transition
 import androidx.transition.TransitionInflater
+import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.WhichButton
+import com.afollestad.materialdialogs.actions.getActionButton
+import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import com.fphoenixcorneae.flowlayout.FlowItem
 import com.fphoenixcorneae.flowlayout.FlowLayout
 import com.wkz.extension.*
 import com.wkz.titlebar.CommonTitleBar
 import com.wkz.util.BundleBuilder
 import com.wkz.util.KeyboardUtil
+import com.wkz.util.ResourceUtil
 import com.wkz.util.SharedPreferencesUtil
 import com.wkz.wanandroid.R
 import com.wkz.wanandroid.constant.WanAndroidConstant
@@ -94,7 +100,21 @@ class WanAndroidSearchFragment : WanAndroidBaseFragment() {
             }
         }
         mTvEmpty.setOnClickListener {
-            mSearchViewModel.mSearchHistory.postValue(arrayListOf())
+            MaterialDialog(mContext).show {
+                title(text = "清空搜索历史")
+                message(text = "确定清空全部搜索历史吗？")
+                positiveButton(text = "确定") {
+                    mSearchViewModel.mSearchHistory.postValue(arrayListOf())
+                }
+                negativeButton(text = "取消") {
+
+                }
+                lifecycleOwner(viewLifecycleOwner)
+                view.titleLayout.findViewById<TextView>(R.id.md_text_title)
+                    .setTextColor(ResourceUtil.getColor(R.color.wan_android_colorAccent))
+                getActionButton(WhichButton.POSITIVE)
+                    .updateTextColor(ResourceUtil.getColor(R.color.wan_android_colorAccent))
+            }
         }
         mSearchViewModel.apply {
             mHotSearch.observe(viewLifecycleOwner, Observer {
@@ -105,6 +125,8 @@ class WanAndroidSearchFragment : WanAndroidBaseFragment() {
                 }
             })
             mSearchHistory.observe(viewLifecycleOwner, Observer {
+                mTvEmpty.visible(it.isNotEmpty())
+                mTvNoSearchHistory.visible(it.isEmpty())
                 mRvSearchHistory.apply {
                     mDatas = it as ArrayList<in FlowItem>
                 }

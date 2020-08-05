@@ -108,9 +108,25 @@
                     android:text="@string/wan_android_empty"
                     android:textColor="@color/wan_android_color_gray_0x666666"
                     android:textSize="@dimen/sp_14"
+                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="@+id/mTvSearchHistory"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/mTvSearchHistory" />
+                    app:layout_constraintTop_toTopOf="@+id/mTvSearchHistory"
+                    tools:visibility="visible" />
+
+                <TextView
+                    android:id="@+id/mTvNoSearchHistory"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_12"
+                    android:text="@string/wan_android_search_no_search_history"
+                    android:textColor="@color/wan_android_color_gray_0x666666"
+                    android:textSize="@dimen/sp_14"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/mTvSearchHistory"
+                    tools:visibility="visible" />
 
                 <com.fphoenixcorneae.flowlayout.FlowLayout
                     android:id="@+id/mRvSearchHistory"
@@ -127,7 +143,6 @@
                     app:flowLayoutTextFontFamily="@font/framework_arial"
                     app:flowLayoutTextSize="@dimen/sp_16"
                     app:flowLayoutVerticalSpacing="@dimen/dp_8"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/mTvSearchHistory" />
