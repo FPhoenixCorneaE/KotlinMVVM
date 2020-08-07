@@ -41,13 +41,13 @@ class WanAndroidSettingFragment : WanAndroidBaseFragment() {
     override fun initListener() {
         mBtnLogout.setOnClickListener {
             MaterialDialog(mContext).show {
-                title(text = "退出登录")
-                message(text = "确定退出登录吗？")
-                positiveButton(text = "确定") {
+                title(text = getString(R.string.wan_android_mine_logout))
+                message(text = getString(R.string.wan_android_setting_confirm_logout))
+                positiveButton(text = getString(R.string.wan_android_confirm)) {
                     // 退出登录
                     logout()
                 }
-                negativeButton(text = "取消") {
+                negativeButton(text = getString(R.string.wan_android_cancel)) {
 
                 }
                 lifecycleOwner(viewLifecycleOwner)

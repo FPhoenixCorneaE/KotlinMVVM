@@ -101,12 +101,12 @@ class WanAndroidSearchFragment : WanAndroidBaseFragment() {
         }
         mTvEmpty.setOnClickListener {
             MaterialDialog(mContext).show {
-                title(text = "清空搜索历史")
-                message(text = "确定清空全部搜索历史吗？")
-                positiveButton(text = "确定") {
+                title(text = getString(R.string.wan_android_search_empty_history))
+                message(text = getString(R.string.wan_android_search_confirm_empty_history))
+                positiveButton(text = getString(R.string.wan_android_confirm)) {
                     mSearchViewModel.mSearchHistory.postValue(arrayListOf())
                 }
-                negativeButton(text = "取消") {
+                negativeButton(text = getString(R.string.wan_android_cancel)) {
 
                 }
                 lifecycleOwner(viewLifecycleOwner)

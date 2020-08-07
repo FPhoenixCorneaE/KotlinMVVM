@@ -9,6 +9,11 @@ class Config {
             navigationSafeArgs: "androidx.navigation:navigation-safe-args-gradle-plugin:$navigation_version",
     ]
 
+    /* 组件 */
+    static FPhoenixCorneaE = [
+            FlowLayout: "com.github.FPhoenixCorneaE:FlowLayout:1.0.0",
+    ]
+
     /** Android */
     static android = [
             compileSdkVersion: 29,
@@ -219,4 +224,5 @@ class Config {
     static buglyLibs = bugly.values()
     static materialDialogsLibs = materialDialogs.values()
     static androidSkinSupportLibs = androidSkinSupport.values()
+    static FPhoenixCorneaELibs = FPhoenixCorneaE.values()
 }
