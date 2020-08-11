@@ -82,7 +82,6 @@ dependencies {
     api project(':palette-image-view')
     api project(':rxretrofit')
     api project(':shine-button')
-    api project(':shape-image-view')
     api project(':arc-layout')
     api Config.supportLibs
     api Config.kotlinLibs

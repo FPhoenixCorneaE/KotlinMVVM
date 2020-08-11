@@ -39,7 +39,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical">
 
-                    <com.wkz.shapeimageview.ShapeImageView
+                    <com.fphoenixcorneae.shapeimageview.ShapeImageView
                         android:id="@+id/mIvUserAvatar"
                         android:layout_width="@dimen/dp_80"
                         android:layout_height="@dimen/dp_80"
