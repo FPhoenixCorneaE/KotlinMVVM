@@ -13,6 +13,7 @@ class Config {
     static FPhoenixCorneaE = [
             FlowLayout    : "com.github.FPhoenixCorneaE:FlowLayout:1.0.0",
             ShapeImageView: "com.github.FPhoenixCorneaE:ShapeImageView:1.0.5",
+            PrettyDialog  : "com.github.FPhoenixCorneaE:PrettyDialog:1.0.1",
     ]
 
     /** Android */

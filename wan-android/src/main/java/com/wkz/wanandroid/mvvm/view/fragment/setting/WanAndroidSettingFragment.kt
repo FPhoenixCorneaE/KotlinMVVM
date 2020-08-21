@@ -1,10 +1,8 @@
 package com.wkz.wanandroid.mvvm.view.fragment.setting
 
-import android.widget.TextView
-import com.afollestad.materialdialogs.MaterialDialog
-import com.afollestad.materialdialogs.WhichButton
-import com.afollestad.materialdialogs.actions.getActionButton
-import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
+import com.fphoenixcorneae.animation.attention.Swing
+import com.fphoenixcorneae.animation.fade.FadeExit
+import com.fphoenixcorneae.dialog.MaterialDialog
 import com.wkz.extension.androidViewModel
 import com.wkz.extension.navigateUp
 import com.wkz.extension.visible
@@ -40,22 +38,34 @@ class WanAndroidSettingFragment : WanAndroidBaseFragment() {
 
     override fun initListener() {
         mBtnLogout.setOnClickListener {
-            MaterialDialog(mContext).show {
-                title(text = getString(R.string.wan_android_mine_logout))
-                message(text = getString(R.string.wan_android_setting_confirm_logout))
-                positiveButton(text = getString(R.string.wan_android_confirm)) {
-                    // 退出登录
-                    logout()
-                }
-                negativeButton(text = getString(R.string.wan_android_cancel)) {
-
-                }
-                lifecycleOwner(viewLifecycleOwner)
-                view.titleLayout.findViewById<TextView>(R.id.md_text_title)
-                    .setTextColor(ResourceUtil.getColor(R.color.wan_android_colorAccent))
-                getActionButton(WhichButton.POSITIVE)
-                    .updateTextColor(ResourceUtil.getColor(R.color.wan_android_colorAccent))
-            }
+            MaterialDialog(mContext).title(getString(R.string.wan_android_mine_logout))
+                .bgColor(ResourceUtil.getColor(R.color.wan_android_color_white))
+                .content(getString(R.string.wan_android_setting_confirm_logout))
+                .contentTextColor(ResourceUtil.getColor(R.color.wan_android_colorPrimary))
+                .contentTextSize(14f)
+                .btnText(
+                    getString(R.string.wan_android_cancel),
+                    getString(R.string.wan_android_confirm)
+                )
+                .btnTextColor(
+                    ResourceUtil.getColor(R.color.wan_android_color_lighter_gray),
+                    ResourceUtil.getColor(R.color.wan_android_colorAccent)
+                )
+                .btnTextSize(12f, 16f)
+                .showAnim(Swing())
+                .dismissAnim(FadeExit())
+                .animatedView(mClRoot)
+                .setOnBtnClickListeners(
+                    {
+                        it.dismiss()
+                    },
+                    {
+                        // 退出登录
+                        logout()
+                        it.dismiss()
+                    }
+                )
+                .show()
         }
     }
 

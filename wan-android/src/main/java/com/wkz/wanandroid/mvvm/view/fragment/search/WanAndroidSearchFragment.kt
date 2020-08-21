@@ -170,6 +170,8 @@ class WanAndroidSearchFragment : WanAndroidBaseFragment() {
      * 跳转搜索结果页面
      */
     private fun goToSearchResult(itemName: CharSequence?) {
+        // 关闭软键盘
+        KeyboardUtil.closeKeyboard(mTbTitleBar.centerSearchEditText)
         navigate(
             R.id.mSearchToSearchResult,
             BundleBuilder.of()
