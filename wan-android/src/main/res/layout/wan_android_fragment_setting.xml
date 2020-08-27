@@ -14,6 +14,38 @@
         tools:ignore="MissingConstraints" />
 
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/mCvAbout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_60"
+        android:layout_marginStart="@dimen/dp_20"
+        android:layout_marginTop="@dimen/dp_12"
+        android:layout_marginEnd="@dimen/dp_20"
+        android:layout_marginBottom="@dimen/dp_20"
+        android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"
+        app:cardCornerRadius="@dimen/dp_8"
+        app:cardElevation="@dimen/dp_4"
+        app:layout_constraintTop_toBottomOf="@+id/mTbTitleBar">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/dp_8"
+            android:text="@string/wan_android_about"
+            android:textColor="@color/wan_android_color_title_0x222222"
+            android:textSize="@dimen/sp_14"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:layout_width="@dimen/dp_24"
+            android:layout_height="@dimen/dp_24"
+            android:layout_gravity="center_vertical|end"
+            android:layout_marginEnd="@dimen/dp_8"
+            android:src="@drawable/wan_android_ic_arrow_rightwards"
+            tools:ignore="ContentDescription" />
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/mCvLogout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_48"

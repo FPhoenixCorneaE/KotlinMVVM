@@ -50,4 +50,6 @@
     <string name="wan_android_search_empty_history">清空搜索历史</string>
     <string name="wan_android_search_confirm_empty_history">确定清空全部搜索历史吗？</string>
     <string name="wan_android_setting_confirm_logout">确定退出登录吗？</string>
+    <string name="wan_android_about">关于</string>
+    <string name="wan_android_copyright">Copyright © FPhoenixCorneaE.\nAll Rights Reserved.</string>
 </resources>

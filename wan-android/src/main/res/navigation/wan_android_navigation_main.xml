@@ -119,7 +119,20 @@
         android:id="@+id/mSettingFragment"
         android:name="com.wkz.wanandroid.mvvm.view.fragment.setting.WanAndroidSettingFragment"
         android:label="SettingFragment"
-        tools:layout="@layout/wan_android_fragment_setting" />
+        tools:layout="@layout/wan_android_fragment_setting">
+        <action
+            android:id="@+id/mSettingToAbout"
+            app:destination="@+id/mAboutFragment"
+            app:enterAnim="@anim/pull_in_right"
+            app:exitAnim="@anim/push_out_left"
+            app:popEnterAnim="@anim/pull_in_left"
+            app:popExitAnim="@anim/push_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/mAboutFragment"
+        android:name="com.wkz.wanandroid.mvvm.view.fragment.about.WanAndroidAboutFragment"
+        android:label="AboutFragment"
+        tools:layout="@layout/wan_android_fragment_about" />
     <fragment
         android:id="@+id/mSearchFragment"
         android:name="com.wkz.wanandroid.mvvm.view.fragment.search.WanAndroidSearchFragment"

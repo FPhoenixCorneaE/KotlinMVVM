@@ -286,7 +286,7 @@ class CommonTitleBar @JvmOverloads constructor(
                 if (centerText.isNullOrBlank() && getContext() is Activity) {
                     // 获取清单文件中的 android:label 属性值
                     val label = (getContext() as Activity).title
-                    if (!label.isNullOrBlank()) {
+                    if (label.isNullOrBlank().not()) {
                         try {
                             val packageManager = getContext().packageManager
                             val packageInfo =

@@ -27,10 +27,10 @@ import kotlinx.android.synthetic.main.wan_android_fragment_mine.*
  */
 class WanAndroidMineFragment : WanAndroidBaseFragment(), OnRefreshListener {
 
-    /* 账号信息视图模型 */
+    /* 账号信息ViewModel */
     private val mAccountViewModel by androidViewModel<WanAndroidAccountViewModel>()
 
-    /* 积分视图模型 */
+    /* 积分ViewModel */
     private val mMineIntegralViewModel by viewModel<WanAndroidIntegralViewModel>()
 
     override fun getLayoutId(): Int = R.layout.wan_android_fragment_mine

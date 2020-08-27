@@ -9,6 +9,7 @@ import com.scwang.smart.refresh.layout.listener.OnRefreshLoadMoreListener
 import com.wkz.adapter.AnimationType
 import com.wkz.adapter.BaseNBAdapter
 import com.wkz.adapter.SimpleOnItemChildClickListener
+import com.wkz.extension.androidViewModel
 import com.wkz.extension.navigate
 import com.wkz.extension.toHtml
 import com.wkz.extension.viewModel
@@ -23,6 +24,7 @@ import com.wkz.wanandroid.mvvm.model.WanAndroidBannerBean
 import com.wkz.wanandroid.mvvm.view.adapter.WanAndroidHomeArticleAdapter
 import com.wkz.wanandroid.mvvm.view.adapter.WanAndroidHomeBannerAdapter
 import com.wkz.wanandroid.mvvm.view.fragment.WanAndroidBaseFragment
+import com.wkz.wanandroid.mvvm.viewmodel.WanAndroidAccountViewModel
 import com.wkz.wanandroid.mvvm.viewmodel.WanAndroidCollectViewModel
 import com.wkz.wanandroid.mvvm.viewmodel.WanAndroidHomeArticleViewModel
 import kotlinx.android.synthetic.main.wan_android_fragment_home_article.*
@@ -32,18 +34,21 @@ import kotlinx.android.synthetic.main.wan_android_fragment_home_article.*
  * @date: 2019-10-24 15:51
  */
 class WanAndroidHomeArticleFragment : WanAndroidBaseFragment(), OnRefreshLoadMoreListener {
+    /* 首页文章ViewModel */
+    private val mHomeArticleViewModel by viewModel<WanAndroidHomeArticleViewModel>()
+
+    /* 收藏ViewModel */
+    private val mCollectViewModel by viewModel<WanAndroidCollectViewModel>()
+
+    /* 账号信息ViewModel */
+    private val mAccountViewModel by androidViewModel<WanAndroidAccountViewModel>()
+
     private val mBannerAdapter by lazy(LazyThreadSafetyMode.SYNCHRONIZED) {
         WanAndroidHomeBannerAdapter()
     }
     private val mHomeArticleAdapter by lazy(LazyThreadSafetyMode.SYNCHRONIZED) {
         WanAndroidHomeArticleAdapter()
     }
-
-    /* 首页文章ViewModel */
-    private val mHomeArticleViewModel by viewModel<WanAndroidHomeArticleViewModel>()
-
-    /* 收藏ViewModel */
-    private val mCollectViewModel by viewModel<WanAndroidCollectViewModel>()
     private var mTopArticleList = ArrayList<WanAndroidArticleBean>()
 
     /**
@@ -180,6 +185,11 @@ class WanAndroidHomeArticleFragment : WanAndroidBaseFragment(), OnRefreshLoadMor
             })
             mArticleCancelCollect.observe(viewLifecycleOwner, Observer {
                 // 取消收藏文章
+            })
+        }
+        mAccountViewModel.apply {
+            mLoginSuccess.observe(viewLifecycleOwner, Observer {
+                mSrlRefresh.autoRefresh()
             })
         }
     }
