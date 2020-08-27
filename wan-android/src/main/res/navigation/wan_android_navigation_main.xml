@@ -137,7 +137,15 @@
         android:id="@+id/mSearchResultFragment"
         android:name="com.wkz.wanandroid.mvvm.view.fragment.search.WanAndroidSearchResultFragment"
         android:label="SearchResultFragment"
-        tools:layout="@layout/wan_android_fragment_search_result" />
+        tools:layout="@layout/wan_android_fragment_search_result">
+        <action
+            android:id="@+id/mSearchResultToWeb"
+            app:destination="@id/mWebFragment"
+            app:enterAnim="@anim/pull_in_right"
+            app:exitAnim="@anim/push_out_left"
+            app:popEnterAnim="@anim/pull_in_left"
+            app:popExitAnim="@anim/push_out_right" />
+    </fragment>
     <fragment
         android:id="@+id/mWebFragment"
         android:name="com.wkz.wanandroid.mvvm.view.fragment.web.WanAndroidWebFragment"

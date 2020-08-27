@@ -1,4 +1,4 @@
-package com.wkz.animation_dsl
+package com.wkz.dsl.animation
 
 import android.animation.Animator
 import android.animation.AnimatorSet

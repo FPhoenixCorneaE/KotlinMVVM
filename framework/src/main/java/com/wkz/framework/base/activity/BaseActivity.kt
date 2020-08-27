@@ -3,6 +3,7 @@ package com.wkz.framework.base.activity
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -63,6 +64,10 @@ abstract class BaseActivity : AppCompatActivity() {
         // 将当前布局添加到根布局
         mMsvRoot.removeAllViews()
         mMsvRoot.addView(contentView)
+        mMsvRoot.setOnRetryClickListener(View.OnClickListener {
+            showLoading()
+            initData(null)
+        })
         super.setContentView(mMsvRoot)
     }
 

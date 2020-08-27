@@ -61,6 +61,7 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation Config.support.appcompat
+    implementation Config.support.constraintLayout
     implementation Config.support.lifecycleViewmodel
     implementation Config.support.lifecycleExtensions
     implementation Config.support.palette

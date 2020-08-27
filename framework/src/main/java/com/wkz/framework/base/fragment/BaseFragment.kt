@@ -17,14 +17,17 @@ import com.wkz.widget.MultipleStatusView
 /**
  * @desc:BaseFragment基类
  */
-abstract class BaseFragment : Fragment(), View.OnClickListener {
+abstract class BaseFragment : Fragment() {
 
     /** 当前界面 Context 对象*/
     protected lateinit var mContext: FragmentActivity
+
     /** 视图是否加载完毕 */
     protected var isViewPrepared = false
+
     /** 数据是否加载过了 */
     protected var hasLoadedData = false
+
     /** 根布局 */
     protected lateinit var mMsvRoot: MultipleStatusView
 
@@ -50,7 +53,10 @@ abstract class BaseFragment : Fragment(), View.OnClickListener {
         // 将当前布局添加到根布局
         mMsvRoot.removeAllViews()
         mMsvRoot.addView(contentView)
-        mMsvRoot.setOnRetryClickListener(this)
+        mMsvRoot.setOnRetryClickListener(View.OnClickListener {
+            showLoading()
+            lazyLoadData()
+        })
         return mMsvRoot
     }
 
@@ -124,11 +130,6 @@ abstract class BaseFragment : Fragment(), View.OnClickListener {
 
     open fun showErrorMsg(errorMsg: CharSequence) {
         showToast(errorMsg)
-    }
-
-    override fun onClick(v: View) {
-        showLoading()
-        lazyLoadData()
     }
 
     /**

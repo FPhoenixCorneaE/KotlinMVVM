@@ -60,7 +60,7 @@
             android:layout_width="@dimen/dp_0"
             android:layout_height="match_parent"
             android:layout_marginStart="@dimen/dp_8"
-            android:layout_marginEnd="@dimen/dp_20"
+            android:layout_marginEnd="@dimen/dp_52"
             android:background="@null"
             android:hint="@string/wan_android_account"
             android:imeOptions="actionNext"
@@ -70,7 +70,22 @@
             android:textColorHint="@color/wan_android_color_darker_gray"
             android:textSize="@dimen/sp_20"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/mIvAccount" />
+            app:layout_constraintStart_toEndOf="@+id/mIvAccount"
+            tools:ignore="Autofill" />
+
+        <ImageView
+            android:id="@+id/mIvAccountClear"
+            android:layout_width="@dimen/dp_24"
+            android:layout_height="@dimen/dp_24"
+            android:layout_marginEnd="@dimen/dp_20"
+            android:padding="@dimen/dp_4"
+            android:src="@drawable/wan_android_ic_clear"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription"
+            tools:visibility="visible" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -99,7 +114,7 @@
             android:layout_width="@dimen/dp_0"
             android:layout_height="match_parent"
             android:layout_marginStart="@dimen/dp_8"
-            android:layout_marginEnd="@dimen/dp_48"
+            android:layout_marginEnd="@dimen/dp_84"
             android:background="@null"
             android:hint="@string/wan_android_password"
             android:imeOptions="actionNext"
@@ -109,19 +124,36 @@
             android:textColorHint="@color/wan_android_color_darker_gray"
             android:textSize="@dimen/sp_20"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/mIvPassword" />
+            app:layout_constraintStart_toEndOf="@+id/mIvPassword"
+            tools:ignore="Autofill" />
+
+        <ImageView
+            android:id="@+id/mIvPasswordClear"
+            android:layout_width="@dimen/dp_24"
+            android:layout_height="@dimen/dp_24"
+            android:layout_marginEnd="@dimen/dp_52"
+            android:padding="@dimen/dp_4"
+            android:src="@drawable/wan_android_ic_clear"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription"
+            tools:visibility="visible" />
 
         <ImageView
             android:id="@+id/mIvPasswordState"
             android:layout_width="@dimen/dp_24"
             android:layout_height="@dimen/dp_24"
             android:layout_marginEnd="@dimen/dp_20"
-            android:src="@drawable/wan_android_ic_password_show"
+            android:padding="@dimen/dp_2"
+            android:src="@drawable/wan_android_selector_password_state"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="ContentDescription" />
+            tools:ignore="ContentDescription"
+            tools:visibility="visible" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -150,7 +182,7 @@
             android:layout_width="@dimen/dp_0"
             android:layout_height="match_parent"
             android:layout_marginStart="@dimen/dp_8"
-            android:layout_marginEnd="@dimen/dp_48"
+            android:layout_marginEnd="@dimen/dp_84"
             android:background="@null"
             android:hint="@string/wan_android_password_confirm"
             android:imeOptions="actionDone"
@@ -160,19 +192,36 @@
             android:textColorHint="@color/wan_android_color_darker_gray"
             android:textSize="@dimen/sp_20"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/mIvPasswordConfirm" />
+            app:layout_constraintStart_toEndOf="@+id/mIvPasswordConfirm"
+            tools:ignore="Autofill" />
+
+        <ImageView
+            android:id="@+id/mIvPasswordConfirmClear"
+            android:layout_width="@dimen/dp_24"
+            android:layout_height="@dimen/dp_24"
+            android:layout_marginEnd="@dimen/dp_52"
+            android:padding="@dimen/dp_4"
+            android:src="@drawable/wan_android_ic_clear"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription"
+            tools:visibility="visible" />
 
         <ImageView
             android:id="@+id/mIvPasswordConfirmState"
             android:layout_width="@dimen/dp_24"
             android:layout_height="@dimen/dp_24"
             android:layout_marginEnd="@dimen/dp_20"
-            android:src="@drawable/wan_android_ic_password_show"
+            android:padding="@dimen/dp_2"
+            android:src="@drawable/wan_android_selector_password_state"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="ContentDescription" />
+            tools:ignore="ContentDescription"
+            tools:visibility="visible" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.wkz.framework.widget.ProgressButton

@@ -77,41 +77,37 @@ abstract class AbstractPorterImageView : AppCompatImageView {
     protected abstract fun paintMaskCanvas(maskCanvas: Canvas, maskPaint: Paint?, width: Int, height: Int)
 
     override fun onDraw(canvas: Canvas) {
-        if (!isInEditMode) {
-            val saveCount = canvas.saveLayer(0.0f, 0.0f, width.toFloat(), height.toFloat(), null, Canvas.ALL_SAVE_FLAG)
-            try {
-                if (invalidated) {
-                    val drawable = drawable
-                    if (drawable != null) {
-                        invalidated = false
-                        val imageMatrix = imageMatrix
-                        if (imageMatrix == null) {
-                            drawable.draw(drawableCanvas!!)
-                        } else {
-                            val drawableSaveCount = drawableCanvas!!.saveCount
-                            drawableCanvas!!.save()
-                            drawableCanvas!!.concat(imageMatrix)
-                            drawable.draw(drawableCanvas!!)
-                            drawableCanvas!!.restoreToCount(drawableSaveCount)
-                        }
-                        drawablePaint!!.reset()
-                        drawablePaint!!.isFilterBitmap = false
-                        drawablePaint!!.xfermode = PORTER_DUFF_XFERMODE
-                        drawableCanvas!!.drawBitmap(maskBitmap!!, 0.0f, 0.0f, drawablePaint)
+        val saveCount = canvas.saveLayer(0.0f, 0.0f, width.toFloat(), height.toFloat(), null, Canvas.ALL_SAVE_FLAG)
+        try {
+            if (invalidated) {
+                val drawable = drawable
+                if (drawable != null) {
+                    invalidated = false
+                    val imageMatrix = imageMatrix
+                    if (imageMatrix == null) {
+                        drawable.draw(drawableCanvas!!)
+                    } else {
+                        val drawableSaveCount = drawableCanvas!!.saveCount
+                        drawableCanvas!!.save()
+                        drawableCanvas!!.concat(imageMatrix)
+                        drawable.draw(drawableCanvas!!)
+                        drawableCanvas!!.restoreToCount(drawableSaveCount)
                     }
+                    drawablePaint!!.reset()
+                    drawablePaint!!.isFilterBitmap = false
+                    drawablePaint!!.xfermode = PORTER_DUFF_XFERMODE
+                    drawableCanvas!!.drawBitmap(maskBitmap!!, 0.0f, 0.0f, drawablePaint)
                 }
-                if (!invalidated) {
-                    drawablePaint!!.xfermode = null
-                    canvas.drawBitmap(drawableBitmap!!, 0.0f, 0.0f, drawablePaint)
-                }
-            } catch (e: Exception) {
-                val log = "Exception occurred while drawing $id"
-                Log.e(TAG, log, e)
-            } finally {
-                canvas.restoreToCount(saveCount)
             }
-        } else {
-            super.onDraw(canvas)
+            if (!invalidated) {
+                drawablePaint!!.xfermode = null
+                canvas.drawBitmap(drawableBitmap!!, 0.0f, 0.0f, drawablePaint)
+            }
+        } catch (e: Exception) {
+            val log = "Exception occurred while drawing $id"
+            Log.e(TAG, log, e)
+        } finally {
+            canvas.restoreToCount(saveCount)
         }
     }
 

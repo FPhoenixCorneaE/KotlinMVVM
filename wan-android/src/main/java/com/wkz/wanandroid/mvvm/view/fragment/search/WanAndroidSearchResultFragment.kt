@@ -1,12 +1,20 @@
 package com.wkz.wanandroid.mvvm.view.fragment.search
 
+import android.view.View
 import androidx.lifecycle.Observer
 import com.scwang.smart.refresh.layout.api.RefreshLayout
 import com.scwang.smart.refresh.layout.listener.OnRefreshLoadMoreListener
+import com.wkz.adapter.BaseNBAdapter
+import com.wkz.adapter.SimpleOnItemChildClickListener
 import com.wkz.extension.isNonNullAndNotEmpty
+import com.wkz.extension.navigate
+import com.wkz.extension.toHtml
 import com.wkz.extension.viewModel
+import com.wkz.framework.web.BaseWebFragment
+import com.wkz.util.BundleBuilder
 import com.wkz.wanandroid.R
 import com.wkz.wanandroid.constant.WanAndroidConstant
+import com.wkz.wanandroid.mvvm.model.WanAndroidArticleBean
 import com.wkz.wanandroid.mvvm.view.adapter.WanAndroidSearchResultAdapter
 import com.wkz.wanandroid.mvvm.view.fragment.WanAndroidBaseFragment
 import com.wkz.wanandroid.mvvm.viewmodel.WanAndroidSearchViewModel
@@ -37,6 +45,36 @@ class WanAndroidSearchResultFragment : WanAndroidBaseFragment(), OnRefreshLoadMo
 
     override fun initListener() {
         mSrlRefresh.setOnRefreshLoadMoreListener(this)
+        mSearchResultAdapter.onItemClickListener =
+            object : BaseNBAdapter.OnItemClickListener<WanAndroidArticleBean> {
+                override fun onItemClick(item: WanAndroidArticleBean, position: Int) {
+                    navigate(
+                        R.id.mSearchResultToWeb,
+                        BundleBuilder.of()
+                            .putCharSequence(BaseWebFragment.TITLE, item.title.toHtml())
+                            .putString(BaseWebFragment.WEB_URL, item.link)
+                            .get()
+                    )
+                }
+            }
+        mSearchResultAdapter.onItemChildClickListener =
+            object : SimpleOnItemChildClickListener<WanAndroidArticleBean>() {
+                override fun onItemChild1Click(
+                    view: View?,
+                    item: WanAndroidArticleBean,
+                    position: Int
+                ) {
+
+                }
+
+                override fun onItemChild2Click(
+                    view: View?,
+                    item: WanAndroidArticleBean,
+                    position: Int
+                ) {
+
+                }
+            }
         mSearchViewModel.apply {
             mSearchDataUIState.mRefreshNoData.observe(viewLifecycleOwner, Observer {
                 mSrlRefresh.finishRefresh()

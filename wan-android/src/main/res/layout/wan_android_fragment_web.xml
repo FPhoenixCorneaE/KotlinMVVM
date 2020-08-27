@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/mLlWebContainer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.wkz.titlebar.CommonTitleBar
+            android:id="@+id/mTbTitleBar"
+            style="@style/CommonTitleBar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.wkz.shinebutton.ShineButton
+            android:id="@+id/mSbCollect"
+            android:layout_width="@dimen/dp_24"
+            android:layout_height="@dimen/dp_24"
+            android:layout_marginEnd="@dimen/dp_16"
+            android:layout_marginBottom="@dimen/dp_15"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:shinebutton_allow_random_color="true"
+            app:shinebutton_btn_color="@color/wan_android_color_gray_0x999999"
+            app:shinebutton_btn_fill_color="@android:color/holo_red_dark"
+            app:shinebutton_enable_flashing="true"
+            app:shinebutton_shape="@mipmap/shinebutton_heart"
+            app:shinebutton_shine_count="8"
+            app:shinebutton_shine_size="@dimen/dp_20" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

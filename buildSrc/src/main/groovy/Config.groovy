@@ -29,7 +29,7 @@ class Config {
     /** Supports */
     static support = [
             appcompat           : "androidx.appcompat:appcompat:1.1.0",
-            constraintLayout    : "androidx.constraintlayout:constraintlayout:1.1.3",
+            constraintLayout    : "androidx.constraintlayout:constraintlayout:2.0.0",
             material            : "com.google.android.material:material:1.1.0",
             recyclerView        : "androidx.recyclerview:recyclerview:1.1.0",
             cardView            : "androidx.cardview:cardview:1.0.0",
@@ -204,7 +204,7 @@ class Config {
     ]
 
 
-    /** kapt */
+    /** kapt/annotationProcessor */
     static kaptDataBinding = [dataBindingCompiler]
     static kaptGlide = [glideCompiler]
     static kaptDagger2 = dagger2Compiler.values()

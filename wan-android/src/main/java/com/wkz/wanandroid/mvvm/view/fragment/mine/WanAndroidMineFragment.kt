@@ -7,7 +7,7 @@ import androidx.lifecycle.Observer
 import com.bumptech.glide.GenericTransitionOptions
 import com.scwang.smart.refresh.layout.api.RefreshLayout
 import com.scwang.smart.refresh.layout.listener.OnRefreshListener
-import com.wkz.animation_dsl.animSet
+import com.wkz.dsl.animation.animSet
 import com.wkz.extension.*
 import com.wkz.framework.web.BaseWebFragment
 import com.wkz.util.AppUtil
