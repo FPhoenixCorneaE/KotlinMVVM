@@ -115,7 +115,7 @@ class WanAndroidSquareViewModel : WanAndroidBaseViewModel() {
      */
     fun refreshSquareSystemArticleData() {
         mSystemArticleDataUIState.mRefreshing.value = true
-        mSystemArticleDataUIState.mPage.value = 1
+        mSystemArticleDataUIState.mPage.value = 0
     }
 
     /**
@@ -123,7 +123,7 @@ class WanAndroidSquareViewModel : WanAndroidBaseViewModel() {
      */
     fun loadMoreSquareSystemArticleData() {
         mSystemArticleDataUIState.mLoadingMore.value = true
-        mSystemArticleDataUIState.mPage.value = (mSystemArticleDataUIState.mPage.value ?: 1) + 1
+        mSystemArticleDataUIState.mPage.value = (mSystemArticleDataUIState.mPage.value ?: 0) + 1
     }
 
     /**

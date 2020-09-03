@@ -44,6 +44,13 @@
             android:id="@+id/mMainToSearch"
             app:destination="@id/mSearchFragment" />
         <action
+            android:id="@+id/mMainToSquareSystemArticle"
+            app:destination="@id/mSquareSystemArticleFragment"
+            app:enterAnim="@anim/pull_in_right"
+            app:exitAnim="@anim/push_out_left"
+            app:popEnterAnim="@anim/pull_in_left"
+            app:popExitAnim="@anim/push_out_right" />
+        <action
             android:id="@+id/mMainToWeb"
             app:destination="@id/mWebFragment"
             app:enterAnim="@anim/pull_in_right"
@@ -51,6 +58,29 @@
             app:popEnterAnim="@anim/pull_in_left"
             app:popExitAnim="@anim/push_out_right" />
     </fragment>
+    <fragment
+        android:id="@+id/mSquareSystemFragment"
+        android:name="com.wkz.wanandroid.mvvm.view.fragment.square.WanAndroidSquareSystemFragment"
+        android:label="SquareSystemFragment"
+        tools:layout="@layout/wan_android_fragment_square_system" />
+    <fragment
+        android:id="@+id/mSquareSystemArticleFragment"
+        android:name="com.wkz.wanandroid.mvvm.view.fragment.square.WanAndroidSquareSystemArticleFragment"
+        android:label="SquareSystemArticleFragment"
+        tools:layout="@layout/wan_android_fragment_square_system_article">
+        <action
+            android:id="@+id/mSquareSystemArticleToWeb"
+            app:destination="@id/mWebFragment"
+            app:enterAnim="@anim/pull_in_right"
+            app:exitAnim="@anim/push_out_left"
+            app:popEnterAnim="@anim/pull_in_left"
+            app:popExitAnim="@anim/push_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/mSquareSystemArticleChildFragment"
+        android:name="com.wkz.wanandroid.mvvm.view.fragment.square.WanAndroidSquareSystemArticleChildFragment"
+        android:label="SquareSystemArticleChildFragment"
+        tools:layout="@layout/wan_android_fragment_square_system_article_child" />
     <fragment
         android:id="@+id/mLoginFragment"
         android:name="com.wkz.wanandroid.mvvm.view.fragment.account.WanAndroidLoginFragment"

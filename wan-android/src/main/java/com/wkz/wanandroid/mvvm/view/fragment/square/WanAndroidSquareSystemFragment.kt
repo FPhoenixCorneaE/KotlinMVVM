@@ -7,8 +7,11 @@ import com.scwang.smart.refresh.layout.listener.OnRefreshListener
 import com.wkz.adapter.BaseNBAdapter
 import com.wkz.adapter.SimpleOnItemChildClickListener
 import com.wkz.extension.isNonNullAndNotEmpty
+import com.wkz.extension.navigate
 import com.wkz.extension.viewModel
+import com.wkz.util.BundleBuilder
 import com.wkz.wanandroid.R
+import com.wkz.wanandroid.constant.WanAndroidConstant
 import com.wkz.wanandroid.mvvm.model.WanAndroidSystemBean
 import com.wkz.wanandroid.mvvm.view.adapter.WanAndroidSquareSystemAdapter
 import com.wkz.wanandroid.mvvm.view.fragment.WanAndroidBaseFragment
@@ -51,7 +54,12 @@ class WanAndroidSquareSystemFragment : WanAndroidBaseFragment(), OnRefreshListen
         mSquareSystemAdapter.apply {
             onItemClickListener = object : BaseNBAdapter.OnItemClickListener<WanAndroidSystemBean> {
                 override fun onItemClick(item: WanAndroidSystemBean, position: Int) {
-
+                    navigate(
+                        R.id.mMainToSquareSystemArticle,
+                        BundleBuilder.of()
+                            .putParcelable(WanAndroidConstant.WAN_ANDROID_SQUARE_SYSTEM_NAME, item)
+                            .get()
+                    )
                 }
             }
             onItemChildClickListener =
@@ -61,7 +69,16 @@ class WanAndroidSquareSystemFragment : WanAndroidBaseFragment(), OnRefreshListen
                         item: WanAndroidSystemBean,
                         position: Int
                     ) {
-
+                        navigate(
+                            R.id.mMainToSquareSystemArticle,
+                            BundleBuilder.of()
+                                .putParcelable(
+                                    WanAndroidConstant.WAN_ANDROID_SQUARE_SYSTEM_NAME,
+                                    item
+                                )
+                                .putInt(WanAndroidConstant.WAN_ANDROID_POSITION, position)
+                                .get()
+                        )
                     }
                 }
         }
