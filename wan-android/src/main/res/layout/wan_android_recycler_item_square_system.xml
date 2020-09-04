@@ -1,60 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/mCvItem"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginStart="@dimen/dp_16"
-    android:layout_marginTop="@dimen/dp_8"
-    android:layout_marginEnd="@dimen/dp_16"
-    android:layout_marginBottom="@dimen/dp_8"
-    android:foreground="?android:attr/selectableItemBackground"
-    android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"
-    app:cardCornerRadius="@dimen/dp_8"
-    app:cardElevation="@dimen/dp_8">
+    android:layout_height="wrap_content">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/mCvItem"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_16"
+        android:layout_marginTop="@dimen/dp_8"
+        android:layout_marginEnd="@dimen/dp_16"
+        android:layout_marginBottom="@dimen/dp_8"
+        android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"
+        app:cardCornerRadius="@dimen/dp_8"
+        app:cardElevation="@dimen/dp_8">
 
-        <TextView
-            android:id="@+id/mTvName"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_16"
-            android:layout_marginTop="@dimen/dp_12"
-            android:layout_marginEnd="@dimen/dp_16"
-            android:ellipsize="end"
-            android:fontFamily="@font/framework_slender_gold"
-            android:maxLines="2"
-            android:textColor="@color/wan_android_color_title_0x222222"
-            android:textSize="@dimen/sp_18"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="@tools:sample/last_names" />
+            android:background="?android:attr/selectableItemBackground">
 
-        <com.fphoenixcorneae.flowlayout.FlowLayout
-            android:id="@+id/mRvSystemChild"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:flowLayoutClickable="true"
-            app:flowLayoutCornerRadius="@dimen/dp_8"
-            app:flowLayoutHorizontalSpacing="@dimen/dp_6"
-            app:flowLayoutMode="none"
-            app:flowLayoutNormalBgColor="@color/wan_android_color_lighter_gray"
-            app:flowLayoutPaddingBottom="@dimen/dp_6"
-            app:flowLayoutPaddingEnd="@dimen/dp_10"
-            app:flowLayoutPaddingStart="@dimen/dp_10"
-            app:flowLayoutPaddingTop="@dimen/dp_6"
-            app:flowLayoutRandomTextColor="true"
-            app:flowLayoutSelectedBgColor="@color/wan_android_color_darker_gray"
-            app:flowLayoutTextFontFamily="@font/framework_arial"
-            app:flowLayoutTextSize="@dimen/sp_16"
-            app:flowLayoutVerticalSpacing="@dimen/dp_6"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/mTvName" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</com.google.android.material.card.MaterialCardView>
+            <TextView
+                android:id="@+id/mTvName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_16"
+                android:layout_marginTop="@dimen/dp_12"
+                android:layout_marginEnd="@dimen/dp_16"
+                android:ellipsize="end"
+                android:fontFamily="@font/framework_slender_gold"
+                android:maxLines="2"
+                android:textColor="@color/wan_android_color_title_0x222222"
+                android:textSize="@dimen/sp_18"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="@tools:sample/last_names" />
+
+            <com.fphoenixcorneae.flowlayout.FlowLayout
+                android:id="@+id/mRvSystemChild"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:flowLayoutClickable="true"
+                app:flowLayoutCornerRadius="@dimen/dp_8"
+                app:flowLayoutHorizontalSpacing="@dimen/dp_6"
+                app:flowLayoutMode="none"
+                app:flowLayoutNormalBgColor="@color/wan_android_color_lighter_gray"
+                app:flowLayoutPaddingBottom="@dimen/dp_6"
+                app:flowLayoutPaddingEnd="@dimen/dp_10"
+                app:flowLayoutPaddingStart="@dimen/dp_10"
+                app:flowLayoutPaddingTop="@dimen/dp_6"
+                app:flowLayoutRandomTextColor="true"
+                app:flowLayoutSelectedBgColor="@color/wan_android_color_darker_gray"
+                app:flowLayoutTextFontFamily="@font/framework_arial"
+                app:flowLayoutTextSize="@dimen/sp_16"
+                app:flowLayoutVerticalSpacing="@dimen/dp_6"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/mTvName" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</FrameLayout>

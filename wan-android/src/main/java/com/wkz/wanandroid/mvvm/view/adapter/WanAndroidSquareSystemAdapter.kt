@@ -1,11 +1,14 @@
 package com.wkz.wanandroid.mvvm.view.adapter
 
 import android.annotation.SuppressLint
+import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.fphoenixcorneae.flowlayout.FlowItem
 import com.fphoenixcorneae.flowlayout.FlowLayout
 import com.wkz.adapter.BaseNBAdapter
+import com.wkz.extension.gone
 import com.wkz.extension.toHtml
+import com.wkz.extension.visible
 import com.wkz.wanandroid.R
 import com.wkz.wanandroid.mvvm.model.WanAndroidSystemBean
 import kotlinx.android.synthetic.main.wan_android_recycler_item_square_system.view.*

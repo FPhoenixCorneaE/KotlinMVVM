@@ -18,6 +18,7 @@ import com.wkz.wanandroid.mvvm.view.fragment.WanAndroidBaseFragment
 import com.wkz.wanandroid.mvvm.viewmodel.WanAndroidSquareViewModel
 import kotlinx.android.synthetic.main.wan_android_fragment_square_system.*
 
+
 /**
  * @desc: 广场体系Fragment
  * @date: 2020-06-20 14:35
@@ -54,12 +55,17 @@ class WanAndroidSquareSystemFragment : WanAndroidBaseFragment(), OnRefreshListen
         mSquareSystemAdapter.apply {
             onItemClickListener = object : BaseNBAdapter.OnItemClickListener<WanAndroidSystemBean> {
                 override fun onItemClick(item: WanAndroidSystemBean, position: Int) {
-                    navigate(
-                        R.id.mMainToSquareSystemArticle,
-                        BundleBuilder.of()
-                            .putParcelable(WanAndroidConstant.WAN_ANDROID_SQUARE_SYSTEM_NAME, item)
-                            .get()
-                    )
+                    if (item.children.isNotEmpty()) {
+                        navigate(
+                            R.id.mMainToSquareSystemArticle,
+                            BundleBuilder.of()
+                                .putParcelable(
+                                    WanAndroidConstant.WAN_ANDROID_SQUARE_SYSTEM_NAME,
+                                    item
+                                )
+                                .get()
+                        )
+                    }
                 }
             }
             onItemChildClickListener =
