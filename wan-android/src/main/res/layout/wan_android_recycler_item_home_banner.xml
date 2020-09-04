@@ -15,7 +15,7 @@
     <ImageView
         android:id="@+id/mIvImg"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_160"
+        android:layout_height="@dimen/dp_200"
         android:scaleType="centerCrop"
         tools:ignore="ContentDescription"
         tools:src="@tools:sample/backgrounds/scenic" />

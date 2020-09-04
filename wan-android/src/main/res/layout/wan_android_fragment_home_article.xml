@@ -25,7 +25,7 @@
                 <com.wkz.adapter.fold.FoldRecyclerView
                     android:id="@+id/mRvBanner"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_170"
+                    android:layout_height="@dimen/dp_200"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:itemCount="5"
                     tools:layoutManager="com.wkz.adapter.fold.LeftFlowLayoutManger"

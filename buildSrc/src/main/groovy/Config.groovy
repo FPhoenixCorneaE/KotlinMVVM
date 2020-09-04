@@ -14,6 +14,7 @@ class Config {
             FlowLayout    : "com.github.FPhoenixCorneaE:FlowLayout:1.0.6",
             ShapeImageView: "com.github.FPhoenixCorneaE:ShapeImageView:1.0.5",
             PrettyDialog  : "com.github.FPhoenixCorneaE:PrettyDialog:1.0.1",
+            AvatarWaveView: 'com.github.FPhoenixCorneaE:AvatarWaveView:1.0.0',
     ]
 
     /** Android */
@@ -171,6 +172,12 @@ class Config {
             datetime    : 'com.afollestad.material-dialogs:datetime:3.3.0',
             bottomsheets: 'com.afollestad.material-dialogs:bottomsheets:3.3.0',
             lifecycle   : 'com.afollestad.material-dialogs:lifecycle:3.3.0',
+    ]
+
+    /* QRCode 扫描二维码、扫描条形码、相册获取图片后识别、生成带 Logo 二维码、支持微博微信 QQ 二维码扫描样式 */
+    static qrCode = [
+            zxing: 'cn.bingoogolapple:bga-qrcode-zxing:1.3.7',
+            zbar : 'cn.bingoogolapple:bga-qrcode-zbar:1.3.7',
     ]
 
     /** 直接在layout文件中去创建drawable */
