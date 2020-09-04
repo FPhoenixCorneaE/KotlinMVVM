@@ -4,7 +4,6 @@ import androidx.lifecycle.Observer
 import com.scwang.smart.refresh.layout.api.RefreshLayout
 import com.scwang.smart.refresh.layout.listener.OnRefreshLoadMoreListener
 import com.wkz.adapter.BaseNBAdapter
-import com.wkz.extension.navigate
 import com.wkz.extension.toHtml
 import com.wkz.extension.viewModel
 import com.wkz.framework.web.BaseWebFragment
@@ -46,8 +45,8 @@ class WanAndroidHomeQaFragment : WanAndroidBaseFragment(), OnRefreshLoadMoreList
         mHomeQaAdapter.onItemClickListener =
             object : BaseNBAdapter.OnItemClickListener<WanAndroidArticleBean> {
                 override fun onItemClick(item: WanAndroidArticleBean, position: Int) {
-                    navigate(
-                        R.id.mMainToWeb,
+                    navigateNext(
+                        R.id.webFragment,
                         BundleBuilder.of()
                             .putCharSequence(BaseWebFragment.TITLE, item.title.toHtml())
                             .putString(BaseWebFragment.WEB_URL, item.link)

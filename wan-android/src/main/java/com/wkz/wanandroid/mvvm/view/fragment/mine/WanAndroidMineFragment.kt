@@ -57,7 +57,7 @@ class WanAndroidMineFragment : WanAndroidBaseFragment(), OnRefreshListener {
         mCvIntegral.setOnClickListener {
             when {
                 WanAndroidUserManager.sHasLoggedOn -> {
-                    navigate(R.id.mMainToIntegralRanking)
+                    navigateNext(R.id.integralRankingFragment)
                 }
                 else -> {
                     // 未登录
@@ -68,7 +68,7 @@ class WanAndroidMineFragment : WanAndroidBaseFragment(), OnRefreshListener {
         mCvCollect.setOnClickListener {
             when {
                 WanAndroidUserManager.sHasLoggedOn -> {
-                    navigate(R.id.mMainToCollect)
+                    navigateNext(R.id.collectFragment)
                 }
                 else -> {
                     // 未登录
@@ -99,8 +99,8 @@ class WanAndroidMineFragment : WanAndroidBaseFragment(), OnRefreshListener {
             }
         }
         mCvWebsite.setOnClickListener {
-            navigate(
-                R.id.mMainToWeb,
+            navigateNext(
+                R.id.webFragment,
                 BundleBuilder.of()
                     .putCharSequence(BaseWebFragment.TITLE, AppUtil.appName)
                     .putString(BaseWebFragment.WEB_URL, WanAndroidUrlConstant.BASE_URL)
@@ -150,14 +150,14 @@ class WanAndroidMineFragment : WanAndroidBaseFragment(), OnRefreshListener {
      * 跳转到登录界面
      */
     private fun goToLoginUI() {
-        navigate(R.id.mMainToLogin)
+        navigateNext(R.id.loginFragment)
     }
 
     /**
      * 跳转到设置界面
      */
     private fun goToSettingUI() {
-        navigate(R.id.mMainToSetting)
+        navigateNext(R.id.settingFragment)
     }
 
     override fun lazyLoadData() {

@@ -8,7 +8,6 @@ import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.lifecycle.Observer
 import com.wkz.extension.androidViewModel
-import com.wkz.extension.navigate
 import com.wkz.extension.showToast
 import com.wkz.extension.visible
 import com.wkz.framework.widget.ProgressButton
@@ -74,7 +73,7 @@ class WanAndroidRegisterFragment : WanAndroidBaseFragment(), TextWatcher,
                         // 登录成功,进入首页
                         mBtnRegister?.stopAnim(object : ProgressButton.OnStopAnim {
                             override fun onStop() {
-                                navigate(R.id.mRegisterToMain)
+                                navigateNext(R.id.mainFragment)
                             }
                         })
                     } else {

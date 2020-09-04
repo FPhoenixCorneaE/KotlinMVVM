@@ -4,7 +4,6 @@ import androidx.lifecycle.Observer
 import com.scwang.smart.refresh.layout.api.RefreshLayout
 import com.scwang.smart.refresh.layout.listener.OnRefreshLoadMoreListener
 import com.wkz.extension.isNonNullAndNotEmpty
-import com.wkz.extension.navigate
 import com.wkz.extension.viewModel
 import com.wkz.framework.web.BaseWebFragment
 import com.wkz.util.BundleBuilder
@@ -45,8 +44,8 @@ class WanAndroidIntegralRankingFragment : WanAndroidBaseFragment(), OnRefreshLoa
     override fun initListener() {
         mSrlRefresh.setOnRefreshLoadMoreListener(this)
         mIvIntegralHelp.setOnClickListener {
-            navigate(
-                R.id.mIntegralRankingToWeb,
+            navigateNext(
+                R.id.webFragment,
                 BundleBuilder.of()
                     .putCharSequence(
                         BaseWebFragment.TITLE,
@@ -57,7 +56,7 @@ class WanAndroidIntegralRankingFragment : WanAndroidBaseFragment(), OnRefreshLoa
             )
         }
         mIvIntegralRecord.setOnClickListener {
-            navigate(R.id.mIntegralRankingToIntegralRecord)
+            navigateNext(R.id.integralRecordFragment)
         }
         mIntegralViewModel.apply {
             mIntegralRankingUIState.mRefreshNoData.observe(viewLifecycleOwner, Observer {

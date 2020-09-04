@@ -1,8 +1,8 @@
 package com.wkz.wanandroid.mvvm.view.fragment.home
 
+import androidx.navigation.NavOptions
 import com.wkz.adapter.app.FragmentPagerItems
 import com.wkz.adapter.viewpager2.FragmentStatePager2ItemAdapter
-import com.wkz.extension.navigate
 import com.wkz.framework.navigation.FragmentNavigatorExtras
 import com.wkz.util.statusbar.StatusBarUtil
 import com.wkz.wanandroid.R
@@ -48,8 +48,9 @@ class WanAndroidHomeFragment : WanAndroidBaseFragment() {
 
     override fun initListener() {
         mIvSearch.setOnClickListener {
-            navigate(
-                R.id.mMainToSearch,
+            navigateNext(
+                R.id.searchFragment,
+                navOptions = NavOptions.Builder().setLaunchSingleTop(true).build(),
                 navigatorExtras = FragmentNavigatorExtras(
                     mIvSearch to mIvSearch.transitionName
                 )

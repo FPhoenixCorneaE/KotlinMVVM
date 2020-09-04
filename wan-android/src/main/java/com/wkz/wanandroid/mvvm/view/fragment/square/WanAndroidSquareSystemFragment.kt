@@ -7,7 +7,6 @@ import com.scwang.smart.refresh.layout.listener.OnRefreshListener
 import com.wkz.adapter.BaseNBAdapter
 import com.wkz.adapter.SimpleOnItemChildClickListener
 import com.wkz.extension.isNonNullAndNotEmpty
-import com.wkz.extension.navigate
 import com.wkz.extension.viewModel
 import com.wkz.util.BundleBuilder
 import com.wkz.wanandroid.R
@@ -56,8 +55,8 @@ class WanAndroidSquareSystemFragment : WanAndroidBaseFragment(), OnRefreshListen
             onItemClickListener = object : BaseNBAdapter.OnItemClickListener<WanAndroidSystemBean> {
                 override fun onItemClick(item: WanAndroidSystemBean, position: Int) {
                     if (item.children.isNotEmpty()) {
-                        navigate(
-                            R.id.mMainToSquareSystemArticle,
+                        navigateNext(
+                            R.id.squareSystemArticleFragment,
                             BundleBuilder.of()
                                 .putParcelable(
                                     WanAndroidConstant.WAN_ANDROID_SQUARE_SYSTEM_NAME,
@@ -75,8 +74,8 @@ class WanAndroidSquareSystemFragment : WanAndroidBaseFragment(), OnRefreshListen
                         item: WanAndroidSystemBean,
                         position: Int
                     ) {
-                        navigate(
-                            R.id.mMainToSquareSystemArticle,
+                        navigateNext(
+                            R.id.squareSystemArticleFragment,
                             BundleBuilder.of()
                                 .putParcelable(
                                     WanAndroidConstant.WAN_ANDROID_SQUARE_SYSTEM_NAME,

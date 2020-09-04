@@ -11,7 +11,6 @@ import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.lifecycle.Observer
 import com.wkz.extension.androidViewModel
-import com.wkz.extension.navigate
 import com.wkz.extension.navigateUp
 import com.wkz.extension.visible
 import com.wkz.framework.widget.ProgressButton
@@ -50,7 +49,7 @@ class WanAndroidLoginFragment : WanAndroidBaseFragment(), TextWatcher, View.OnFo
             .setClickSpan(object : ClickableSpan() {
                 override fun onClick(widget: View) {
                     // 没有账号,去注册
-                    navigate(R.id.mLoginToRegister)
+                    navigateNext(R.id.registerFragment)
                 }
             })
             .create()

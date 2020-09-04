@@ -4,10 +4,8 @@ import android.view.View
 import androidx.lifecycle.Observer
 import com.scwang.smart.refresh.layout.api.RefreshLayout
 import com.scwang.smart.refresh.layout.listener.OnRefreshListener
-import com.wkz.adapter.AnimationType
 import com.wkz.adapter.SimpleOnItemChildClickListener
 import com.wkz.extension.isNonNullAndNotEmpty
-import com.wkz.extension.navigate
 import com.wkz.extension.toHtml
 import com.wkz.extension.viewModel
 import com.wkz.framework.web.BaseWebFragment
@@ -60,8 +58,8 @@ class WanAndroidSquareNavigationFragment : WanAndroidBaseFragment(), OnRefreshLi
                         item: WanAndroidNavigationBean,
                         position: Int
                     ) {
-                        navigate(
-                            R.id.mMainToWeb,
+                        navigateNext(
+                            R.id.webFragment,
                             BundleBuilder.of()
                                 .putCharSequence(
                                     BaseWebFragment.TITLE,

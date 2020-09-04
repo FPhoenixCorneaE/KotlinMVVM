@@ -69,8 +69,8 @@ class WanAndroidHomeArticleFragment : WanAndroidBaseFragment(), OnRefreshLoadMor
         mBannerAdapter.onItemClickListener =
             object : BaseNBAdapter.OnItemClickListener<WanAndroidBannerBean> {
                 override fun onItemClick(item: WanAndroidBannerBean, position: Int) {
-                    navigate(
-                        R.id.mMainToWeb,
+                    navigateNext(
+                        R.id.webFragment,
                         BundleBuilder.of()
                             .putCharSequence(BaseWebFragment.TITLE, item.title.toHtml())
                             .putString(BaseWebFragment.WEB_URL, item.url)
@@ -82,8 +82,8 @@ class WanAndroidHomeArticleFragment : WanAndroidBaseFragment(), OnRefreshLoadMor
             onItemClickListener =
                 object : BaseNBAdapter.OnItemClickListener<WanAndroidArticleBean> {
                     override fun onItemClick(item: WanAndroidArticleBean, position: Int) {
-                        navigate(
-                            R.id.mMainToWeb,
+                        navigateNext(
+                            R.id.webFragment,
                             BundleBuilder.of()
                                 .putCharSequence(BaseWebFragment.TITLE, item.title.toHtml())
                                 .putString(BaseWebFragment.WEB_URL, item.link)
@@ -128,7 +128,7 @@ class WanAndroidHomeArticleFragment : WanAndroidBaseFragment(), OnRefreshLoadMor
                             }
                             else -> {
                                 // 未登录,跳转登录
-                                navigate(R.id.mMainToLogin)
+                                navigateNext(R.id.loginFragment)
                             }
                         }
                     }

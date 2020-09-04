@@ -7,12 +7,18 @@ import android.view.View
 import android.view.animation.AccelerateInterpolator
 import android.view.animation.DecelerateInterpolator
 import androidx.activity.OnBackPressedCallback
+import androidx.annotation.AnimRes
+import androidx.annotation.AnimatorRes
+import androidx.annotation.IdRes
+import androidx.navigation.NavOptions
+import androidx.navigation.Navigator
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.wkz.adapter.AnimationType
 import com.wkz.adapter.BaseNBAdapter
 import com.wkz.adapter.viewpager2.FragmentStatePager2ItemAdapter
 import com.wkz.extension.loggerD
+import com.wkz.extension.navigate
 import com.wkz.extension.navigateUp
 import com.wkz.extension.popBackStack
 import com.wkz.framework.base.fragment.BaseFragment
@@ -136,6 +142,34 @@ abstract class WanAndroidBaseFragment : BaseFragment() {
         }
         magicIndicator.navigator = commonNavigator
         ViewPagerHelper.bind(magicIndicator, viewPager2)
+    }
+
+    protected fun navigateNext(
+        @IdRes resId: Int,
+        args: Bundle? = null,
+        navOptions: NavOptions? = navOptions(),
+        navigatorExtras: Navigator.Extras? = null
+    ) {
+        navigate(resId, args, navOptions, navigatorExtras)
+    }
+
+    /**
+     * NavOptions
+     */
+    protected fun navOptions(
+        @AnimRes @AnimatorRes enterAnim: Int = R.anim.pull_in_right,
+        @AnimRes @AnimatorRes exitAnim: Int = R.anim.push_out_left,
+        @AnimRes @AnimatorRes popEnterAnim: Int = R.anim.pull_in_left,
+        @AnimRes @AnimatorRes popExitAnim: Int = R.anim.push_out_right,
+        launchSingleTop: Boolean = true
+    ): NavOptions {
+        return NavOptions.Builder()
+            .setEnterAnim(enterAnim)
+            .setExitAnim(exitAnim)
+            .setPopEnterAnim(popEnterAnim)
+            .setPopExitAnim(popExitAnim)
+            .setLaunchSingleTop(launchSingleTop)
+            .build()
     }
 
     /**

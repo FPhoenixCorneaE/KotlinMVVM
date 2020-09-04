@@ -48,8 +48,8 @@ class WanAndroidSearchResultFragment : WanAndroidBaseFragment(), OnRefreshLoadMo
         mSearchResultAdapter.onItemClickListener =
             object : BaseNBAdapter.OnItemClickListener<WanAndroidArticleBean> {
                 override fun onItemClick(item: WanAndroidArticleBean, position: Int) {
-                    navigate(
-                        R.id.mSearchResultToWeb,
+                    navigateNext(
+                        R.id.webFragment,
                         BundleBuilder.of()
                             .putCharSequence(BaseWebFragment.TITLE, item.title.toHtml())
                             .putString(BaseWebFragment.WEB_URL, item.link)

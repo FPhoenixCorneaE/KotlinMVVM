@@ -5,7 +5,6 @@ import com.fphoenixcorneae.animation.attention.Swing
 import com.fphoenixcorneae.animation.fade.FadeExit
 import com.fphoenixcorneae.dialog.MaterialDialog
 import com.wkz.extension.androidViewModel
-import com.wkz.extension.navigate
 import com.wkz.extension.navigateUp
 import com.wkz.extension.visible
 import com.wkz.util.ResourceUtil
@@ -45,7 +44,7 @@ class WanAndroidSettingFragment : WanAndroidBaseFragment(), View.OnClickListener
 
     override fun onClick(v: View?) {
         when (v) {
-            mCvAbout -> navigate(R.id.mSettingToAbout)
+            mCvAbout -> navigateNext(R.id.aboutFragment)
             mBtnLogout -> {
                 MaterialDialog(mContext)
                     .title(getString(R.string.wan_android_mine_logout))

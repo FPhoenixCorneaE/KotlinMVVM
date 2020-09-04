@@ -172,8 +172,8 @@ class WanAndroidSearchFragment : WanAndroidBaseFragment() {
     private fun goToSearchResult(itemName: CharSequence?) {
         // 关闭软键盘
         KeyboardUtil.closeKeyboard(mTbTitleBar.centerSearchEditText)
-        navigate(
-            R.id.mSearchToSearchResult,
+        navigateNext(
+            R.id.searchResultFragment,
             BundleBuilder.of()
                 .putString(WanAndroidConstant.WAN_ANDROID_SEARCH_KEY, itemName.toString())
                 .get()

@@ -3,194 +3,76 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/wan_android_navigation_main"
-    app:startDestination="@id/mMainFragment"
+    app:startDestination="@id/mainFragment"
     tools:ignore="UnusedNavigation">
 
     <fragment
-        android:id="@+id/mMainFragment"
+        android:id="@+id/mainFragment"
         android:name="com.wkz.wanandroid.mvvm.view.fragment.WanAndroidMainFragment"
         android:label="MainFragment"
-        tools:layout="@layout/wan_android_fragment_main">
-
-        <action
-            android:id="@+id/mMainToLogin"
-            app:destination="@id/mLoginFragment"
-            app:enterAnim="@anim/pull_in_right"
-            app:exitAnim="@anim/push_out_left"
-            app:popEnterAnim="@anim/pull_in_left"
-            app:popExitAnim="@anim/push_out_right" />
-        <action
-            android:id="@+id/mMainToIntegralRanking"
-            app:destination="@id/mIntegralRankingFragment"
-            app:enterAnim="@anim/pull_in_right"
-            app:exitAnim="@anim/push_out_left"
-            app:popEnterAnim="@anim/pull_in_left"
-            app:popExitAnim="@anim/push_out_right" />
-        <action
-            android:id="@+id/mMainToCollect"
-            app:destination="@id/mCollectFragment"
-            app:enterAnim="@anim/pull_in_right"
-            app:exitAnim="@anim/push_out_left"
-            app:popEnterAnim="@anim/pull_in_left"
-            app:popExitAnim="@anim/push_out_right" />
-        <action
-            android:id="@+id/mMainToSetting"
-            app:destination="@id/mSettingFragment"
-            app:enterAnim="@anim/pull_in_right"
-            app:exitAnim="@anim/push_out_left"
-            app:popEnterAnim="@anim/pull_in_left"
-            app:popExitAnim="@anim/push_out_right" />
-        <action
-            android:id="@+id/mMainToSearch"
-            app:destination="@id/mSearchFragment" />
-        <action
-            android:id="@+id/mMainToSquareSystemArticle"
-            app:destination="@id/mSquareSystemArticleFragment"
-            app:enterAnim="@anim/pull_in_right"
-            app:exitAnim="@anim/push_out_left"
-            app:popEnterAnim="@anim/pull_in_left"
-            app:popExitAnim="@anim/push_out_right" />
-        <action
-            android:id="@+id/mMainToWeb"
-            app:destination="@id/mWebFragment"
-            app:enterAnim="@anim/pull_in_right"
-            app:exitAnim="@anim/push_out_left"
-            app:popEnterAnim="@anim/pull_in_left"
-            app:popExitAnim="@anim/push_out_right" />
-    </fragment>
+        tools:layout="@layout/wan_android_fragment_main" />
     <fragment
-        android:id="@+id/mSquareSystemFragment"
+        android:id="@+id/squareSystemFragment"
         android:name="com.wkz.wanandroid.mvvm.view.fragment.square.WanAndroidSquareSystemFragment"
         android:label="SquareSystemFragment"
         tools:layout="@layout/wan_android_fragment_square_system" />
     <fragment
-        android:id="@+id/mSquareSystemArticleFragment"
+        android:id="@+id/squareSystemArticleFragment"
         android:name="com.wkz.wanandroid.mvvm.view.fragment.square.WanAndroidSquareSystemArticleFragment"
         android:label="SquareSystemArticleFragment"
-        tools:layout="@layout/wan_android_fragment_square_system_article">
-        <action
-            android:id="@+id/mSquareSystemArticleToWeb"
-            app:destination="@id/mWebFragment"
-            app:enterAnim="@anim/pull_in_right"
-            app:exitAnim="@anim/push_out_left"
-            app:popEnterAnim="@anim/pull_in_left"
-            app:popExitAnim="@anim/push_out_right" />
-    </fragment>
+        tools:layout="@layout/wan_android_fragment_square_system_article" />
     <fragment
-        android:id="@+id/mSquareSystemArticleChildFragment"
+        android:id="@+id/squareSystemArticleChildFragment"
         android:name="com.wkz.wanandroid.mvvm.view.fragment.square.WanAndroidSquareSystemArticleChildFragment"
         android:label="SquareSystemArticleChildFragment"
         tools:layout="@layout/wan_android_fragment_square_system_article_child" />
     <fragment
-        android:id="@+id/mLoginFragment"
+        android:id="@+id/loginFragment"
         android:name="com.wkz.wanandroid.mvvm.view.fragment.account.WanAndroidLoginFragment"
         android:label="LoginFragment"
-        tools:layout="@layout/wan_android_fragment_login">
-        <action
-            android:id="@+id/mLoginToRegister"
-            app:destination="@id/mRegisterFragment"
-            app:enterAnim="@anim/pull_in_right"
-            app:exitAnim="@anim/push_out_left"
-            app:popEnterAnim="@anim/pull_in_left"
-            app:popExitAnim="@anim/push_out_right" />
-    </fragment>
+        tools:layout="@layout/wan_android_fragment_login" />
     <fragment
-        android:id="@+id/mRegisterFragment"
+        android:id="@+id/registerFragment"
         android:name="com.wkz.wanandroid.mvvm.view.fragment.account.WanAndroidRegisterFragment"
         android:label="RegisterFragment"
-        tools:layout="@layout/wan_android_fragment_register">
-        <action
-            android:id="@+id/mRegisterToMain"
-            app:destination="@id/mMainFragment"
-            app:enterAnim="@anim/pull_in_right"
-            app:exitAnim="@anim/push_out_left"
-            app:popEnterAnim="@anim/pull_in_left"
-            app:popExitAnim="@anim/push_out_right" />
-    </fragment>
+        tools:layout="@layout/wan_android_fragment_register" />
     <fragment
-        android:id="@+id/mIntegralRankingFragment"
+        android:id="@+id/integralRankingFragment"
         android:name="com.wkz.wanandroid.mvvm.view.fragment.integral.WanAndroidIntegralRankingFragment"
         android:label="IntegralRankingFragment"
-        tools:layout="@layout/wan_android_fragment_integral_ranking">
-        <action
-            android:id="@+id/mIntegralRankingToWeb"
-            app:destination="@id/mWebFragment"
-            app:enterAnim="@anim/pull_in_right"
-            app:exitAnim="@anim/push_out_left"
-            app:popEnterAnim="@anim/pull_in_left"
-            app:popExitAnim="@anim/push_out_right" />
-        <action
-            android:id="@+id/mIntegralRankingToIntegralRecord"
-            app:destination="@id/mIntegralRecordFragment"
-            app:enterAnim="@anim/pull_in_right"
-            app:exitAnim="@anim/push_out_left"
-            app:popEnterAnim="@anim/pull_in_left"
-            app:popExitAnim="@anim/push_out_right" />
-    </fragment>
+        tools:layout="@layout/wan_android_fragment_integral_ranking" />
     <fragment
-        android:id="@+id/mIntegralRecordFragment"
+        android:id="@+id/integralRecordFragment"
         android:name="com.wkz.wanandroid.mvvm.view.fragment.integral.WanAndroidIntegralRecordFragment"
         android:label="IntegralRecordFragment"
         tools:layout="@layout/wan_android_fragment_integral_record" />
     <fragment
-        android:id="@+id/mCollectFragment"
+        android:id="@+id/collectFragment"
         android:name="com.wkz.wanandroid.mvvm.view.fragment.collect.WanAndroidCollectFragment"
         android:label="CollectFragment"
-        tools:layout="@layout/wan_android_fragment_collect">
-        <action
-            android:id="@+id/mCollectToWeb"
-            app:destination="@id/mWebFragment"
-            app:enterAnim="@anim/pull_in_right"
-            app:exitAnim="@anim/push_out_left"
-            app:popEnterAnim="@anim/pull_in_left"
-            app:popExitAnim="@anim/push_out_right" />
-    </fragment>
+        tools:layout="@layout/wan_android_fragment_collect" />
     <fragment
-        android:id="@+id/mSettingFragment"
+        android:id="@+id/settingFragment"
         android:name="com.wkz.wanandroid.mvvm.view.fragment.setting.WanAndroidSettingFragment"
         android:label="SettingFragment"
-        tools:layout="@layout/wan_android_fragment_setting">
-        <action
-            android:id="@+id/mSettingToAbout"
-            app:destination="@+id/mAboutFragment"
-            app:enterAnim="@anim/pull_in_right"
-            app:exitAnim="@anim/push_out_left"
-            app:popEnterAnim="@anim/pull_in_left"
-            app:popExitAnim="@anim/push_out_right" />
-    </fragment>
+        tools:layout="@layout/wan_android_fragment_setting" />
     <fragment
-        android:id="@+id/mAboutFragment"
+        android:id="@+id/aboutFragment"
         android:name="com.wkz.wanandroid.mvvm.view.fragment.about.WanAndroidAboutFragment"
         android:label="AboutFragment"
         tools:layout="@layout/wan_android_fragment_about" />
     <fragment
-        android:id="@+id/mSearchFragment"
+        android:id="@+id/searchFragment"
         android:name="com.wkz.wanandroid.mvvm.view.fragment.search.WanAndroidSearchFragment"
         android:label="SearchFragment"
-        tools:layout="@layout/wan_android_fragment_search">
-        <action
-            android:id="@+id/mSearchToSearchResult"
-            app:destination="@+id/mSearchResultFragment"
-            app:enterAnim="@anim/pull_in_right"
-            app:exitAnim="@anim/push_out_left"
-            app:popEnterAnim="@anim/pull_in_left"
-            app:popExitAnim="@anim/push_out_right" />
-    </fragment>
+        tools:layout="@layout/wan_android_fragment_search" />
     <fragment
-        android:id="@+id/mSearchResultFragment"
+        android:id="@+id/searchResultFragment"
         android:name="com.wkz.wanandroid.mvvm.view.fragment.search.WanAndroidSearchResultFragment"
         android:label="SearchResultFragment"
-        tools:layout="@layout/wan_android_fragment_search_result">
-        <action
-            android:id="@+id/mSearchResultToWeb"
-            app:destination="@id/mWebFragment"
-            app:enterAnim="@anim/pull_in_right"
-            app:exitAnim="@anim/push_out_left"
-            app:popEnterAnim="@anim/pull_in_left"
-            app:popExitAnim="@anim/push_out_right" />
-    </fragment>
+        tools:layout="@layout/wan_android_fragment_search_result" />
     <fragment
-        android:id="@+id/mWebFragment"
+        android:id="@+id/webFragment"
         android:name="com.wkz.wanandroid.mvvm.view.fragment.web.WanAndroidWebFragment"
         android:label="WebFragment"
         tools:layout="@layout/framework_layout_base_web" />
