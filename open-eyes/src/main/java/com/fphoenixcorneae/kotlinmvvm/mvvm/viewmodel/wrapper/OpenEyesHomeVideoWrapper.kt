@@ -5,7 +5,7 @@ import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import com.fphoenixcorneae.adapter.internal.ViewHolder
 import com.fphoenixcorneae.adapter.wrapper.ViewHolderWrapper
-import com.fphoenixcorneae.extension.durationFormat
+import com.fphoenixcorneae.ext.durationFormat
 import com.fphoenixcorneae.framework.glide.GlideUtil
 import com.fphoenixcorneae.kotlinmvvm.R
 import com.fphoenixcorneae.kotlinmvvm.mvvm.model.bean.OpenEyesHomeBean

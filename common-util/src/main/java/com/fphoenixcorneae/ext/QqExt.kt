@@ -1,4 +1,4 @@
-package com.fphoenixcorneae.extension
+package com.fphoenixcorneae.ext
 
 import android.app.Activity
 import android.content.Intent
@@ -26,7 +26,7 @@ fun Activity.joinQQGroup(key: String): Boolean {
         true
     } catch (e: Exception) {
         // 未安装手Q或安装的版本不支持
-        showToast("未安装手机QQ或安装的版本不支持")
+        toast("未安装手机QQ或安装的版本不支持")
         false
     }
 }

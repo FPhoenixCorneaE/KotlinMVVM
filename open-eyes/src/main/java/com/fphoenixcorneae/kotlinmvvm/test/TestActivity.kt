@@ -14,7 +14,7 @@ import com.qingmei2.rximagepicker_extension_wechat.ui.WechatImagePickerFragment
 import com.tbruyelle.rxpermissions2.RxPermissions
 import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
 import com.uber.autodispose.autoDisposable
-import com.fphoenixcorneae.extension.showToast
+import com.fphoenixcorneae.ext.toast
 import com.fphoenixcorneae.framework.imagepicker.WeChatImagePicker
 import com.fphoenixcorneae.kotlinmvvm.R
 import com.fphoenixcorneae.kotlinmvvm.mvvm.viewmodel.activity.OpenEyesHomeActivity
@@ -117,7 +117,7 @@ class TestActivity : AppCompatActivity() {
                         "android/pics"
                     )
                 }, {
-                    showToast("Failed:$it")
+                    toast("Failed:$it")
                 })
         }
         mTvGoToHome.setOnClickListener {

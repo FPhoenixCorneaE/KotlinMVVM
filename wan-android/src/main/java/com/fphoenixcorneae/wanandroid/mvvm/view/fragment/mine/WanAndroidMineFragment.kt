@@ -8,7 +8,7 @@ import com.bumptech.glide.GenericTransitionOptions
 import com.scwang.smart.refresh.layout.api.RefreshLayout
 import com.scwang.smart.refresh.layout.listener.OnRefreshListener
 import com.fphoenixcorneae.dsl.animation.animSet
-import com.fphoenixcorneae.extension.*
+import com.fphoenixcorneae.ext.*
 import com.fphoenixcorneae.framework.web.BaseWebFragment
 import com.fphoenixcorneae.util.AppUtil
 import com.fphoenixcorneae.util.BundleBuilder

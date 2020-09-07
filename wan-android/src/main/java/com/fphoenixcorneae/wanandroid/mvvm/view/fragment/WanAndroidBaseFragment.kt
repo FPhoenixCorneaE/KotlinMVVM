@@ -17,10 +17,10 @@ import androidx.viewpager2.widget.ViewPager2
 import com.fphoenixcorneae.adapter.AnimationType
 import com.fphoenixcorneae.adapter.BaseNBAdapter
 import com.fphoenixcorneae.adapter.viewpager2.FragmentStatePager2ItemAdapter
-import com.fphoenixcorneae.extension.loggerD
-import com.fphoenixcorneae.extension.navigate
-import com.fphoenixcorneae.extension.navigateUp
-import com.fphoenixcorneae.extension.popBackStack
+import com.fphoenixcorneae.ext.loggerD
+import com.fphoenixcorneae.ext.navigate
+import com.fphoenixcorneae.ext.navigateUp
+import com.fphoenixcorneae.ext.popBackStack
 import com.fphoenixcorneae.framework.base.fragment.BaseFragment
 import com.fphoenixcorneae.titlebar.CommonTitleBar
 import com.fphoenixcorneae.util.ResourceUtil

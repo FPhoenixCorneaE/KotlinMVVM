@@ -7,7 +7,7 @@ import androidx.activity.OnBackPressedCallback
 import com.just.agentweb.AgentWeb
 import com.just.agentweb.DefaultWebClient
 import com.just.agentweb.NestedScrollAgentWebView
-import com.fphoenixcorneae.extension.navigateUp
+import com.fphoenixcorneae.ext.navigateUp
 import com.fphoenixcorneae.framework.R
 import com.fphoenixcorneae.framework.base.fragment.BaseFragment
 import com.fphoenixcorneae.titlebar.CommonTitleBar

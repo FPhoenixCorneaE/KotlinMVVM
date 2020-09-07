@@ -4,9 +4,10 @@ import android.view.View
 import com.fphoenixcorneae.animation.attention.Swing
 import com.fphoenixcorneae.animation.fade.FadeExit
 import com.fphoenixcorneae.dialog.MaterialDialog
-import com.fphoenixcorneae.extension.androidViewModel
-import com.fphoenixcorneae.extension.navigateUp
-import com.fphoenixcorneae.extension.visible
+import com.fphoenixcorneae.ext.androidViewModel
+import com.fphoenixcorneae.ext.isVisible
+import com.fphoenixcorneae.ext.navigateUp
+import com.fphoenixcorneae.ext.visible
 import com.fphoenixcorneae.util.ResourceUtil
 import com.fphoenixcorneae.wanandroid.R
 import com.fphoenixcorneae.wanandroid.manager.WanAndroidUserManager
@@ -32,7 +33,7 @@ class WanAndroidSettingFragment : WanAndroidBaseFragment(), View.OnClickListener
     override fun lazyLoadData() {
         // 设置标题栏主题样式
         mTbTitleBar.init()
-        mCvLogout.visible(WanAndroidUserManager.sHasLoggedOn)
+        mCvLogout.isVisible = WanAndroidUserManager.sHasLoggedOn
     }
 
     override fun isAlreadyLoadedData(): Boolean = true

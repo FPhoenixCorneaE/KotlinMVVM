@@ -1,4 +1,4 @@
-package com.fphoenixcorneae.extension
+package com.fphoenixcorneae.ext
 
 import java.text.SimpleDateFormat
 import java.util.*

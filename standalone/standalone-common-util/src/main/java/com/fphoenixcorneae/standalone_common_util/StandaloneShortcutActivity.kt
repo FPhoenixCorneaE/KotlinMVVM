@@ -3,7 +3,7 @@ package com.fphoenixcorneae.standalone_common_util
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.fphoenixcorneae.extension.showToast
+import com.fphoenixcorneae.ext.toast
 import com.fphoenixcorneae.util.BundleBuilder
 import com.fphoenixcorneae.util.ShortcutUtil
 import kotlinx.android.synthetic.main.standalone_activity_shortcut.*
@@ -19,7 +19,7 @@ class StandaloneShortcutActivity : AppCompatActivity() {
 
     private fun iniListener() {
         mBtnHasShortcut.setOnClickListener {
-            showToast("存在快捷方式：${ShortcutUtil.hasShortcut(this, "快捷方式")}")
+            toast("存在快捷方式：${ShortcutUtil.hasShortcut(this, "快捷方式")}")
         }
         mBtnCreateShortcut.setOnClickListener {
             ShortcutUtil.createShortcut(
@@ -40,7 +40,7 @@ class StandaloneShortcutActivity : AppCompatActivity() {
     }
 
     private fun initData() {
-        showToast(
+        toast(
             "Bundle数据${intent.getBooleanExtra(
                 "Boolean",
                 false

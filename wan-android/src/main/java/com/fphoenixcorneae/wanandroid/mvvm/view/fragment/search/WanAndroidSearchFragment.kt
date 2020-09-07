@@ -16,7 +16,7 @@ import com.afollestad.materialdialogs.actions.getActionButton
 import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import com.fphoenixcorneae.flowlayout.FlowItem
 import com.fphoenixcorneae.flowlayout.FlowLayout
-import com.fphoenixcorneae.extension.*
+import com.fphoenixcorneae.ext.*
 import com.fphoenixcorneae.titlebar.CommonTitleBar
 import com.fphoenixcorneae.util.BundleBuilder
 import com.fphoenixcorneae.util.KeyboardUtil
@@ -125,8 +125,8 @@ class WanAndroidSearchFragment : WanAndroidBaseFragment() {
                 }
             })
             mSearchHistory.observe(viewLifecycleOwner, Observer {
-                mTvEmpty.visible(it.isNotEmpty())
-                mTvNoSearchHistory.visible(it.isEmpty())
+                mTvEmpty.isVisible = it.isNotEmpty()
+                mTvNoSearchHistory.isVisible = it.isEmpty()
                 mRvSearchHistory.apply {
                     mDatas = it as ArrayList<in FlowItem>
                 }

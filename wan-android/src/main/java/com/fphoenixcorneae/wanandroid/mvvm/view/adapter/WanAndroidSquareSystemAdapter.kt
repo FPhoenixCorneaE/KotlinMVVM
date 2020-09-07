@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.fphoenixcorneae.flowlayout.FlowItem
 import com.fphoenixcorneae.flowlayout.FlowLayout
 import com.fphoenixcorneae.adapter.BaseNBAdapter
-import com.fphoenixcorneae.extension.toHtml
+import com.fphoenixcorneae.ext.toHtml
 import com.fphoenixcorneae.wanandroid.R
 import com.fphoenixcorneae.wanandroid.mvvm.model.WanAndroidSystemBean
 import kotlinx.android.synthetic.main.wan_android_recycler_item_square_system.view.*

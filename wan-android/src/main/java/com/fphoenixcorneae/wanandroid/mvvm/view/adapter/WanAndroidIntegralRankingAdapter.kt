@@ -3,7 +3,7 @@ package com.fphoenixcorneae.wanandroid.mvvm.view.adapter
 import android.annotation.SuppressLint
 import androidx.recyclerview.widget.RecyclerView
 import com.fphoenixcorneae.adapter.BaseNBAdapter
-import com.fphoenixcorneae.extension.dp2px
+import com.fphoenixcorneae.ext.dp2px
 import com.fphoenixcorneae.util.ResourceUtil
 import com.fphoenixcorneae.wanandroid.R
 import com.fphoenixcorneae.wanandroid.manager.WanAndroidUserManager

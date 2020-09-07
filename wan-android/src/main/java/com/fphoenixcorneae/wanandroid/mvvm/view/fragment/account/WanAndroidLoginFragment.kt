@@ -10,9 +10,10 @@ import android.text.style.ClickableSpan
 import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.lifecycle.Observer
-import com.fphoenixcorneae.extension.androidViewModel
-import com.fphoenixcorneae.extension.navigateUp
-import com.fphoenixcorneae.extension.visible
+import com.fphoenixcorneae.ext.androidViewModel
+import com.fphoenixcorneae.ext.isVisible
+import com.fphoenixcorneae.ext.navigateUp
+import com.fphoenixcorneae.ext.visible
 import com.fphoenixcorneae.framework.widget.ProgressButton
 import com.fphoenixcorneae.util.KeyboardUtil
 import com.fphoenixcorneae.util.ResourceUtil
@@ -99,8 +100,8 @@ class WanAndroidLoginFragment : WanAndroidBaseFragment(), TextWatcher, View.OnFo
     }
 
     override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-        mIvAccountClear.visible(mEtAccount.isFocused && mEtAccount.text.isNullOrBlank().not())
-        mIvPasswordClear.visible(mEtPassword.isFocused && mEtPassword.text.isNullOrBlank().not())
+        mIvAccountClear.isVisible = mEtAccount.isFocused && mEtAccount.text.isNullOrBlank().not()
+        mIvPasswordClear.isVisible = mEtPassword.isFocused && mEtPassword.text.isNullOrBlank().not()
         mBtnLogin.apply {
             isEnabled =
                 mEtAccount.text.isNullOrBlank().not()
@@ -112,10 +113,11 @@ class WanAndroidLoginFragment : WanAndroidBaseFragment(), TextWatcher, View.OnFo
 
     override fun onFocusChange(v: View?, hasFocus: Boolean) {
         when (v) {
-            mEtAccount -> mIvAccountClear.visible(hasFocus && mEtAccount.text.isNullOrBlank().not())
+            mEtAccount -> mIvAccountClear.isVisible =
+                hasFocus && mEtAccount.text.isNullOrBlank().not()
             mEtPassword -> {
-                mIvPasswordClear.visible(hasFocus && mEtPassword.text.isNullOrBlank().not())
-                mIvPasswordState.visible(hasFocus)
+                mIvPasswordClear.isVisible = hasFocus && mEtPassword.text.isNullOrBlank().not()
+                mIvPasswordState.isVisible = hasFocus
             }
         }
     }

@@ -3,7 +3,7 @@ package com.fphoenixcorneae.wanandroid.mvvm.view.adapter
 import android.annotation.SuppressLint
 import androidx.recyclerview.widget.RecyclerView
 import com.fphoenixcorneae.adapter.BaseNBAdapter
-import com.fphoenixcorneae.extension.toHtml
+import com.fphoenixcorneae.ext.toHtml
 import com.fphoenixcorneae.wanandroid.R
 import com.fphoenixcorneae.wanandroid.mvvm.model.WanAndroidArticleBean
 import kotlinx.android.synthetic.main.wan_android_recycler_item_vipcn.view.*

@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.app.SkinAppCompatDelegateImpl
 import androidx.fragment.app.FragmentActivity
 import cn.cricin.folivora.Folivora
-import com.fphoenixcorneae.extension.showToast
+import com.fphoenixcorneae.ext.toast
 import com.fphoenixcorneae.framework.R
 import com.fphoenixcorneae.rxretrofit.network.exception.ErrorStatus
 import com.fphoenixcorneae.rxretrofit.network.exception.ExceptionHandle
@@ -122,7 +122,7 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     open fun showErrorMsg(errorMsg: CharSequence) {
-        showToast(errorMsg)
+        toast(errorMsg)
     }
 
     /**

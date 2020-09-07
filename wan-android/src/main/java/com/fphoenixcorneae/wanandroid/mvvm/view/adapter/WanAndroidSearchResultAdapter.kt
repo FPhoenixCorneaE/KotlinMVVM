@@ -3,8 +3,9 @@ package com.fphoenixcorneae.wanandroid.mvvm.view.adapter
 import android.annotation.SuppressLint
 import androidx.recyclerview.widget.RecyclerView
 import com.fphoenixcorneae.adapter.BaseNBAdapter
-import com.fphoenixcorneae.extension.toHtml
-import com.fphoenixcorneae.extension.visible
+import com.fphoenixcorneae.ext.isVisible
+import com.fphoenixcorneae.ext.toHtml
+import com.fphoenixcorneae.ext.visible
 import com.fphoenixcorneae.wanandroid.R
 import com.fphoenixcorneae.wanandroid.mvvm.model.WanAndroidArticleBean
 import kotlinx.android.synthetic.main.wan_android_recycler_item_search_result.view.*
@@ -37,9 +38,9 @@ class WanAndroidSearchResultAdapter :
                         data.shareUser
                     }
                 }
-            mTvTop.visible(data.type == 1)
-            mTvNew.visible(data.fresh)
-            mTvTag.visible(data.tags.isNotEmpty())
+            mTvTop.isVisible = data.type == 1
+            mTvNew.isVisible = data.fresh
+            mTvTag.isVisible = data.tags.isNotEmpty()
             if (data.tags.isNotEmpty()) {
                 mTvTag.text = data.tags[0].name
             }

@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import android.graphics.drawable.GradientDrawable
 import androidx.recyclerview.widget.RecyclerView
 import com.fphoenixcorneae.adapter.BaseNBAdapter
-import com.fphoenixcorneae.extension.toHtml
+import com.fphoenixcorneae.ext.toHtml
 import com.fphoenixcorneae.framework.glide.GlideUtil
 import com.fphoenixcorneae.util.ColorUtil
 import com.fphoenixcorneae.util.SizeUtil

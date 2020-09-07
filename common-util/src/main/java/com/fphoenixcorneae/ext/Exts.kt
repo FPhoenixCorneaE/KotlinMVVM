@@ -1,4 +1,4 @@
-package com.fphoenixcorneae.extension
+package com.fphoenixcorneae.ext
 
 import android.text.TextUtils
 import com.fphoenixcorneae.util.CloseUtil

@@ -5,7 +5,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import androidx.fragment.app.FragmentActivity
 import com.tbruyelle.rxpermissions2.RxPermissions
-import com.fphoenixcorneae.extension.isNull
+import com.fphoenixcorneae.ext.isNull
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import java.util.concurrent.TimeUnit

@@ -18,8 +18,8 @@ import android.os.Build
 import android.os.Process
 import android.provider.Settings
 import com.orhanobut.logger.Logger
-import com.fphoenixcorneae.extension.isNull
-import com.fphoenixcorneae.extension.isSpace
+import com.fphoenixcorneae.ext.isNull
+import com.fphoenixcorneae.ext.isSpace
 import java.io.ByteArrayInputStream
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException

@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
-import com.fphoenixcorneae.extension.showToast
+import com.fphoenixcorneae.ext.toast
 import com.fphoenixcorneae.framework.R
 import com.fphoenixcorneae.rxretrofit.network.exception.ErrorStatus
 import com.fphoenixcorneae.rxretrofit.network.exception.ExceptionHandle
@@ -129,7 +129,7 @@ abstract class BaseFragment : Fragment() {
     }
 
     open fun showErrorMsg(errorMsg: CharSequence) {
-        showToast(errorMsg)
+        toast(errorMsg)
     }
 
     /**

@@ -17,12 +17,8 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
-import com.orhanobut.logger.Logger
-import com.shuyu.gsyvideoplayer.utils.OrientationUtils
-import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
-import com.shuyu.gsyvideoplayer.video.base.GSYVideoPlayer
-import com.fphoenixcorneae.extension.durationFormat
-import com.fphoenixcorneae.extension.showToast
+import com.fphoenixcorneae.ext.durationFormat
+import com.fphoenixcorneae.ext.toast
 import com.fphoenixcorneae.framework.base.activity.Dagger2InjectionActivity
 import com.fphoenixcorneae.framework.glide.GlideUtil
 import com.fphoenixcorneae.kotlinmvvm.R
@@ -38,6 +34,10 @@ import com.fphoenixcorneae.util.ResourceUtil
 import com.fphoenixcorneae.util.ScreenUtil
 import com.fphoenixcorneae.util.statusbar.StatusBarUtil
 import com.fphoenixcorneae.widget.Callback
+import com.orhanobut.logger.Logger
+import com.shuyu.gsyvideoplayer.utils.OrientationUtils
+import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
+import com.shuyu.gsyvideoplayer.video.base.GSYVideoPlayer
 import kotlinx.android.synthetic.main.open_eyes_activity_video_detail.*
 import kotlinx.android.synthetic.main.open_eyes_layout_video_detail_info.*
 import java.util.*
@@ -165,7 +165,7 @@ class OpenEyesVideoDetailActivity :
 
             override fun onPlayError(url: String, vararg objects: Any) {
                 super.onPlayError(url, *objects)
-                showToast("播放失败")
+                toast("播放失败")
             }
 
             override fun onEnterFullscreen(url: String, vararg objects: Any) {

@@ -2,7 +2,7 @@ package com.fphoenixcorneae.wanandroid.mvvm.view.fragment.square
 
 import com.fphoenixcorneae.adapter.app.FragmentPagerItems
 import com.fphoenixcorneae.adapter.viewpager2.FragmentStatePager2ItemAdapter
-import com.fphoenixcorneae.extension.toHtml
+import com.fphoenixcorneae.ext.toHtml
 import com.fphoenixcorneae.util.BundleBuilder
 import com.fphoenixcorneae.wanandroid.R
 import com.fphoenixcorneae.wanandroid.constant.WanAndroidConstant

@@ -17,7 +17,7 @@ import android.view.inputmethod.EditorInfo
 import android.widget.*
 import android.widget.TextView.OnEditorActionListener
 import androidx.core.content.ContextCompat
-import com.fphoenixcorneae.extension.*
+import com.fphoenixcorneae.ext.*
 import com.fphoenixcorneae.util.KeyboardUtil
 import com.fphoenixcorneae.util.ViewUtil
 import com.fphoenixcorneae.util.statusbar.StatusBarUtil

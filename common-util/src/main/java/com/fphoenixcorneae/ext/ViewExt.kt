@@ -1,8 +1,9 @@
-package com.fphoenixcorneae.extension
+package com.fphoenixcorneae.ext
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.annotation.TargetApi
+import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Build
 import android.view.View
@@ -11,45 +12,65 @@ import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.ImageView
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
+import androidx.annotation.Px
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.applyCanvas
+import androidx.core.view.ViewCompat
 import com.fphoenixcorneae.util.ImageUtil
 import kotlin.math.hypot
 
-fun View.visible(visible: Boolean) = when {
-    visible -> visible()
-    else -> gone()
+fun View.visible() = run { visibility = View.VISIBLE }
+
+fun View.invisible() = run { visibility = View.INVISIBLE }
+
+fun View.gone() = run { visibility = View.GONE }
+
+var View.isVisible: Boolean
+    get() = visibility == View.VISIBLE
+    set(value) = if (value) visible() else gone()
+
+var View.isInvisible: Boolean
+    get() = visibility == View.INVISIBLE
+    set(value) = if (value) invisible() else visible()
+
+var View.isGone: Boolean
+    get() = visibility == View.GONE
+    set(value) = if (value) gone() else visible()
+
+/**
+ * 设置内边距
+ * @param size 大小,单位：px
+ */
+fun View.setPadding(@Px size: Int) {
+    setPadding(size, size, size, size)
 }
 
-fun View.visible() {
-    visibility = View.VISIBLE
+inline fun View.postDelayed(delayInMillis: Long, crossinline action: () -> Unit): Runnable {
+    val runnable = Runnable { action() }
+    postDelayed(runnable, delayInMillis)
+    return runnable
 }
 
-fun View.invisible() {
-    visibility = View.INVISIBLE
-}
-
-fun View.gone() {
-    visibility = View.GONE
-}
-
-fun View.isVisible(): Boolean {
-    return visibility == View.VISIBLE
-}
-
-fun View.isInvisible(): Boolean {
-    return visibility == View.INVISIBLE
-}
-
-fun View.isGone(): Boolean {
-    return visibility == View.GONE
+/**
+ * 生成位图
+ * @param config 配置,默认：[Bitmap.Config.ARGB_8888]
+ */
+fun View.createBitmap(config: Bitmap.Config = Bitmap.Config.ARGB_8888): Bitmap {
+    if (!ViewCompat.isLaidOut(this)) {
+        throw IllegalStateException("View needs to be laid out before calling toBitmap()")
+    }
+    return Bitmap.createBitmap(width, height, config).applyCanvas {
+        translate(-scrollX.toFloat(), -scrollY.toFloat())
+        draw(this)
+    }
 }
 
 var lastClickTime = 0L
 
 /**
  * 防止重复点击事件 默认1秒内不可重复点击
- * @param interval 时间间隔 默认1秒
+ * @param interval 时间间隔 默认：1秒
  * @param action   执行方法
  */
 fun View.clickNoRepeat(
@@ -69,7 +90,7 @@ fun View.clickNoRepeat(
 /**
  * 设置防止重复点击事件
  * @param views 需要设置点击事件的view集合
- * @param interval 时间间隔 默认1秒
+ * @param interval 时间间隔 默认：1秒
  * @param onClick 点击触发的方法
  */
 fun setOnclickNoRepeat(vararg views: View?, interval: Long = 1000, onClick: (View) -> Unit) {

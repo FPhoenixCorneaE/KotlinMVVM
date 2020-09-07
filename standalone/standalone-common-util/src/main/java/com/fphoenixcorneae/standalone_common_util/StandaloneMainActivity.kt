@@ -15,15 +15,15 @@ import android.view.View
 import android.widget.SeekBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentActivity
-import com.orhanobut.logger.Logger
-import com.fphoenixcorneae.extension.isNonNull
-import com.fphoenixcorneae.extension.isNull
-import com.fphoenixcorneae.extension.showToast
+import com.fphoenixcorneae.ext.isNonNull
+import com.fphoenixcorneae.ext.isNull
+import com.fphoenixcorneae.ext.toast
 import com.fphoenixcorneae.util.*
 import com.fphoenixcorneae.util.gson.GsonUtil
 import com.fphoenixcorneae.util.xtoast.XToast
 import com.fphoenixcorneae.util.xtoast.draggable.MovingDraggable
 import com.fphoenixcorneae.util.xtoast.listener.OnClickListener
+import com.orhanobut.logger.Logger
 import kotlinx.android.synthetic.main.standalone_activity_main.*
 import java.io.File
 
@@ -47,7 +47,7 @@ class StandaloneMainActivity : AppCompatActivity() {
                  * @param context 上下文
                  */
                 override fun onPermissionGranted(context: Context?) {
-                    showToast("申请定位权限成功")
+                    toast("申请定位权限成功")
                 }
 
                 /**
@@ -57,7 +57,7 @@ class StandaloneMainActivity : AppCompatActivity() {
                  * @param type    类型，1是拒绝权限，2是申请失败
                  */
                 override fun onPermissionDenied(context: Context?, type: Int) {
-                    showToast("申请定位权限失败,Type:$type")
+                    toast("申请定位权限失败,Type:$type")
                 }
             })
         }
@@ -72,7 +72,7 @@ class StandaloneMainActivity : AppCompatActivity() {
                  * @param context 上下文
                  */
                 override fun onPermissionGranted(context: Context?) {
-                    showToast("申请读写权限成功")
+                    toast("申请读写权限成功")
                 }
 
                 /**
@@ -82,7 +82,7 @@ class StandaloneMainActivity : AppCompatActivity() {
                  * @param type    类型，1是拒绝权限，2是申请失败
                  */
                 override fun onPermissionDenied(context: Context?, type: Int) {
-                    showToast("申请读写权限失败,Type:$type")
+                    toast("申请读写权限失败,Type:$type")
                     when (type) {
                         PermissionCallBack.STOP_ASKING_AFTER_PROHIBITION -> {
                             IntentUtil.openApplicationDetailsSettings()
@@ -127,7 +127,7 @@ class StandaloneMainActivity : AppCompatActivity() {
         mBtnZipFile.setOnClickListener {
             val srcFilePath = File(Environment.getExternalStorageDirectory(), "周报/")
             if (srcFilePath.exists()) {
-                showToast("源文件存在！")
+                toast("源文件存在！")
                 val zipFilePath =
                     File(Environment.getExternalStorageDirectory(), "周报.zip")
                 if (!zipFilePath.exists()) {
@@ -257,7 +257,7 @@ class StandaloneMainActivity : AppCompatActivity() {
             val parseResult = GsonUtil.fromJson(testJson, StandaloneGsonParseBean::class.java)
             Logger.d(testJson)
             Logger.d(parseResult)
-            showToast(parseResult.toString())
+            toast(parseResult.toString())
         }
     }
 
@@ -305,7 +305,7 @@ class StandaloneMainActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         when (requestCode) {
             200 -> {
-                showToast("requestCode:$requestCode")
+                toast("requestCode:$requestCode")
             }
         }
     }

@@ -1,4 +1,4 @@
-package com.fphoenixcorneae.extension
+package com.fphoenixcorneae.ext
 
 import android.app.Activity
 import android.os.Bundle
@@ -16,7 +16,7 @@ fun Activity.navigate(
     args: Bundle? = null,
     navOptions: NavOptions? = null,
     navigatorExtras: Navigator.Extras? = null
-): Unit {
+) {
     return Navigation.findNavController(this, viewId)
         .navigate(resId, args, navOptions, navigatorExtras)
 }
@@ -33,7 +33,7 @@ fun Fragment.navigate(
     args: Bundle? = null,
     navOptions: NavOptions? = null,
     navigatorExtras: Navigator.Extras? = null
-): Unit {
+) {
     return NavHostFragment.findNavController(this)
         .navigate(resId, args, navOptions, navigatorExtras)
 }
@@ -53,7 +53,7 @@ fun View.navigate(
     args: Bundle? = null,
     navOptions: NavOptions? = null,
     navigatorExtras: Navigator.Extras? = null
-): Unit {
+) {
     return Navigation.findNavController(this).navigate(resId, args, navOptions, navigatorExtras)
 }
 

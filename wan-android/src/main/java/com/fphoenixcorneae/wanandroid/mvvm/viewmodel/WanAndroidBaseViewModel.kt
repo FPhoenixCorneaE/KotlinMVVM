@@ -1,7 +1,7 @@
 package com.fphoenixcorneae.wanandroid.mvvm.viewmodel
 
 import androidx.lifecycle.ViewModel
-import com.fphoenixcorneae.extension.isNull
+import com.fphoenixcorneae.ext.isNull
 import com.fphoenixcorneae.rxretrofit.network.BaseResponse
 import com.fphoenixcorneae.rxretrofit.network.IBaseUrl
 import com.fphoenixcorneae.rxretrofit.network.RetrofitManager

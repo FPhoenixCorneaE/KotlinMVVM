@@ -1,8 +1,7 @@
 package com.fphoenixcorneae.kotlinmvvm.mvvm.presenter
 
-import com.uber.autodispose.autoDisposable
-import com.fphoenixcorneae.extension.dataFormat
-import com.fphoenixcorneae.extension.showToast
+import com.fphoenixcorneae.ext.dataFormat
+import com.fphoenixcorneae.ext.toast
 import com.fphoenixcorneae.framework.base.BasePresenter
 import com.fphoenixcorneae.kotlinmvvm.mvvm.contract.OpenEyesVideoDetailContract
 import com.fphoenixcorneae.kotlinmvvm.mvvm.model.OpenEyesVideoDetailModel
@@ -10,6 +9,7 @@ import com.fphoenixcorneae.kotlinmvvm.mvvm.model.bean.OpenEyesHomeBean
 import com.fphoenixcorneae.rxretrofit.network.exception.ExceptionHandle
 import com.fphoenixcorneae.util.NetworkUtil
 import com.fphoenixcorneae.util.ScreenUtil
+import com.uber.autodispose.autoDisposable
 import javax.inject.Inject
 
 /**
@@ -44,7 +44,7 @@ class OpenEyesVideoDetailPresenter @Inject constructor() :
                     if (i.type == "normal") {
                         val playUrl = i.url
                         mView.setVideo(playUrl)
-                        showToast("本次消耗${dataFormat(i.urlList[0].size)}流量")
+                        toast("本次消耗${dataFormat(i.urlList[0].size)}流量")
                         break
                     }
                 }

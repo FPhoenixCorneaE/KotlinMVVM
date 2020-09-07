@@ -9,9 +9,9 @@ import com.scwang.smart.refresh.layout.listener.OnRefreshLoadMoreListener
 import com.fphoenixcorneae.adapter.AnimationType
 import com.fphoenixcorneae.adapter.BaseNBAdapter
 import com.fphoenixcorneae.adapter.SimpleOnItemChildClickListener
-import com.fphoenixcorneae.extension.androidViewModel
-import com.fphoenixcorneae.extension.toHtml
-import com.fphoenixcorneae.extension.viewModel
+import com.fphoenixcorneae.ext.androidViewModel
+import com.fphoenixcorneae.ext.toHtml
+import com.fphoenixcorneae.ext.viewModel
 import com.fphoenixcorneae.framework.web.BaseWebFragment
 import com.fphoenixcorneae.shinebutton.ShineButton
 import com.fphoenixcorneae.util.BundleBuilder

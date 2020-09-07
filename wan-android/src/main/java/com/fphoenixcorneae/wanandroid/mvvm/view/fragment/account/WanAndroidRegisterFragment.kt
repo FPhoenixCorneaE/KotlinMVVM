@@ -7,9 +7,10 @@ import android.text.method.PasswordTransformationMethod
 import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.lifecycle.Observer
-import com.fphoenixcorneae.extension.androidViewModel
-import com.fphoenixcorneae.extension.showToast
-import com.fphoenixcorneae.extension.visible
+import com.fphoenixcorneae.ext.androidViewModel
+import com.fphoenixcorneae.ext.isVisible
+import com.fphoenixcorneae.ext.toast
+import com.fphoenixcorneae.ext.visible
 import com.fphoenixcorneae.framework.widget.ProgressButton
 import com.fphoenixcorneae.util.KeyboardUtil
 import com.fphoenixcorneae.util.ResourceUtil
@@ -91,11 +92,10 @@ class WanAndroidRegisterFragment : WanAndroidBaseFragment(), TextWatcher,
     }
 
     override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-        mIvAccountClear.visible(mEtAccount.isFocused && mEtAccount.text.isNullOrBlank().not())
-        mIvPasswordClear.visible(mEtPassword.isFocused && mEtPassword.text.isNullOrBlank().not())
-        mIvPasswordConfirmClear.visible(
+        mIvAccountClear.isVisible = mEtAccount.isFocused && mEtAccount.text.isNullOrBlank().not()
+        mIvPasswordClear.isVisible = mEtPassword.isFocused && mEtPassword.text.isNullOrBlank().not()
+        mIvPasswordConfirmClear.isVisible =
             mEtPasswordConfirm.isFocused && mEtPasswordConfirm.text.isNullOrBlank().not()
-        )
         mBtnRegister.apply {
             isEnabled =
                 mEtAccount.text.isNullOrBlank().not()
@@ -108,16 +108,16 @@ class WanAndroidRegisterFragment : WanAndroidBaseFragment(), TextWatcher,
 
     override fun onFocusChange(v: View?, hasFocus: Boolean) {
         when (v) {
-            mEtAccount -> mIvAccountClear.visible(hasFocus && mEtAccount.text.isNullOrBlank().not())
+            mEtAccount -> mIvAccountClear.isVisible =
+                hasFocus && mEtAccount.text.isNullOrBlank().not()
             mEtPassword -> {
-                mIvPasswordClear.visible(hasFocus && mEtPassword.text.isNullOrBlank().not())
-                mIvPasswordState.visible(hasFocus)
+                mIvPasswordClear.isVisible = hasFocus && mEtPassword.text.isNullOrBlank().not()
+                mIvPasswordState.isVisible = hasFocus
             }
             mEtPasswordConfirm -> {
-                mIvPasswordConfirmClear.visible(
+                mIvPasswordConfirmClear.isVisible =
                     hasFocus && mEtPasswordConfirm.text.isNullOrBlank().not()
-                )
-                mIvPasswordConfirmState.visible(hasFocus)
+                mIvPasswordConfirmState.isVisible = hasFocus
             }
         }
     }
@@ -157,13 +157,13 @@ class WanAndroidRegisterFragment : WanAndroidBaseFragment(), TextWatcher,
                 val rePassword = mEtPasswordConfirm.text.toString()
                 when {
                     username.length < 6 -> {
-                        showToast(ResourceUtil.getString(R.string.wan_android_register_tips_account_length))
+                        toast(ResourceUtil.getString(R.string.wan_android_register_tips_account_length))
                     }
                     password.length < 6 -> {
-                        showToast(ResourceUtil.getString(R.string.wan_android_register_tips_password_length))
+                        toast(ResourceUtil.getString(R.string.wan_android_register_tips_password_length))
                     }
                     password != rePassword -> {
-                        showToast(ResourceUtil.getString(R.string.wan_android_register_tips_password_incomformity))
+                        toast(ResourceUtil.getString(R.string.wan_android_register_tips_password_incomformity))
                     }
                     else -> {
                         // 隐藏软键盘

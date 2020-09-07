@@ -2,7 +2,7 @@ package com.fphoenixcorneae.kotlinmvvm.mvvm.viewmodel.adapter
 
 import android.content.Context
 import android.graphics.drawable.GradientDrawable
-import com.fphoenixcorneae.extension.durationFormat
+import com.fphoenixcorneae.ext.durationFormat
 import com.fphoenixcorneae.framework.glide.GlideUtil
 import com.fphoenixcorneae.framework.widget.recyclerview.AbstractRecyclerAdapter
 import com.fphoenixcorneae.framework.widget.recyclerview.RecyclerItemType

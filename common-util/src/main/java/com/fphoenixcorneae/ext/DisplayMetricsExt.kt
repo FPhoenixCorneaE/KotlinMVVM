@@ -1,4 +1,4 @@
-package com.fphoenixcorneae.extension
+package com.fphoenixcorneae.ext
 
 import android.content.Context
 import android.util.DisplayMetrics

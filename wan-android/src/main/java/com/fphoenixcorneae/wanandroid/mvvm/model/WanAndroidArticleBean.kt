@@ -2,7 +2,7 @@ package com.fphoenixcorneae.wanandroid.mvvm.model
 
 import android.os.Parcelable
 import com.fphoenixcorneae.flowlayout.FlowItem
-import com.fphoenixcorneae.extension.toHtml
+import com.fphoenixcorneae.ext.toHtml
 import kotlinx.android.parcel.Parcelize
 
 /**

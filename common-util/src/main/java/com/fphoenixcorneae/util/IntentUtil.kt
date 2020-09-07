@@ -29,7 +29,7 @@ import androidx.core.content.FileProvider
 import androidx.core.util.Pair
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
-import com.fphoenixcorneae.extension.isNull
+import com.fphoenixcorneae.ext.isNull
 import java.io.File
 import java.io.Serializable
 

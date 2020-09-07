@@ -1,6 +1,6 @@
 package com.fphoenixcorneae.wanandroid.manager
 
-import com.fphoenixcorneae.extension.isNonNull
+import com.fphoenixcorneae.ext.isNonNull
 import com.fphoenixcorneae.rxretrofit.network.RetrofitManager
 import com.fphoenixcorneae.util.SharedPreferencesUtil
 import com.fphoenixcorneae.util.encryption.AESUtil

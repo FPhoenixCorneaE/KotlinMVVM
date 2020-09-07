@@ -2,7 +2,7 @@ package com.fphoenixcorneae.util
 
 import android.annotation.SuppressLint
 import com.fphoenixcorneae.annotation.MemoryUnit
-import com.fphoenixcorneae.extension.isSpace
+import com.fphoenixcorneae.ext.isSpace
 import java.io.*
 import java.security.DigestInputStream
 import java.security.MessageDigest

@@ -6,8 +6,8 @@ import com.scwang.smart.refresh.layout.api.RefreshLayout
 import com.scwang.smart.refresh.layout.listener.OnRefreshListener
 import com.fphoenixcorneae.adapter.BaseNBAdapter
 import com.fphoenixcorneae.adapter.SimpleOnItemChildClickListener
-import com.fphoenixcorneae.extension.isNonNullAndNotEmpty
-import com.fphoenixcorneae.extension.viewModel
+import com.fphoenixcorneae.ext.isNonNullAndNotEmpty
+import com.fphoenixcorneae.ext.viewModel
 import com.fphoenixcorneae.util.BundleBuilder
 import com.fphoenixcorneae.wanandroid.R
 import com.fphoenixcorneae.wanandroid.constant.WanAndroidConstant

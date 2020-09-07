@@ -7,8 +7,8 @@ import android.location.*
 import android.os.Bundle
 import android.provider.Settings
 import androidx.annotation.RequiresPermission
+import com.fphoenixcorneae.ext.toast
 import com.orhanobut.logger.Logger
-import com.fphoenixcorneae.extension.showToast
 import java.io.IOException
 import java.util.*
 
@@ -170,7 +170,7 @@ class LocationUtil private constructor() {
                 ContextUtil.context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
             mListener = listener
             if (!isLocationEnabled) {
-                showToast("无法定位，请打开定位服务")
+                toast("无法定位，请打开定位服务")
                 return false
             }
             val provider = mLocationManager!!.getBestProvider(

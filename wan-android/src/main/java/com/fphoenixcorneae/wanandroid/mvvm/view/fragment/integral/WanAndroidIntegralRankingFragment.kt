@@ -3,8 +3,8 @@ package com.fphoenixcorneae.wanandroid.mvvm.view.fragment.integral
 import androidx.lifecycle.Observer
 import com.scwang.smart.refresh.layout.api.RefreshLayout
 import com.scwang.smart.refresh.layout.listener.OnRefreshLoadMoreListener
-import com.fphoenixcorneae.extension.isNonNullAndNotEmpty
-import com.fphoenixcorneae.extension.viewModel
+import com.fphoenixcorneae.ext.isNonNullAndNotEmpty
+import com.fphoenixcorneae.ext.viewModel
 import com.fphoenixcorneae.framework.web.BaseWebFragment
 import com.fphoenixcorneae.util.BundleBuilder
 import com.fphoenixcorneae.wanandroid.R

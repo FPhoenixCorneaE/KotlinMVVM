@@ -3,7 +3,7 @@ package com.fphoenixcorneae.wanandroid.mvvm.viewmodel
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
-import com.fphoenixcorneae.extension.showToast
+import com.fphoenixcorneae.ext.toast
 import com.fphoenixcorneae.wanandroid.manager.WanAndroidUserManager
 import com.fphoenixcorneae.wanandroid.mvvm.model.WanAndroidAccountBody
 
@@ -33,7 +33,7 @@ class WanAndroidAccountViewModel(application: Application) :
                 mLoginAccountBody.value = mRegisterAccountBody.value
                 true
             } else {
-                showToast(it.errorMsg)
+                toast(it.errorMsg)
                 false
             }
         }
@@ -54,7 +54,7 @@ class WanAndroidAccountViewModel(application: Application) :
                     WanAndroidUserManager.sUserInfo = it.data
                 } else {
                     // 登录失败,提示失败信息
-                    showToast(it.errorMsg)
+                    toast(it.errorMsg)
                 }
                 loginSuccess
             }

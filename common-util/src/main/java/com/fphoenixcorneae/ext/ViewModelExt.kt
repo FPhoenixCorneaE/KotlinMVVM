@@ -1,4 +1,4 @@
-package com.fphoenixcorneae.extension
+package com.fphoenixcorneae.ext
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
