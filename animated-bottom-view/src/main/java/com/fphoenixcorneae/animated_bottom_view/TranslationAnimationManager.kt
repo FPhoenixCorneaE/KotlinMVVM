@@ -3,7 +3,6 @@ package com.fphoenixcorneae.animated_bottom_view
 import android.animation.ValueAnimator
 import android.view.View
 import android.view.animation.LinearInterpolator
-import com.wkz.extension.loggerI
 import kotlin.math.cos
 
 /**

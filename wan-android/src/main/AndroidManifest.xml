@@ -2,12 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:dist="http://schemas.android.com/apk/distribution"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.wkz.wanandroid">
+    package="com.fphoenixcorneae.wanandroid">
 
     <dist:module dist:instant="true" />
 
     <application
-        android:name=".application.WanAndroidApplication"
+        android:name="com.fphoenixcorneae.wanandroid.application.WanAndroidApplication"
         android:allowBackup="true"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/wan_android_ic_launcher"
@@ -20,7 +20,7 @@
         tools:targetApi="m">
         <!-- 首页 -->
         <activity
-            android:name=".mvvm.view.activity.WanAndroidMainActivity"
+            android:name="com.fphoenixcorneae.wanandroid.mvvm.view.activity.WanAndroidMainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize|screenLayout|uiMode"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"

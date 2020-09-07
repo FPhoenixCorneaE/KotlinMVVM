@@ -20,4 +20,4 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
--keep class com.wkz.kotlinmvvm.mvvm.model.bean.** { *; }
+-keep class com.fphoenixcorneae.kotlinmvvm.mvvm.model.bean.** { *; }

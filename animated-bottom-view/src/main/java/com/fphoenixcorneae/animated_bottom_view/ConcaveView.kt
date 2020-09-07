@@ -6,7 +6,7 @@ import android.graphics.Paint
 import android.graphics.Path
 import android.util.AttributeSet
 import android.view.View
-import com.wkz.util.SizeUtil
+import com.fphoenixcorneae.util.SizeUtil
 import kotlin.math.max
 import kotlin.math.min
 

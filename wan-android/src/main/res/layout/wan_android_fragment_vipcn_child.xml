@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.wkz.framework.widget.FixDragLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.fphoenixcorneae.framework.widget.FixDragLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -19,4 +19,4 @@
             tools:itemCount="10"
             tools:listitem="@layout/wan_android_recycler_item_vipcn" />
     </com.scwang.smart.refresh.layout.SmartRefreshLayout>
-</com.wkz.framework.widget.FixDragLayout>
+</com.fphoenixcorneae.framework.widget.FixDragLayout>

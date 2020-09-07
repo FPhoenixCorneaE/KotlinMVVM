@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <com.wkz.arclayout.ArcLayout
+            <com.fphoenixcorneae.arclayout.ArcLayout
                 android:id="@+id/mFlArc"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_200"
@@ -112,7 +112,7 @@
                         tools:ignore="HardcodedText"
                         tools:visibility="visible" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
-            </com.wkz.arclayout.ArcLayout>
+            </com.fphoenixcorneae.arclayout.ArcLayout>
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/mCvIntegral"

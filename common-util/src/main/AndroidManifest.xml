@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.wkz.util">
+    package="com.fphoenixcorneae.util">
 
     <!--  网络  -->
     <uses-permission android:name="android.permission.INTERNET" />
@@ -60,7 +60,7 @@
         tools:targetApi="n">
         <!--  Android 7.0适配-应用之间共享文件  -->
         <provider
-            android:name="com.wkz.CommonUtilFileProvider"
+            android:name="com.fphoenixcorneae.CommonUtilFileProvider"
             android:authorities="${applicationId}.FileProvider"
             android:exported="false"
             android:grantUriPermissions="true"

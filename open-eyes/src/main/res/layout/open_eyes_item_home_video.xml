@@ -111,7 +111,7 @@
         app:layout_constraintEnd_toEndOf="@+id/mIvCoverFeed"
         tools:text="@tools:sample/date/hhmm" />
 
-    <com.wkz.widget.ExpandCollapseTextView
+    <com.fphoenixcorneae.widget.ExpandCollapseTextView
         android:id="@+id/mTvDescription"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

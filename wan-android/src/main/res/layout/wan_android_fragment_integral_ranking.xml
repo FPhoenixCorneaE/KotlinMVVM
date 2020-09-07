@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.wkz.titlebar.CommonTitleBar
+    <com.fphoenixcorneae.titlebar.CommonTitleBar
         android:id="@+id/mTbTitleBar"
         style="@style/CommonTitleBar"
         app:centerText="@string/wan_android_mine_integral_ranking"

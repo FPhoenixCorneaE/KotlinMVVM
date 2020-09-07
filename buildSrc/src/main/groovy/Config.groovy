@@ -234,4 +234,5 @@ class Config {
     static materialDialogsLibs = materialDialogs.values()
     static androidSkinSupportLibs = androidSkinSupport.values()
     static FPhoenixCorneaELibs = FPhoenixCorneaE.values()
+    static qrCodeLibs = qrCode.values()
 }

@@ -151,7 +151,7 @@
             tools:ignore="MissingPrefix"
             tools:text="@tools:sample/last_names" />
 
-        <com.wkz.shinebutton.ShineButton
+        <com.fphoenixcorneae.shinebutton.ShineButton
             android:id="@+id/mSbCollect"
             android:layout_width="@dimen/dp_24"
             android:layout_height="@dimen/dp_24"

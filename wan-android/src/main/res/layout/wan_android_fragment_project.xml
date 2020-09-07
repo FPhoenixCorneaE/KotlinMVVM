@@ -11,7 +11,7 @@
         android:background="@color/wan_android_colorPrimaryDark"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.wkz.widget.magicindicator.MagicIndicator
+    <com.fphoenixcorneae.widget.magicindicator.MagicIndicator
         android:id="@+id/mFlMagicIndicator"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"

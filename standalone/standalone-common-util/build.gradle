@@ -7,7 +7,7 @@ android {
     buildToolsVersion Config.android.buildToolsVersion
 
     defaultConfig {
-        applicationId "com.wkz.standalone_common_util"
+        applicationId "com.fphoenixcorneae.standalone_common_util"
         minSdkVersion Config.android.minSdkVersion
         targetSdkVersion Config.android.targetSdkVersion
         versionCode 1

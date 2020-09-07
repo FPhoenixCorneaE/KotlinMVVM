@@ -106,4 +106,5 @@ dependencies {
     api Config.navigationLibs
     api Config.androidSkinSupportLibs
     api Config.FPhoenixCorneaELibs
+    api Config.qrCodeLibs
 }

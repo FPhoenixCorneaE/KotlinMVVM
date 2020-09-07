@@ -20,4 +20,4 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
--keep class com.wkz.wanandroid.mvvm.model.**{*;}
+-keep class com.fphoenixcorneae.wanandroid.mvvm.model.**{*;}

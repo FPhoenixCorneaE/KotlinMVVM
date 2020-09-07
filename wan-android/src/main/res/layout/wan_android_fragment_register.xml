@@ -224,7 +224,7 @@
             tools:visibility="visible" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <com.wkz.framework.widget.ProgressButton
+    <com.fphoenixcorneae.framework.widget.ProgressButton
         android:id="@+id/mBtnRegister"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_48"

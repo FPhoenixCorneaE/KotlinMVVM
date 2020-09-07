@@ -15,7 +15,7 @@ android {
     buildToolsVersion Config.android.buildToolsVersion
 
     defaultConfig {
-        applicationId "com.wkz.wanandroid"
+        applicationId "com.fphoenixcorneae.wanandroid"
         minSdkVersion Config.android.minSdkVersion
         targetSdkVersion Config.android.targetSdkVersion
         versionCode 1

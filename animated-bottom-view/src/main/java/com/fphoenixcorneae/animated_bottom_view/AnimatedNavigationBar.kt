@@ -8,8 +8,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import com.wkz.util.ImageUtil
-import com.wkz.util.SizeUtil
+import com.fphoenixcorneae.util.ImageUtil
+import com.fphoenixcorneae.util.SizeUtil
 import kotlin.math.abs
 
 

@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.wkz.framework">
+    package="com.fphoenixcorneae.framework">
 
     <application
         android:allowBackup="true"
@@ -10,7 +10,7 @@
         tools:ignore="UnusedAttribute">
 
         <activity
-            android:name=".web.BaseWebActivity"
+            android:name="com.fphoenixcorneae.framework.web.BaseWebActivity"
             android:configChanges="orientation|keyboardHidden|screenSize|screenLayout"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait" />

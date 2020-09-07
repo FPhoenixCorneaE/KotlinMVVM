@@ -60,7 +60,7 @@
             app:layout_constraintTop_toBottomOf="@+id/mTvAuthor"
             tools:text="@tools:sample/lorem/random" />
 
-        <com.wkz.framework.widget.MixtureTextView
+        <com.fphoenixcorneae.framework.widget.MixtureTextView
             android:id="@+id/mTvDesc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -80,7 +80,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="ContentDescription"
                 tools:src="@tools:sample/backgrounds/scenic" />
-        </com.wkz.framework.widget.MixtureTextView>
+        </com.fphoenixcorneae.framework.widget.MixtureTextView>
 
         <TextView
             android:id="@+id/mSuperChapterName"
@@ -123,7 +123,7 @@
             tools:ignore="MissingPrefix"
             tools:text="@tools:sample/last_names" />
 
-        <com.wkz.shinebutton.ShineButton
+        <com.fphoenixcorneae.shinebutton.ShineButton
             android:id="@+id/mSbCollect"
             android:layout_width="@dimen/dp_24"
             android:layout_height="@dimen/dp_24"

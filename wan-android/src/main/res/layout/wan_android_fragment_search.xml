@@ -28,7 +28,7 @@
         android:visibility="gone"
         tools:visibility="visible">
 
-        <com.wkz.titlebar.CommonTitleBar
+        <com.fphoenixcorneae.titlebar.CommonTitleBar
             android:id="@+id/mTbTitleBar"
             style="@style/CommonTitleBar"
             android:layout_width="@dimen/dp_0"

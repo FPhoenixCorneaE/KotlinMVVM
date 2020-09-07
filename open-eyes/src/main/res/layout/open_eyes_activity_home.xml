@@ -21,7 +21,7 @@
             android:layout_gravity="bottom"
             android:background="@color/open_eyes_color_bg_default" />
 
-        <com.wkz.bottomnavigation.BottomNavigationView
+        <com.fphoenixcorneae.bottomnavigation.BottomNavigationView
             android:id="@+id/mBnvNavigation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

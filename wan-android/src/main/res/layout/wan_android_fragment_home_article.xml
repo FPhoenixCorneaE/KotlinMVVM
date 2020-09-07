@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.wkz.framework.widget.FixDragLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.fphoenixcorneae.framework.widget.FixDragLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -22,13 +22,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <com.wkz.adapter.fold.FoldRecyclerView
+                <com.fphoenixcorneae.adapter.fold.FoldRecyclerView
                     android:id="@+id/mRvBanner"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_200"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:itemCount="5"
-                    tools:layoutManager="com.wkz.adapter.fold.LeftFlowLayoutManger"
+                    tools:layoutManager="com.fphoenixcorneae.adapter.fold.LeftFlowLayoutManger"
                     tools:listitem="@layout/wan_android_recycler_item_home_banner" />
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -42,4 +42,4 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
     </com.scwang.smart.refresh.layout.SmartRefreshLayout>
-</com.wkz.framework.widget.FixDragLayout>
+</com.fphoenixcorneae.framework.widget.FixDragLayout>
