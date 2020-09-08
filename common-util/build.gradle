@@ -69,7 +69,7 @@ dependencies {
     compileOnly Config.kotlinLibs
     compileOnly Config.rxPermissions
     compileOnly Config.rxJava2Libs
-    compileOnly Config.gson
     compileOnly Config.navigationLibs
+    implementation Config.gson
     implementation Config.logger
 }
