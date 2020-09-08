@@ -10,9 +10,7 @@ android {
         minSdkVersion Config.android.minSdkVersion
         targetSdkVersion Config.android.targetSdkVersion
         versionCode 1
-        versionName "1.0.0"
-
-        consumerProguardFiles 'consumer-rules.pro'
+        versionName "1.0"
     }
 
     buildTypes {
@@ -41,8 +39,8 @@ android {
     }
 
     compileOptions {
-        targetCompatibility JavaVersion.VERSION_1_8
         sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 
     kotlinOptions {
@@ -54,24 +52,15 @@ android {
     }
 
     lintOptions {
+        checkReleaseBuilds false
         abortOnError false
+        disable 'MissingTranslation'
     }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation Config.support.appcompat
-    implementation Config.support.constraintLayout
-    implementation Config.support.lifecycleViewmodel
     implementation Config.support.lifecycleExtensions
-    implementation Config.support.palette
-    implementation Config.support.viewpager2
     implementation Config.kotlinLibs
-    implementation Config.rxPermissions
-    implementation Config.rxJava2Libs
-    implementation Config.gson
-    implementation Config.navigationLibs
-    api(Config.logger) {
-        transitive true
-    }
 }

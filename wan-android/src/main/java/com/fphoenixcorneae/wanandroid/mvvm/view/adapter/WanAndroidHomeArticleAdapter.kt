@@ -3,9 +3,8 @@ package com.fphoenixcorneae.wanandroid.mvvm.view.adapter
 import android.annotation.SuppressLint
 import androidx.recyclerview.widget.RecyclerView
 import com.fphoenixcorneae.adapter.BaseNBAdapter
-import com.fphoenixcorneae.ext.isVisible
+import com.fphoenixcorneae.ext.view.isVisible
 import com.fphoenixcorneae.ext.toHtml
-import com.fphoenixcorneae.ext.visible
 import com.fphoenixcorneae.framework.glide.GlideUtil
 import com.fphoenixcorneae.util.SizeUtil
 import com.fphoenixcorneae.wanandroid.R

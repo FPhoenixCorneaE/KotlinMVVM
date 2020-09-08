@@ -18,6 +18,7 @@ import android.widget.*
 import android.widget.TextView.OnEditorActionListener
 import androidx.core.content.ContextCompat
 import com.fphoenixcorneae.ext.*
+import com.fphoenixcorneae.ext.view.setTintColor
 import com.fphoenixcorneae.util.KeyboardUtil
 import com.fphoenixcorneae.util.ViewUtil
 import com.fphoenixcorneae.util.statusbar.StatusBarUtil

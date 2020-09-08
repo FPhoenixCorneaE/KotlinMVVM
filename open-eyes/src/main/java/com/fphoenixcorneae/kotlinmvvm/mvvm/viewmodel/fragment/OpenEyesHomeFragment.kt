@@ -11,8 +11,8 @@ import com.scwang.smart.refresh.layout.listener.OnRefreshLoadMoreListener
 import com.fphoenixcorneae.adapter.internal.Delegation
 import com.fphoenixcorneae.adapter.internal.MultiTypeAdapter
 import com.fphoenixcorneae.adapter.wrapper.ViewHolderWrapper
-import com.fphoenixcorneae.ext.gone
-import com.fphoenixcorneae.ext.visible
+import com.fphoenixcorneae.ext.view.gone
+import com.fphoenixcorneae.ext.view.visible
 import com.fphoenixcorneae.framework.base.fragment.Dagger2InjectionFragment
 import com.fphoenixcorneae.kotlinmvvm.R
 import com.fphoenixcorneae.kotlinmvvm.constant.OpenEyesConstants

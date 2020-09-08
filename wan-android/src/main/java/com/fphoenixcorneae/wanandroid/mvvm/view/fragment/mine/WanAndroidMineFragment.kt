@@ -9,6 +9,8 @@ import com.scwang.smart.refresh.layout.api.RefreshLayout
 import com.scwang.smart.refresh.layout.listener.OnRefreshListener
 import com.fphoenixcorneae.dsl.animation.animSet
 import com.fphoenixcorneae.ext.*
+import com.fphoenixcorneae.ext.view.gone
+import com.fphoenixcorneae.ext.view.visible
 import com.fphoenixcorneae.framework.web.BaseWebFragment
 import com.fphoenixcorneae.util.AppUtil
 import com.fphoenixcorneae.util.BundleBuilder

@@ -14,11 +14,15 @@ import android.view.Gravity
 import android.view.View
 import android.widget.SeekBar
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.FragmentActivity
 import com.fphoenixcorneae.ext.isNonNull
 import com.fphoenixcorneae.ext.isNull
+import com.fphoenixcorneae.ext.loggerD
 import com.fphoenixcorneae.ext.toast
+import com.fphoenixcorneae.ext.md5
+import com.fphoenixcorneae.ext.sha512
 import com.fphoenixcorneae.util.*
+import com.fphoenixcorneae.util.encryption.MD5Util
+import com.fphoenixcorneae.util.encryption.SHAUtil
 import com.fphoenixcorneae.util.gson.GsonUtil
 import com.fphoenixcorneae.util.xtoast.XToast
 import com.fphoenixcorneae.util.xtoast.draggable.MovingDraggable
@@ -286,8 +290,12 @@ class StandaloneMainActivity : AppCompatActivity() {
         val isNull: String? = null
         mTvIsNullOrNonNull.text =
             "${isNull}--isNull:${isNull.isNull()}  --isNonNull:${isNull.isNonNull()}"
-    }
 
+        loggerD("HashExt:12345678的md5是：${"12345678".md5()}")
+        loggerD("MD5Util:12345678的md5是：${MD5Util.encryptMD5("12345678")}")
+        loggerD("HashExt:12345678的SHA-512是：${"12345678".sha512()}")
+        loggerD("SHAUtil:12345678的SHA-512是：${SHAUtil.encrypt("12345678".toByteArray())}")
+    }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         when (requestCode) {

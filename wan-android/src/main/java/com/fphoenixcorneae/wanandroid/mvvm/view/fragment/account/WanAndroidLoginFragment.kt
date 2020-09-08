@@ -11,9 +11,8 @@ import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.lifecycle.Observer
 import com.fphoenixcorneae.ext.androidViewModel
-import com.fphoenixcorneae.ext.isVisible
+import com.fphoenixcorneae.ext.view.isVisible
 import com.fphoenixcorneae.ext.navigateUp
-import com.fphoenixcorneae.ext.visible
 import com.fphoenixcorneae.framework.widget.ProgressButton
 import com.fphoenixcorneae.util.KeyboardUtil
 import com.fphoenixcorneae.util.ResourceUtil

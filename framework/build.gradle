@@ -69,6 +69,7 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     api project(':animated-bottom-view')
+    api project(':base-code')
     api project(':bottom-navigation-view')
     api project(':common-titlebar')
     api project(':common-util')
@@ -105,6 +106,7 @@ dependencies {
     api Config.kenBurnsView
     api Config.navigationLibs
     api Config.androidSkinSupportLibs
+    api Config.materialDialogsLibs
     api Config.FPhoenixCorneaELibs
     api Config.qrCodeLibs
 }

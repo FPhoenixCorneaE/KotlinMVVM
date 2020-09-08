@@ -17,6 +17,7 @@ import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import com.fphoenixcorneae.flowlayout.FlowItem
 import com.fphoenixcorneae.flowlayout.FlowLayout
 import com.fphoenixcorneae.ext.*
+import com.fphoenixcorneae.ext.view.*
 import com.fphoenixcorneae.titlebar.CommonTitleBar
 import com.fphoenixcorneae.util.BundleBuilder
 import com.fphoenixcorneae.util.KeyboardUtil

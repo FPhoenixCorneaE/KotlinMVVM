@@ -42,12 +42,6 @@ class GsonUtil private constructor() {
          * @param includeNulls Determines if nulls will be included.
          * @return object serialized into json.
          */
-        /**
-         * Serializes an object into json.
-         *
-         * @param object The object to serialize.
-         * @return object serialized into json.
-         */
         @JvmOverloads
         fun toJson(`object`: Any?, includeNulls: Boolean = true): String {
             return when {
@@ -61,13 +55,6 @@ class GsonUtil private constructor() {
          * @param src          The object to serialize.
          * @param typeOfSrc    The specific genericized type of src.
          * @param includeNulls Determines if nulls will be included.
-         * @return object serialized into json.
-         */
-        /**
-         * Serializes an object into json.
-         *
-         * @param src       The object to serialize.
-         * @param typeOfSrc The specific genericized type of src.
          * @return object serialized into json.
          */
         @JvmOverloads

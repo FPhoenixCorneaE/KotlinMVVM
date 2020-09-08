@@ -5,9 +5,8 @@ import com.fphoenixcorneae.animation.attention.Swing
 import com.fphoenixcorneae.animation.fade.FadeExit
 import com.fphoenixcorneae.dialog.MaterialDialog
 import com.fphoenixcorneae.ext.androidViewModel
-import com.fphoenixcorneae.ext.isVisible
+import com.fphoenixcorneae.ext.view.isVisible
 import com.fphoenixcorneae.ext.navigateUp
-import com.fphoenixcorneae.ext.visible
 import com.fphoenixcorneae.util.ResourceUtil
 import com.fphoenixcorneae.wanandroid.R
 import com.fphoenixcorneae.wanandroid.manager.WanAndroidUserManager
