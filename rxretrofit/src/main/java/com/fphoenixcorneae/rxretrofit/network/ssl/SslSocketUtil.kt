@@ -16,7 +16,7 @@
 package com.fphoenixcorneae.rxretrofit.network.ssl
 
 import android.annotation.SuppressLint
-import com.orhanobut.logger.Logger
+import com.fphoenixcorneae.ext.loggerE
 import com.fphoenixcorneae.util.CloseUtil
 import java.io.InputStream
 import java.security.KeyManagementException
@@ -149,7 +149,7 @@ object SslSocketUtil {
             kmf.init(clientKeyStore, password.toCharArray())
             return kmf.keyManagers
         } catch (e: Exception) {
-            Logger.e(e.toString())
+            loggerE(e.toString())
         }
 
         return null
@@ -177,7 +177,7 @@ object SslSocketUtil {
             //通过tmf获取TrustManager数组，TrustManager也会信任keyStore中的证书
             return tmf.trustManagers
         } catch (e: Exception) {
-            Logger.e(e.toString())
+            loggerE(e.toString())
         }
 
         return null

@@ -2,8 +2,8 @@ package com.fphoenixcorneae.framework.web
 
 import android.webkit.WebResourceRequest
 import android.webkit.WebView
+import com.fphoenixcorneae.ext.loggerE
 import com.just.agentweb.MiddlewareWebClientBase
-import com.orhanobut.logger.Logger
 
 /**
  * 方法的执行顺序，例如下面用了7个中间件一个 WebViewClient
@@ -34,7 +34,7 @@ class CustomMiddlewareWebViewClient : MiddlewareWebClientBase() {
      * @return
      */
     override fun shouldOverrideUrlLoading(view: WebView?, url: String): Boolean {
-        Logger.e(
+        loggerE(
             "MiddlewareWebClientBase#shouldOverrideUrlLoading url:$url"
         )
         return when {
@@ -50,7 +50,7 @@ class CustomMiddlewareWebViewClient : MiddlewareWebClientBase() {
     }
 
     override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest): Boolean {
-        Logger.e(
+        loggerE(
             "MiddlewareWebClientBase#shouldOverrideUrlLoading request url:" + request.url.toString()
         )
         return super.shouldOverrideUrlLoading(view, request)

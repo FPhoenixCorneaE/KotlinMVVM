@@ -17,9 +17,10 @@ import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Process
 import android.provider.Settings
-import com.orhanobut.logger.Logger
 import com.fphoenixcorneae.ext.isNull
 import com.fphoenixcorneae.ext.isSpace
+import com.fphoenixcorneae.ext.loggerE
+import com.fphoenixcorneae.ext.loggerI
 import java.io.ByteArrayInputStream
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
@@ -83,7 +84,7 @@ class AppUtil private constructor() {
                 val info = pm.getApplicationInfo(packageName, 0)
                 return info.loadIcon(pm)
             } catch (e: NameNotFoundException) {
-                Logger.e(e.toString())
+                loggerE(e.toString())
             }
             return null
         }
@@ -96,7 +97,7 @@ class AppUtil private constructor() {
                 val packageInfo = ContextUtil.context.packageManager.getPackageInfo(packageName, 0)
                 return packageInfo.versionName
             } catch (e: NameNotFoundException) {
-                Logger.e(e.toString())
+                loggerE(e.toString())
             }
             return ""
         }
@@ -114,7 +115,7 @@ class AppUtil private constructor() {
                     else -> packageInfo.versionCode.toLong()
                 }
             } catch (e: NameNotFoundException) {
-                Logger.e(e.toString())
+                loggerE(e.toString())
             }
             return 0
         }
@@ -129,7 +130,7 @@ class AppUtil private constructor() {
                 val info = pm.getApplicationInfo(packageName, 0)
                 return info.loadLabel(pm).toString()
             } catch (e: NameNotFoundException) {
-                Logger.e(e.toString())
+                loggerE(e.toString())
             }
             return ""
         }
@@ -144,7 +145,7 @@ class AppUtil private constructor() {
                 val packageInfo = pm.getPackageInfo(packageName, PackageManager.GET_PERMISSIONS)
                 return packageInfo.requestedPermissions
             } catch (e: NameNotFoundException) {
-                Logger.e(e.toString())
+                loggerE(e.toString())
             }
             return null
         }
@@ -159,7 +160,7 @@ class AppUtil private constructor() {
                 val packageInfo = pm.getPackageInfo(pkgName, PackageManager.GET_SIGNATURES)
                 return packageInfo.signatures[0].toString()
             } catch (e: NameNotFoundException) {
-                Logger.e(e.toString())
+                loggerE(e.toString())
             }
             return ""
         }
@@ -256,7 +257,7 @@ class AppUtil private constructor() {
                         }
                     }
                 } catch (e: Exception) {
-                    Logger.e(e.toString())
+                    loggerE(e.toString())
                 }
                 return debuggable
             }
@@ -383,7 +384,7 @@ class AppUtil private constructor() {
             val launchAppIntent: Intent? =
                 IntentUtil.getLaunchAppIntent(pkgName, true)
             if (launchAppIntent.isNull()) {
-                Logger.e("Launcher activity isn't exist.")
+                loggerE("Launcher activity isn't exist.")
                 return
             }
             ContextUtil.context.startActivity(launchAppIntent)
@@ -406,7 +407,7 @@ class AppUtil private constructor() {
             val launchAppIntent: Intent? =
                 IntentUtil.getLaunchAppIntent(pkgName)
             if (launchAppIntent.isNull()) {
-                Logger.e("Launcher activity isn't exist.")
+                loggerE("Launcher activity isn't exist.")
                 return
             }
             activity.startActivityForResult(launchAppIntent, requestCode)
@@ -423,7 +424,7 @@ class AppUtil private constructor() {
                 true
             )
             if (intent.isNull()) {
-                Logger.e("Launcher activity isn't exist.")
+                loggerE("Launcher activity isn't exist.")
                 return
             }
             intent!!.addFlags(
@@ -501,7 +502,7 @@ class AppUtil private constructor() {
                     .getPackageInfo(packageName, PackageManager.GET_SIGNATURES)
                 hexDigest(pis.signatures[0].toByteArray())
             } catch (e: NameNotFoundException) {
-                Logger.e(e.toString())
+                loggerE(e.toString())
                 ""
             }
         }
@@ -549,7 +550,7 @@ class AppUtil private constructor() {
                     j++
                 }
             } catch (e: Exception) {
-                Logger.e(e.toString())
+                loggerE(e.toString())
             }
             return ""
         }
@@ -609,9 +610,9 @@ class AppUtil private constructor() {
                 val intent = Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS)
                 val list =
                     pm.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)
-                Logger.i(list.toString())
+                loggerI(list.toString())
                 if (list.size <= 0) {
-                    Logger.i("getForegroundProcessName: noun of access to usage information.")
+                    loggerI("getForegroundProcessName: noun of access to usage information.")
                     return ""
                 }
                 try { // Access to usage information.
@@ -634,7 +635,7 @@ class AppUtil private constructor() {
                             info.packageName
                         ) != AppOpsManager.MODE_ALLOWED
                     ) {
-                        Logger.i("getForegroundProcessName: refuse to device usage stats.")
+                        loggerI("getForegroundProcessName: refuse to device usage stats.")
                         return ""
                     }
                     val usageStatsManager =

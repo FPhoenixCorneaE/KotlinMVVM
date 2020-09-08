@@ -4,7 +4,8 @@ import android.os.Handler
 import android.os.Looper
 import androidx.annotation.CallSuper
 import androidx.annotation.IntRange
-import com.orhanobut.logger.Logger
+import com.fphoenixcorneae.ext.loggerE
+import com.fphoenixcorneae.ext.loggerI
 import java.util.*
 import java.util.concurrent.*
 import java.util.concurrent.atomic.AtomicInteger
@@ -1147,7 +1148,7 @@ object ThreadUtil {
                 }
             }
         } else {
-            Logger.i("The executorService is not ThreadUtil's pool.")
+            loggerI("The executorService is not ThreadUtil's pool.")
         }
     }
 
@@ -1193,7 +1194,7 @@ object ThreadUtil {
         var taskInfo: TaskInfo
         synchronized(TASK_TASKINFO_MAP) {
             if (TASK_TASKINFO_MAP[task] != null) {
-                Logger.i("Task can only be executed once.")
+                loggerI("Task can only be executed once.")
                 return
             }
             taskInfo = TaskInfo(pool)
@@ -1305,7 +1306,7 @@ object ThreadUtil {
             try {
                 super.execute(command)
             } catch (ignore: RejectedExecutionException) {
-                Logger.i("This will not happen!")
+                loggerI("This will not happen!")
                 mWorkQueue.offer(command)
             } catch (t: Throwable) {
                 mSubmittedCount.decrementAndGet()
@@ -1400,7 +1401,7 @@ object ThreadUtil {
                     try {
                         super.run()
                     } catch (t: Throwable) {
-                        Logger.e("Request threw uncaught throwable:$t")
+                        loggerE("Request threw uncaught throwable:$t")
                     }
                 }
             }
@@ -1438,11 +1439,11 @@ object ThreadUtil {
 
     abstract class SimpleTask<T> : Task<T>() {
         override fun onCancel() {
-            Logger.i("onCancel: " + Thread.currentThread())
+            loggerI("onCancel: " + Thread.currentThread())
         }
 
         override fun onFail(t: Throwable?) {
-            Logger.i("onFail: " + Thread.currentThread())
+            loggerI("onFail: " + Thread.currentThread())
         }
     }
 

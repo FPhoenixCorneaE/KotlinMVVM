@@ -5,6 +5,7 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import android.text.TextUtils
+import com.fphoenixcorneae.ext.loggerE
 import java.io.IOException
 import java.net.Inet4Address
 import java.net.NetworkInterface
@@ -151,7 +152,7 @@ class NetworkUtil private constructor() {
                     }
                 }
             } catch (e: SocketException) {
-                com.orhanobut.logger.Logger.e(e.toString())
+                loggerE(e.toString())
             }
 
             return ""
@@ -192,7 +193,7 @@ class NetworkUtil private constructor() {
                     return buf.toString()
                 }
             } catch (e: SocketException) {
-                com.orhanobut.logger.Logger.e(e.toString())
+                loggerE(e.toString())
             }
 
             return ""
@@ -249,7 +250,7 @@ class NetworkUtil private constructor() {
                     return re
                 }
             } catch (e: IOException) {
-                com.orhanobut.logger.Logger.e(e.toString())
+                loggerE(e.toString())
             }
 
             return re

@@ -1,8 +1,8 @@
 package com.fphoenixcorneae.framework.web
 
-import com.just.agentweb.PermissionInterceptor
-import com.orhanobut.logger.Logger
+import com.fphoenixcorneae.ext.loggerI
 import com.fphoenixcorneae.util.gson.GsonUtil
+import com.just.agentweb.PermissionInterceptor
 
 class CustomPermissionInterceptor : PermissionInterceptor {
     /**
@@ -17,7 +17,7 @@ class CustomPermissionInterceptor : PermissionInterceptor {
         permissions: Array<String>,
         action: String
     ): Boolean {
-        Logger.i(
+        loggerI(
             "mUrl:" + url + "  permission:" + GsonUtil.toJson(permissions) + " action:" + action
         )
         return false

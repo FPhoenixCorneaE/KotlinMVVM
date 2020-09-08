@@ -6,7 +6,7 @@ import android.content.Intent
 import android.content.res.Resources
 import android.os.Build
 import android.text.TextUtils
-import com.orhanobut.logger.Logger
+import com.fphoenixcorneae.ext.loggerE
 import com.fphoenixcorneae.util.AppUtil.Companion.packageName
 import com.fphoenixcorneae.util.ContextUtil.Companion.context
 import com.fphoenixcorneae.util.SharedPreferencesUtil.Companion.getString
@@ -196,7 +196,7 @@ class LanguageUtil private constructor() {
             }
             val languageCountry = spLocale.split("\\$").toTypedArray()
             if (languageCountry.size != 2) {
-                Logger.e("The Language string of $spLocale is not in the correct format.")
+                loggerE("The Language string of $spLocale is not in the correct format.")
                 return
             }
             val settingLocale = Locale(languageCountry[0], languageCountry[1])

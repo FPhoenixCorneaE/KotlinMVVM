@@ -1,6 +1,6 @@
 package com.fphoenixcorneae.util
 
-import com.orhanobut.logger.Logger
+import com.fphoenixcorneae.ext.loggerI
 
 /**
  * 银行卡管理工具类
@@ -260,6 +260,7 @@ object BankCheckUtil {
         "621053", "621230", "621229", "622218", "628267", "621392",
         "621481", "621310", "621396", "623251", "628351"
     )
+
     /**
      * "发卡行.卡种名称"
      */
@@ -669,7 +670,7 @@ object BankCheckUtil {
             return false
         }
         val isBankCard = cardId[cardId.length - 1] == bit
-        Logger.i("银行卡：$isBankCard")
+        loggerI("银行卡：$isBankCard")
         return isBankCard
     }
 

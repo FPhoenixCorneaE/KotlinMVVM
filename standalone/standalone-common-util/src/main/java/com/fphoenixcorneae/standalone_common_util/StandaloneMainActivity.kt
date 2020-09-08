@@ -14,12 +14,7 @@ import android.view.Gravity
 import android.view.View
 import android.widget.SeekBar
 import androidx.appcompat.app.AppCompatActivity
-import com.fphoenixcorneae.ext.isNonNull
-import com.fphoenixcorneae.ext.isNull
-import com.fphoenixcorneae.ext.loggerD
-import com.fphoenixcorneae.ext.toast
-import com.fphoenixcorneae.ext.md5
-import com.fphoenixcorneae.ext.sha512
+import com.fphoenixcorneae.ext.*
 import com.fphoenixcorneae.util.*
 import com.fphoenixcorneae.util.encryption.MD5Util
 import com.fphoenixcorneae.util.encryption.SHAUtil
@@ -27,7 +22,6 @@ import com.fphoenixcorneae.util.gson.GsonUtil
 import com.fphoenixcorneae.util.xtoast.XToast
 import com.fphoenixcorneae.util.xtoast.draggable.MovingDraggable
 import com.fphoenixcorneae.util.xtoast.listener.OnClickListener
-import com.orhanobut.logger.Logger
 import kotlinx.android.synthetic.main.standalone_activity_main.*
 import java.io.File
 
@@ -158,8 +152,8 @@ class StandaloneMainActivity : AppCompatActivity() {
         })
 
         // 杀死后台进程
-        Logger.t("ProcessUtil").d(ProcessUtil.foregroundProcessName)
-        Logger.t("ProcessUtil").d(ProcessUtil.currentProcessName)
+        ProcessUtil.foregroundProcessName?.let { loggerD(it, "ProcessUtil") }
+        loggerD(ProcessUtil.currentProcessName, "ProcessUtil")
         mBtnKillAllBackgroundProcesses.setOnClickListener {
             ProcessUtil.killAllBackgroundProcesses()
         }
@@ -227,7 +221,7 @@ class StandaloneMainActivity : AppCompatActivity() {
         // 崩溃重启
         mBtnCrash.setOnClickListener {
             val mArrays = ArrayList<Long>()
-            Logger.d(mArrays[1])
+            loggerD(mArrays[1])
         }
 
         // Gson解析
@@ -246,8 +240,8 @@ class StandaloneMainActivity : AppCompatActivity() {
                     "    \"content\": \"null\"\n" +
                     "}"
             val parseResult = GsonUtil.fromJson(testJson, StandaloneGsonParseBean::class.java)
-            Logger.d(testJson)
-            Logger.d(parseResult)
+            loggerD(testJson)
+            loggerD(parseResult)
             toast(parseResult.toString())
         }
     }
@@ -296,6 +290,7 @@ class StandaloneMainActivity : AppCompatActivity() {
         loggerD("HashExt:12345678的SHA-512是：${"12345678".sha512()}")
         loggerD("SHAUtil:12345678的SHA-512是：${SHAUtil.encrypt("12345678".toByteArray())}")
     }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         when (requestCode) {

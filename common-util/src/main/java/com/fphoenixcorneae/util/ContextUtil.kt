@@ -11,7 +11,8 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.WindowManager
-import com.orhanobut.logger.Logger
+import com.fphoenixcorneae.ext.loggerD
+import com.fphoenixcorneae.ext.loggerI
 import java.util.*
 import java.util.concurrent.CopyOnWriteArrayList
 
@@ -32,6 +33,7 @@ class ContextUtil private constructor() {
         private val sActivityLifecycleCallbacks = ActivityLifecycleCallbacksImpl()
         private val sThreadPool = ThreadUtil.getCachedPool()
         private val sHandler = Handler(Looper.getMainLooper())
+
         @SuppressLint("StaticFieldLeak")
         private var sContext: Application? = null
 
@@ -196,7 +198,7 @@ class ActivityLifecycleCallbacksImpl : ActivityLifecycleCallbacks {
      * 打印activity生命周期
      */
     private fun logActivityLifecycle(message: String, activity: Activity) {
-        Logger.t("ActivityLifecycle").d(message + activity.componentName.className)
+        loggerD(message + activity.componentName.className, "ActivityLifecycle")
     }
 
     fun addOnAppStatusChangedListener(listener: OnAppStatusChangedListener?) {
@@ -295,7 +297,7 @@ class ActivityLifecycleCallbacksImpl : ActivityLifecycleCallbacks {
             val sDurationScale = sDurationScaleField[null] as Float
             if (sDurationScale == 0f) {
                 sDurationScaleField[null] = 1f
-                Logger.i("setAnimatorsEnabled: Animators are enabled now!")
+                loggerI("setAnimatorsEnabled: Animators are enabled now!")
             }
         } catch (e: NoSuchFieldException) {
             e.printStackTrace()

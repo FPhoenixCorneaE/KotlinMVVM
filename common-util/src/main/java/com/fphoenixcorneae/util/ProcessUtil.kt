@@ -14,7 +14,7 @@ import android.os.Process
 import android.provider.Settings
 import android.text.TextUtils
 import androidx.annotation.RequiresPermission
-import com.orhanobut.logger.Logger
+import com.fphoenixcorneae.ext.loggerD
 import com.fphoenixcorneae.util.ContextUtil.Companion.context
 import java.io.BufferedReader
 import java.io.File
@@ -54,10 +54,12 @@ class ProcessUtil private constructor() {
                     val intent = Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS)
                     val list =
                         pm.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)
-                    Logger.t("ProcessUtil").d(list.toString())
+                    loggerD(list.toString(), "ProcessUtil")
                     if (list.size <= 0) {
-                        Logger.t("ProcessUtil")
-                            .d("getForegroundProcessName: noun of access to usage information.")
+                        loggerD(
+                            "getForegroundProcessName: noun of access to usage information.",
+                            "ProcessUtil"
+                        )
                         return ""
                     }
                     try {
@@ -81,8 +83,10 @@ class ProcessUtil private constructor() {
                                 info.packageName
                             ) != AppOpsManager.MODE_ALLOWED
                         ) {
-                            Logger.t("ProcessUtil")
-                                .d("getForegroundProcessName: refuse to device usage stats.")
+                            loggerD(
+                                "getForegroundProcessName: refuse to device usage stats.",
+                                "ProcessUtil"
+                            )
                             return ""
                         }
                         val usageStatsManager = context

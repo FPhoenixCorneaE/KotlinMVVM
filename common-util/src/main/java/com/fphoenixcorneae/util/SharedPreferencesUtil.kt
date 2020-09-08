@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
 import android.text.TextUtils
-import com.orhanobut.logger.Logger
+import com.fphoenixcorneae.ext.loggerE
 import java.io.*
 import kotlin.reflect.KProperty
 
@@ -266,7 +266,7 @@ class SharedPreferencesUtil<T>(private val keyName: String, private val default:
             serStr = byteArrayOutputStream.toString("ISO-8859-1")
             serStr = java.net.URLEncoder.encode(serStr, "UTF-8")
         } catch (e: Exception) {
-            Logger.e(e.toString())
+            loggerE(e.toString())
         } finally {
             CloseUtil.closeIOQuietly(objectOutputStream, byteArrayOutputStream)
         }

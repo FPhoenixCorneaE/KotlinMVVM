@@ -18,6 +18,7 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import com.fphoenixcorneae.ext.durationFormat
+import com.fphoenixcorneae.ext.loggerD
 import com.fphoenixcorneae.ext.toast
 import com.fphoenixcorneae.framework.base.activity.Dagger2InjectionActivity
 import com.fphoenixcorneae.framework.glide.GlideUtil
@@ -34,7 +35,6 @@ import com.fphoenixcorneae.util.ResourceUtil
 import com.fphoenixcorneae.util.ScreenUtil
 import com.fphoenixcorneae.util.statusbar.StatusBarUtil
 import com.fphoenixcorneae.widget.Callback
-import com.orhanobut.logger.Logger
 import com.shuyu.gsyvideoplayer.utils.OrientationUtils
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
 import com.shuyu.gsyvideoplayer.video.base.GSYVideoPlayer
@@ -200,7 +200,7 @@ class OpenEyesVideoDetailActivity :
      * 设置播放视频 URL
      */
     override fun setVideo(url: String) {
-        Logger.d("playUrl:$url")
+        loggerD("playUrl:$url")
         mVpVideo.setUp(url, false, "")
         // 开始自动播放
         mVpVideo.startPlayLogic()

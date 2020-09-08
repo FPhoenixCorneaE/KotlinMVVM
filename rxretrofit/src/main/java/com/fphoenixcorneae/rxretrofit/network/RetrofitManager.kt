@@ -1,14 +1,14 @@
 package com.fphoenixcorneae.rxretrofit.network
 
-import com.franmontiel.persistentcookiejar.PersistentCookieJar
-import com.franmontiel.persistentcookiejar.cache.SetCookieCache
-import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor
-import com.orhanobut.logger.Logger
+import com.fphoenixcorneae.ext.loggerI
 import com.fphoenixcorneae.rxretrofit.network.factory.LiveDataCallAdapterFactory
 import com.fphoenixcorneae.rxretrofit.network.ssl.SslSocketUtil
 import com.fphoenixcorneae.util.ContextUtil
 import com.fphoenixcorneae.util.NetworkUtil
 import com.fphoenixcorneae.util.gson.GsonUtil
+import com.franmontiel.persistentcookiejar.PersistentCookieJar
+import com.franmontiel.persistentcookiejar.cache.SetCookieCache
+import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor
 import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -125,7 +125,7 @@ object RetrofitManager {
         val sslParams = SslSocketUtil.getSslSocketFactory()
         // 添加一个log拦截器,打印所有的log
         val httpLoggingInterceptor = HttpLoggingInterceptor { message ->
-            Logger.i(message)
+            loggerI(message)
         }
         // 可以设置请求过滤的水平,body,basic,headers
         httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY

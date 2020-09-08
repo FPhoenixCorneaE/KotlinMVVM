@@ -3,12 +3,12 @@ package com.fphoenixcorneae.framework.base
 import android.app.Application
 import androidx.lifecycle.ViewModelStore
 import androidx.lifecycle.ViewModelStoreOwner
-import com.orhanobut.logger.Logger
+import com.fphoenixcorneae.ext.loggerD
+import com.fphoenixcorneae.util.AppUtil
+import com.fphoenixcorneae.util.DynamicTimeFormat
 import com.scwang.smart.refresh.footer.ClassicsFooter
 import com.scwang.smart.refresh.header.ClassicsHeader
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
-import com.fphoenixcorneae.util.AppUtil
-import com.fphoenixcorneae.util.DynamicTimeFormat
 import io.reactivex.plugins.RxJavaPlugins
 import skin.support.SkinCompatManager
 import skin.support.app.SkinCardViewInflater
@@ -29,7 +29,7 @@ open class BaseApplication : Application(), ViewModelStoreOwner {
         mViewModelStore = ViewModelStore()
         // RxJava OnErrorNotImplementedException 的处理
         RxJavaPlugins.setErrorHandler {
-            Logger.d("onRxJavaErrorHandler ---->: $it")
+            loggerD("onRxJavaErrorHandler ---->: $it")
             // 重新启动App
             AppUtil.relaunchApp()
         }

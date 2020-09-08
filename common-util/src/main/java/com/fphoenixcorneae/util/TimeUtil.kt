@@ -1,13 +1,11 @@
 package com.fphoenixcorneae.util
 
-import com.orhanobut.logger.Logger
 import com.fphoenixcorneae.annotation.TimeUnit
-
+import com.fphoenixcorneae.ext.loggerE
 import java.text.DateFormat
 import java.text.ParseException
 import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
+import java.util.*
 
 /**
  * @desc：时间工具类
@@ -44,7 +42,7 @@ class TimeUtil {
             return try {
                 getFriendlyTimeSpanByNow(time, SimpleDateFormat(DEFAULT_FORMAT, Locale.getDefault()))
             } catch (e: Exception) {
-                Logger.e(e.toString())
+                loggerE(e.toString())
                 time
             }
 

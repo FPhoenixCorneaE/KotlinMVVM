@@ -59,19 +59,17 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation Config.support.appcompat
-    implementation Config.support.constraintLayout
-    implementation Config.support.lifecycleViewmodel
-    implementation Config.support.lifecycleExtensions
-    implementation Config.support.palette
-    implementation Config.support.viewpager2
-    implementation Config.kotlinLibs
-    implementation Config.rxPermissions
-    implementation Config.rxJava2Libs
-    implementation Config.gson
-    implementation Config.navigationLibs
-    api(Config.logger) {
-        transitive true
-    }
+    compileOnly fileTree(dir: 'libs', include: ['*.jar'])
+    compileOnly Config.support.appcompat
+    compileOnly Config.support.constraintLayout
+    compileOnly Config.support.lifecycleViewmodel
+    compileOnly Config.support.lifecycleExtensions
+    compileOnly Config.support.palette
+    compileOnly Config.support.viewpager2
+    compileOnly Config.kotlinLibs
+    compileOnly Config.rxPermissions
+    compileOnly Config.rxJava2Libs
+    compileOnly Config.gson
+    compileOnly Config.navigationLibs
+    implementation Config.logger
 }

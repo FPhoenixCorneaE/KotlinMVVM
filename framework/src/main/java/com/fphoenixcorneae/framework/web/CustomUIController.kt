@@ -3,8 +3,8 @@ package com.fphoenixcorneae.framework.web
 import android.app.Activity
 import android.os.Handler
 import android.webkit.WebView
+import com.fphoenixcorneae.ext.loggerI
 import com.just.agentweb.AgentWebUIControllerImplBase
-import com.orhanobut.logger.Logger
 
 /**
  * 如果你需要修改某一个AgentWeb 内部的某一个弹窗 ，请看下面的例子
@@ -13,7 +13,7 @@ import com.orhanobut.logger.Logger
 class CustomUIController(private val mActivity: Activity) : AgentWebUIControllerImplBase() {
     override fun onShowMessage(message: String, from: String) {
         super.onShowMessage(message, from)
-        Logger.i("message:$message")
+        loggerI("message:$message")
     }
 
     override fun onSelectItemsPrompt(

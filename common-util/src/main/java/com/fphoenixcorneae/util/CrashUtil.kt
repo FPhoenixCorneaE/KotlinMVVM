@@ -5,7 +5,7 @@ import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Environment
 import androidx.annotation.RequiresPermission
-import com.orhanobut.logger.Logger
+import com.fphoenixcorneae.ext.loggerD
 import com.fphoenixcorneae.util.ContextUtil.Companion.context
 import java.io.*
 import java.text.Format
@@ -25,12 +25,14 @@ class CrashUtil private constructor() {
         private var versionName: String? = null
         private var versionCode: Long = 0
         private val FILE_SEP = System.getProperty("file.separator")
+
         @SuppressLint("SimpleDateFormat")
         private val FORMAT: Format = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
         private var DEFAULT_UNCAUGHT_EXCEPTION_HANDLER: Thread.UncaughtExceptionHandler? =
             null
         private var UNCAUGHT_EXCEPTION_HANDLER: Thread.UncaughtExceptionHandler? = null
         private var sOnCrashListener: OnCrashListener? = null
+
         /**
          * Initialization.
          *
@@ -157,7 +159,7 @@ class CrashUtil private constructor() {
             } catch (e: ExecutionException) {
                 e.printStackTrace()
             }
-            Logger.t("CrashUtil").d("write crash info to $filePath failed!")
+            loggerD("write crash info to $filePath failed!", "CrashUtil")
         }
 
         private fun createOrExistsFile(filePath: String): Boolean {
@@ -226,7 +228,7 @@ class CrashUtil private constructor() {
                     if (createOrExistsFile(fullPath)) {
                         input2File(crashInfo, fullPath)
                     } else {
-                        Logger.t("CrashUtil").d("create $fullPath failed!")
+                        loggerD("create $fullPath failed!", "CrashUtil")
                     }
                     if (sOnCrashListener != null) {
                         sOnCrashListener!!.onCrash(crashInfo, e)

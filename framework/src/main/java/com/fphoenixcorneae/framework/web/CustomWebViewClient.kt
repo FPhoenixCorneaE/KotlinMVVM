@@ -6,9 +6,9 @@ import android.os.Build
 import android.webkit.*
 import androidx.annotation.Nullable
 import androidx.annotation.RequiresApi
-import com.just.agentweb.WebViewClient
-import com.orhanobut.logger.Logger
+import com.fphoenixcorneae.ext.loggerI
 import com.fphoenixcorneae.util.gson.GsonUtil
+import com.just.agentweb.WebViewClient
 
 /**
  * 注意，重写WebViewClient的方法,super.xxx()请务必正确调用， 如果没有调用super.xxx(),则无法执行DefaultWebClient的方法
@@ -75,7 +75,7 @@ class CustomWebViewClient : WebViewClient() {
         errorResponse: WebResourceResponse
     ) {
         super.onReceivedHttpError(view, request, errorResponse)
-        Logger.i(
+        loggerI(
             "onReceivedHttpError:" + 3 + "  request:" + GsonUtil.toJson(request) +
                     "  errorResponse:" + GsonUtil.toJson(errorResponse)
         )
@@ -97,6 +97,6 @@ class CustomWebViewClient : WebViewClient() {
         failingUrl: String
     ) {
         super.onReceivedError(view, errorCode, description, failingUrl)
-        Logger.i("onReceivedError:$errorCode  description:$description  errorResponse:$failingUrl")
+        loggerI("onReceivedError:$errorCode  description:$description  errorResponse:$failingUrl")
     }
 }

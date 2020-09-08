@@ -7,8 +7,8 @@ import android.location.*
 import android.os.Bundle
 import android.provider.Settings
 import androidx.annotation.RequiresPermission
+import com.fphoenixcorneae.ext.loggerD
 import com.fphoenixcorneae.ext.toast
-import com.orhanobut.logger.Logger
 import java.io.IOException
 import java.util.*
 
@@ -73,9 +73,9 @@ class LocationUtil private constructor() {
                 mListener!!.onStatusChanged(provider, status, extras)
             }
             when (status) {
-                LocationProvider.AVAILABLE -> Logger.d("onStatusChanged-->当前GPS状态为可见状态")
-                LocationProvider.OUT_OF_SERVICE -> Logger.d("onStatusChanged-->当前GPS状态为服务区外状态")
-                LocationProvider.TEMPORARILY_UNAVAILABLE -> Logger.d(
+                LocationProvider.AVAILABLE -> loggerD("onStatusChanged-->当前GPS状态为可见状态")
+                LocationProvider.OUT_OF_SERVICE -> loggerD("onStatusChanged-->当前GPS状态为服务区外状态")
+                LocationProvider.TEMPORARILY_UNAVAILABLE -> loggerD(
                     "onStatusChanged-->当前GPS状态为暂停服务状态"
                 )
             }
@@ -97,6 +97,7 @@ class LocationUtil private constructor() {
         private var mListener: OnLocationChangeListener? = null
         private var myLocationListener: MyLocationListener? = null
         private var mLocationManager: LocationManager? = null
+
         /**
          * 判断Gps是否可用
          *

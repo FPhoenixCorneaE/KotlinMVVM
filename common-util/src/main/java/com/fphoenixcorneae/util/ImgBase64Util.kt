@@ -1,7 +1,7 @@
 package com.fphoenixcorneae.util
 
 import android.util.Base64
-import com.orhanobut.logger.Logger
+import com.fphoenixcorneae.ext.loggerE
 import java.io.FileInputStream
 import java.io.FileNotFoundException
 import java.io.IOException
@@ -36,9 +36,9 @@ object ImgBase64Util {
             //用默认的编码格式进行编码
             result = Base64.encodeToString(data, Base64.NO_WRAP)
         } catch (e: IOException) {
-            Logger.e(e.toString())
+            loggerE(e.toString())
         } catch (e: FileNotFoundException) {
-            Logger.e(e.toString())
+            loggerE(e.toString())
         } finally {
             CloseUtil.closeIOQuietly(`is`)
         }

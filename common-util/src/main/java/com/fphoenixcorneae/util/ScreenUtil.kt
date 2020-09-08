@@ -15,8 +15,7 @@ import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import androidx.annotation.RequiresPermission
-
-import com.orhanobut.logger.Logger
+import com.fphoenixcorneae.ext.loggerE
 
 /**
  * 屏幕相关工具类
@@ -232,7 +231,7 @@ class ScreenUtil private constructor() {
                         Integer.parseInt(localClass.getField("status_bar_height").get(localObject)!!.toString())
                     statusBarHeight = activity.resources.getDimensionPixelSize(id)
                 } catch (e: Exception) {
-                    Logger.e(e.toString())
+                    loggerE(e.toString())
                 }
 
             }

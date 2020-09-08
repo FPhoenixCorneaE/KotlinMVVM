@@ -6,14 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
-import com.orhanobut.logger.Logger
-import com.qingmei2.rximagepicker.core.RxImagePicker
-import com.qingmei2.rximagepicker_extension.MimeType
-import com.qingmei2.rximagepicker_extension_wechat.WechatConfigrationBuilder
-import com.qingmei2.rximagepicker_extension_wechat.ui.WechatImagePickerFragment
-import com.tbruyelle.rxpermissions2.RxPermissions
-import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
-import com.uber.autodispose.autoDisposable
+import com.fphoenixcorneae.ext.loggerD
 import com.fphoenixcorneae.ext.toast
 import com.fphoenixcorneae.framework.imagepicker.WeChatImagePicker
 import com.fphoenixcorneae.kotlinmvvm.R
@@ -21,6 +14,13 @@ import com.fphoenixcorneae.kotlinmvvm.mvvm.viewmodel.activity.OpenEyesHomeActivi
 import com.fphoenixcorneae.rxretrofit.scheduler.SchedulerManager
 import com.fphoenixcorneae.util.ImgBase64Util
 import com.fphoenixcorneae.util.SharedPreferencesUtil
+import com.qingmei2.rximagepicker.core.RxImagePicker
+import com.qingmei2.rximagepicker_extension.MimeType
+import com.qingmei2.rximagepicker_extension_wechat.WechatConfigrationBuilder
+import com.qingmei2.rximagepicker_extension_wechat.ui.WechatImagePickerFragment
+import com.tbruyelle.rxpermissions2.RxPermissions
+import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
+import com.uber.autodispose.autoDisposable
 import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_test.*
@@ -108,9 +108,9 @@ class TestActivity : AppCompatActivity() {
                         it.getBooleanExtra(WechatImagePickerFragment.EXTRA_ORIGINAL_IMAGE, false)
                     val mimeType =
                         it.getStringExtra(WechatImagePickerFragment.EXTRA_OPTIONAL_MIME_TYPE, "")
-                    Logger.d("select image original:" + originalMode + " , uri path: " + it.uri.path)
-                    Logger.d("mime types: $mimeType")
-                    Logger.d("content:/" + it.uri.path)
+                    loggerD("select image original:" + originalMode + " , uri path: " + it.uri.path)
+                    loggerD("mime types: $mimeType")
+                    loggerD("content:/" + it.uri.path)
                     TestModel().uploadImage(
                         "32834",
                         "data:image/jpeg;base64," + ImgBase64Util.imageToBase64("content:/" + it.uri.path),

@@ -1,6 +1,6 @@
 package com.fphoenixcorneae.util
 
-import com.orhanobut.logger.Logger
+import com.fphoenixcorneae.ext.loggerE
 import java.io.Closeable
 import java.io.IOException
 
@@ -26,7 +26,7 @@ class CloseUtil private constructor() {
                 try {
                     closeable?.close()
                 } catch (e: IOException) {
-                    Logger.e(e.toString())
+                    loggerE(e.toString())
                 }
             }
         }

@@ -1,14 +1,15 @@
 package com.fphoenixcorneae
 
 import androidx.core.content.FileProvider
-import com.orhanobut.logger.AndroidLogAdapter
-import com.orhanobut.logger.Logger
-import com.orhanobut.logger.PrettyFormatStrategy
+import com.fphoenixcorneae.ext.loggerD
 import com.fphoenixcorneae.util.AppUtil
 import com.fphoenixcorneae.util.BuildConfig
 import com.fphoenixcorneae.util.ContextUtil
 import com.fphoenixcorneae.util.CrashUtil
 import com.fphoenixcorneae.util.toast.ToastUtil
+import com.orhanobut.logger.AndroidLogAdapter
+import com.orhanobut.logger.Logger
+import com.orhanobut.logger.PrettyFormatStrategy
 
 /**
  * 工具集文件提供者:
@@ -38,7 +39,7 @@ class CommonUtilFileProvider : FileProvider() {
     private fun initCrashUtil() {
         CrashUtil.init(object : CrashUtil.OnCrashListener {
             override fun onCrash(crashInfo: String, e: Throwable?) {
-                Logger.d(crashInfo)
+                loggerD(crashInfo)
                 // 重启应用
                 AppUtil.relaunchApp()
             }

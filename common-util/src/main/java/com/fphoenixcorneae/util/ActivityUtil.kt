@@ -5,7 +5,7 @@ import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
-import com.orhanobut.logger.Logger
+import com.fphoenixcorneae.ext.loggerE
 
 /**
  * Activity工具类
@@ -89,7 +89,7 @@ class ActivityUtil private constructor() {
                         }
                     }
                 } catch (e: Exception) {
-                    Logger.e(e.toString())
+                    loggerE(e.toString())
                 }
                 return null
             }

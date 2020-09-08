@@ -1,13 +1,10 @@
 package com.fphoenixcorneae.rxretrofit.network.exception
 
+import com.fphoenixcorneae.ext.loggerE
 import com.google.gson.JsonParseException
-import com.orhanobut.logger.Logger
-
 import org.json.JSONException
 import retrofit2.HttpException
-
 import java.net.ConnectException
-
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 import java.text.ParseException
@@ -56,8 +53,8 @@ class ExceptionHandle {
                 }
             }
 
-            Logger.e("errorCode:$errorCode errorMsg:$errorMsg")
-            Logger.e("Exception:$e")
+            loggerE("errorCode:$errorCode errorMsg:$errorMsg")
+            loggerE("Exception:$e")
             return errorMsg
         }
     }
