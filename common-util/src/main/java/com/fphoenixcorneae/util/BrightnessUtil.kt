@@ -1,10 +1,13 @@
 package com.fphoenixcorneae.util
 
+import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Context
 import android.provider.Settings
 import android.provider.Settings.SettingNotFoundException
 import android.view.Window
 import androidx.annotation.IntRange
+import androidx.fragment.app.FragmentActivity
 import com.fphoenixcorneae.util.ContextUtil.Companion.context
 
 /**
@@ -83,11 +86,14 @@ class BrightnessUtil private constructor() {
          * @param brightness 亮度值
          */
         @SuppressLint("NewApi")
-        fun setBrightness(@IntRange(from = 0, to = 255) brightness: Int): Boolean {
-            return when {
+        fun setBrightness(@IntRange(from = 0, to = 255) brightness: Int) {
+            when {
                 Settings.System.canWrite(context) -> {
+                    if (!isAutoBrightnessEnabled) {
+                        setAutoBrightnessEnabled(true)
+                    }
                     val resolver = context.contentResolver
-                    val b = Settings.System.putInt(
+                    Settings.System.putInt(
                         resolver,
                         Settings.System.SCREEN_BRIGHTNESS,
                         brightness
@@ -96,10 +102,24 @@ class BrightnessUtil private constructor() {
                         Settings.System.getUriFor("screen_brightness"),
                         null
                     )
-                    b
                 }
                 else -> {
-                    false
+                    // 申请"android.permission.WRITE_SETTINGS"权限
+                    PermissionUtil.requestPermission(
+                        ActivityUtil.topActivity as FragmentActivity,
+                        object : PermissionCallBack {
+                            override fun onPermissionGranted(context: Context?) {
+                                setAutoBrightnessEnabled(true)
+                            }
+
+                            override fun onPermissionDenied(context: Context?, type: Int) {
+                                if (!Settings.System.canWrite(context)) {
+                                    IntentUtil.openApplicationManageWriteSettings()
+                                }
+                            }
+                        },
+                        Manifest.permission.WRITE_SETTINGS
+                    )
                 }
             }
         }

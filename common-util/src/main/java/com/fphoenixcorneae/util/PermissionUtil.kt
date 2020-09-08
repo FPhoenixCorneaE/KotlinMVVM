@@ -4,8 +4,8 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
 import androidx.fragment.app.FragmentActivity
-import com.tbruyelle.rxpermissions2.RxPermissions
 import com.fphoenixcorneae.ext.isNull
+import com.tbruyelle.rxpermissions2.RxPermissions
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import java.util.concurrent.TimeUnit
@@ -31,11 +31,13 @@ object PermissionUtil {
         Manifest.permission.ACCESS_COARSE_LOCATION,
         Manifest.permission.ACCESS_FINE_LOCATION
     )
+
     /**
      * 电话权限
      */
     private val PHONE =
         arrayOf(Manifest.permission.CALL_PHONE)
+
     /**
      * 读写存储权限
      */
@@ -43,11 +45,13 @@ object PermissionUtil {
         Manifest.permission.READ_EXTERNAL_STORAGE,
         Manifest.permission.WRITE_EXTERNAL_STORAGE
     )
+
     /**
      * 短信权限
      */
     private val SMS =
         arrayOf(Manifest.permission.SEND_SMS)
+
     /**
      * 相机权限，相机权限包括读写文件权限
      */
@@ -319,35 +323,33 @@ object PermissionUtil {
         callBack: PermissionCallBack? = null,
         vararg permissions: String
     ) {
-        if (activity.isNull()) {
-            return
-        }
-        val rxPermissions = RxPermissions(activity!!)
-        // requestEachCombined
-        // 返回的权限名称:将多个权限名合并成一个
-        // 返回的权限结果:全部同意时值true,否则值为false
-        rxPermissions
-            .requestEachCombined(*permissions)
-            .subscribe { permission ->
-                when {
-                    permission.granted -> {
-                        // 用户已经同意该权限
-                        callBack?.onPermissionGranted(activity)
-                    }
-                    permission.shouldShowRequestPermissionRationale -> {
-                        // 用户拒绝了该权限，没有选中『不再询问』（Never ask again）
-                        // 那么下次再次启动时。还会提示请求权限的对话框
-                        callBack?.onPermissionDenied(activity, PermissionCallBack.BAN_ALLOWED)
-                    }
-                    else -> {
-                        // 用户拒绝了该权限，而且选中『不再询问』那么下次启动时，就不会提示出来了，
-                        callBack?.onPermissionDenied(
-                            activity,
-                            PermissionCallBack.STOP_ASKING_AFTER_PROHIBITION
-                        )
+        activity?.apply {
+            RxPermissions(this)
+                .requestEachCombined(*permissions)
+                .subscribe { permission ->
+                    when {
+                        permission.granted -> {
+                            // 用户已经同意该权限
+                            callBack?.onPermissionGranted(activity)
+                        }
+                        permission.shouldShowRequestPermissionRationale -> {
+                            // 用户拒绝了该权限，没有选中『不再询问』（Never ask again）
+                            // 那么下次再次启动时。还会提示请求权限的对话框
+                            callBack?.onPermissionDenied(
+                                activity,
+                                PermissionCallBack.BAN_ALLOWED
+                            )
+                        }
+                        else -> {
+                            // 用户拒绝了该权限，而且选中『不再询问』那么下次启动时，就不会提示出来了，
+                            callBack?.onPermissionDenied(
+                                activity,
+                                PermissionCallBack.STOP_ASKING_AFTER_PROHIBITION
+                            )
+                        }
                     }
                 }
-            }
+        }
     }
 }
 
@@ -377,6 +379,7 @@ interface PermissionCallBack {
          * 选中禁止后不再询问,并禁止允许
          */
         const val STOP_ASKING_AFTER_PROHIBITION = 1
+
         /**
          * 禁止允许
          */

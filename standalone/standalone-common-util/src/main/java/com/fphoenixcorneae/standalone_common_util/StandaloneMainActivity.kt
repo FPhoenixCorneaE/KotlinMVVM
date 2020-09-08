@@ -136,24 +136,11 @@ class StandaloneMainActivity : AppCompatActivity() {
             }
         }
 
-        // 申请"android.permission.WRITE_SETTINGS"权限
-        PermissionUtil.requestPermission(
-            ActivityUtil.topActivity as FragmentActivity,
-            object : PermissionCallBack {
-                override fun onPermissionGranted(context: Context?) {
-                    BrightnessUtil.setAutoBrightnessEnabled(true)
-                }
-
-                override fun onPermissionDenied(context: Context?, type: Int) {
-                    if (!Settings.System.canWrite(context)) {
-                        IntentUtil.openApplicationManageWriteSettings()
-                    }
-                }
-            },
-            Manifest.permission.WRITE_SETTINGS
-        )
         // 亮度
-        mSbBrightness.setProgress(BrightnessUtil.brightness, true)
+        try {
+            mSbBrightness.progress = BrightnessUtil.brightness
+        } catch (e: Exception) {
+        }
         mSbBrightness.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(p0: SeekBar?, progress: Int, fromUser: Boolean) {
                 BrightnessUtil.setBrightness(progress)
