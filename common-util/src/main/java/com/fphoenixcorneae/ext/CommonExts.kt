@@ -3,7 +3,6 @@ package com.fphoenixcorneae.ext
 import android.text.TextUtils
 import com.fphoenixcorneae.util.CloseUtil
 import com.fphoenixcorneae.util.ContextUtil
-import com.fphoenixcorneae.util.gson.GsonUtil
 import com.fphoenixcorneae.util.toast.ToastUtil
 import java.io.BufferedReader
 import java.io.InputStreamReader
@@ -81,13 +80,6 @@ fun readFileFromAssets(fileName: String): String {
         CloseUtil.closeIOQuietly(bufferedReader)
         return stringBuilder.toString()
     }
-}
-
-/**
- * 将对象转为JSON字符串
- */
-fun Any?.toJson(): String {
-    return GsonUtil.toJson(this)
 }
 
 

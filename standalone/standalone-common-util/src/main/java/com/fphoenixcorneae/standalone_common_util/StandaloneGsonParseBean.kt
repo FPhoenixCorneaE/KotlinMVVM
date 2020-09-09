@@ -1,5 +1,8 @@
 package com.fphoenixcorneae.standalone_common_util
 
+import androidx.annotation.Keep
+
+@Keep
 data class StandaloneGsonParseBean constructor(
     var like: Boolean = false,
     var favorite: Boolean = false,

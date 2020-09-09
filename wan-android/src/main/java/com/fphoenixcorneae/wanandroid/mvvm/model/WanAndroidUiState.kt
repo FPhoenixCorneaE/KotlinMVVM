@@ -1,11 +1,13 @@
 package com.fphoenixcorneae.wanandroid.mvvm.model
 
+import androidx.annotation.Keep
 import androidx.lifecycle.MutableLiveData
 
 /**
  * @desc：用户界面状态
  * @date：2020-06-11 10:33
  */
+@Keep
 data class WanAndroidUiState(
 
     /* 页数 */

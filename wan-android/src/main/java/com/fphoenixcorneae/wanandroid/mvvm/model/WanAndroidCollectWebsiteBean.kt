@@ -1,12 +1,14 @@
 package com.fphoenixcorneae.wanandroid.mvvm.model
 
 import android.os.Parcelable
+import androidx.annotation.Keep
 import kotlinx.android.parcel.Parcelize
 
 /**
  *  @desc: 收藏网址数据
  *  @date: 2020-07-31 09:48
  */
+@Keep
 @Parcelize
 data class WanAndroidCollectWebsiteBean(
     var icon: String,

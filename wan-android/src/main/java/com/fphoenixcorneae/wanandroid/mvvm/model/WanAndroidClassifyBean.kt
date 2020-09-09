@@ -1,6 +1,7 @@
 package com.fphoenixcorneae.wanandroid.mvvm.model
 
 import android.os.Parcelable
+import androidx.annotation.Keep
 import com.fphoenixcorneae.flowlayout.FlowItem
 import com.fphoenixcorneae.ext.toHtml
 import kotlinx.android.parcel.Parcelize
@@ -9,6 +10,7 @@ import kotlinx.android.parcel.Parcelize
  * @desc：项目、公众号分类
  * @date：2020-06-16 10:32
  */
+@Keep
 @Parcelize
 data class WanAndroidClassifyBean(
     var children: List<String> = listOf(),

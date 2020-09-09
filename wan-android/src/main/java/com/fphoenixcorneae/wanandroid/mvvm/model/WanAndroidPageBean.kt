@@ -1,11 +1,13 @@
 package com.fphoenixcorneae.wanandroid.mvvm.model
 
+import androidx.annotation.Keep
 import java.io.Serializable
 
 /**
  * @desc：分页数据的基类
  * @date：2020-06-11 10:20
  */
+@Keep
 data class WanAndroidPageBean<T>(
     var datas: T,
     var curPage: Int,

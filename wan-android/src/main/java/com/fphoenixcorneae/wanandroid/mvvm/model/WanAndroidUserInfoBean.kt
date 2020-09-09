@@ -1,12 +1,14 @@
 package com.fphoenixcorneae.wanandroid.mvvm.model
 
 import android.os.Parcelable
+import androidx.annotation.Keep
 import kotlinx.android.parcel.Parcelize
 
 /**
  * @desc：账号信息数据
  * @date：2020-04-23 12:20
  */
+@Keep
 @Parcelize
 data class WanAndroidUserInfoBean(
     var admin: Boolean = false,

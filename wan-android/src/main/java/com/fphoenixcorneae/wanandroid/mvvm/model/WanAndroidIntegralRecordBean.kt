@@ -1,12 +1,14 @@
 package com.fphoenixcorneae.wanandroid.mvvm.model
 
 import android.os.Parcelable
+import androidx.annotation.Keep
 import kotlinx.android.parcel.Parcelize
 
 /**
  *  @desc: 积分记录数据
  *  @date: 2020-06-10 13:17
  */
+@Keep
 @Parcelize
 data class WanAndroidIntegralRecordBean(
     var coinCount: Int = 0,

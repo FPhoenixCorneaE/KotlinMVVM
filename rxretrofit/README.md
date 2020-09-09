@@ -103,7 +103,7 @@
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             // Retrofit只支持返回值的第二部分是ResponseBody.class和Void.class类型的或者请求参数为ResponseBody.class
             // 添加GsonConverterFactory可以对服务器的数据进行解析
-            .addConverterFactory(GsonConverterFactory.create(GsonUtil.gson))
+            .addConverterFactory(GsonConverterFactory.create(GSON))
             .build()
     }
 ```

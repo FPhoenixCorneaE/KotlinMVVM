@@ -15,10 +15,12 @@ import android.view.View
 import android.widget.SeekBar
 import androidx.appcompat.app.AppCompatActivity
 import com.fphoenixcorneae.ext.*
+import com.fphoenixcorneae.ext.algorithm.md5
+import com.fphoenixcorneae.ext.algorithm.sha512
 import com.fphoenixcorneae.util.*
 import com.fphoenixcorneae.util.encryption.MD5Util
 import com.fphoenixcorneae.util.encryption.SHAUtil
-import com.fphoenixcorneae.util.gson.GsonUtil
+import com.fphoenixcorneae.ext.gson.toObject
 import com.fphoenixcorneae.util.xtoast.XToast
 import com.fphoenixcorneae.util.xtoast.draggable.MovingDraggable
 import com.fphoenixcorneae.util.xtoast.listener.OnClickListener
@@ -239,7 +241,7 @@ class StandaloneMainActivity : AppCompatActivity() {
                     "    \"realTime\": \"null\",\n" +
                     "    \"content\": \"null\"\n" +
                     "}"
-            val parseResult = GsonUtil.fromJson(testJson, StandaloneGsonParseBean::class.java)
+            val parseResult = testJson.toObject(StandaloneGsonParseBean::class.java)
             loggerD(testJson)
             loggerD(parseResult)
             toast(parseResult.toString())

@@ -23,6 +23,7 @@ import com.fphoenixcorneae.util.BundleBuilder
 import com.fphoenixcorneae.util.KeyboardUtil
 import com.fphoenixcorneae.util.ResourceUtil
 import com.fphoenixcorneae.util.SharedPreferencesUtil
+import com.fphoenixcorneae.ext.gson.toJson
 import com.fphoenixcorneae.wanandroid.R
 import com.fphoenixcorneae.wanandroid.constant.WanAndroidConstant
 import com.fphoenixcorneae.wanandroid.mvvm.model.WanAndroidSearchBean

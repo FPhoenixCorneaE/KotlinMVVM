@@ -2,12 +2,12 @@ package com.fphoenixcorneae.wanandroid.mvvm.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
-import com.google.gson.reflect.TypeToken
 import com.fphoenixcorneae.util.SharedPreferencesUtil
-import com.fphoenixcorneae.util.gson.GsonUtil
+import com.fphoenixcorneae.ext.gson.toObject
 import com.fphoenixcorneae.wanandroid.constant.WanAndroidConstant
 import com.fphoenixcorneae.wanandroid.mvvm.model.WanAndroidSearchBean
 import com.fphoenixcorneae.wanandroid.mvvm.model.WanAndroidUiState
+import com.google.gson.reflect.TypeToken
 
 /**
  *  @desc: 搜索ViewModel
@@ -53,12 +53,10 @@ class WanAndroidSearchViewModel : WanAndroidBaseViewModel() {
      */
     fun getSearchHistoryData() {
         mSearchHistory.postValue(
-            GsonUtil.fromJson(
-                SharedPreferencesUtil.getString(
-                    WanAndroidConstant.WAN_ANDROID_SEARCH_HISTORY,
-                    "[]"
-                ), object : TypeToken<ArrayList<WanAndroidSearchBean>>() {}.type
-            )
+            SharedPreferencesUtil.getString(
+                WanAndroidConstant.WAN_ANDROID_SEARCH_HISTORY,
+                "[]"
+            ).toObject(object : TypeToken<ArrayList<WanAndroidSearchBean>>() {}.type)
         )
     }
 

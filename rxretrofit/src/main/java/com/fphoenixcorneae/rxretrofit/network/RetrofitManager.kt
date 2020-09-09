@@ -5,7 +5,7 @@ import com.fphoenixcorneae.rxretrofit.network.factory.LiveDataCallAdapterFactory
 import com.fphoenixcorneae.rxretrofit.network.ssl.SslSocketUtil
 import com.fphoenixcorneae.util.ContextUtil
 import com.fphoenixcorneae.util.NetworkUtil
-import com.fphoenixcorneae.util.gson.GsonUtil
+import com.fphoenixcorneae.ext.gson.GSON
 import com.franmontiel.persistentcookiejar.PersistentCookieJar
 import com.franmontiel.persistentcookiejar.cache.SetCookieCache
 import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor
@@ -175,7 +175,7 @@ object RetrofitManager {
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             // Retrofit只支持返回值的第二部分是ResponseBody.class和Void.class类型的或者请求参数为ResponseBody.class
             // 添加GsonConverterFactory可以对服务器的数据进行解析
-            .addConverterFactory(GsonConverterFactory.create(GsonUtil.gson))
+            .addConverterFactory(GsonConverterFactory.create(GSON))
             .build()
     }
 

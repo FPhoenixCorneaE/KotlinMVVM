@@ -1,37 +1,37 @@
-package com.fphoenixcorneae.util.gson
+package com.fphoenixcorneae.ext.gson
 
 import com.google.gson.*
 import java.lang.reflect.Type
 
 /**
- * Gson解析默认String类型适配器
+ * Gson解析默认Integer类型适配器
  */
-class DefaultStringAdapter : JsonSerializer<String>,
-    JsonDeserializer<String> {
+class DefaultIntegerAdapter : JsonSerializer<Int>,
+    JsonDeserializer<Int> {
     @Throws(JsonParseException::class)
     override fun deserialize(
         json: JsonElement,
         typeOfT: Type,
         context: JsonDeserializationContext
-    ): String {
+    ): Int {
         try {
             when (json.asString) {
-                "null" -> {
-                    // 定义为String类型,如果后台返回null,则返回""
-                    return ""
+                "", "null" -> {
+                    // 定义为Integer类型,如果后台返回""或者null,则返回0
+                    return 0
                 }
             }
         } catch (ignore: Exception) {
         }
         return try {
-            json.asString
+            json.asInt
         } catch (e: NumberFormatException) {
             throw JsonSyntaxException(e)
         }
     }
 
     override fun serialize(
-        src: String,
+        src: Int,
         typeOfSrc: Type,
         context: JsonSerializationContext
     ): JsonElement {

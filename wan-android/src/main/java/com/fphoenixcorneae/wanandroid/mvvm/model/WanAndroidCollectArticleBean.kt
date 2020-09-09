@@ -1,12 +1,14 @@
 package com.fphoenixcorneae.wanandroid.mvvm.model
 
 import android.os.Parcelable
+import androidx.annotation.Keep
 import kotlinx.android.parcel.Parcelize
 
 /**
  *  @desc: 收藏文章数据
  *  @date: 2020-07-31 09:47
  */
+@Keep
 @Parcelize
 data class WanAndroidCollectArticleBean(
     var chapterId: Int,

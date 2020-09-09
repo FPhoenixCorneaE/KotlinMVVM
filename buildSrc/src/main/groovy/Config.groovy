@@ -200,6 +200,8 @@ class Config {
     static kenBurnsView = 'com.flaviofaria:kenburnsview:1.0.7'
     /** Cookies自动持久化 */
     static persistentCookieJar = 'com.github.franmontiel:PersistentCookieJar:v1.0.1'
+    /** Kotlin Coroutines Image Loader */
+    static coil = 'io.coil-kt:coil:0.13.0'
 
 
     /** compiler */

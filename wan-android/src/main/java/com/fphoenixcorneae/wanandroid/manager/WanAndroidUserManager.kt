@@ -1,10 +1,12 @@
 package com.fphoenixcorneae.wanandroid.manager
 
+import com.fphoenixcorneae.ext.gson.toJson
+import com.fphoenixcorneae.ext.gson.toObject
 import com.fphoenixcorneae.ext.isNonNull
+import com.fphoenixcorneae.ext.loggerD
 import com.fphoenixcorneae.rxretrofit.network.RetrofitManager
 import com.fphoenixcorneae.util.SharedPreferencesUtil
 import com.fphoenixcorneae.util.encryption.AESUtil
-import com.fphoenixcorneae.util.gson.GsonUtil
 import com.fphoenixcorneae.wanandroid.constant.WanAndroidConstant
 import com.fphoenixcorneae.wanandroid.mvvm.model.WanAndroidUserInfoBean
 
@@ -37,7 +39,7 @@ object WanAndroidUserManager {
                     )
                     SharedPreferencesUtil.put(
                         WanAndroidConstant.WAN_ANDROID_USER_INFO,
-                        AESUtil.encrypt(GsonUtil.toJson(userInfo!!), secretKey)
+                        AESUtil.encrypt(userInfo.toJson(), secretKey)
                     )
                 }
                 else -> {
@@ -57,16 +59,15 @@ object WanAndroidUserManager {
                         WanAndroidConstant.WAN_ANDROID_USER_INFO_SECRET_KEY,
                         ""
                     ).toByteArray(Charsets.ISO_8859_1)
-                    GsonUtil.fromJson(
-                        AESUtil.decrypt(
-                            SharedPreferencesUtil.getString(
-                                WanAndroidConstant.WAN_ANDROID_USER_INFO,
-                                ""
-                            ),
-                            secretKey
-                        )
-                        , WanAndroidUserInfoBean::class.java
-                    )
+                    AESUtil.decrypt(
+                        SharedPreferencesUtil.getString(
+                            WanAndroidConstant.WAN_ANDROID_USER_INFO,
+                            ""
+                        ),
+                        secretKey
+                    ).toObject(WanAndroidUserInfoBean::class.java).apply {
+                        loggerD("UserInfo:${this}")
+                    }
                 }
                 else -> {
                     null

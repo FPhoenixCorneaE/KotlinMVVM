@@ -1,4 +1,4 @@
-package com.fphoenixcorneae.ext
+package com.fphoenixcorneae.ext.algorithm
 
 import java.io.File
 import java.io.FileInputStream

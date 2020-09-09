@@ -70,6 +70,7 @@ dependencies {
     compileOnly Config.rxPermissions
     compileOnly Config.rxJava2Libs
     compileOnly Config.navigationLibs
+    implementation(Config.coil)
     implementation Config.gson
     implementation Config.logger
 }

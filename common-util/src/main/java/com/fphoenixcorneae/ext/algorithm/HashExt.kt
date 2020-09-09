@@ -1,5 +1,6 @@
-package com.fphoenixcorneae.ext
+package com.fphoenixcorneae.ext.algorithm
 
+import com.fphoenixcorneae.ext.toHexString
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileNotFoundException

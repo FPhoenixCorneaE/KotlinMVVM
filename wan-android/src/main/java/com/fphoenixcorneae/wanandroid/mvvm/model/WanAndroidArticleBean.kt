@@ -1,6 +1,7 @@
 package com.fphoenixcorneae.wanandroid.mvvm.model
 
 import android.os.Parcelable
+import androidx.annotation.Keep
 import com.fphoenixcorneae.flowlayout.FlowItem
 import com.fphoenixcorneae.ext.toHtml
 import kotlinx.android.parcel.Parcelize
@@ -9,6 +10,7 @@ import kotlinx.android.parcel.Parcelize
  * @desc：文章数据
  * @date：2019-10-24 13:24
  */
+@Keep
 @Parcelize
 data class WanAndroidArticleBean(
     var apkLink: String,
@@ -44,6 +46,7 @@ data class WanAndroidArticleBean(
     /**
      * 文章的标签
      */
+    @Keep
     @Parcelize
     data class TagsBean(
         var name: String,

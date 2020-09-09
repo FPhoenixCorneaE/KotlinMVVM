@@ -7,7 +7,7 @@ import android.webkit.*
 import androidx.annotation.Nullable
 import androidx.annotation.RequiresApi
 import com.fphoenixcorneae.ext.loggerI
-import com.fphoenixcorneae.util.gson.GsonUtil
+import com.fphoenixcorneae.ext.gson.toJson
 import com.just.agentweb.WebViewClient
 
 /**
@@ -76,8 +76,8 @@ class CustomWebViewClient : WebViewClient() {
     ) {
         super.onReceivedHttpError(view, request, errorResponse)
         loggerI(
-            "onReceivedHttpError:" + 3 + "  request:" + GsonUtil.toJson(request) +
-                    "  errorResponse:" + GsonUtil.toJson(errorResponse)
+            "onReceivedHttpError:" + 3 + "  request:" + request.toJson() +
+                    "  errorResponse:" + errorResponse.toJson()
         )
     }
 
