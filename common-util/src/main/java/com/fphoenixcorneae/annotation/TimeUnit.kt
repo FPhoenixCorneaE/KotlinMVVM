@@ -1,8 +1,11 @@
 package com.fphoenixcorneae.annotation
 
+import androidx.annotation.Keep
+
 /**
  * @desc 时间单位
  */
+@Keep
 @Target(AnnotationTarget.CLASS, AnnotationTarget.FILE, AnnotationTarget.VALUE_PARAMETER)
 @kotlin.annotation.Retention(AnnotationRetention.BINARY)
 annotation class TimeUnit {

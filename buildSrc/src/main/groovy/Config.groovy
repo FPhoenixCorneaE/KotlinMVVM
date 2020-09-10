@@ -1,6 +1,6 @@
 class Config {
     static gradle_version = '4.0.1'
-    static kotlin_version = '1.3.72'
+    static kotlin_version = '1.4.0'
     static navigation_version = '2.3.0'
 
     static classpath = [
@@ -15,6 +15,7 @@ class Config {
             ShapeImageView: "com.github.FPhoenixCorneaE:ShapeImageView:1.0.5",
             PrettyDialog  : "com.github.FPhoenixCorneaE:PrettyDialog:1.0.1",
             AvatarWaveView: 'com.github.FPhoenixCorneaE:AvatarWaveView:1.0.0',
+            EasyBehavior  : 'com.github.FPhoenixCorneaE:EasyBehavior:1.0.1',
     ]
 
     /** Android */
@@ -29,9 +30,9 @@ class Config {
 
     /** Supports */
     static support = [
-            appcompat           : "androidx.appcompat:appcompat:1.1.0",
+            appcompat           : "androidx.appcompat:appcompat:1.2.0",
             constraintLayout    : "androidx.constraintlayout:constraintlayout:2.0.0",
-            material            : "com.google.android.material:material:1.1.0",
+            material            : "com.google.android.material:material:1.2.1",
             recyclerView        : "androidx.recyclerview:recyclerview:1.1.0",
             cardView            : "androidx.cardview:cardview:1.0.0",
             lifecycleViewmodel  : "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0-alpha02",
@@ -62,7 +63,7 @@ class Config {
 
     /** Kotlin */
     static kotlin = [
-            core            : "androidx.core:core-ktx:1.3.0",
+            core            : "androidx.core:core-ktx:1.3.1",
             activity        : "androidx.activity:activity-ktx:1.2.0-alpha02",
             fragment        : "androidx.fragment:fragment-ktx:1.3.0-alpha02",
             kotlinStdlibJdk7: "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version",

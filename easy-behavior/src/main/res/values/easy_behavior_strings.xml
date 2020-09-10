@@ -1,5 +1,0 @@
-<resources>
-  <string name="easy_behavior_float_behavior">com.fphoenixcorneae.behavior.FloatButtonEasyBehavior</string>
-  <string name="easy_behavior_bottom_behavior">com.fphoenixcorneae.behavior.BottomEasyBehavior</string>
-  <string name="easy_behavior_title_behavior">com.fphoenixcorneae.behavior.TitleEasyBehavior</string>
-</resources>

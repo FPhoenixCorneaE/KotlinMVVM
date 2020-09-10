@@ -73,7 +73,6 @@ dependencies {
     api project(':bottom-navigation-view')
     api project(':common-titlebar')
     api project(':common-util')
-    api project(':easy-behavior')
     api project(':expand-collapse-text-view')
     api project(':magic-indicator')
     api project(':multiple-status-view')
