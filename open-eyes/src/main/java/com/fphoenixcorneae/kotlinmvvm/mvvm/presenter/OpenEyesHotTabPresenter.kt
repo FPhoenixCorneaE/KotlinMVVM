@@ -16,14 +16,14 @@ class OpenEyesHotTabPresenter : BasePresenter<OpenEyesHotTabContract.View>(), Op
 
 
     override fun getTabInfo() {
-        mView?.showLoading()
+        mView.showLoading()
         hotTabModel.getTabInfo()
-            .autoDisposable(mScopeProvider!!)
+            .autoDisposable(mScopeProvider)
             .subscribe({ tabInfo ->
-                mView?.setTabInfo(tabInfo)
+                mView.setTabInfo(tabInfo)
             }, { throwable ->
                 //处理异常
-                mView?.showError(ExceptionHandle.handleException(throwable), ExceptionHandle.errorCode)
+                mView.showError(ExceptionHandle.handleException(throwable), ExceptionHandle.errorCode)
             })
     }
 }

@@ -21,18 +21,18 @@ class OpenEyesSearchPresenter : BasePresenter<OpenEyesSearchContract.View>(), Op
      * 获取热门关键词
      */
     override fun requestHotWordData() {
-        mView?.apply {
+        mView.apply {
             closeSoftKeyboard()
             showLoading()
         }
         searchModel.requestHotWordData()
-            .autoDisposable(mScopeProvider!!)
+            .autoDisposable(mScopeProvider)
             .subscribe({ string ->
-                mView?.apply {
+                mView.apply {
                     setHotWordData(string)
                 }
             }, { throwable ->
-                mView?.apply {
+                mView.apply {
                     //处理异常
                     showError(ExceptionHandle.handleException(throwable), ExceptionHandle.errorCode)
                 }
@@ -43,14 +43,14 @@ class OpenEyesSearchPresenter : BasePresenter<OpenEyesSearchContract.View>(), Op
      * 查询关键词
      */
     override fun querySearchData(words: String) {
-        mView?.apply {
+        mView.apply {
             closeSoftKeyboard()
             showLoading()
         }
         searchModel.getSearchResult(words)
-            .autoDisposable(mScopeProvider!!)
+            .autoDisposable(mScopeProvider)
             .subscribe({ issue ->
-                mView?.apply {
+                mView.apply {
                     showContent()
                     if (issue.count > 0 && issue.itemList.size > 0) {
                         nextPageUrl = issue.nextPageUrl
@@ -59,7 +59,7 @@ class OpenEyesSearchPresenter : BasePresenter<OpenEyesSearchContract.View>(), Op
                         setEmptyView()
                 }
             }, { throwable ->
-                mView?.apply {
+                mView.apply {
                     showContent()
                     //处理异常
                     showError(ExceptionHandle.handleException(throwable), ExceptionHandle.errorCode)
@@ -73,14 +73,14 @@ class OpenEyesSearchPresenter : BasePresenter<OpenEyesSearchContract.View>(), Op
     override fun loadMoreData() {
         nextPageUrl?.let {
             searchModel.loadMoreData(it)
-                .autoDisposable(mScopeProvider!!)
+                .autoDisposable(mScopeProvider)
                 .subscribe({ issue ->
-                    mView?.apply {
+                    mView.apply {
                         nextPageUrl = issue.nextPageUrl
                         setSearchResult(issue)
                     }
                 }, { throwable ->
-                    mView?.apply {
+                    mView.apply {
                         //处理异常
                         showError(ExceptionHandle.handleException(throwable), ExceptionHandle.errorCode)
                     }

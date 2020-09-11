@@ -2,7 +2,6 @@ package com.fphoenixcorneae.kotlinmvvm.mvvm.viewmodel.activity
 
 import android.os.Bundle
 import com.fphoenixcorneae.bottomnavigation.BottomNavigationItem
-import com.fphoenixcorneae.bottomnavigation.OnBottomNavigationItemClickListener
 import com.fphoenixcorneae.framework.base.activity.Dagger2InjectionActivity
 import com.fphoenixcorneae.kotlinmvvm.R
 import com.fphoenixcorneae.kotlinmvvm.mvvm.contract.OpenEyesHomeContract
@@ -30,12 +29,15 @@ class OpenEyesHomeActivity :
     private fun initBottomNavigationView() {
         mBnvNavigation.isWithText(false)
             .isColoredBackground(true)
-            .setTextActiveSize(ResourceUtil.getDimension(R.dimen.sp_13))
-            .setTextInactiveSize(ResourceUtil.getDimension(R.dimen.sp_11))
-            .setItemActiveColorWithoutColoredBackground(
-                ResourceUtil.getColor(R.color.open_eyes_color_black)
+            .setTextSize(
+                ResourceUtil.getDimension(R.dimen.sp_14),
+                ResourceUtil.getDimension(R.dimen.sp_12)
             )
-            .setFont(ResourceUtil.getFont(R.font.lobster))
+            .setItemColor(
+                ResourceUtil.getColor(R.color.open_eyes_color_black),
+                ResourceUtil.getColor(R.color.open_eyes_color_darker_gray)
+            )
+            .setFont(ResourceUtil.getFont(R.font.framework_slender_gold))
             .setTabs(
                 listOf(
                     BottomNavigationItem(
@@ -60,12 +62,9 @@ class OpenEyesHomeActivity :
                     )
                 )
             )
-            .setOnBottomNavigationItemClickListener(object :
-                OnBottomNavigationItemClickListener {
-                override fun onNavigationItemClick(index: Int) {
+            .setOnBottomNavigationItemClickListener {
 
-                }
-            })
+            }
     }
 
     override fun initData(savedInstanceState: Bundle?) {

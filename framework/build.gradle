@@ -44,8 +44,10 @@ android {
     }
 
     // 支持数据绑定框架dataBinding
-    dataBinding {
-        enabled true
+    buildFeatures {
+        dataBinding {
+            enabled true
+        }
     }
 
     compileOptions {

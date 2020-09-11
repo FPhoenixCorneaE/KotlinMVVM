@@ -58,6 +58,8 @@ android {
             signingConfig signingConfigs.release
         }
         debug {
+            // 屏蔽lint耗时检查
+            project.gradle.startParameter.excludedTaskNames.add('lint')
             // 执行proguard混淆
             minifyEnabled true
             // Zipalign优化
@@ -72,8 +74,10 @@ android {
     }
 
     // 支持数据绑定框架dataBinding
-    dataBinding {
-        enabled true
+    buildFeatures {
+        dataBinding {
+            enabled true
+        }
     }
 
     compileOptions {
@@ -87,6 +91,10 @@ android {
 
     dexOptions {
         jumboMode true
+        // 加快编译速度
+        javaMaxHeapSize "4g"
+        preDexLibraries true
+        threadCount = 8
     }
 
     lintOptions {

@@ -7,9 +7,9 @@
     android:background="?selectableItemBackgroundBorderless"
     android:minWidth="@dimen/bottom_navigation_min_width"
     android:orientation="vertical"
-    android:paddingLeft="@dimen/bottom_navigation_padding_left"
+    android:paddingStart="@dimen/bottom_navigation_padding_left"
     android:paddingTop="@dimen/bottom_navigation_padding_top_inactive"
-    android:paddingRight="@dimen/bottom_navigation_padding_right"
+    android:paddingEnd="@dimen/bottom_navigation_padding_right"
     android:paddingBottom="@dimen/bottom_navigation_padding_bottom">
 
     <ImageView
@@ -19,7 +19,8 @@
         android:layout_gravity="center_horizontal"
         android:gravity="center"
         android:scaleX=".9"
-        android:scaleY=".9" />
+        android:scaleY=".9"
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/bottom_navigation_item_title"

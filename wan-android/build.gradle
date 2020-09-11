@@ -67,6 +67,8 @@ android {
             signingConfig signingConfigs.release
         }
         debug {
+            // 屏蔽lint耗时检查
+            project.gradle.startParameter.excludedTaskNames.add('lint')
             // 版本名后缀
             versionNameSuffix "_" + getDate()
             // 执行proguard混淆
@@ -93,6 +95,10 @@ android {
 
     dexOptions {
         jumboMode true
+        // 加快编译速度
+        javaMaxHeapSize "4g"
+        preDexLibraries true
+        threadCount = 8
     }
 
     lintOptions {

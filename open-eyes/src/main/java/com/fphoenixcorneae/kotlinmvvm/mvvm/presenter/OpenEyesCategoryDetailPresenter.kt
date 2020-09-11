@@ -22,14 +22,14 @@ class OpenEyesCategoryDetailPresenter : BasePresenter<OpenEyesCategoryDetailCont
      */
     override fun getCategoryDetailList(id: Long) {
         categoryDetailModel.getCategoryDetailList(id)
-            .autoDisposable(mScopeProvider!!)
+            .autoDisposable(mScopeProvider)
             .subscribe({ issue ->
-                mView?.apply {
+                mView.apply {
                     nextPageUrl = issue.nextPageUrl
                     setCateDetailList(issue.itemList)
                 }
             }, { throwable ->
-                mView?.apply {
+                mView.apply {
                     showError(throwable.toString())
                 }
             })
@@ -41,14 +41,14 @@ class OpenEyesCategoryDetailPresenter : BasePresenter<OpenEyesCategoryDetailCont
     override fun loadMoreData() {
         nextPageUrl?.let {
             categoryDetailModel.loadMoreData(it)
-                .autoDisposable(mScopeProvider!!)
+                .autoDisposable(mScopeProvider)
                 .subscribe({ issue ->
-                    mView?.apply {
+                    mView.apply {
                         nextPageUrl = issue.nextPageUrl
                         setCateDetailList(issue.itemList)
                     }
                 }, { throwable ->
-                    mView?.apply {
+                    mView.apply {
                         showError(throwable.toString())
                     }
                 })

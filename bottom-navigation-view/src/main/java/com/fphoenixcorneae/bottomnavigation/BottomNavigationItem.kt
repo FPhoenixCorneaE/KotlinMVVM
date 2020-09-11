@@ -1,5 +1,12 @@
 package com.fphoenixcorneae.bottomnavigation
 
-class BottomNavigationItem(var title: CharSequence?, var color: Int, var imageResource: Int) {
+import androidx.annotation.Keep
+
+@Keep
+class BottomNavigationItem(
+    var title: CharSequence?,
+    var color: Int,
+    var imageResource: Int
+) {
     var imageResourceActive = 0
 }

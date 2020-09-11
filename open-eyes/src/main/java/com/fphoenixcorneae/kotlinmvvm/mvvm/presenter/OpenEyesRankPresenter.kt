@@ -19,16 +19,16 @@ class OpenEyesRankPresenter : BasePresenter<OpenEyesRankContract.View>(), OpenEy
      *  请求排行榜数据
      */
     override fun requestRankList(apiUrl: String) {
-        mView?.showLoading()
+        mView.showLoading()
         rankModel.requestRankList(apiUrl)
-            .autoDisposable(mScopeProvider!!)
+            .autoDisposable(mScopeProvider)
             .subscribe({ issue ->
-                mView?.apply {
+                mView.apply {
                     showContent()
                     setRankList(issue.itemList)
                 }
             }, { throwable ->
-                mView?.apply {
+                mView.apply {
                     //处理异常
                     showError(ExceptionHandle.handleException(throwable), ExceptionHandle.errorCode)
                 }

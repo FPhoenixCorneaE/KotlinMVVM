@@ -16,8 +16,10 @@
         <attr name="bnv_active_text_size" format="dimension" />
         <!-- Text size for an inactive tab, default size is 12sp -->
         <attr name="bnv_inactive_text_size" format="dimension" />
-        <!-- The color of an activated tab. Will only be considered if bnv_colored_background is false, no default is set -->
-        <attr name="bnv_active_color" format="color" />
+        <!-- The color of an activated tab. -->
+        <attr name="bnv_item_active_color" format="color" />
+        <!-- The color of an inactivated tab. -->
+        <attr name="bnv_item_inactive_color" format="color" />
     </declare-styleable>
 
 </resources>

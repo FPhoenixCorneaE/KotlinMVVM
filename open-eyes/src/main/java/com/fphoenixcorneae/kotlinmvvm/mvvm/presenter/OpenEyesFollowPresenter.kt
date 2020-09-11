@@ -19,17 +19,17 @@ class OpenEyesFollowPresenter : BasePresenter<OpenEyesFollowContract.View>(), Op
      *  请求关注数据
      */
     override fun requestFollowList() {
-        mView?.showLoading()
+        mView.showLoading()
         followModel.requestFollowList()
-            .autoDisposable(mScopeProvider!!)
+            .autoDisposable(mScopeProvider)
             .subscribe({ issue ->
-                mView?.apply {
+                mView.apply {
                     showContent()
                     nextPageUrl = issue.nextPageUrl
                     setFollowInfo(issue)
                 }
             }, { throwable ->
-                mView?.apply {
+                mView.apply {
                     //处理异常
                     showError(ExceptionHandle.handleException(throwable), ExceptionHandle.errorCode)
                 }
@@ -42,15 +42,15 @@ class OpenEyesFollowPresenter : BasePresenter<OpenEyesFollowContract.View>(), Op
     override fun loadMoreData() {
         nextPageUrl?.let {
             followModel.loadMoreData(it)
-                .autoDisposable(mScopeProvider!!)
+                .autoDisposable(mScopeProvider)
                 .subscribe({ issue ->
-                    mView?.apply {
+                    mView.apply {
                         nextPageUrl = issue.nextPageUrl
                         setFollowInfo(issue)
                     }
 
                 }, { t ->
-                    mView?.apply {
+                    mView.apply {
                         showError(ExceptionHandle.handleException(t), ExceptionHandle.errorCode)
                     }
                 })

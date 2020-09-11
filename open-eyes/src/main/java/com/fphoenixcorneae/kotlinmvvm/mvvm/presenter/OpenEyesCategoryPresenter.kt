@@ -19,16 +19,16 @@ class OpenEyesCategoryPresenter : BasePresenter<OpenEyesCategoryContract.View>()
      * 获取分类
      */
     override fun getCategoryData() {
-        mView?.showLoading()
+        mView.showLoading()
         categoryModel.getCategoryData()
-            .autoDisposable(mScopeProvider!!)
+            .autoDisposable(mScopeProvider)
             .subscribe({ categoryList ->
-                mView?.apply {
+                mView.apply {
                     showContent()
                     showCategory(categoryList)
                 }
             }, { t ->
-                mView?.apply {
+                mView.apply {
                     //处理异常
                     showError(ExceptionHandle.handleException(t), ExceptionHandle.errorCode)
                 }
