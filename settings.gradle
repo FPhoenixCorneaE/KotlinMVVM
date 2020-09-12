@@ -1,7 +1,6 @@
 include ':animated-bottom-view'
 include ':open-eyes'
 include ':common-titlebar'
-include ':bottom-navigation-view'
 include ':rxretrofit'
 include ':base-code'
 include ':common-util'

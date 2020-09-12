@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <color name="bottom_navigation_itemActiveColorWithoutColoredBackground">#000000</color>
-    <color name="bottom_navigation_itemInactiveColorWithoutColoredBackground">#757575</color>
-    <color name="bottom_navigation_lineColor">#e7e6e7</color>
-</resources>
