@@ -27,7 +27,7 @@ class NavigatorHelper {
         private set
 
     private var mSkimOver: Boolean = false
-    private var mNavigatorScrollListener: NavigatorHelper.OnNavigatorScrollListener? = null
+    private var mNavigatorScrollListener: OnNavigatorScrollListener? = null
 
     fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
         val currentPositionOffsetSum = position + positionOffset
@@ -144,7 +144,7 @@ class NavigatorHelper {
         scrollState = state
     }
 
-    fun setNavigatorScrollListener(navigatorScrollListener: NavigatorHelper.OnNavigatorScrollListener) {
+    fun setNavigatorScrollListener(navigatorScrollListener: OnNavigatorScrollListener) {
         mNavigatorScrollListener = navigatorScrollListener
     }
 

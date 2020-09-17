@@ -16,8 +16,7 @@ import androidx.core.view.ViewCompat
 import com.fphoenixcorneae.arclayout.ClipPathManagerImpl.ClipPathCreator
 
 abstract class AbstractClipShapeLayout : FrameLayout {
-    private val clipPaint =
-        Paint(Paint.ANTI_ALIAS_FLAG)
+    private val clipPaint = Paint(Paint.ANTI_ALIAS_FLAG)
     private val clipPath = Path()
     protected var pdMode = PorterDuffXfermode(PorterDuff.Mode.DST_OUT)
     protected var mDrawable: Drawable? = null

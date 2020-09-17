@@ -12,7 +12,7 @@ import com.fphoenixcorneae.kotlinmvvm.mvvm.model.bean.OpenEyesHomeBean
 import com.fphoenixcorneae.util.ColorUtil
 import com.fphoenixcorneae.util.ResourceUtil
 import com.fphoenixcorneae.util.SizeUtil
-import com.fphoenixcorneae.widget.Callback
+import com.fphoenixcorneae.widget.ExpandCollapseTextView
 import kotlinx.android.synthetic.main.open_eyes_item_home_video.view.*
 
 /**
@@ -66,28 +66,18 @@ class OpenEyesHomeVideoWrapper :
                 mCollapseTextColor = Color.BLUE
                 // 展开文案颜色
                 mExpandTextColor = Color.RED
-                item.data?.description?.let {
-                    setText(it, item.data.expanded, object : Callback {
-                        override fun onExpand() {
-
+                // 文字状态改变监听器
+                mOnTextStateChangedListener = { state ->
+                    if (state == ExpandCollapseTextView.TextState.Expanded
+                        || state == ExpandCollapseTextView.TextState.Collapsed
+                    ) {
+                        item.data?.let {
+                            it.expanded = isExpanded()
                         }
-
-                        override fun onCollapse() {
-                        }
-
-                        override fun onLoss() {
-                        }
-
-                        override fun onExpandClick() {
-                            item.data.expanded = !item.data.expanded
-                            changeExpandedState(item.data.expanded)
-                        }
-
-                        override fun onCollapseClick() {
-                            item.data.expanded = !item.data.expanded
-                            changeExpandedState(item.data.expanded)
-                        }
-                    })
+                    }
+                }
+                item.data?.let {
+                    setText(it.description, item.data.expanded)
                 }
             }
         }

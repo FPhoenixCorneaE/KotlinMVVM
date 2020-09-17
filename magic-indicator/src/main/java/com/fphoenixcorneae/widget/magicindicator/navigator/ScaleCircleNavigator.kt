@@ -18,6 +18,8 @@ import com.fphoenixcorneae.widget.magicindicator.helper.ArgbEvaluatorHolder
 import com.fphoenixcorneae.widget.magicindicator.UIUtil
 
 import java.util.ArrayList
+import kotlin.math.abs
+import kotlin.math.roundToLong
 
 /**
  * 类似CircleIndicator的效果
@@ -38,7 +40,7 @@ class ScaleCircleNavigator(context: Context) : View(context), IPagerNavigator, N
      * 事件回调
      */
     private var mTouchable: Boolean = false
-    private var mCircleClickListener: ScaleCircleNavigator.OnCircleClickListener? = null
+    private var mCircleClickListener: OnCircleClickListener? = null
     private var mDownX: Float = 0.toFloat()
     private var mDownY: Float = 0.toFloat()
     private var mTouchSlop: Int = 0
@@ -68,12 +70,12 @@ class ScaleCircleNavigator(context: Context) : View(context), IPagerNavigator, N
     }
 
     private fun measureWidth(widthMeasureSpec: Int): Int {
-        val mode = View.MeasureSpec.getMode(widthMeasureSpec)
-        val width = View.MeasureSpec.getSize(widthMeasureSpec)
+        val mode = MeasureSpec.getMode(widthMeasureSpec)
+        val width = MeasureSpec.getSize(widthMeasureSpec)
         var result = 0
         when (mode) {
-            View.MeasureSpec.EXACTLY -> result = width
-            View.MeasureSpec.AT_MOST, View.MeasureSpec.UNSPECIFIED -> if (mCircleCount <= 0) {
+            MeasureSpec.EXACTLY -> result = width
+            MeasureSpec.AT_MOST, MeasureSpec.UNSPECIFIED -> if (mCircleCount <= 0) {
                 result = paddingLeft + paddingRight
             } else {
                 result = (mCircleCount - 1) * mMinRadius * 2 + mMaxRadius * 2 + (mCircleCount - 1) * mCircleSpacing + paddingLeft + paddingRight
@@ -85,12 +87,12 @@ class ScaleCircleNavigator(context: Context) : View(context), IPagerNavigator, N
     }
 
     private fun measureHeight(heightMeasureSpec: Int): Int {
-        val mode = View.MeasureSpec.getMode(heightMeasureSpec)
-        val height = View.MeasureSpec.getSize(heightMeasureSpec)
+        val mode = MeasureSpec.getMode(heightMeasureSpec)
+        val height = MeasureSpec.getSize(heightMeasureSpec)
         var result = 0
         when (mode) {
-            View.MeasureSpec.EXACTLY -> result = height
-            View.MeasureSpec.AT_MOST, View.MeasureSpec.UNSPECIFIED -> result = mMaxRadius * 2 + paddingTop + paddingBottom
+            MeasureSpec.EXACTLY -> result = height
+            MeasureSpec.AT_MOST, MeasureSpec.UNSPECIFIED -> result = mMaxRadius * 2 + paddingTop + paddingBottom
             else -> {
             }
         }
@@ -112,7 +114,7 @@ class ScaleCircleNavigator(context: Context) : View(context), IPagerNavigator, N
     private fun prepareCirclePoints() {
         mCirclePoints.clear()
         if (mCircleCount > 0) {
-            val y = Math.round(height / 2.0f)
+            val y = (height / 2.0f).roundToLong()
             val centerSpacing = mMinRadius * 2 + mCircleSpacing
             var startX = mMaxRadius + paddingLeft
             for (i in 0 until mCircleCount) {
@@ -133,12 +135,12 @@ class ScaleCircleNavigator(context: Context) : View(context), IPagerNavigator, N
                 return true
             }
             MotionEvent.ACTION_UP -> if (mCircleClickListener != null) {
-                if (Math.abs(x - mDownX) <= mTouchSlop && Math.abs(y - mDownY) <= mTouchSlop) {
+                if (abs(x - mDownX) <= mTouchSlop && abs(y - mDownY) <= mTouchSlop) {
                     var max = java.lang.Float.MAX_VALUE
                     var index = 0
                     for (i in mCirclePoints.indices) {
                         val pointF = mCirclePoints[i]
-                        val offset = Math.abs(pointF.x - x)
+                        val offset = abs(pointF.x - x)
                         if (offset < max) {
                             max = offset
                             index = i

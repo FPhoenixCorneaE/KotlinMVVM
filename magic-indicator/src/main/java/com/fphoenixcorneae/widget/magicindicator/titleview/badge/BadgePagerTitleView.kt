@@ -19,11 +19,11 @@ class BadgePagerTitleView(context: Context) : FrameLayout(context), IMeasurableP
             field = innerPagerTitleView
             removeAllViews()
             if (this.innerPagerTitleView is View) {
-                val lp = FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT)
+                val lp = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
                 addView(this.innerPagerTitleView as View?, lp)
             }
             if (badgeView != null) {
-                val lp = FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT)
+                val lp = LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
                 addView(badgeView, lp)
             }
         }
@@ -35,11 +35,11 @@ class BadgePagerTitleView(context: Context) : FrameLayout(context), IMeasurableP
             field = badgeView
             removeAllViews()
             if (innerPagerTitleView is View) {
-                val lp = FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT)
+                val lp = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
                 addView(innerPagerTitleView as View?, lp)
             }
             if (this.badgeView != null) {
-                val lp = FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT)
+                val lp = LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
                 addView(this.badgeView, lp)
             }
         }
@@ -49,7 +49,7 @@ class BadgePagerTitleView(context: Context) : FrameLayout(context), IMeasurableP
         set(badgeRule) {
             if (badgeRule != null) {
                 val anchor = badgeRule.anchor
-                kotlin.require(!(anchor != BadgeAnchor.LEFT
+                require(!(anchor != BadgeAnchor.LEFT
                         && anchor != BadgeAnchor.RIGHT
                         && anchor != BadgeAnchor.CONTENT_LEFT
                         && anchor != BadgeAnchor.CONTENT_RIGHT
@@ -63,7 +63,7 @@ class BadgePagerTitleView(context: Context) : FrameLayout(context), IMeasurableP
         set(badgeRule) {
             if (badgeRule != null) {
                 val anchor = badgeRule.anchor
-                kotlin.require(!(anchor != BadgeAnchor.TOP
+                require(!(anchor != BadgeAnchor.TOP
                         && anchor != BadgeAnchor.BOTTOM
                         && anchor != BadgeAnchor.CONTENT_TOP
                         && anchor != BadgeAnchor.CONTENT_BOTTOM

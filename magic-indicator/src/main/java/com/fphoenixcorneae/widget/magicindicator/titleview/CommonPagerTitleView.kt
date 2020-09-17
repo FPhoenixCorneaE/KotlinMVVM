@@ -96,8 +96,3 @@ class CommonPagerTitleView(context: Context) : FrameLayout(context), IMeasurable
         val contentBottom: Int
     }
 }
-/**
- * 外部直接将布局设置进来
- *
- * @param contentView
- */

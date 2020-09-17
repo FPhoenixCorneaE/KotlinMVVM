@@ -12,6 +12,7 @@ import com.fphoenixcorneae.widget.magicindicator.UIUtil
 import com.fphoenixcorneae.widget.magicindicator.helper.ArgbEvaluatorHolder
 import com.fphoenixcorneae.widget.magicindicator.helper.FragmentContainerHelper
 import com.fphoenixcorneae.widget.magicindicator.model.PositionData
+import kotlin.math.abs
 
 /**
  * 直线viewpager指示器，带颜色渐变
@@ -80,9 +81,9 @@ class LinePagerIndicator(context: Context) : View(context), IPagerIndicator {
         }
 
         // 计算颜色
-        if (mColors != null && mColors!!.size > 0) {
-            val currentColor = mColors!![Math.abs(position) % mColors!!.size]
-            val nextColor = mColors!![Math.abs(position + 1) % mColors!!.size]
+        if (mColors != null && mColors!!.isNotEmpty()) {
+            val currentColor = mColors!![abs(position) % mColors!!.size]
+            val nextColor = mColors!![abs(position + 1) % mColors!!.size]
             val color = ArgbEvaluatorHolder.eval(positionOffset, currentColor, nextColor)
             paint!!.color = color
         }

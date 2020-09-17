@@ -74,7 +74,6 @@ dependencies {
     api project(':base-code')
     api project(':common-titlebar')
     api project(':common-util')
-    api project(':expand-collapse-text-view')
     api project(':magic-indicator')
     api project(':multiple-status-view')
     api project(':multi-type-adapter')

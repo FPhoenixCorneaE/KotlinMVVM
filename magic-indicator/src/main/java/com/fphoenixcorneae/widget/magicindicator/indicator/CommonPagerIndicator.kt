@@ -59,27 +59,31 @@ class CommonPagerIndicator(context: Context) : View(context), IPagerIndicator {
         val nextLeftX: Float
         val rightX: Float
         val nextRightX: Float
-        if (mode == MODE_MATCH_EDGE) {
-            leftX = current.mLeft + xOffset
-            nextLeftX = next.mLeft + xOffset
-            rightX = current.mRight - xOffset
-            nextRightX = next.mRight - xOffset
-            mDrawableRect.top = yOffset.toInt()
-            mDrawableRect.bottom = (height - yOffset).toInt()
-        } else if (mode == MODE_WRAP_CONTENT) {
-            leftX = current.mContentLeft + xOffset
-            nextLeftX = next.mContentLeft + xOffset
-            rightX = current.mContentRight - xOffset
-            nextRightX = next.mContentRight - xOffset
-            mDrawableRect.top = (current.mContentTop - yOffset).toInt()
-            mDrawableRect.bottom = (current.mContentBottom + yOffset).toInt()
-        } else {    // MODE_EXACTLY
-            leftX = current.mLeft + (current.width() - drawableWidth) / 2
-            nextLeftX = next.mLeft + (next.width() - drawableWidth) / 2
-            rightX = current.mLeft + (current.width() + drawableWidth) / 2
-            nextRightX = next.mLeft + (next.width() + drawableWidth) / 2
-            mDrawableRect.top = (height.toFloat() - drawableHeight - yOffset).toInt()
-            mDrawableRect.bottom = (height - yOffset).toInt()
+        when (mode) {
+            MODE_MATCH_EDGE -> {
+                leftX = current.mLeft + xOffset
+                nextLeftX = next.mLeft + xOffset
+                rightX = current.mRight - xOffset
+                nextRightX = next.mRight - xOffset
+                mDrawableRect.top = yOffset.toInt()
+                mDrawableRect.bottom = (height - yOffset).toInt()
+            }
+            MODE_WRAP_CONTENT -> {
+                leftX = current.mContentLeft + xOffset
+                nextLeftX = next.mContentLeft + xOffset
+                rightX = current.mContentRight - xOffset
+                nextRightX = next.mContentRight - xOffset
+                mDrawableRect.top = (current.mContentTop - yOffset).toInt()
+                mDrawableRect.bottom = (current.mContentBottom + yOffset).toInt()
+            }
+            else -> {    // MODE_EXACTLY
+                leftX = current.mLeft + (current.width() - drawableWidth) / 2
+                nextLeftX = next.mLeft + (next.width() - drawableWidth) / 2
+                rightX = current.mLeft + (current.width() + drawableWidth) / 2
+                nextRightX = next.mLeft + (next.width() + drawableWidth) / 2
+                mDrawableRect.top = (height.toFloat() - drawableHeight - yOffset).toInt()
+                mDrawableRect.bottom = (height - yOffset).toInt()
+            }
         }
 
         mDrawableRect.left = (leftX + (nextLeftX - leftX) * startInterpolator.getInterpolation(positionOffset)).toInt()

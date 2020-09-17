@@ -13,6 +13,7 @@ import com.fphoenixcorneae.widget.magicindicator.adapter.CommonNavigatorAdapter
 import com.fphoenixcorneae.widget.magicindicator.helper.NavigatorHelper
 import com.fphoenixcorneae.widget.magicindicator.model.PositionData
 import java.util.*
+import kotlin.math.min
 
 /**
  * 通用的ViewPager指示器，包含PagerTitle和PagerIndicator
@@ -161,8 +162,8 @@ class CommonNavigator(context: Context) : FrameLayout(context), IPagerNavigator,
                     lp.weight = adapter!!.getTitleWeight(context, i)
                 } else {
                     lp = LinearLayout.LayoutParams(
-                        FrameLayout.LayoutParams.WRAP_CONTENT,
-                        FrameLayout.LayoutParams.MATCH_PARENT
+                        LayoutParams.WRAP_CONTENT,
+                        LayoutParams.MATCH_PARENT
                     )
                 }
                 titleContainer!!.addView(view, lp)
@@ -172,7 +173,7 @@ class CommonNavigator(context: Context) : FrameLayout(context), IPagerNavigator,
         if (adapter != null) {
             pagerIndicator = adapter!!.getIndicator(context)
             if (pagerIndicator is View) {
-                val lp = FrameLayout.LayoutParams(
+                val lp = LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.MATCH_PARENT
                 )
@@ -239,8 +240,8 @@ class CommonNavigator(context: Context) : FrameLayout(context), IPagerNavigator,
             // 手指跟随滚动
             if (mScrollView != null && mPositionDataList.size > 0 && position >= 0 && position < mPositionDataList.size) {
                 if (isFollowTouch) {
-                    val currentPosition = Math.min(mPositionDataList.size - 1, position)
-                    val nextPosition = Math.min(mPositionDataList.size - 1, position + 1)
+                    val currentPosition = min(mPositionDataList.size - 1, position)
+                    val nextPosition = min(mPositionDataList.size - 1, position + 1)
                     val current = mPositionDataList[currentPosition]
                     val next = mPositionDataList[nextPosition]
                     val scrollTo = current.horizontalCenter() - mScrollView!!.width * scrollPivotX
@@ -310,7 +311,7 @@ class CommonNavigator(context: Context) : FrameLayout(context), IPagerNavigator,
             (v as IPagerTitleView).onSelected(index, totalCount)
         }
         if (!isAdjustMode && !isFollowTouch && mScrollView != null && mPositionDataList.size > 0) {
-            val currentIndex = Math.min(mPositionDataList.size - 1, index)
+            val currentIndex = min(mPositionDataList.size - 1, index)
             val current = mPositionDataList[currentIndex]
             if (isEnablePivotScroll) {
                 val scrollTo = current.horizontalCenter() - mScrollView!!.width * scrollPivotX

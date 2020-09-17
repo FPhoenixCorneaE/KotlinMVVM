@@ -34,7 +34,7 @@ import com.fphoenixcorneae.util.ImageUtil
 import com.fphoenixcorneae.util.ResourceUtil
 import com.fphoenixcorneae.util.ScreenUtil
 import com.fphoenixcorneae.util.statusbar.StatusBarUtil
-import com.fphoenixcorneae.widget.Callback
+import com.fphoenixcorneae.widget.ExpandCollapseTextView
 import com.shuyu.gsyvideoplayer.utils.OrientationUtils
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
 import com.shuyu.gsyvideoplayer.video.base.GSYVideoPlayer
@@ -52,6 +52,7 @@ class OpenEyesVideoDetailActivity :
     private val mVideoListAdapter by lazy {
         OpenEyesVideoListAdapter(mContext, ArrayList())
     }
+
     /**
      * 视频详细数据
      */
@@ -239,28 +240,18 @@ class OpenEyesVideoDetailActivity :
             mCollapseTextColor = ColorUtil.randomColor
             // 展开文案颜色
             mExpandTextColor = ColorUtil.randomColor
-            itemInfo.data?.description?.let {
-                setText(it, itemInfo.data.expanded, object : Callback {
-                    override fun onExpand() {
-
+            // 文字状态改变监听器
+            mOnTextStateChangedListener = { state ->
+                if (state == ExpandCollapseTextView.TextState.Expanded
+                    || state == ExpandCollapseTextView.TextState.Collapsed
+                ) {
+                    itemInfo.data?.let {
+                        it.expanded = isExpanded()
                     }
-
-                    override fun onCollapse() {
-                    }
-
-                    override fun onLoss() {
-                    }
-
-                    override fun onExpandClick() {
-                        itemInfo.data.expanded = !itemInfo.data.expanded
-                        changeExpandedState(itemInfo.data.expanded)
-                    }
-
-                    override fun onCollapseClick() {
-                        itemInfo.data.expanded = !itemInfo.data.expanded
-                        changeExpandedState(itemInfo.data.expanded)
-                    }
-                })
+                }
+            }
+            itemInfo.data?.let {
+                setText(it.description, itemInfo.data.expanded)
             }
         }
 

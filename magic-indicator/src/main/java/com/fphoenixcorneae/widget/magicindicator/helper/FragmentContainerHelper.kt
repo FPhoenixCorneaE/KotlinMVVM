@@ -37,8 +37,8 @@ class FragmentContainerHelper {
         var position = positionOffsetSum.toInt()
         var positionOffset = positionOffsetSum - position
         if (positionOffsetSum < 0) {
-            position = position - 1
-            positionOffset = 1.0f + positionOffset
+            position -= 1
+            positionOffset += 1.0f
         }
         dispatchPageScrolled(position, positionOffset, 0)
     }
@@ -88,11 +88,7 @@ class FragmentContainerHelper {
     }
 
     fun setInterpolator(interpolator: Interpolator?) {
-        if (interpolator == null) {
-            mInterpolator = AccelerateDecelerateInterpolator()
-        } else {
-            mInterpolator = interpolator
-        }
+        mInterpolator = interpolator ?: AccelerateDecelerateInterpolator()
     }
 
     fun attachMagicIndicator(magicIndicator: MagicIndicator) {
@@ -127,7 +123,8 @@ class FragmentContainerHelper {
          * @return
          */
         fun getImitativePositionData(positionDataList: List<PositionData>, index: Int): PositionData {
-            if (index >= 0 && index <= positionDataList.size - 1) { // 越界后，返回假的PositionData
+            if (index >= 0 && index <= positionDataList.size - 1) {
+                // 越界后，返回假的PositionData
                 return positionDataList[index]
             } else {
                 val result = PositionData()

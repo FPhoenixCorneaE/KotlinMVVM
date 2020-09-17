@@ -6,8 +6,7 @@ import android.graphics.Path
 
 class ClipPathManagerImpl : ClipPathManager {
     protected val path = Path()
-    override val paint =
-        Paint(Paint.ANTI_ALIAS_FLAG)
+    override val paint = Paint(Paint.ANTI_ALIAS_FLAG)
     private var createClipPath: ClipPathCreator? = null
 
     override fun requiresBitmap(): Boolean {
