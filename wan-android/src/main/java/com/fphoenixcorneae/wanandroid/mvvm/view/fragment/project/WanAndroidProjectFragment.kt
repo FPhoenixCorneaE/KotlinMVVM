@@ -47,7 +47,7 @@ class WanAndroidProjectFragment : WanAndroidBaseFragment() {
         // 模拟状态栏
         StatusBarUtil.setSmartPadding(mContext, mVwStatusBar)
         StatusBarUtil.setSmartMargin(mContext, mFlMagicIndicator)
-        initViewPager2AndMagicIndicator(mViewPagerAdapter, mVpProject, mFlMagicIndicator)
+        mFlMagicIndicator.bindViewPager2(mViewPagerAdapter, mVpProject)
     }
 
     override fun initListener() {

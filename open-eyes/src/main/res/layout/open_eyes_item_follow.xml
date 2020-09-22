@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.fphoenixcorneae.shapeimageview.ShapeImageView
+        android:id="@+id/mIvAvatar"
+        android:layout_width="@dimen/dp_60"
+        android:layout_height="@dimen/dp_60"
+        android:layout_margin="@dimen/dp_16"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:siv_shape_type="circle"
+        tools:src="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/mTvTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp_16"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/open_eyes_color_title_0x222222"
+        android:textSize="@dimen/sp_16"
+        app:layout_constraintEnd_toStartOf="@+id/mBtnFollow"
+        app:layout_constraintStart_toEndOf="@+id/mIvAvatar"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="@sample/title.json/data/title" />
+
+    <TextView
+        android:id="@+id/mTvDesc"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp_16"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textSize="@dimen/sp_12"
+        app:layout_constraintEnd_toStartOf="@+id/mBtnFollow"
+        app:layout_constraintStart_toEndOf="@+id/mIvAvatar"
+        app:layout_constraintTop_toBottomOf="@+id/mTvTitle"
+        tools:text="@sample/description.json/data/description" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/mBtnFollow"
+        android:layout_width="@dimen/dp_60"
+        android:layout_height="@dimen/dp_30"
+        android:layout_marginEnd="@dimen/dp_16"
+        android:insetLeft="@dimen/dp_0"
+        android:insetTop="@dimen/dp_0"
+        android:insetRight="@dimen/dp_0"
+        android:insetBottom="@dimen/dp_0"
+        android:padding="@dimen/dp_0"
+        android:text="@string/open_eyes_discovery_add_follow"
+        android:textColor="@color/open_eyes_color_title_0x222222"
+        android:textSize="@dimen/sp_14"
+        app:backgroundTint="@color/open_eyes_color_white"
+        app:cornerRadius="@dimen/dp_8"
+        app:layout_constraintBottom_toBottomOf="@+id/mIvAvatar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/mIvAvatar"
+        app:rippleColor="@color/open_eyes_color_lighter_gray"
+        app:strokeColor="@color/open_eyes_color_lighter_gray"
+        app:strokeWidth="@dimen/dp_0_5" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/mRvRecycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_16"
+        android:clipToPadding="false"
+        android:overScrollMode="never"
+        android:paddingStart="@dimen/dp_16"
+        android:paddingEnd="@dimen/dp_16"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintTop_toBottomOf="@+id/mIvAvatar"
+        tools:itemCount="3"
+        tools:listitem="@layout/open_eyes_item_follow_child" />
+</androidx.constraintlayout.widget.ConstraintLayout>

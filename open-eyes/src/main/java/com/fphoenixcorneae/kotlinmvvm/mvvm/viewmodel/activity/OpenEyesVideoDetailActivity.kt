@@ -50,7 +50,7 @@ class OpenEyesVideoDetailActivity :
     OpenEyesVideoDetailContract.View {
 
     private val mVideoListAdapter by lazy {
-        OpenEyesVideoListAdapter(mContext, ArrayList())
+        OpenEyesVideoListAdapter(mContext, arrayListOf())
     }
 
     /**

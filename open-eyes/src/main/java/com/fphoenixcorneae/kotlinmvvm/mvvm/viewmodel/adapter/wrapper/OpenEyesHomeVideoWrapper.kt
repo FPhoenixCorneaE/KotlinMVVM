@@ -1,4 +1,4 @@
-package com.fphoenixcorneae.kotlinmvvm.mvvm.viewmodel.wrapper
+package com.fphoenixcorneae.kotlinmvvm.mvvm.viewmodel.adapter.wrapper
 
 import android.annotation.SuppressLint
 import android.graphics.Color
@@ -63,9 +63,9 @@ class OpenEyesHomeVideoWrapper :
                 // 是否给展开收起添加下划线
                 mUnderlineEnable = false
                 // 收起文案颜色
-                mCollapseTextColor = Color.BLUE
+                mCollapseTextColor = Color.YELLOW
                 // 展开文案颜色
-                mExpandTextColor = Color.RED
+                mExpandTextColor = Color.MAGENTA
                 // 文字状态改变监听器
                 mOnTextStateChangedListener = { state ->
                     if (state == ExpandCollapseTextView.TextState.Expanded

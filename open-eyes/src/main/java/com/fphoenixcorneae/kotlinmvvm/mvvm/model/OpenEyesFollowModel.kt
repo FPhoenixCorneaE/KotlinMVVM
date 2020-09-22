@@ -2,12 +2,15 @@ package com.fphoenixcorneae.kotlinmvvm.mvvm.model
 
 import com.fphoenixcorneae.kotlinmvvm.mvvm.model.bean.OpenEyesHomeBean
 import com.fphoenixcorneae.rxretrofit.scheduler.SchedulerManager
+import dagger.Module
 import io.reactivex.Observable
+import javax.inject.Inject
 
 /**
  * @desc: 关注 Model
  */
-class OpenEyesFollowModel : OpenEyesBaseModel() {
+@Module
+class OpenEyesFollowModel @Inject constructor() : OpenEyesBaseModel() {
 
     /**
      * 获取关注信息

@@ -30,7 +30,7 @@ import com.fphoenixcorneae.widget.magicindicator.IPagerIndicator
 import com.fphoenixcorneae.widget.magicindicator.IPagerTitleView
 import com.fphoenixcorneae.widget.magicindicator.MagicIndicator
 import com.fphoenixcorneae.widget.magicindicator.adapter.CommonNavigatorAdapter
-import com.fphoenixcorneae.widget.magicindicator.helper.ViewPagerHelper
+import com.fphoenixcorneae.widget.magicindicator.helper.bindViewPager2
 import com.fphoenixcorneae.widget.magicindicator.indicator.LinePagerIndicator
 import com.fphoenixcorneae.widget.magicindicator.navigator.CommonNavigator
 import com.fphoenixcorneae.widget.magicindicator.titleview.ScaleTransitionPagerTitleView
@@ -92,10 +92,9 @@ abstract class WanAndroidBaseFragment : BaseFragment() {
     /**
      * 初始化 ViewPager2 & MagicIndicator
      */
-    protected fun initViewPager2AndMagicIndicator(
+    protected fun MagicIndicator.bindViewPager2(
         fragmentStatePager2ItemAdapter: FragmentStatePager2ItemAdapter,
         viewPager2: ViewPager2,
-        magicIndicator: MagicIndicator,
         adjustMode: Boolean = false
     ) {
         viewPager2.apply {
@@ -107,8 +106,7 @@ abstract class WanAndroidBaseFragment : BaseFragment() {
             }
             adapter = fragmentStatePager2ItemAdapter
         }
-        val commonNavigator = CommonNavigator(mContext)
-        commonNavigator.apply {
+        navigator = CommonNavigator(mContext).apply {
             isAdjustMode = adjustMode
             isSkimOver = true
             adapter = object : CommonNavigatorAdapter() {
@@ -140,8 +138,7 @@ abstract class WanAndroidBaseFragment : BaseFragment() {
                 }
             }
         }
-        magicIndicator.navigator = commonNavigator
-        ViewPagerHelper.bind(magicIndicator, viewPager2)
+        bindViewPager2(viewPager2)
     }
 
     protected fun navigateNext(

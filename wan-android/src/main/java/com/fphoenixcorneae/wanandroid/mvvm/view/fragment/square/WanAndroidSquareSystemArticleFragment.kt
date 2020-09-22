@@ -37,11 +37,7 @@ class WanAndroidSquareSystemArticleFragment : WanAndroidBaseFragment() {
      */
     override fun initView() {
         mTbTitleBar.init()
-        initViewPager2AndMagicIndicator(
-            mViewPagerAdapter,
-            mVpSquareSystemArticle,
-            mFlMagicIndicator
-        )
+        mFlMagicIndicator.bindViewPager2(mViewPagerAdapter, mVpSquareSystemArticle)
     }
 
 

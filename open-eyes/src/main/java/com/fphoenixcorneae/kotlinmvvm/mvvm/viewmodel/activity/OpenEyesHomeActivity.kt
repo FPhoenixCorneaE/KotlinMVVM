@@ -1,11 +1,13 @@
 package com.fphoenixcorneae.kotlinmvvm.mvvm.viewmodel.activity
 
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import com.fphoenixcorneae.bottomnavigation.BottomNavigationItem
 import com.fphoenixcorneae.framework.base.activity.Dagger2InjectionActivity
 import com.fphoenixcorneae.kotlinmvvm.R
 import com.fphoenixcorneae.kotlinmvvm.mvvm.contract.OpenEyesHomeContract
 import com.fphoenixcorneae.kotlinmvvm.mvvm.presenter.OpenEyesHomePresenter
+import com.fphoenixcorneae.kotlinmvvm.mvvm.viewmodel.fragment.OpenEyesDiscoveryFragment
 import com.fphoenixcorneae.kotlinmvvm.mvvm.viewmodel.fragment.OpenEyesHomeFragment
 import com.fphoenixcorneae.util.ColorUtil
 import com.fphoenixcorneae.util.FragmentUtil
@@ -15,15 +17,19 @@ import kotlinx.android.synthetic.main.open_eyes_activity_home.*
 class OpenEyesHomeActivity :
     Dagger2InjectionActivity<OpenEyesHomeContract.View, OpenEyesHomePresenter>() {
 
+    private val mFragments = arrayListOf(
+        OpenEyesHomeFragment.getInstance(),
+        OpenEyesDiscoveryFragment.getInstance(),
+        OpenEyesHomeFragment.getInstance(),
+        OpenEyesDiscoveryFragment.getInstance()
+    )
+    private var mPreviousFragment: Fragment? = null
+
     override fun getLayoutId(): Int = R.layout.open_eyes_activity_home
 
     override fun initView() {
         initBottomNavigationView()
-        FragmentUtil.with(this)
-            .setContainerViewId(R.id.mFlContainer)
-            .setCustomAnimations(R.anim.bottom_in, R.anim.bottom_out)
-            .addFragment(OpenEyesHomeFragment.getInstance())
-            .commit()
+        showFragment(mFragments[0])
     }
 
     private fun initBottomNavigationView() {
@@ -62,9 +68,18 @@ class OpenEyesHomeActivity :
                     )
                 )
             )
-            .setOnBottomNavigationItemClickListener {
-
+            .setOnBottomNavigationItemClickListener { index ->
+                showFragment(mFragments[index])
             }
+    }
+
+    private fun showFragment(newFragment: Fragment) {
+        FragmentUtil.with(this)
+            .setContainerViewId(R.id.mFlContainer)
+            .setCustomAnimations(R.anim.bottom_in, R.anim.bottom_out)
+            .hideAndShowFragment(mPreviousFragment, newFragment)
+            .commit()
+        mPreviousFragment = newFragment
     }
 
     override fun initData(savedInstanceState: Bundle?) {

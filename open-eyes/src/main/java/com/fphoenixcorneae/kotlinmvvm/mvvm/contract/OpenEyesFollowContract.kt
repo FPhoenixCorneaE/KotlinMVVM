@@ -1,7 +1,7 @@
 package com.fphoenixcorneae.kotlinmvvm.mvvm.contract
 
-import com.fphoenixcorneae.framework.base.IView
 import com.fphoenixcorneae.framework.base.IPresenter
+import com.fphoenixcorneae.framework.base.IView
 import com.fphoenixcorneae.kotlinmvvm.mvvm.model.bean.OpenEyesHomeBean
 
 /**
@@ -15,13 +15,17 @@ interface OpenEyesFollowContract {
          */
         fun setFollowInfo(issue: OpenEyesHomeBean.Issue)
 
-        fun showError(errorMsg: String, errorCode: Int)
+        /**
+         * 加载更多关注信息数据
+         */
+        fun loadMoreFollowInfo(issue: OpenEyesHomeBean.Issue)
+
     }
 
 
     interface Presenter : IPresenter<View> {
         /**
-         * 获取List
+         * 获取关注List
          */
         fun requestFollowList()
 

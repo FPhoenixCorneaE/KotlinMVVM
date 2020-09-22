@@ -12,7 +12,7 @@ abstract class AbstractRecyclerAdapter<T>(
     protected var mContext: Context, var mData: ArrayList<T>, //条目布局
     private var mLayoutId: Int
 ) : RecyclerView.Adapter<ViewHolder>() {
-    protected var mInflater: LayoutInflater? = null
+    private var mInflater: LayoutInflater? = null
     private var mTypeSupport: RecyclerItemType<T>? = null
 
     //使用接口回调点击事件
@@ -26,7 +26,11 @@ abstract class AbstractRecyclerAdapter<T>(
     }
 
     //需要多布局
-    constructor(context: Context, data: ArrayList<T>, typeSupport: RecyclerItemType<T>) : this(context, data, -1) {
+    constructor(context: Context, data: ArrayList<T>, typeSupport: RecyclerItemType<T>) : this(
+        context,
+        data,
+        -1
+    ) {
         this.mTypeSupport = typeSupport
     }
 
@@ -42,7 +46,9 @@ abstract class AbstractRecyclerAdapter<T>(
 
     override fun getItemViewType(position: Int): Int {
         //多布局问题
-        return mTypeSupport?.getLayoutId(mData[position], position) ?: super.getItemViewType(position)
+        return mTypeSupport?.getLayoutId(mData[position], position) ?: super.getItemViewType(
+            position
+        )
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -51,7 +57,12 @@ abstract class AbstractRecyclerAdapter<T>(
 
         //条目点击事件
         mItemClickListener?.let {
-            holder.itemView.setOnClickListener { mItemClickListener!!.onItemClick(mData[position], position) }
+            holder.itemView.setOnClickListener {
+                mItemClickListener!!.onItemClick(
+                    mData[position],
+                    position
+                )
+            }
         }
 
         //长按点击事件
@@ -76,6 +87,30 @@ abstract class AbstractRecyclerAdapter<T>(
 
     override fun getItemCount(): Int {
         return mData.size
+    }
+
+    /**
+     * 设置数据
+     */
+    fun setData(datas: ArrayList<T>) {
+        mData.clear()
+        addAllData(datas)
+    }
+
+    /**
+     * 添加数据
+     */
+    fun addData(data: T) {
+        mData.add(data)
+        notifyDataSetChanged()
+    }
+
+    /**
+     * 添加数据
+     */
+    fun addAllData(datas: ArrayList<T>) {
+        mData.addAll(datas)
+        notifyDataSetChanged()
     }
 
     fun setOnItemClickListener(itemClickListener: OnItemClickListener) {

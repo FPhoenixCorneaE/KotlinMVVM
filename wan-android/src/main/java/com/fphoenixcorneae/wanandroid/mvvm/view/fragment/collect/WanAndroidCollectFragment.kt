@@ -15,9 +15,9 @@ class WanAndroidCollectFragment : WanAndroidBaseFragment() {
 
     override fun initView() {
         mTbTitleBar.init()
-        initViewPager2AndMagicIndicator(
+        mFlMagicIndicator.bindViewPager2(
             FragmentStatePager2ItemAdapter(
-                this@WanAndroidCollectFragment,
+                this,
                 FragmentPagerItems.with(mContext)
                     .add(
                         getString(R.string.wan_android_collect_article),
@@ -29,8 +29,7 @@ class WanAndroidCollectFragment : WanAndroidBaseFragment() {
                     )
                     .create()
             ),
-            mVpHome,
-            mFlMagicIndicator
+            mVpHome
         )
     }
 

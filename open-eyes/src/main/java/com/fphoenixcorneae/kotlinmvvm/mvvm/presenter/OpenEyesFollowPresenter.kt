@@ -1,17 +1,19 @@
 package com.fphoenixcorneae.kotlinmvvm.mvvm.presenter
 
-import com.uber.autodispose.autoDisposable
 import com.fphoenixcorneae.framework.base.BasePresenter
 import com.fphoenixcorneae.kotlinmvvm.mvvm.contract.OpenEyesFollowContract
 import com.fphoenixcorneae.kotlinmvvm.mvvm.model.OpenEyesFollowModel
-import com.fphoenixcorneae.rxretrofit.network.exception.ExceptionHandle
+import com.uber.autodispose.autoDisposable
+import javax.inject.Inject
 
 /**
  * @desc: 关注 Presenter
  */
-class OpenEyesFollowPresenter : BasePresenter<OpenEyesFollowContract.View>(), OpenEyesFollowContract.Presenter {
+class OpenEyesFollowPresenter @Inject constructor() : BasePresenter<OpenEyesFollowContract.View>(),
+    OpenEyesFollowContract.Presenter {
 
-    private val followModel by lazy { OpenEyesFollowModel() }
+    @Inject
+    lateinit var followModel: OpenEyesFollowModel
 
     private var nextPageUrl: String? = null
 
@@ -19,19 +21,17 @@ class OpenEyesFollowPresenter : BasePresenter<OpenEyesFollowContract.View>(), Op
      *  请求关注数据
      */
     override fun requestFollowList() {
-        mView.showLoading()
         followModel.requestFollowList()
             .autoDisposable(mScopeProvider)
             .subscribe({ issue ->
                 mView.apply {
-                    showContent()
                     nextPageUrl = issue.nextPageUrl
                     setFollowInfo(issue)
                 }
             }, { throwable ->
                 mView.apply {
                     //处理异常
-                    showError(ExceptionHandle.handleException(throwable), ExceptionHandle.errorCode)
+                    showErrorMsg(throwable)
                 }
             })
     }
@@ -46,16 +46,14 @@ class OpenEyesFollowPresenter : BasePresenter<OpenEyesFollowContract.View>(), Op
                 .subscribe({ issue ->
                     mView.apply {
                         nextPageUrl = issue.nextPageUrl
-                        setFollowInfo(issue)
+                        loadMoreFollowInfo(issue)
                     }
-
-                }, { t ->
+                }, { throwable ->
                     mView.apply {
-                        showError(ExceptionHandle.handleException(t), ExceptionHandle.errorCode)
+                        //处理异常
+                        showErrorMsg(throwable)
                     }
                 })
-
-
         }
     }
 }

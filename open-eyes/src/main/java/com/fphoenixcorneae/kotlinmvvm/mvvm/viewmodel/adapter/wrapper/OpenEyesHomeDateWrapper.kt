@@ -1,4 +1,4 @@
-package com.fphoenixcorneae.kotlinmvvm.mvvm.viewmodel.wrapper
+package com.fphoenixcorneae.kotlinmvvm.mvvm.viewmodel.adapter.wrapper
 
 import com.fphoenixcorneae.adapter.internal.ViewHolder
 import com.fphoenixcorneae.adapter.wrapper.ViewHolderWrapper

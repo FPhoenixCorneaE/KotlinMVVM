@@ -27,7 +27,7 @@ class WanAndroidHomeFragment : WanAndroidBaseFragment() {
         // 模拟状态栏
         StatusBarUtil.setSmartPadding(mContext, mVwStatusBar)
         StatusBarUtil.setSmartMargin(mContext, mFlIndicatorContainer)
-        initViewPager2AndMagicIndicator(
+        mFlMagicIndicator.bindViewPager2(
             FragmentStatePager2ItemAdapter(
                 this@WanAndroidHomeFragment,
                 FragmentPagerItems.with(mContext)
@@ -41,8 +41,7 @@ class WanAndroidHomeFragment : WanAndroidBaseFragment() {
                     )
                     .create()
             ),
-            mVpHome,
-            mFlMagicIndicator
+            mVpHome
         )
     }
 
