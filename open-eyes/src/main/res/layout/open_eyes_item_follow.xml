@@ -71,8 +71,6 @@
         android:layout_marginTop="@dimen/dp_16"
         android:clipToPadding="false"
         android:overScrollMode="never"
-        android:paddingStart="@dimen/dp_16"
-        android:paddingEnd="@dimen/dp_16"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintTop_toBottomOf="@+id/mIvAvatar"
         tools:itemCount="3"

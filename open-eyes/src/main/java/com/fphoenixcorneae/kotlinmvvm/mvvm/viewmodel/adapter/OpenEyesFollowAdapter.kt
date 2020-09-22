@@ -3,11 +3,10 @@ package com.fphoenixcorneae.kotlinmvvm.mvvm.viewmodel.adapter
 import android.content.Context
 import android.graphics.drawable.GradientDrawable
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.fphoenixcorneae.ext.dp2px
 import com.fphoenixcorneae.framework.glide.GlideUtil
 import com.fphoenixcorneae.framework.widget.recyclerview.AbstractRecyclerAdapter
 import com.fphoenixcorneae.framework.widget.recyclerview.RecyclerItemType
+import com.fphoenixcorneae.framework.widget.recyclerview.StartSnapHelper
 import com.fphoenixcorneae.framework.widget.recyclerview.ViewHolder
 import com.fphoenixcorneae.kotlinmvvm.R
 import com.fphoenixcorneae.kotlinmvvm.mvvm.model.bean.OpenEyesHomeBean
@@ -37,13 +36,6 @@ class OpenEyesFollowAdapter(
      */
     override fun bindData(holder: ViewHolder, data: OpenEyesHomeBean.Issue.Item, position: Int) {
         with(holder.itemView) {
-            (layoutParams as RecyclerView.LayoutParams).apply {
-                topMargin = if (position != 0) {
-                    context.dp2px(16f)
-                } else {
-                    context.dp2px(0f)
-                }
-            }
             data.data?.apply {
                 // avatar
                 GlideUtil.setupImage(
@@ -63,6 +55,9 @@ class OpenEyesFollowAdapter(
                     layoutManager =
                         LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                     adapter = OpenEyesFollowChildAdapter(context, itemList)
+                    if (onFlingListener == null) {
+                        StartSnapHelper().attachToRecyclerView(this)
+                    }
                 }
             }
         }

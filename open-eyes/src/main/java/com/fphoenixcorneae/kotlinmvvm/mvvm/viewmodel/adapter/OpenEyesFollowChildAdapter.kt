@@ -39,10 +39,10 @@ class OpenEyesFollowChildAdapter(
     override fun bindData(holder: ViewHolder, data: OpenEyesHomeBean.Issue.Item, position: Int) {
         with(holder.itemView) {
             (layoutParams as RecyclerView.LayoutParams).apply {
-                marginStart = if (position != 0) {
-                    context.dp2px(8f)
-                } else {
-                    context.dp2px(0f)
+                marginStart = context.dp2px(16f)
+                marginEnd = when (position) {
+                    itemCount - 1 -> context.dp2px(16f)
+                    else -> context.dp2px(0f)
                 }
             }
             data.data?.apply {
