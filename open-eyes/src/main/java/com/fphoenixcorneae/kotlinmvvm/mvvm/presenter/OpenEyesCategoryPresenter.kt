@@ -1,19 +1,19 @@
 package com.fphoenixcorneae.kotlinmvvm.mvvm.presenter
 
-import com.uber.autodispose.autoDisposable
 import com.fphoenixcorneae.framework.base.BasePresenter
 import com.fphoenixcorneae.kotlinmvvm.mvvm.contract.OpenEyesCategoryContract
 import com.fphoenixcorneae.kotlinmvvm.mvvm.model.OpenEyesCategoryModel
-import com.fphoenixcorneae.rxretrofit.network.exception.ExceptionHandle
+import com.uber.autodispose.autoDisposable
+import javax.inject.Inject
 
 /**
  * @desc: 分类 Presenter
  */
-class OpenEyesCategoryPresenter : BasePresenter<OpenEyesCategoryContract.View>(), OpenEyesCategoryContract.Presenter {
+class OpenEyesCategoryPresenter @Inject constructor() :
+    BasePresenter<OpenEyesCategoryContract.View>(), OpenEyesCategoryContract.Presenter {
 
-    private val categoryModel: OpenEyesCategoryModel by lazy {
-        OpenEyesCategoryModel()
-    }
+    @Inject
+    lateinit var categoryModel: OpenEyesCategoryModel
 
     /**
      * 获取分类
@@ -27,12 +27,11 @@ class OpenEyesCategoryPresenter : BasePresenter<OpenEyesCategoryContract.View>()
                     showContent()
                     showCategory(categoryList)
                 }
-            }, { t ->
+            }, { throwable ->
                 mView.apply {
-                    //处理异常
-                    showError(ExceptionHandle.handleException(t), ExceptionHandle.errorCode)
+                    // 处理异常
+                    showErrorMsg(throwable)
                 }
-
             })
     }
 }

@@ -1,10 +1,12 @@
 package com.fphoenixcorneae.kotlinmvvm.mvvm.model.bean
 
+import androidx.annotation.Keep
 import java.io.Serializable
 
 /**
  * @desc：作者信息 Bean
  */
+@Keep
 data class OpenEyesAuthorInfoBean(
     val tabInfo: TabInfo,
     val pgcInfo: PgcInfo

@@ -33,12 +33,17 @@ class OpenEyesDiscoveryFragment : OpenEyesBaseFragment() {
                 this,
                 FragmentPagerItems.with(mContext)
                     .add(
-                        getString(R.string.open_eyes_discovery_follow),
+                        getString(R.string.open_eyes_follow),
                         OpenEyesFollowFragment::class.java
+                    )
+                    .add(
+                        getString(R.string.open_eyes_category),
+                        OpenEyesCategoryFragment::class.java
                     )
                     .create()
             ),
-            mVpDiscovery
+            mVpDiscovery,
+            true
         )
     }
 

@@ -6,8 +6,10 @@
 
     <com.fphoenixcorneae.widget.magicindicator.MagicIndicator
         android:id="@+id/mFlMagicIndicator"
-        android:layout_width="match_parent"
+        android:layout_width="@dimen/dp_300"
         android:layout_height="?attr/actionBarSize"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

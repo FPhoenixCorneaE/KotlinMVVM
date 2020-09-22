@@ -14,11 +14,6 @@ interface OpenEyesCategoryContract {
          * 显示分类的信息
          */
         fun showCategory(categoryList: ArrayList<OpenEyesCategoryBean>)
-
-        /**
-         * 显示错误信息
-         */
-        fun showError(errorMsg: String, errorCode: Int)
     }
 
     interface Presenter : IPresenter<View> {

@@ -1,5 +1,6 @@
 package com.fphoenixcorneae.kotlinmvvm.mvvm.model.bean
 
+import androidx.annotation.Keep
 import androidx.databinding.BaseObservable
 import com.fphoenixcorneae.framework.base.IViewBinder
 import java.io.Serializable
@@ -7,6 +8,7 @@ import java.io.Serializable
 /**
  * @desc: 首页（视频详情等）Bean
  */
+@Keep
 data class OpenEyesHomeBean(
     val issueList: ArrayList<Issue>,
     val nextPageUrl: String,

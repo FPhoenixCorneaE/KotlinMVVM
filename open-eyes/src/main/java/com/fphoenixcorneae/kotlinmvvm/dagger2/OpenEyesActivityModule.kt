@@ -1,10 +1,12 @@
 package com.fphoenixcorneae.kotlinmvvm.dagger2
 
+import com.fphoenixcorneae.kotlinmvvm.mvvm.model.OpenEyesCategoryModel
 import com.fphoenixcorneae.kotlinmvvm.mvvm.model.OpenEyesFollowModel
 import com.fphoenixcorneae.kotlinmvvm.mvvm.model.OpenEyesHomeModel
 import com.fphoenixcorneae.kotlinmvvm.mvvm.model.OpenEyesVideoDetailModel
 import com.fphoenixcorneae.kotlinmvvm.mvvm.viewmodel.activity.OpenEyesHomeActivity
 import com.fphoenixcorneae.kotlinmvvm.mvvm.viewmodel.activity.OpenEyesVideoDetailActivity
+import com.fphoenixcorneae.kotlinmvvm.mvvm.viewmodel.fragment.OpenEyesCategoryFragment
 import com.fphoenixcorneae.kotlinmvvm.mvvm.viewmodel.fragment.OpenEyesFollowFragment
 import com.fphoenixcorneae.kotlinmvvm.mvvm.viewmodel.fragment.OpenEyesHomeFragment
 import dagger.Module
@@ -26,10 +28,16 @@ abstract class OpenEyesActivityModule {
     abstract fun bindOpenEyesHomeFragment(): OpenEyesHomeFragment
 
     /**
-     * 绑定发现-关注Fragment
+     * 绑定关注Fragment
      */
     @ContributesAndroidInjector(modules = [OpenEyesFollowModel::class])
-    abstract fun bindOpenEyesDiscoveryFollowFragment(): OpenEyesFollowFragment
+    abstract fun bindOpenEyesFollowFragment(): OpenEyesFollowFragment
+
+    /**
+     * 绑定分类Fragment
+     */
+    @ContributesAndroidInjector(modules = [OpenEyesCategoryModel::class])
+    abstract fun bindOpenEyesCategoryFragment(): OpenEyesCategoryFragment
 
     /**
      * 绑定视频详情Activity

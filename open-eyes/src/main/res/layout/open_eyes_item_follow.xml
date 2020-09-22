@@ -52,7 +52,7 @@
         android:insetRight="@dimen/dp_0"
         android:insetBottom="@dimen/dp_0"
         android:padding="@dimen/dp_0"
-        android:text="@string/open_eyes_discovery_add_follow"
+        android:text="@string/open_eyes_add_follow"
         android:textColor="@color/open_eyes_color_title_0x222222"
         android:textSize="@dimen/sp_14"
         app:backgroundTint="@color/open_eyes_color_white"

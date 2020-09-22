@@ -14,7 +14,6 @@ import com.fphoenixcorneae.kotlinmvvm.R
 import com.fphoenixcorneae.kotlinmvvm.mvvm.model.bean.OpenEyesHomeBean
 import com.fphoenixcorneae.util.ColorUtil
 import kotlinx.android.synthetic.main.open_eyes_item_follow_child.view.*
-import kotlinx.android.synthetic.main.open_eyes_item_video_small_card.view.mTvTitle
 
 /**
  * @desc 发现-关注子适配器
