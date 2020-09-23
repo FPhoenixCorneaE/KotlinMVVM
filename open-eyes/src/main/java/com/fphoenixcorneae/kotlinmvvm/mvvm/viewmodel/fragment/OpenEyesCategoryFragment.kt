@@ -2,10 +2,13 @@ package com.fphoenixcorneae.kotlinmvvm.mvvm.viewmodel.fragment
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.setFragmentResult
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.fphoenixcorneae.decoration.SpacesItemDecoration
+import com.fphoenixcorneae.dp2px
 import com.fphoenixcorneae.ext.isNonNullAndNotEmpty
 import com.fphoenixcorneae.framework.base.fragment.Dagger2InjectionFragment
 import com.fphoenixcorneae.kotlinmvvm.R
@@ -40,6 +43,14 @@ class OpenEyesCategoryFragment :
             layoutManager = GridLayoutManager(context, 2)
             setHasFixedSize(true)
             adapter = mCategoryAdapter
+            // 分割线
+            addItemDecoration(
+                SpacesItemDecoration(
+                    dp2px(16f),
+                    dp2px(16f),
+                    ContextCompat.getColor(context, R.color.open_eyes_color_translucent)
+                )
+            )
             addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)

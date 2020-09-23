@@ -1,19 +1,51 @@
 <resources>
-
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/open_eyes_colorPrimary</item>
-        <item name="colorPrimaryDark">@color/open_eyes_colorPrimaryDark</item>
-        <item name="colorAccent">@color/open_eyes_colorAccent</item>
-        <item name="actionBarSize">@dimen/dp_44</item>
-        <item name="android:windowIsTranslucent">true</item>
-        <item name="android:windowBackground">@android:color/white</item>
-        <item name="android:fitsSystemWindows">false</item>
-        <item name="android:clipToPadding">true</item>
-        <item name="android:windowContentOverlay">@null</item>
-        <item name="android:windowContentTransitions">true</item>
-        <item name="android:windowAllowEnterTransitionOverlap">false</item>
-        <item name="android:windowAllowReturnTransitionOverlap">false</item>
+    <!-- 圆角图片 -->
+    <style name="roundedCornerStyle">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/dp_8</item>
+    </style>
+    <!-- 圆形图片 -->
+    <style name="circleStyle">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+    <!-- 切角图片 -->
+    <style name="cutCornerStyle">
+        <item name="cornerFamily">cut</item>
+        <item name="cornerSize">@dimen/dp_12</item>
+    </style>
+    <!-- 菱形图片 -->
+    <style name="diamondStyle">
+        <item name="cornerFamily">cut</item>
+        <item name="cornerSize">50%</item>
+    </style>
+    <!-- 右上角圆角图片 -->
+    <style name="topRightCornerStyle">
+        <item name="cornerFamilyTopRight">rounded</item>
+        <item name="cornerSizeTopRight">@dimen/dp_50</item>
+    </style>
+    <!-- 小鸡蛋图片 -->
+    <style name="eggStyle">
+        <item name="cornerFamilyTopRight">rounded</item>
+        <item name="cornerFamilyTopLeft">rounded</item>
+        <item name="cornerSizeTopRight">@dimen/dp_50</item>
+        <item name="cornerSizeTopLeft">@dimen/dp_50</item>
+    </style>
+    <!-- 组合弧度图片 -->
+    <style name="comCornerStyle">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">50%</item>
+        <item name="cornerSizeBottomLeft">50%</item>
+    </style>
+    <!-- 小 Tips -->
+    <style name="tipsCornerStyle">
+        <item name="cornerFamilyTopLeft">rounded</item>
+        <item name="cornerFamilyBottomLeft">rounded</item>
+        <item name="cornerFamilyTopRight">cut</item>
+        <item name="cornerFamilyBottomRight">cut</item>
+        <item name="cornerSizeTopLeft">50%</item>
+        <item name="cornerSizeBottomLeft">50%</item>
+        <item name="cornerSizeTopRight">50%</item>
+        <item name="cornerSizeBottomRight">50%</item>
     </style>
 </resources>
