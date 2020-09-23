@@ -1,19 +1,19 @@
 package com.fphoenixcorneae.kotlinmvvm.mvvm.presenter
 
-import com.uber.autodispose.autoDisposable
 import com.fphoenixcorneae.framework.base.BasePresenter
 import com.fphoenixcorneae.kotlinmvvm.mvvm.contract.OpenEyesRankContract
 import com.fphoenixcorneae.kotlinmvvm.mvvm.model.OpenEyesRankModel
-import com.fphoenixcorneae.rxretrofit.network.exception.ExceptionHandle
-
+import com.uber.autodispose.autoDisposable
+import javax.inject.Inject
 
 /**
- * @desc: 排行榜 Presenter
+ * @desc 排行榜 Presenter
  */
-class OpenEyesRankPresenter : BasePresenter<OpenEyesRankContract.View>(), OpenEyesRankContract.Presenter {
+class OpenEyesRankPresenter @Inject constructor() : BasePresenter<OpenEyesRankContract.View>(),
+    OpenEyesRankContract.Presenter {
 
-    private val rankModel by lazy { OpenEyesRankModel() }
-
+    @Inject
+    lateinit var rankModel: OpenEyesRankModel
 
     /**
      *  请求排行榜数据
@@ -29,8 +29,8 @@ class OpenEyesRankPresenter : BasePresenter<OpenEyesRankContract.View>(), OpenEy
                 }
             }, { throwable ->
                 mView.apply {
-                    //处理异常
-                    showError(ExceptionHandle.handleException(throwable), ExceptionHandle.errorCode)
+                    // 处理异常
+                    showErrorMsg(throwable)
                 }
             })
     }

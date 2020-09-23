@@ -6,6 +6,7 @@
 
     <color name="open_eyes_color_black_alpha50">#50000000</color>
     <color name="open_eyes_color_white_alpha50">#50ffffff</color>
+    <color name="open_eyes_color_white_alphabb">#bbffffff</color>
     <color name="open_eyes_color_bg_title">#bbe8e8e8</color>
     <color name="open_eyes_color_bg_default">#aaeeeeee</color>
     <color name="open_eyes_color_translucent">#00000000</color>

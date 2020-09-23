@@ -6,14 +6,11 @@ import android.text.TextUtils
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.scwang.smart.refresh.layout.api.RefreshLayout
-import com.scwang.smart.refresh.layout.listener.OnRefreshLoadMoreListener
 import com.fphoenixcorneae.adapter.internal.Delegation
 import com.fphoenixcorneae.adapter.internal.MultiTypeAdapter
 import com.fphoenixcorneae.adapter.wrapper.ViewHolderWrapper
 import com.fphoenixcorneae.ext.view.gone
 import com.fphoenixcorneae.ext.view.visible
-import com.fphoenixcorneae.framework.base.fragment.Dagger2InjectionFragment
 import com.fphoenixcorneae.kotlinmvvm.R
 import com.fphoenixcorneae.kotlinmvvm.constant.OpenEyesConstants
 import com.fphoenixcorneae.kotlinmvvm.mvvm.contract.OpenEyesHomeContract
@@ -27,6 +24,8 @@ import com.fphoenixcorneae.util.BundleBuilder
 import com.fphoenixcorneae.util.ColorUtil
 import com.fphoenixcorneae.util.IntentUtil
 import com.fphoenixcorneae.util.ScreenUtil
+import com.scwang.smart.refresh.layout.api.RefreshLayout
+import com.scwang.smart.refresh.layout.listener.OnRefreshLoadMoreListener
 import kotlinx.android.synthetic.main.open_eyes_fragment_home.*
 import kotlinx.android.synthetic.main.open_eyes_item_home_video.view.*
 import java.text.SimpleDateFormat
@@ -37,7 +36,7 @@ import kotlin.math.abs
  * @desc 首页-精选Fragment
  */
 class OpenEyesHomeFragment :
-    Dagger2InjectionFragment<OpenEyesHomeContract.View, OpenEyesHomePresenter>(),
+    OpenEyesBaseDagger2Fragment<OpenEyesHomeContract.View, OpenEyesHomePresenter>(),
     OpenEyesHomeContract.View {
 
     private val mAdapter by lazy {
@@ -195,7 +194,7 @@ class OpenEyesHomeFragment :
     }
 
     override fun lazyLoadData() {
-        showContent()
+        showLoading()
         mTbTitleBar.gone()
         mSrlRefresh.autoRefresh()
     }
@@ -205,6 +204,7 @@ class OpenEyesHomeFragment :
     }
 
     override fun setHomeData(homeBean: OpenEyesHomeBean) {
+        showContent()
         mTbTitleBar.visible()
         mTbTitleBar.centerTextView?.text = getString(R.string.open_eyes_home_choiceness)
         mSrlRefresh.finishRefresh()

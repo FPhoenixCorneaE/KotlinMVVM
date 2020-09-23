@@ -8,63 +8,36 @@ import androidx.recyclerview.widget.RecyclerView
 import com.fphoenixcorneae.ext.isNonNullAndNotEmpty
 import com.fphoenixcorneae.kotlinmvvm.R
 import com.fphoenixcorneae.kotlinmvvm.constant.OpenEyesConstants
-import com.fphoenixcorneae.kotlinmvvm.mvvm.contract.OpenEyesFollowContract
+import com.fphoenixcorneae.kotlinmvvm.mvvm.contract.OpenEyesRankContract
 import com.fphoenixcorneae.kotlinmvvm.mvvm.model.bean.OpenEyesHomeBean
-import com.fphoenixcorneae.kotlinmvvm.mvvm.presenter.OpenEyesFollowPresenter
-import com.fphoenixcorneae.kotlinmvvm.mvvm.viewmodel.adapter.OpenEyesFollowAdapter
+import com.fphoenixcorneae.kotlinmvvm.mvvm.presenter.OpenEyesRankPresenter
+import com.fphoenixcorneae.kotlinmvvm.mvvm.viewmodel.adapter.OpenEyesRankAdapter
 import com.fphoenixcorneae.util.ScreenUtil
-import com.scwang.smart.refresh.layout.api.RefreshLayout
-import com.scwang.smart.refresh.layout.listener.OnRefreshLoadMoreListener
-import kotlinx.android.synthetic.main.open_eyes_fragment_follow.*
+import kotlinx.android.synthetic.main.open_eyes_fragment_rank.*
 import kotlin.math.abs
 
 /**
- * @desc 关注Fragment
- * @date 2020-09-18 13:42
+ * @desc 排行榜Fragment
+ * @date 2020-09-23 13:55
  */
-class OpenEyesFollowFragment :
-    OpenEyesBaseDagger2Fragment<OpenEyesFollowContract.View, OpenEyesFollowPresenter>(),
-    OpenEyesFollowContract.View {
+class OpenEyesRankFragment :
+    OpenEyesBaseDagger2Fragment<OpenEyesRankContract.View, OpenEyesRankPresenter>(),
+    OpenEyesRankContract.View {
 
-    private val mFollowAdapter by lazy {
-        OpenEyesFollowAdapter(mContext, arrayListOf())
+    private val mRankAdapter by lazy {
+        OpenEyesRankAdapter(mContext, arrayListOf())
     }
 
-    override fun getLayoutId(): Int = R.layout.open_eyes_fragment_follow
+    override fun getLayoutId(): Int = R.layout.open_eyes_fragment_rank
 
     override fun initView() {
-        initSmartRefreshLayout()
         initRecyclerView()
     }
 
-    private fun initSmartRefreshLayout() {
-        mSrlRefresh.apply {
-            // 内容跟随偏移
-            setEnableHeaderTranslationContent(true)
-            // 下拉刷新、上拉加载监听
-            setOnRefreshLoadMoreListener(object : OnRefreshLoadMoreListener {
-                override fun onLoadMore(refreshLayout: RefreshLayout) {
-                    mPresenter.loadMoreData()
-                }
-
-                override fun onRefresh(refreshLayout: RefreshLayout) {
-                    mPresenter.requestFollowList()
-                }
-            })
-            // 设置下拉刷新主题颜色
-            setPrimaryColorsId(
-                R.color.open_eyes_color_bg_default,
-                R.color.open_eyes_color_bg_default
-            )
-            // 打开下拉刷新区域块背景
-            mMhHeader.setShowBezierWave(true)
-        }
-    }
-
     private fun initRecyclerView() {
-        mRvFollow.apply {
+        mRvRank.apply {
             setHasFixedSize(true)
-            adapter = mFollowAdapter
+            adapter = mRankAdapter
             addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)
@@ -93,7 +66,7 @@ class OpenEyesFollowFragment :
                                     setFragmentResult(
                                         OpenEyesConstants.REQUEST_KEY_TITLE_ALPHA,
                                         Bundle().apply {
-                                            putInt(OpenEyesConstants.REQUEST_KEY_TITLE_ALPHA, alpha)
+                                            putInt(OpenEyesConstants.EXTRA_KEY_ALPHA, alpha)
                                         })
                                 }
                             }
@@ -102,7 +75,7 @@ class OpenEyesFollowFragment :
                                 setFragmentResult(
                                     OpenEyesConstants.REQUEST_KEY_TITLE_ALPHA,
                                     Bundle().apply {
-                                        putInt(OpenEyesConstants.REQUEST_KEY_TITLE_ALPHA, 80)
+                                        putInt(OpenEyesConstants.EXTRA_KEY_ALPHA, 80)
                                     })
                             }
                         }
@@ -117,26 +90,14 @@ class OpenEyesFollowFragment :
     }
 
     override fun lazyLoadData() {
-        showLoading()
-        mSrlRefresh.autoRefresh()
+        arguments?.getString(OpenEyesConstants.EXTRA_KEY_API_URL)?.let { apiUrl ->
+            mPresenter.requestRankList(apiUrl)
+        }
     }
 
-    override fun isAlreadyLoadedData(): Boolean = mFollowAdapter.mData.isNonNullAndNotEmpty()
+    override fun isAlreadyLoadedData(): Boolean = mRankAdapter.mData.isNonNullAndNotEmpty()
 
-    override fun setFollowInfo(issue: OpenEyesHomeBean.Issue) {
-        showContent()
-        mSrlRefresh.finishRefresh()
-        mFollowAdapter.setData(issue.itemList)
-    }
-
-    override fun loadMoreFollowInfo(issue: OpenEyesHomeBean.Issue) {
-        mSrlRefresh.finishLoadMore()
-        mFollowAdapter.addAllData(issue.itemList)
-    }
-
-    override fun showErrorMsg(t: Throwable) {
-        mSrlRefresh.finishRefresh()
-        mSrlRefresh.finishLoadMore()
-        super.showErrorMsg(t)
+    override fun setRankList(itemList: ArrayList<OpenEyesHomeBean.Issue.Item>) {
+        mRankAdapter.setData(itemList)
     }
 }

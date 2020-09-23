@@ -6,7 +6,9 @@ import android.view.animation.AccelerateInterpolator
 import android.view.animation.DecelerateInterpolator
 import androidx.viewpager2.widget.ViewPager2
 import com.fphoenixcorneae.adapter.viewpager2.FragmentStatePager2ItemAdapter
-import com.fphoenixcorneae.framework.base.fragment.AutoDisposeFragment
+import com.fphoenixcorneae.framework.base.IPresenter
+import com.fphoenixcorneae.framework.base.IView
+import com.fphoenixcorneae.framework.base.fragment.Dagger2InjectionFragment
 import com.fphoenixcorneae.kotlinmvvm.R
 import com.fphoenixcorneae.util.ResourceUtil
 import com.fphoenixcorneae.util.SizeUtil
@@ -20,10 +22,11 @@ import com.fphoenixcorneae.widget.magicindicator.navigator.CommonNavigator
 import com.fphoenixcorneae.widget.magicindicator.titleview.ScaleTransitionPagerTitleView
 
 /**
- * @desc OpenEyesBaseFragment
- * @date 2020-09-18 17:14
+ * @desc OpenEyesBaseDagger2Fragment
+ * @date 2020-09-23 14:06
  */
-abstract class OpenEyesBaseFragment : AutoDisposeFragment() {
+abstract class OpenEyesBaseDagger2Fragment<V : IView, P : IPresenter<V>> :
+    Dagger2InjectionFragment<V, P>() {
 
     /**
      * 初始化 ViewPager2 & MagicIndicator

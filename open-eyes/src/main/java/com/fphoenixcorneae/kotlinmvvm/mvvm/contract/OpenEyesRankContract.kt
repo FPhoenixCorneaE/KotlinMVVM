@@ -15,8 +15,6 @@ interface OpenEyesRankContract {
          * 设置排行榜的数据
          */
         fun setRankList(itemList: ArrayList<OpenEyesHomeBean.Issue.Item>)
-
-        fun showError(errorMsg: String, errorCode: Int)
     }
 
     interface Presenter : IPresenter<View> {

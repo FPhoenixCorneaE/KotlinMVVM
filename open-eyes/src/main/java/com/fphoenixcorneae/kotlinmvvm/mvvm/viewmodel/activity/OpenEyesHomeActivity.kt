@@ -9,6 +9,7 @@ import com.fphoenixcorneae.kotlinmvvm.mvvm.contract.OpenEyesHomeContract
 import com.fphoenixcorneae.kotlinmvvm.mvvm.presenter.OpenEyesHomePresenter
 import com.fphoenixcorneae.kotlinmvvm.mvvm.viewmodel.fragment.OpenEyesDiscoveryFragment
 import com.fphoenixcorneae.kotlinmvvm.mvvm.viewmodel.fragment.OpenEyesHomeFragment
+import com.fphoenixcorneae.kotlinmvvm.mvvm.viewmodel.fragment.OpenEyesHotFragment
 import com.fphoenixcorneae.util.ColorUtil
 import com.fphoenixcorneae.util.FragmentUtil
 import com.fphoenixcorneae.util.ResourceUtil
@@ -20,7 +21,7 @@ class OpenEyesHomeActivity :
     private val mFragments = arrayListOf(
         OpenEyesHomeFragment.getInstance(),
         OpenEyesDiscoveryFragment.getInstance(),
-        OpenEyesHomeFragment.getInstance(),
+        OpenEyesHotFragment.getInstance(),
         OpenEyesDiscoveryFragment.getInstance()
     )
     private var mPreviousFragment: Fragment? = null

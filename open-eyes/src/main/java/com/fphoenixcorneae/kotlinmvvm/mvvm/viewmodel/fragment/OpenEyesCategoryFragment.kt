@@ -10,8 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.fphoenixcorneae.decoration.SpacesItemDecoration
 import com.fphoenixcorneae.dp2px
 import com.fphoenixcorneae.ext.isNonNullAndNotEmpty
-import com.fphoenixcorneae.framework.base.fragment.Dagger2InjectionFragment
 import com.fphoenixcorneae.kotlinmvvm.R
+import com.fphoenixcorneae.kotlinmvvm.constant.OpenEyesConstants
 import com.fphoenixcorneae.kotlinmvvm.mvvm.contract.OpenEyesCategoryContract
 import com.fphoenixcorneae.kotlinmvvm.mvvm.model.bean.OpenEyesCategoryBean
 import com.fphoenixcorneae.kotlinmvvm.mvvm.presenter.OpenEyesCategoryPresenter
@@ -25,7 +25,7 @@ import kotlin.math.abs
  * @date 2020-09-22 16:29
  */
 class OpenEyesCategoryFragment :
-    Dagger2InjectionFragment<OpenEyesCategoryContract.View, OpenEyesCategoryPresenter>(),
+    OpenEyesBaseDagger2Fragment<OpenEyesCategoryContract.View, OpenEyesCategoryPresenter>(),
     OpenEyesCategoryContract.View {
 
     private val mCategoryAdapter by lazy {
@@ -76,16 +76,20 @@ class OpenEyesCategoryFragment :
                                         return
                                     }
                                     // 设置标题栏背景透明度
-                                    setFragmentResult("discoveryTitle", Bundle().apply {
-                                        putInt("alpha", alpha)
-                                    })
+                                    setFragmentResult(
+                                        OpenEyesConstants.REQUEST_KEY_TITLE_ALPHA,
+                                        Bundle().apply {
+                                            putInt(OpenEyesConstants.EXTRA_KEY_ALPHA, alpha)
+                                        })
                                 }
                             }
                             else -> {
                                 // 设置标题栏背景透明度
-                                setFragmentResult("discoveryTitle", Bundle().apply {
-                                    putInt("alpha", 80)
-                                })
+                                setFragmentResult(
+                                    OpenEyesConstants.REQUEST_KEY_TITLE_ALPHA,
+                                    Bundle().apply {
+                                        putInt(OpenEyesConstants.EXTRA_KEY_ALPHA, 80)
+                                    })
                             }
                         }
                     }

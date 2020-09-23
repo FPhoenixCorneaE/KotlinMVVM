@@ -16,8 +16,7 @@ class OpenEyesFollowModel @Inject constructor() : OpenEyesBaseModel() {
      * 获取关注信息
      */
     fun requestFollowList(): Observable<OpenEyesHomeBean.Issue> {
-        return sOpenEyesService
-            .getFollowInfo()
+        return sOpenEyesService.getFollowInfo()
             .compose(SchedulerManager.ioToMain())
     }
 
@@ -25,8 +24,7 @@ class OpenEyesFollowModel @Inject constructor() : OpenEyesBaseModel() {
      * 加载更多
      */
     fun loadMoreData(url: String): Observable<OpenEyesHomeBean.Issue> {
-        return sOpenEyesService
-            .getIssueData(url)
+        return sOpenEyesService.getIssueData(url)
             .compose(SchedulerManager.ioToMain())
     }
 }

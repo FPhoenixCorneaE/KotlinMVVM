@@ -2,18 +2,19 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:foreground="?attr/selectableItemBackground"
+    tools:ignore="UnusedAttribute">
 
-    <com.fphoenixcorneae.shapeimageview.ShapeImageView
+    <ImageView
         android:id="@+id/mIvCoverFeed"
-        android:layout_width="@dimen/dp_300"
-        android:layout_height="@dimen/dp_150"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_240"
         android:scaleType="centerCrop"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:siv_radius="@dimen/dp_8"
-        app:siv_shape_type="rectangle"
+        tools:ignore="ContentDescription"
         tools:src="@tools:sample/backgrounds/scenic" />
 
     <TextView
@@ -24,11 +25,13 @@
         android:ellipsize="end"
         android:gravity="center"
         android:maxLines="1"
-        android:textColor="@color/open_eyes_color_title_0x222222"
-        android:textSize="@dimen/sp_16"
-        app:layout_constraintEnd_toEndOf="@+id/mIvCoverFeed"
-        app:layout_constraintStart_toStartOf="@+id/mIvCoverFeed"
-        app:layout_constraintTop_toBottomOf="@+id/mIvCoverFeed"
+        android:textColor="@color/open_eyes_color_title_white"
+        android:textSize="@dimen/sp_18"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:text="@sample/title.json/data/title" />
 
     <TextView
@@ -39,9 +42,8 @@
         android:ellipsize="end"
         android:gravity="center"
         android:maxLines="1"
-        android:textColor="@color/open_eyes_color_darker_gray"
-        android:textSize="@dimen/sp_12"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textColor="@color/open_eyes_color_white_alphabb"
+        android:textSize="@dimen/sp_14"
         app:layout_constraintEnd_toEndOf="@+id/mIvCoverFeed"
         app:layout_constraintStart_toStartOf="@+id/mIvCoverFeed"
         app:layout_constraintTop_toBottomOf="@+id/mTvTitle"

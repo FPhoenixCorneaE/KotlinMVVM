@@ -14,8 +14,6 @@ interface OpenEyesHotTabContract {
          * 设置 TabInfo
          */
         fun setTabInfo(tabInfoBean: OpenEyesTabInfoBean)
-
-        fun showError(errorMsg: String, errorCode: Int)
     }
 
 
