@@ -15,7 +15,7 @@ import com.fphoenixcorneae.widget.ExpandCollapseTextView
 import kotlinx.android.synthetic.main.open_eyes_item_home_video.view.*
 
 /**
- * @desc: 首页精选视频 Wrapper
+ * @desc 首页精选视频 Wrapper
  */
 class OpenEyesHomeVideoWrapper :
     ViewHolderWrapper<OpenEyesHomeBean.Issue.Item>(R.layout.open_eyes_item_home_video) {

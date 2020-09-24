@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/open_eyes_color_bg_default">
+
+    <com.fphoenixcorneae.wave.AvatarWaveView
+        android:id="@+id/mWvAvatar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_160"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/mIvAvatar"
+        android:layout_width="@dimen/dp_80"
+        android:layout_height="@dimen/dp_80"
+        android:scaleType="centerCrop"
+        android:src="@drawable/open_eyes_ic_avatar_default"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/circleStyle"
+        tools:ignore="ContentDescription"
+        tools:src="@tools:sample/avatars" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1000"
+        android:layout_marginTop="@dimen/dp_240"
+        app:cardBackgroundColor="@color/open_eyes_color_white_alphabb"
+        app:cardCornerRadius="@dimen/dp_30"
+        app:cardPreventCornerOverlap="true"
+        app:contentPadding="@dimen/dp_0"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_100"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingStart="@dimen/dp_40"
+            android:paddingEnd="@dimen/dp_40">
+
+            <TextView
+                android:id="@+id/mTvMyMessage"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_48"
+                android:drawableStart="@drawable/open_eyes_ic_message"
+                android:drawableEnd="@drawable/open_eyes_ic_arrow_rightwards"
+                android:drawablePadding="@dimen/dp_12"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center_vertical"
+                android:text="@string/open_eyes_my_message"
+                android:textColor="@color/open_eyes_color_title_0x222222"
+                android:textSize="@dimen/sp_16"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/mTvNickname"
+                tools:ignore="UnusedAttribute,UseCompatTextViewDrawableXml" />
+
+            <TextView
+                android:id="@+id/mTvMyFollow"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_48"
+                android:drawableStart="@drawable/open_eyes_ic_follow"
+                android:drawableEnd="@drawable/open_eyes_ic_arrow_rightwards"
+                android:drawablePadding="@dimen/dp_12"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center_vertical"
+                android:text="@string/open_eyes_my_follow"
+                android:textColor="@color/open_eyes_color_title_0x222222"
+                android:textSize="@dimen/sp_16"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/mTvNickname"
+                tools:ignore="UnusedAttribute,UseCompatTextViewDrawableXml" />
+
+            <TextView
+                android:id="@+id/mTvMyCache"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_48"
+                android:drawableStart="@drawable/open_eyes_ic_cache"
+                android:drawableEnd="@drawable/open_eyes_ic_arrow_rightwards"
+                android:drawablePadding="@dimen/dp_12"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center_vertical"
+                android:text="@string/open_eyes_my_cache"
+                android:textColor="@color/open_eyes_color_title_0x222222"
+                android:textSize="@dimen/sp_16"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/mTvNickname"
+                tools:ignore="UnusedAttribute,UseCompatTextViewDrawableXml" />
+
+            <TextView
+                android:id="@+id/mTvWatchHistory"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_48"
+                android:drawableStart="@drawable/open_eyes_ic_watch_history"
+                android:drawableEnd="@drawable/open_eyes_ic_arrow_rightwards"
+                android:drawablePadding="@dimen/dp_12"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center_vertical"
+                android:text="@string/open_eyes_watch_history"
+                android:textColor="@color/open_eyes_color_title_0x222222"
+                android:textSize="@dimen/sp_16"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/mTvNickname"
+                tools:ignore="UnusedAttribute,UseCompatTextViewDrawableXml" />
+
+            <TextView
+                android:id="@+id/mTvFeedback"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_48"
+                android:drawableStart="@drawable/open_eyes_ic_feedback"
+                android:drawableEnd="@drawable/open_eyes_ic_arrow_rightwards"
+                android:drawablePadding="@dimen/dp_12"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center_vertical"
+                android:text="@string/open_eyes_feedback"
+                android:textColor="@color/open_eyes_color_title_0x222222"
+                android:textSize="@dimen/sp_16"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/mTvNickname"
+                tools:ignore="UnusedAttribute,UseCompatTextViewDrawableXml" />
+
+            <TextView
+                android:id="@+id/mTvAbout"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_48"
+                android:drawableStart="@drawable/open_eyes_ic_about"
+                android:drawableEnd="@drawable/open_eyes_ic_arrow_rightwards"
+                android:drawablePadding="@dimen/dp_12"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center_vertical"
+                android:text="@string/open_eyes_about"
+                android:textColor="@color/open_eyes_color_title_0x222222"
+                android:textSize="@dimen/sp_16"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/mTvNickname"
+                tools:ignore="UnusedAttribute,UseCompatTextViewDrawableXml" />
+
+            <TextView
+                android:id="@+id/mTvSetting"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_48"
+                android:drawableStart="@drawable/open_eyes_ic_setting"
+                android:drawableEnd="@drawable/open_eyes_ic_arrow_rightwards"
+                android:drawablePadding="@dimen/dp_12"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center_vertical"
+                android:text="@string/open_eyes_setting"
+                android:textColor="@color/open_eyes_color_title_0x222222"
+                android:textSize="@dimen/sp_16"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/mTvNickname"
+                tools:ignore="UnusedAttribute,UseCompatTextViewDrawableXml" />
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/mCvUserInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_40"
+        android:layout_marginTop="@dimen/dp_180"
+        android:layout_marginEnd="@dimen/dp_40"
+        app:cardBackgroundColor="@color/open_eyes_color_white"
+        app:cardCornerRadius="@dimen/dp_20"
+        app:cardElevation="@dimen/dp_8"
+        app:cardPreventCornerOverlap="true"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/mTvNickname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_16"
+                android:text="@string/open_eyes_nickname"
+                android:textColor="@color/open_eyes_color_title_0x222222"
+                android:textSize="@dimen/sp_20"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/mTvViewHomepage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/dp_8"
+                android:text="@string/open_eyes_view_personal_homepage"
+                android:textColor="@color/open_eyes_color_darker_gray"
+                android:textSize="@dimen/sp_16"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/mTvNickname" />
+
+            <TextView
+                android:id="@+id/mTvCollection"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_16"
+                android:layout_marginBottom="@dimen/dp_16"
+                android:drawableTop="@drawable/open_eyes_ic_collection"
+                android:drawablePadding="@dimen/dp_4"
+                android:drawableTint="@color/open_eyes_color_darker_gray"
+                android:gravity="center"
+                android:text="999+"
+                android:textColor="@color/open_eyes_color_darker_gray"
+                android:textSize="@dimen/sp_12"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/mTvReply"
+                app:layout_constraintHorizontal_chainStyle="spread"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/mTvViewHomepage"
+                tools:ignore="HardcodedText,UnusedAttribute,UseCompatTextViewDrawableXml" />
+
+            <TextView
+                android:id="@+id/mTvReply"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/open_eyes_ic_reply"
+                android:drawablePadding="@dimen/dp_4"
+                android:drawableTint="@color/open_eyes_color_darker_gray"
+                android:gravity="center"
+                android:text="999+"
+                android:textColor="@color/open_eyes_color_darker_gray"
+                android:textSize="@dimen/sp_12"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/mTvCollection"
+                app:layout_constraintTop_toTopOf="@+id/mTvCollection"
+                tools:ignore="HardcodedText,UnusedAttribute,UseCompatTextViewDrawableXml" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

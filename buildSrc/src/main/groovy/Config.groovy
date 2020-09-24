@@ -14,7 +14,7 @@ class Config {
             FlowLayout            : "com.github.FPhoenixCorneaE:FlowLayout:1.0.6",
             ShapeImageView        : "com.github.FPhoenixCorneaE:ShapeImageView:1.0.5",
             PrettyDialog          : "com.github.FPhoenixCorneaE:PrettyDialog:1.0.1",
-            AvatarWaveView        : 'com.github.FPhoenixCorneaE:AvatarWaveView:1.0.0',
+            AvatarWaveView        : 'com.github.FPhoenixCorneaE:AvatarWaveView:1.0.1',
             EasyBehavior          : 'com.github.FPhoenixCorneaE:EasyBehavior:1.0.1',
             BottomNavigationView  : 'com.github.FPhoenixCorneaE:BottomNavigationView:1.0.3',
             ExpandCollapseTextView: 'com.github.FPhoenixCorneaE:ExpandCollapseTextView:1.0.0',

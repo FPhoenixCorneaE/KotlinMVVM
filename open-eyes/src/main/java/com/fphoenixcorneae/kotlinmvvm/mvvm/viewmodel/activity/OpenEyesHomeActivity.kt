@@ -10,6 +10,7 @@ import com.fphoenixcorneae.kotlinmvvm.mvvm.presenter.OpenEyesHomePresenter
 import com.fphoenixcorneae.kotlinmvvm.mvvm.viewmodel.fragment.OpenEyesDiscoveryFragment
 import com.fphoenixcorneae.kotlinmvvm.mvvm.viewmodel.fragment.OpenEyesHomeFragment
 import com.fphoenixcorneae.kotlinmvvm.mvvm.viewmodel.fragment.OpenEyesHotFragment
+import com.fphoenixcorneae.kotlinmvvm.mvvm.viewmodel.fragment.OpenEyesMineFragment
 import com.fphoenixcorneae.util.ColorUtil
 import com.fphoenixcorneae.util.FragmentUtil
 import com.fphoenixcorneae.util.ResourceUtil
@@ -22,7 +23,7 @@ class OpenEyesHomeActivity :
         OpenEyesHomeFragment.getInstance(),
         OpenEyesDiscoveryFragment.getInstance(),
         OpenEyesHotFragment.getInstance(),
-        OpenEyesDiscoveryFragment.getInstance()
+        OpenEyesMineFragment.getInstance()
     )
     private var mPreviousFragment: Fragment? = null
 
