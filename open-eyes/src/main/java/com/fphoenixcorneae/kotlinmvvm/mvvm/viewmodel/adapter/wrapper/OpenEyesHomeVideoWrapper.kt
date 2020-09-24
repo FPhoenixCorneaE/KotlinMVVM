@@ -4,13 +4,13 @@ import android.annotation.SuppressLint
 import android.graphics.drawable.GradientDrawable
 import com.fphoenixcorneae.adapter.internal.ViewHolder
 import com.fphoenixcorneae.adapter.wrapper.ViewHolderWrapper
+import com.fphoenixcorneae.ext.dpToPx
 import com.fphoenixcorneae.ext.durationFormat
 import com.fphoenixcorneae.framework.glide.GlideUtil
 import com.fphoenixcorneae.kotlinmvvm.R
 import com.fphoenixcorneae.kotlinmvvm.mvvm.model.bean.OpenEyesHomeBean
 import com.fphoenixcorneae.util.ColorUtil
 import com.fphoenixcorneae.util.ResourceUtil
-import com.fphoenixcorneae.util.SizeUtil
 import com.fphoenixcorneae.widget.ExpandCollapseTextView
 import kotlinx.android.synthetic.main.open_eyes_item_home_video.view.*
 
@@ -24,7 +24,7 @@ class OpenEyesHomeVideoWrapper :
     override fun onBindViewHolder(holder: ViewHolder, item: OpenEyesHomeBean.Issue.Item) {
         with(holder.itemView) {
             // avatar
-            GlideUtil.setupCircleImagePlaceDrawableRes(
+            GlideUtil.setupImagePlaceDrawableRes(
                 mIvAvatar,
                 item.data?.author?.icon ?: item.data?.provider?.icon,
                 R.drawable.open_eyes_ic_avatar_default
@@ -36,14 +36,13 @@ class OpenEyesHomeVideoWrapper :
             // category
             mTvCategory.text = "#${item.data?.category}"
             // cover
-            val placeholder = GradientDrawable()
-            placeholder.setColor(ColorUtil.randomColor)
-            placeholder.cornerRadius = SizeUtil.dp2px(8F).toFloat()
-            GlideUtil.setupRoundedImage(
+            GlideUtil.setupImage(
                 mIvCoverFeed,
                 item.data?.cover?.feed,
-                SizeUtil.dp2px(8F),
-                placeholder
+                GradientDrawable().apply {
+                    setColor(ColorUtil.randomColor)
+                    cornerRadius = context.dpToPx(8f)
+                }
             )
             // duration
             mTvDuration.text = durationFormat(item.data?.duration ?: 0)

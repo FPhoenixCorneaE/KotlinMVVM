@@ -18,19 +18,27 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="ContentDescription"
-        tools:src="@color/open_eyes_color_lighter_gray" />
+        tools:src="@tools:sample/backgrounds/scenic" />
 
     <TextView
         android:id="@+id/mTvDuration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/dp_8"
-        android:layout_marginBottom="@dimen/dp_8"
-        android:textColor="@color/open_eyes_color_lighter_gray"
-        android:textSize="@dimen/sp_12"
+        android:layout_margin="@dimen/dp_4"
+        android:fontFamily="@font/framework_arial"
+        android:paddingStart="@dimen/dp_4"
+        android:paddingTop="@dimen/dp_0"
+        android:paddingEnd="@dimen/dp_4"
+        android:paddingBottom="@dimen/dp_2"
+        android:textColor="@color/open_eyes_color_white"
+        android:textSize="@dimen/sp_10"
+        app:drawableType="shape"
         app:layout_constraintBottom_toBottomOf="@+id/mIvVideoSmallCard"
         app:layout_constraintEnd_toEndOf="@+id/mIvVideoSmallCard"
-        tools:text="0'0''" />
+        app:shapeCornerRadius="@dimen/dp_4"
+        app:shapeSolidColor="@color/open_eyes_color_black_alphadd"
+        tools:ignore="MissingPrefix"
+        tools:text="@tools:sample/date/hhmm" />
 
     <TextView
         android:id="@+id/mTvTitle"

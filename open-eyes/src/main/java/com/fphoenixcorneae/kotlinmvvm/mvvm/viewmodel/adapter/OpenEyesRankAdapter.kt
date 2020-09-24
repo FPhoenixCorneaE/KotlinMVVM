@@ -45,11 +45,12 @@ class OpenEyesRankAdapter(
                         setColor(ColorUtil.randomColor)
                     }
                 )
+                // duration
+                mTvDuration.text = durationFormat(duration)
                 // title
                 mTvTitle.text = title
                 // time
-                val timeFormat = durationFormat(duration)
-                mTvTag.text = "#${category}/$timeFormat"
+                mTvTag.text = "#${category}"
             }
         }
     }

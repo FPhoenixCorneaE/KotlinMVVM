@@ -11,25 +11,13 @@ fun durationFormat(duration: Long): String {
     val minute = duration / 60
     val second = duration % 60
     return when {
-        minute <= 9 -> {
-            when {
-                second <= 9 -> {
-                    "0$minute' 0$second''"
-                }
-                else -> {
-                    "0$minute' $second''"
-                }
-            }
+        minute <= 9 -> when {
+            second <= 9 -> "0$minute:0$second"
+            else -> "0$minute:$second"
         }
-        else -> {
-            when {
-                second <= 9 -> {
-                    "$minute' 0$second''"
-                }
-                else -> {
-                    "$minute' $second''"
-                }
-            }
+        else -> when {
+            second <= 9 -> "$minute:0$second"
+            else -> "$minute:$second"
         }
     }
 }
@@ -40,9 +28,7 @@ fun durationFormat(duration: Long): String {
 fun dataFormat(total: Long): String {
     val speedReal: Int = (total / (1024)).toInt()
     return when {
-        speedReal < 512 -> {
-            "$speedReal KB"
-        }
+        speedReal < 512 -> "$speedReal KB"
         else -> {
             val mSpeed = speedReal / 1024.0
             ((mSpeed * 100).roundToInt() / 100.0).toString() + " MB"

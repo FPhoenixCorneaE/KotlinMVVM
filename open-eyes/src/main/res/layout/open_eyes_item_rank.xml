@@ -18,6 +18,26 @@
         tools:src="@tools:sample/backgrounds/scenic" />
 
     <TextView
+        android:id="@+id/mTvDuration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp_8"
+        android:fontFamily="@font/framework_arial"
+        android:paddingStart="@dimen/dp_4"
+        android:paddingTop="@dimen/dp_0"
+        android:paddingEnd="@dimen/dp_4"
+        android:paddingBottom="@dimen/dp_2"
+        android:textColor="@color/open_eyes_color_white"
+        android:textSize="@dimen/sp_12"
+        app:drawableType="shape"
+        app:layout_constraintBottom_toBottomOf="@+id/mIvCoverFeed"
+        app:layout_constraintEnd_toEndOf="@+id/mIvCoverFeed"
+        app:shapeCornerRadius="@dimen/dp_4"
+        app:shapeSolidColor="@color/open_eyes_color_black_alphadd"
+        tools:ignore="MissingPrefix"
+        tools:text="@tools:sample/date/hhmm" />
+
+    <TextView
         android:id="@+id/mTvTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
