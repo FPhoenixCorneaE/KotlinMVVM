@@ -185,7 +185,7 @@ class OpenEyesVideoDetailActivity :
         mVpVideo.fullscreenButton.setOnClickListener {
             // 直接横屏
             mOrientationUtils?.resolveByClick()
-            // 第一个true是否需要隐藏actionbar，第二个true是否需要隐藏statusbar
+            // 第一个true是否需要隐藏ActionBar，第二个true是否需要隐藏StatusBar
             mVpVideo.startWindowFullscreen(this, true, true)
         }
         // 锁屏事件

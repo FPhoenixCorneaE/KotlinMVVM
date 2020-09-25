@@ -66,10 +66,11 @@
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/mIvCoverFeed"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_180"
+        android:layout_height="@dimen/dp_0"
         android:layout_marginTop="@dimen/dp_16"
         android:scaleType="centerCrop"
         android:transitionName="@string/open_eyes_transition_name_video"
+        app:layout_constraintDimensionRatio="1.8:1"
         app:layout_constraintTop_toBottomOf="@+id/mIvAvatar"
         app:shapeAppearanceOverlay="@style/roundedCornerStyle"
         tools:ignore="ContentDescription"

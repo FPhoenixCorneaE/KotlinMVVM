@@ -8,8 +8,9 @@
     <com.fphoenixcorneae.shapeimageview.ShapeImageView
         android:id="@+id/mIvCoverFeed"
         android:layout_width="@dimen/dp_300"
-        android:layout_height="@dimen/dp_150"
+        android:layout_height="@dimen/dp_0"
         android:scaleType="centerCrop"
+        app:layout_constraintDimensionRatio="1.8:1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:siv_radius="@dimen/dp_8"

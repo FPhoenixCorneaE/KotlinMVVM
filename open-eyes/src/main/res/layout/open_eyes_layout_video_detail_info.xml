@@ -28,8 +28,8 @@
             android:layout_marginEnd="@dimen/dp_16"
             android:ellipsize="end"
             android:maxLines="1"
-            android:textColor="@color/open_eyes_color_lighter_gray"
-            android:textSize="@dimen/sp_15"
+            android:textColor="@color/open_eyes_color_white"
+            android:textSize="@dimen/sp_14"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/mIvAvatar"
@@ -58,8 +58,9 @@
             android:ellipsize="end"
             android:fontFamily="@font/fzlt_medium_bold_black_simplified"
             android:maxLines="2"
-            android:textColor="@color/open_eyes_color_lighter_gray"
-            android:textSize="@dimen/sp_15"
+            android:textColor="@color/open_eyes_color_white"
+            android:textSize="@dimen/sp_16"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/mIvAvatar"
@@ -114,6 +115,7 @@
             android:textSize="@dimen/sp_12"
             app:layout_constraintEnd_toStartOf="@+id/mTvShare"
             app:layout_constraintTop_toBottomOf="@+id/mTvDescription"
+            tools:ignore="UseCompatTextViewDrawableXml"
             tools:text="999+" />
 
         <TextView
@@ -128,6 +130,7 @@
             android:textSize="@dimen/sp_12"
             app:layout_constraintEnd_toStartOf="@+id/mTvReply"
             app:layout_constraintTop_toBottomOf="@+id/mTvDescription"
+            tools:ignore="UseCompatTextViewDrawableXml"
             tools:text="999+" />
 
         <TextView
@@ -141,6 +144,7 @@
             android:textSize="@dimen/sp_12"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/mTvDescription"
+            tools:ignore="UseCompatTextViewDrawableXml"
             tools:text="999+" />
 
         <View

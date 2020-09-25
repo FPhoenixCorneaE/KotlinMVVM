@@ -7,16 +7,20 @@
     android:paddingStart="@dimen/dp_16"
     android:paddingTop="@dimen/dp_8"
     android:paddingEnd="@dimen/dp_16"
-    android:paddingBottom="@dimen/dp_8">
+    android:paddingBottom="@dimen/dp_8"
+    tools:background="@color/open_eyes_color_black">
 
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/mIvVideoSmallCard"
-        android:layout_width="@dimen/dp_135"
-        android:layout_height="@dimen/dp_80"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="@dimen/dp_0"
         android:layout_centerVertical="true"
         android:scaleType="centerCrop"
+        app:layout_constraintDimensionRatio="1.8:1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="0.5"
+        app:shapeAppearanceOverlay="@style/roundedCornerStyle"
         tools:ignore="ContentDescription"
         tools:src="@tools:sample/backgrounds/scenic" />
 
@@ -45,12 +49,24 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dp_16"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
+        android:layout_marginTop="@dimen/dp_16"
+        android:textColor="@color/open_eyes_color_white"
+        android:textSize="@dimen/sp_14"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/mIvVideoSmallCard"
+        app:layout_constraintTop_toTopOf="@+id/mIvVideoSmallCard"
+        tools:text="@sample/title.json/data/title" />
+
+    <TextView
+        android:id="@+id/mTvCategory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_16"
+        android:layout_marginBottom="@dimen/dp_16"
         android:textColor="@color/open_eyes_color_lighter_gray"
         android:textSize="@dimen/sp_13"
         app:layout_constraintBottom_toBottomOf="@+id/mIvVideoSmallCard"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/mIvVideoSmallCard"
-        app:layout_constraintTop_toTopOf="@+id/mIvVideoSmallCard" />
+        tools:text="#广告" />
 </androidx.constraintlayout.widget.ConstraintLayout>

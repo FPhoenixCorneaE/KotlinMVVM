@@ -12,7 +12,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dp_16"
-        android:textColor="@color/open_eyes_color_lighter_gray"
-        android:textSize="@dimen/sp_13"
+        android:textColor="@color/open_eyes_color_white"
+        android:textSize="@dimen/sp_14"
+        android:textStyle="bold"
         tools:text="相关视频" />
 </LinearLayout>

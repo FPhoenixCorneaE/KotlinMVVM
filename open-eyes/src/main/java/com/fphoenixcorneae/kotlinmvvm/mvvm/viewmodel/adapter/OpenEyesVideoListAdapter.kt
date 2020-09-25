@@ -1,8 +1,8 @@
 package com.fphoenixcorneae.kotlinmvvm.mvvm.viewmodel.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.drawable.GradientDrawable
-import com.fphoenixcorneae.ext.dp2px
 import com.fphoenixcorneae.ext.dpToPx
 import com.fphoenixcorneae.ext.durationFormat
 import com.fphoenixcorneae.framework.glide.GlideUtil
@@ -48,6 +48,7 @@ class OpenEyesVideoListAdapter(
     /**
      * 绑定数据
      */
+    @SuppressLint("SetTextI18n")
     override fun bindData(holder: ViewHolder, data: OpenEyesHomeBean.Issue.Item, position: Int) {
         with(holder.itemView) {
             data.data?.apply {
@@ -58,16 +59,17 @@ class OpenEyesVideoListAdapter(
                     "videoSmallCard" -> {
                         // title
                         mTvTitle.text = title
+                        // category
+                        mTvCategory.text = "#${category}"
                         // duration
                         mTvDuration.text = durationFormat(duration)
                         // cover
-                        GlideUtil.setupRoundedImage(
+                        GlideUtil.setupImage(
                             mIvVideoSmallCard,
                             cover.detail,
-                            context.dp2px(4f),
                             GradientDrawable().apply {
                                 setColor(randomColor)
-                                cornerRadius = context.dpToPx(4f)
+                                cornerRadius = context.dpToPx(8f)
                             }
                         )
 

@@ -1,44 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout
+    <com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
+        android:id="@+id/mVpVideo"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="@dimen/dp_0"
+        app:layout_constraintDimensionRatio="1.8:1"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
-            android:id="@+id/mVpVideo"
+    <ImageView
+        android:id="@+id/mIvVideoBackground"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mVpVideo"
+        tools:ignore="ContentDescription" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_0"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mVpVideo">
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_200" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/mIvVideoBackground"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/mVpVideo"
-            tools:ignore="ContentDescription" />
+            <include layout="@layout/open_eyes_layout_video_detail_info" />
 
-        <androidx.core.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/mVpVideo">
-
-            <LinearLayout
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/mRvVideo"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/open_eyes_color_white_alpha50"
-                android:orientation="vertical">
-
-                <include layout="@layout/open_eyes_layout_video_detail_info" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/mRvVideo"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1" />
-            </LinearLayout>
-        </androidx.core.widget.NestedScrollView>
-    </RelativeLayout>
+                android:layout_height="wrap_content"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:itemCount="10"
+                tools:listitem="@layout/open_eyes_item_video_small_card" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
