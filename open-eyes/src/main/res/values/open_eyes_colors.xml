@@ -19,4 +19,5 @@
     <color name="open_eyes_color_title_white">#ffffff</color>
     <color name="open_eyes_color_title_0x222222">#000000</color>
     <color name="open_eyes_color_name">#222222</color>
+    <color name="open_eyes_color_line_0xeeeeee">#eeeeee</color>
 </resources>

@@ -16,4 +16,9 @@
         <item name="android:windowAllowEnterTransitionOverlap">false</item>
         <item name="android:windowAllowReturnTransitionOverlap">false</item>
     </style>
+
+    <style name="AppTheme.Fullscreen" parent="AppTheme">
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
 </resources>

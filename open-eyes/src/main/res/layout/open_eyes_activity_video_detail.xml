@@ -20,6 +20,13 @@
         app:layout_constraintTop_toBottomOf="@+id/mVpVideo"
         tools:ignore="ContentDescription" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_0"
+        android:background="@color/open_eyes_color_black_alpha50"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mVpVideo" />
+
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_0"
@@ -30,14 +37,18 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            tools:background="@color/open_eyes_color_black">
 
             <include layout="@layout/open_eyes_layout_video_detail_info" />
+
+            <include layout="@layout/open_eyes_layout_video_detail_author" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/mRvVideo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_8"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:itemCount="10"
                 tools:listitem="@layout/open_eyes_item_video_small_card" />

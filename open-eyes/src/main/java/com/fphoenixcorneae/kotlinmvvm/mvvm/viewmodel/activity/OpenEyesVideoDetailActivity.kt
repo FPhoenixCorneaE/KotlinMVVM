@@ -3,20 +3,13 @@ package com.fphoenixcorneae.kotlinmvvm.mvvm.viewmodel.activity
 import android.annotation.SuppressLint
 import android.annotation.TargetApi
 import android.content.res.Configuration
-import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Bundle
 import android.transition.Transition
 import android.widget.ImageView
 import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bumptech.glide.load.DataSource
-import com.bumptech.glide.load.engine.GlideException
-import com.bumptech.glide.request.RequestListener
-import com.bumptech.glide.request.RequestOptions
-import com.bumptech.glide.request.target.Target
 import com.fphoenixcorneae.ext.durationFormat
 import com.fphoenixcorneae.ext.loggerD
 import com.fphoenixcorneae.ext.toast
@@ -30,20 +23,18 @@ import com.fphoenixcorneae.kotlinmvvm.mvvm.model.bean.OpenEyesHomeBean
 import com.fphoenixcorneae.kotlinmvvm.mvvm.presenter.OpenEyesVideoDetailPresenter
 import com.fphoenixcorneae.kotlinmvvm.mvvm.viewmodel.adapter.OpenEyesVideoListAdapter
 import com.fphoenixcorneae.util.ColorUtil
-import com.fphoenixcorneae.util.ImageUtil
 import com.fphoenixcorneae.util.ResourceUtil
-import com.fphoenixcorneae.util.ScreenUtil
-import com.fphoenixcorneae.util.statusbar.StatusBarUtil
 import com.fphoenixcorneae.widget.ExpandCollapseTextView
 import com.shuyu.gsyvideoplayer.utils.OrientationUtils
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
 import com.shuyu.gsyvideoplayer.video.base.GSYVideoPlayer
 import kotlinx.android.synthetic.main.open_eyes_activity_video_detail.*
+import kotlinx.android.synthetic.main.open_eyes_layout_video_detail_author.*
 import kotlinx.android.synthetic.main.open_eyes_layout_video_detail_info.*
 import java.util.*
 
 /**
- * @desc: 视频详情
+ * @desc 视频详情
  */
 class OpenEyesVideoDetailActivity :
     Dagger2InjectionActivity<OpenEyesVideoDetailContract.View, OpenEyesVideoDetailPresenter>(),
@@ -72,12 +63,6 @@ class OpenEyesVideoDetailActivity :
         initTransition()
         // RecyclerView
         initRecyclerView()
-        // 状态栏透明和间距处理
-        initStatusBar()
-        mVpVideo.also {
-            val layoutParams = it.layoutParams
-            layoutParams.height = ScreenUtil.screenHeight / 3
-        }
     }
 
     /**
@@ -113,11 +98,6 @@ class OpenEyesVideoDetailActivity :
             adapter = mVideoListAdapter
             isNestedScrollingEnabled = false
         }
-    }
-
-    private fun initStatusBar() {
-        StatusBarUtil.transparentStatusBar(window)
-        StatusBarUtil.setSmartPadding(mContext, mVpVideo)
     }
 
     /**
@@ -166,7 +146,7 @@ class OpenEyesVideoDetailActivity :
 
             override fun onPlayError(url: String, vararg objects: Any) {
                 super.onPlayError(url, *objects)
-                toast("播放失败")
+                toast("播放失败！")
             }
 
             override fun onEnterFullscreen(url: String, vararg objects: Any) {
@@ -213,58 +193,59 @@ class OpenEyesVideoDetailActivity :
     @SuppressLint("SetTextI18n")
     override fun setVideoInfo(itemInfo: OpenEyesHomeBean.Issue.Item) {
         mVideoDetailData = itemInfo
-        // avatar
-        GlideUtil.setupCircleImage(
-            mIvAvatar,
-            itemInfo.data?.author?.icon ?: itemInfo.data?.provider?.icon
-        )
-        // author name
-        mTvAuthorName.text = itemInfo.data?.author?.name
-        // author description
-        mTvAuthorDescription.text = itemInfo.data?.author?.description
-        // title
-        mTvTitle.text = itemInfo.data?.title
-        // description
-        mTvDescription.apply {
-            // 设置最大显示行数
-            mMaxLineCount = 3
-            // 收起文案
-            mCollapseText = ResourceUtil.getString(R.string.open_eyes_collapse_text)
-            // 展开文案
-            mExpandText = ResourceUtil.getString(R.string.open_eyes_expand_text)
-            // 是否支持收起功能
-            mCollapseEnable = true
-            // 是否给展开收起添加下划线
-            mUnderlineEnable = false
-            // 收起文案颜色
-            mCollapseTextColor = ColorUtil.randomColor
-            // 展开文案颜色
-            mExpandTextColor = ColorUtil.randomColor
-            // 文字状态改变监听器
-            mOnTextStateChangedListener = { state ->
-                if (state == ExpandCollapseTextView.TextState.Expanded
-                    || state == ExpandCollapseTextView.TextState.Collapsed
-                ) {
-                    itemInfo.data?.let {
-                        it.expanded = isExpanded()
+        mVideoDetailData.data?.apply {
+            // title
+            mTvTitle.text = title
+            // description
+            mTvDescription.apply {
+                // 设置最大显示行数
+                mMaxLineCount = 3
+                // 收起文案
+                mCollapseText = ResourceUtil.getString(R.string.open_eyes_collapse_text)
+                // 展开文案
+                mExpandText = ResourceUtil.getString(R.string.open_eyes_expand_text)
+                // 是否支持收起功能
+                mCollapseEnable = true
+                // 是否给展开收起添加下划线
+                mUnderlineEnable = false
+                // 收起文案颜色
+                mCollapseTextColor = ColorUtil.randomColor
+                // 展开文案颜色
+                mExpandTextColor = ColorUtil.randomColor
+                // 文字状态改变监听器
+                mOnTextStateChangedListener = { state ->
+                    if (state == ExpandCollapseTextView.TextState.Expanded
+                        || state == ExpandCollapseTextView.TextState.Collapsed
+                    ) {
+                        expanded = isExpanded()
                     }
                 }
+                setText(description, expanded)
             }
-            itemInfo.data?.let {
-                setText(it.description, itemInfo.data.expanded)
+            // category
+            mTvCategory.text =
+                "#${category} / ${getString(R.string.open_eyes_eyepetizer_choiceness)} / ${
+                    durationFormat(duration)
+                }"
+            consumption.apply {
+                // collectionCount
+                mTvCollection.text = collectionCount.toString()
+                // shareCount
+                mTvShare.text = shareCount.toString()
+                // replyCount
+                mTvReply.text = replyCount.toString()
             }
-        }
 
-        // category
-        mTvCategory.text = "#${itemInfo.data?.category}"
-        // duration
-        mTvDuration.text = durationFormat(itemInfo.data?.duration ?: 0)
-        // collectionCount
-        mTvCollection.text = itemInfo.data?.consumption?.collectionCount.toString()
-        // shareCount
-        mTvShare.text = itemInfo.data?.consumption?.shareCount.toString()
-        // replyCount
-        mTvReply.text = itemInfo.data?.consumption?.replyCount.toString()
+            // avatar
+            GlideUtil.setupImage(
+                mIvAvatar,
+                author.icon
+            )
+            // author name
+            mTvAuthorName.text = author.name
+            // author description
+            mTvAuthorDescription.text = author.description
+        }
     }
 
     /**
@@ -278,37 +259,7 @@ class OpenEyesVideoDetailActivity :
      * 设置背景颜色
      */
     override fun setBackground(url: String) {
-        GlideUtil.setupImage(
-            mIvVideoBackground,
-            url,
-            RequestOptions().centerCrop(),
-            object : RequestListener<Drawable> {
-                override fun onLoadFailed(
-                    e: GlideException?,
-                    model: Any?,
-                    target: Target<Drawable>?,
-                    isFirstResource: Boolean
-                ): Boolean {
-                    return false
-                }
-
-                override fun onResourceReady(
-                    resource: Drawable?,
-                    model: Any?,
-                    target: Target<Drawable>?,
-                    dataSource: DataSource?,
-                    isFirstResource: Boolean
-                ): Boolean {
-                    // 根据图片背景设置状态栏颜色
-                    StatusBarUtil.setStatusBarColor(
-                        window,
-                        resource?.run {
-                            ColorUtil.getColorFromBitmap(ImageUtil.drawable2Bitmap(resource))
-                        } ?: Color.TRANSPARENT
-                    )
-                    return false
-                }
-            })
+        GlideUtil.setupImage(mIvVideoBackground, url)
     }
 
     /**
@@ -326,7 +277,7 @@ class OpenEyesVideoDetailActivity :
     }
 
     /**
-     * 1.加载视频信息
+     * 加载视频信息
      */
     fun loadVideoInfo() {
         mPresenter.loadVideoInfo(mVideoDetailData)

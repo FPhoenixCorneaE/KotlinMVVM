@@ -8,7 +8,7 @@
     <string name="open_eyes_home_choiceness">精选</string>
     <string name="open_eyes_follow">关注</string>
     <string name="open_eyes_category">分类</string>
-    <string name="open_eyes_add_follow">+ 关注</string>
+    <string name="open_eyes_add_follow">+关注</string>
     <string name="open_eyes_nickname">FPhoenixCorneaE</string>
     <string name="open_eyes_view_personal_homepage"><![CDATA[查看个人主页 >]]></string>
     <string name="open_eyes_my_follow">我的关注</string>
@@ -18,4 +18,6 @@
     <string name="open_eyes_feedback">意见反馈</string>
     <string name="open_eyes_about">关于</string>
     <string name="open_eyes_setting">设置</string>
+    <string name="open_eyes_cache">缓存</string>
+    <string name="open_eyes_eyepetizer_choiceness">开眼精选</string>
 </resources>

@@ -43,6 +43,7 @@
             android:name="com.fphoenixcorneae.kotlinmvvm.mvvm.viewmodel.activity.OpenEyesVideoDetailActivity"
             android:configChanges="orientation|keyboardHidden|screenSize|screenLayout"
             android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Fullscreen"
             android:windowSoftInputMode="adjustNothing"
             tools:ignore="LockedOrientationActivity" />
     </application>

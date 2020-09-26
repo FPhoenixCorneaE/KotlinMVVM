@@ -56,7 +56,7 @@ class OpenEyesVideoDetailPresenter @Inject constructor() :
         // 设置背景
         val backgroundUrl =
             itemInfo.data.cover.blurred +
-                    "/thumbnail/${ScreenUtil.screenHeight / 3 * 2}x${ScreenUtil.screenWidth}"
+                    "/thumbnail/${(ScreenUtil.screenHeight - ScreenUtil.screenWidth / 1.8f).toInt()}x${ScreenUtil.screenWidth}"
         backgroundUrl.let { mView.setBackground(it) }
 
         mView.setVideoInfo(itemInfo)

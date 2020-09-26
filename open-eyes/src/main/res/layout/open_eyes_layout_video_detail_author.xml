@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:background="@color/open_eyes_color_black">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/mIvAvatar"
+            android:layout_width="@dimen/dp_50"
+            android:layout_height="@dimen/dp_50"
+            android:layout_margin="@dimen/dp_16"
+            android:scaleType="centerCrop"
+            android:src="@drawable/open_eyes_ic_avatar_default"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/circleStyle"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/mTvAuthorName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_16"
+            android:layout_marginEnd="@dimen/dp_16"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/open_eyes_color_white"
+            android:textSize="@dimen/sp_14"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/mBtnFollow"
+            app:layout_constraintStart_toEndOf="@+id/mIvAvatar"
+            app:layout_constraintTop_toTopOf="@+id/mIvAvatar"
+            tools:text="@sample/author.json/data/name" />
+
+        <TextView
+            android:id="@+id/mTvAuthorDescription"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_8"
+            android:layout_marginEnd="@dimen/dp_16"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/open_eyes_color_lighter_gray"
+            android:textSize="@dimen/sp_13"
+            app:layout_constraintEnd_toStartOf="@+id/mBtnFollow"
+            app:layout_constraintStart_toStartOf="@+id/mTvAuthorName"
+            app:layout_constraintTop_toBottomOf="@+id/mTvAuthorName"
+            tools:text="@sample/author.json/data/description" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/mBtnFollow"
+            android:layout_width="@dimen/dp_60"
+            android:layout_height="@dimen/dp_30"
+            android:layout_marginEnd="@dimen/dp_16"
+            android:insetLeft="@dimen/dp_0"
+            android:insetTop="@dimen/dp_0"
+            android:insetRight="@dimen/dp_0"
+            android:insetBottom="@dimen/dp_0"
+            android:padding="@dimen/dp_0"
+            android:text="@string/open_eyes_add_follow"
+            android:textColor="@color/open_eyes_color_title_white"
+            android:textSize="@dimen/sp_14"
+            app:backgroundTint="@color/open_eyes_color_translucent"
+            app:cornerRadius="@dimen/dp_8"
+            app:layout_constraintBottom_toBottomOf="@+id/mIvAvatar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/mIvAvatar"
+            app:rippleColor="@color/open_eyes_color_lighter_gray"
+            app:strokeColor="@color/open_eyes_color_title_white"
+            app:strokeWidth="@dimen/dp_0_1" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_0_1"
+            android:background="@color/open_eyes_color_line_0xeeeeee"
+            app:layout_constraintBottom_toBottomOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</merge>

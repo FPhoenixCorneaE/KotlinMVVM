@@ -4,51 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/mClVideoInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/open_eyes_color_black_alpha50"
         android:padding="@dimen/dp_16"
-        tools:background="@android:color/black"
+        tools:background="@color/open_eyes_color_black"
         tools:ignore="ExtraText">
-
-        <ImageView
-            android:id="@+id/mIvAvatar"
-            android:layout_width="@dimen/dp_50"
-            android:layout_height="@dimen/dp_50"
-            android:background="@drawable/open_eyes_bg_avatar"
-            android:scaleType="centerCrop"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="ContentDescription" />
-
-        <TextView
-            android:id="@+id/mTvAuthorName"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_16"
-            android:layout_marginEnd="@dimen/dp_16"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:textColor="@color/open_eyes_color_white"
-            android:textSize="@dimen/sp_14"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/mIvAvatar"
-            app:layout_constraintTop_toTopOf="@+id/mIvAvatar"
-            tools:text="@sample/author.json/data/name" />
-
-        <TextView
-            android:id="@+id/mTvAuthorDescription"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_8"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:textColor="@color/open_eyes_color_lighter_gray"
-            android:textSize="@dimen/sp_13"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/mTvAuthorName"
-            app:layout_constraintTop_toBottomOf="@+id/mTvAuthorName"
-            tools:text="@sample/author.json/data/description" />
 
         <TextView
             android:id="@+id/mTvTitle"
@@ -63,7 +25,7 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/mIvAvatar"
+            app:layout_constraintTop_toTopOf="parent"
             tools:text="@sample/title.json/data/title" />
 
         <TextView
@@ -73,21 +35,9 @@
             android:layout_marginTop="@dimen/dp_8"
             android:textColor="@color/open_eyes_color_lighter_gray"
             android:textSize="@dimen/sp_13"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/mTvTitle"
-            tools:text="#广告" />
-
-        <TextView
-            android:id="@+id/mTvDuration"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_8"
-            android:layout_marginEnd="@dimen/dp_8"
-            android:textColor="@color/open_eyes_color_lighter_gray"
-            android:textSize="@dimen/sp_13"
-            app:layout_constraintEnd_toStartOf="@+id/mTvCategory"
-            app:layout_constraintTop_toBottomOf="@+id/mTvTitle"
-            tools:text="@tools:sample/date/hhmm" />
+            tools:text="#广告 / 开眼精选 / 01:30" />
 
         <com.fphoenixcorneae.widget.ExpandCollapseTextView
             android:id="@+id/mTvDescription"
@@ -108,12 +58,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/dp_32"
-            android:drawableTop="@drawable/open_eyes_ic_collection"
-            android:drawablePadding="@dimen/dp_4"
+            android:drawableStart="@drawable/open_eyes_ic_collection"
+            android:drawablePadding="@dimen/dp_8"
             android:gravity="center"
             android:textColor="@color/open_eyes_color_lighter_gray"
             android:textSize="@dimen/sp_12"
-            app:layout_constraintEnd_toStartOf="@+id/mTvShare"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/mTvDescription"
             tools:ignore="UseCompatTextViewDrawableXml"
             tools:text="999+" />
@@ -122,13 +72,13 @@
             android:id="@+id/mTvShare"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/dp_32"
-            android:drawableTop="@drawable/open_eyes_ic_share"
-            android:drawablePadding="@dimen/dp_4"
+            android:layout_marginStart="@dimen/dp_32"
+            android:drawableStart="@drawable/open_eyes_ic_share"
+            android:drawablePadding="@dimen/dp_8"
             android:gravity="center"
             android:textColor="@color/open_eyes_color_lighter_gray"
             android:textSize="@dimen/sp_12"
-            app:layout_constraintEnd_toStartOf="@+id/mTvReply"
+            app:layout_constraintStart_toEndOf="@+id/mTvCollection"
             app:layout_constraintTop_toBottomOf="@+id/mTvDescription"
             tools:ignore="UseCompatTextViewDrawableXml"
             tools:text="999+" />
@@ -137,22 +87,30 @@
             android:id="@+id/mTvReply"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableTop="@drawable/open_eyes_ic_reply"
-            android:drawablePadding="@dimen/dp_4"
+            android:layout_marginStart="@dimen/dp_32"
+            android:drawableStart="@drawable/open_eyes_ic_reply"
+            android:drawablePadding="@dimen/dp_8"
             android:gravity="center"
             android:textColor="@color/open_eyes_color_lighter_gray"
             android:textSize="@dimen/sp_12"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/mTvShare"
             app:layout_constraintTop_toBottomOf="@+id/mTvDescription"
             tools:ignore="UseCompatTextViewDrawableXml"
             tools:text="999+" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_0_1"
-            android:layout_alignParentBottom="true"
-            android:layout_marginTop="@dimen/dp_16"
-            android:background="@color/open_eyes_color_lighter_gray"
-            app:layout_constraintTop_toBottomOf="@+id/mTvReply" />
+        <TextView
+            android:id="@+id/mTvCache"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_32"
+            android:drawableStart="@drawable/open_eyes_ic_cache"
+            android:drawablePadding="@dimen/dp_8"
+            android:gravity="center"
+            android:text="@string/open_eyes_cache"
+            android:textColor="@color/open_eyes_color_lighter_gray"
+            android:textSize="@dimen/sp_12"
+            app:layout_constraintStart_toEndOf="@+id/mTvReply"
+            app:layout_constraintTop_toBottomOf="@+id/mTvDescription"
+            tools:ignore="UseCompatTextViewDrawableXml" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </merge>
