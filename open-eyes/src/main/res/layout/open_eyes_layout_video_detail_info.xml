@@ -39,7 +39,7 @@
             app:layout_constraintTop_toBottomOf="@+id/mTvTitle"
             tools:text="#广告 / 开眼精选 / 01:30" />
 
-        <com.fphoenixcorneae.widget.ExpandCollapseTextView
+        <TextView
             android:id="@+id/mTvDescription"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

@@ -19,6 +19,7 @@ class Config {
             BottomNavigationView  : 'com.github.FPhoenixCorneaE:BottomNavigationView:1.0.3',
             ExpandCollapseTextView: 'com.github.FPhoenixCorneaE:ExpandCollapseTextView:1.0.0',
             CustomKeyboard        : 'com.github.FPhoenixCorneaE:CustomKeyboard:1.0.1',
+            CustomSpan            : 'com.github.FPhoenixCorneaE:CustomSpan:1.0.0',
     ]
 
     /** Android */

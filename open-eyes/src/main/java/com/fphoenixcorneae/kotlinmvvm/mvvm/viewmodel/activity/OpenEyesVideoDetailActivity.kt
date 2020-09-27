@@ -22,6 +22,7 @@ import com.fphoenixcorneae.kotlinmvvm.mvvm.contract.OpenEyesVideoDetailContract
 import com.fphoenixcorneae.kotlinmvvm.mvvm.model.bean.OpenEyesHomeBean
 import com.fphoenixcorneae.kotlinmvvm.mvvm.presenter.OpenEyesVideoDetailPresenter
 import com.fphoenixcorneae.kotlinmvvm.mvvm.viewmodel.adapter.OpenEyesVideoListAdapter
+import com.fphoenixcorneae.text.style.AnimatedTypeWriterSpan
 import com.fphoenixcorneae.util.ColorUtil
 import com.fphoenixcorneae.util.ResourceUtil
 import com.fphoenixcorneae.widget.ExpandCollapseTextView
@@ -195,38 +196,22 @@ class OpenEyesVideoDetailActivity :
         mVideoDetailData = itemInfo
         mVideoDetailData.data?.apply {
             // title
-            mTvTitle.text = title
-            // description
-            mTvDescription.apply {
-                // 设置最大显示行数
-                mMaxLineCount = 3
-                // 收起文案
-                mCollapseText = ResourceUtil.getString(R.string.open_eyes_collapse_text)
-                // 展开文案
-                mExpandText = ResourceUtil.getString(R.string.open_eyes_expand_text)
-                // 是否支持收起功能
-                mCollapseEnable = true
-                // 是否给展开收起添加下划线
-                mUnderlineEnable = false
-                // 收起文案颜色
-                mCollapseTextColor = ColorUtil.randomColor
-                // 展开文案颜色
-                mExpandTextColor = ColorUtil.randomColor
-                // 文字状态改变监听器
-                mOnTextStateChangedListener = { state ->
-                    if (state == ExpandCollapseTextView.TextState.Expanded
-                        || state == ExpandCollapseTextView.TextState.Collapsed
-                    ) {
-                        expanded = isExpanded()
-                    }
-                }
-                setText(description, expanded)
+            AnimatedTypeWriterSpan(title) {
+                mTvTitle.text = it
             }
             // category
-            mTvCategory.text =
+            AnimatedTypeWriterSpan(
                 "#${category} / ${getString(R.string.open_eyes_eyepetizer_choiceness)} / ${
-                    durationFormat(duration)
+                durationFormat(duration)
                 }"
+            ) {
+                mTvCategory.text = it
+            }
+            // description
+            AnimatedTypeWriterSpan(description) {
+                mTvDescription.text = it
+            }
+
             consumption.apply {
                 // collectionCount
                 mTvCollection.text = collectionCount.toString()
