@@ -18,6 +18,8 @@
     </style>
 
     <style name="AppTheme.Fullscreen" parent="AppTheme">
+        <!-- 隐藏StatusBar -->
+        <item name="android:windowFullscreen">true</item>
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowContentOverlay">@null</item>
     </style>
