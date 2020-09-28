@@ -24,7 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/dp_8"
-        android:fontFamily="@font/framework_arial"
+        android:fontFamily="@font/open_eyes_futura_condensed_medium"
         android:paddingStart="@dimen/dp_4"
         android:paddingTop="@dimen/dp_0"
         android:paddingEnd="@dimen/dp_4"
