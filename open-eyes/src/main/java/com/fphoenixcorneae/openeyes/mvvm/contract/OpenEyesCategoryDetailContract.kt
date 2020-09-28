@@ -14,10 +14,6 @@ interface OpenEyesCategoryDetailContract {
          *  设置列表数据
          */
         fun setCateDetailList(itemList: ArrayList<OpenEyesHomeBean.Issue.Item>)
-
-        fun showError(errorMsg: String)
-
-
     }
 
     interface Presenter : IPresenter<View> {

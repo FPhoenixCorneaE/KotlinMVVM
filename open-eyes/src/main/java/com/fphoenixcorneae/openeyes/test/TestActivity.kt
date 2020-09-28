@@ -23,7 +23,7 @@ import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
 import com.uber.autodispose.autoDisposable
 import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.activity_test.*
+import kotlinx.android.synthetic.main.open_eyes_activity_test.*
 import okhttp3.MediaType
 import okhttp3.RequestBody
 
@@ -32,7 +32,7 @@ class TestActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_test)
+        setContentView(R.layout.open_eyes_activity_test)
         initData(savedInstanceState)
     }
 

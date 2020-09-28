@@ -7,7 +7,7 @@
     <dist:module dist:instant="true" />
 
     <application
-        android:name="com.fphoenixcorneae.openeyes.application.OpenEyesApplication"
+        android:name=".application.OpenEyesApplication"
         android:allowBackup="true"
         android:icon="@mipmap/open_eyes_ic_launcher"
         android:label="@string/open_eyes_app_name"
@@ -19,14 +19,14 @@
         tools:replace="android:label"
         tools:targetApi="m">
         <activity
-            android:name="com.fphoenixcorneae.openeyes.test.TestActivity"
+            android:name=".test.TestActivity"
             android:configChanges="orientation|keyboardHidden|screenSize|screenLayout"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustNothing"
             tools:ignore="LockedOrientationActivity" />
         <!-- 首页 -->
         <activity
-            android:name="com.fphoenixcorneae.openeyes.mvvm.viewmodel.activity.OpenEyesHomeActivity"
+            android:name=".mvvm.viewmodel.activity.OpenEyesHomeActivity"
             android:configChanges="orientation|keyboardHidden|screenSize|screenLayout"
             android:label="@string/open_eyes_app_name"
             android:screenOrientation="portrait"
@@ -40,7 +40,15 @@
         </activity>
         <!-- 视频播放详情页面 -->
         <activity
-            android:name="com.fphoenixcorneae.openeyes.mvvm.viewmodel.activity.OpenEyesVideoDetailActivity"
+            android:name=".mvvm.viewmodel.activity.OpenEyesVideoDetailActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize|screenLayout"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.RealFullscreen"
+            android:windowSoftInputMode="adjustNothing"
+            tools:ignore="LockedOrientationActivity" />
+        <!-- 分类详情页面 -->
+        <activity
+            android:name=".mvvm.viewmodel.activity.OpenEyesCategoryDetailActivity"
             android:configChanges="orientation|keyboardHidden|screenSize|screenLayout"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Fullscreen"

@@ -11,5 +11,6 @@ class OpenEyesConstants private constructor() {
         const val EXTRA_KEY_ALPHA = "alpha"
         const val EXTRA_KEY_API_URL = "api_url"
         const val EXTRA_KEY_VIDEO_DATA = "video_data"
+        const val EXTRA_KEY_CATEGORY_DATA = "category_data"
     }
 }

@@ -1,19 +1,20 @@
 package com.fphoenixcorneae.openeyes.mvvm.presenter
 
-import com.uber.autodispose.autoDisposable
 import com.fphoenixcorneae.framework.base.BasePresenter
 import com.fphoenixcorneae.openeyes.mvvm.contract.OpenEyesCategoryDetailContract
 import com.fphoenixcorneae.openeyes.mvvm.model.OpenEyesCategoryDetailModel
+import com.uber.autodispose.autoDisposable
+import javax.inject.Inject
 
 /**
- * @desc: 分类详情 Presenter
+ * @desc 分类详情 Presenter
  */
-class OpenEyesCategoryDetailPresenter : BasePresenter<OpenEyesCategoryDetailContract.View>(),
+class OpenEyesCategoryDetailPresenter @Inject constructor() :
+    BasePresenter<OpenEyesCategoryDetailContract.View>(),
     OpenEyesCategoryDetailContract.Presenter {
 
-    private val categoryDetailModel by lazy {
-        OpenEyesCategoryDetailModel()
-    }
+    @Inject
+    lateinit var categoryDetailModel: OpenEyesCategoryDetailModel
 
     private var nextPageUrl: String? = null
 
@@ -30,7 +31,7 @@ class OpenEyesCategoryDetailPresenter : BasePresenter<OpenEyesCategoryDetailCont
                 }
             }, { throwable ->
                 mView.apply {
-                    showError(throwable.toString())
+                    showErrorMsg(throwable)
                 }
             })
     }
@@ -49,7 +50,7 @@ class OpenEyesCategoryDetailPresenter : BasePresenter<OpenEyesCategoryDetailCont
                     }
                 }, { throwable ->
                     mView.apply {
-                        showError(throwable.toString())
+                        showErrorMsg(throwable)
                     }
                 })
         }

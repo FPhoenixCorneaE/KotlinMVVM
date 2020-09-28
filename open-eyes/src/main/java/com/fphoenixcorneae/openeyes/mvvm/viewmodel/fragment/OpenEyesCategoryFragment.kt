@@ -15,7 +15,9 @@ import com.fphoenixcorneae.openeyes.constant.OpenEyesConstants
 import com.fphoenixcorneae.openeyes.mvvm.contract.OpenEyesCategoryContract
 import com.fphoenixcorneae.openeyes.mvvm.model.bean.OpenEyesCategoryBean
 import com.fphoenixcorneae.openeyes.mvvm.presenter.OpenEyesCategoryPresenter
+import com.fphoenixcorneae.openeyes.mvvm.viewmodel.activity.OpenEyesCategoryDetailActivity
 import com.fphoenixcorneae.openeyes.mvvm.viewmodel.adapter.OpenEyesCategoryAdapter
+import com.fphoenixcorneae.util.IntentUtil
 import com.fphoenixcorneae.util.ScreenUtil
 import kotlinx.android.synthetic.main.open_eyes_fragment_category.*
 import kotlin.math.abs
@@ -99,7 +101,14 @@ class OpenEyesCategoryFragment :
     }
 
     override fun initListener() {
-
+        mCategoryAdapter.setOnItemClickListener { _, openEyesCategoryBean, _ ->
+            IntentUtil.startActivity(
+                mContext, OpenEyesCategoryDetailActivity::class.java,
+                Bundle().apply {
+                    putParcelable(OpenEyesConstants.EXTRA_KEY_CATEGORY_DATA, openEyesCategoryBean)
+                }, enterAnim = R.anim.bottom_in, exitAnim = R.anim.bottom_out
+            )
+        }
     }
 
     override fun lazyLoadData() {

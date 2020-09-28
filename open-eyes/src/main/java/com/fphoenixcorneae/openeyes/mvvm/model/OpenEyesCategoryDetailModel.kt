@@ -2,12 +2,15 @@ package com.fphoenixcorneae.openeyes.mvvm.model
 
 import com.fphoenixcorneae.openeyes.mvvm.model.bean.OpenEyesHomeBean
 import com.fphoenixcorneae.rxretrofit.scheduler.SchedulerManager
+import dagger.Module
 import io.reactivex.Observable
+import javax.inject.Inject
 
 /**
- * @desc: 分类详情 Model
+ * @desc 分类详情 Model
  */
-class OpenEyesCategoryDetailModel : OpenEyesBaseModel() {
+@Module
+class OpenEyesCategoryDetailModel @Inject constructor() : OpenEyesBaseModel() {
 
     /**
      * 获取分类下的 List 数据

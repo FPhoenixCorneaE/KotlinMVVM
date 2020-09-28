@@ -16,6 +16,9 @@ import com.fphoenixcorneae.util.FragmentUtil
 import com.fphoenixcorneae.util.ResourceUtil
 import kotlinx.android.synthetic.main.open_eyes_activity_home.*
 
+/**
+ * @desc 首页 Activity
+ */
 class OpenEyesHomeActivity :
     Dagger2InjectionActivity<OpenEyesHomeContract.View, OpenEyesHomePresenter>() {
 

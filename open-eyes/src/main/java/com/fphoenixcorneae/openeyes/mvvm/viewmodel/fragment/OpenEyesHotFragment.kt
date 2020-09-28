@@ -46,10 +46,7 @@ class OpenEyesHotFragment :
                     OpenEyesConstants.REQUEST_KEY_TITLE_ALPHA -> {
                         val alpha = result.getInt(OpenEyesConstants.EXTRA_KEY_ALPHA)
                         mTbTitleBar.setBackgroundColor(
-                            ColorUtil.setAlphaComponent(
-                                Color.WHITE,
-                                alpha
-                            )
+                            ColorUtil.setAlphaComponent(Color.WHITE, alpha)
                         )
                     }
                 }

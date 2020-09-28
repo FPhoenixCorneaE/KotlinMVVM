@@ -33,7 +33,7 @@ import kotlinx.android.synthetic.main.open_eyes_layout_video_detail_info.*
 import java.util.*
 
 /**
- * @desc 视频详情
+ * @desc 视频详情 Activity
  */
 class OpenEyesVideoDetailActivity :
     Dagger2InjectionActivity<OpenEyesVideoDetailContract.View, OpenEyesVideoDetailPresenter>(),

@@ -158,20 +158,14 @@ class OpenEyesHomeFragment :
                                     return
                                 }
                                 mTbTitleBar.setBackgroundColor(
-                                    ColorUtil.setAlphaComponent(
-                                        Color.WHITE,
-                                        alpha
-                                    )
+                                    ColorUtil.setAlphaComponent(Color.WHITE, alpha)
                                 )
                             }
                         }
                         else -> {
                             // 设置标题栏背景透明度
                             mTbTitleBar.setBackgroundColor(
-                                ColorUtil.setAlphaComponent(
-                                    Color.WHITE,
-                                    80
-                                )
+                                ColorUtil.setAlphaComponent(Color.WHITE, 80)
                             )
                             if (mAdapter.data.size > 1 && currentVisibleItemPosition < mAdapter.data.size) {
                                 val itemList = mAdapter.data
