@@ -10,6 +10,8 @@ import android.view.View
 import androidx.palette.graphics.Palette
 import androidx.palette.graphics.Palette.PaletteAsyncListener
 import java.lang.ref.WeakReference
+import kotlin.math.max
+import kotlin.math.min
 
 /**
  * 调色板图片视图
@@ -69,7 +71,7 @@ class PaletteImageView @JvmOverloads constructor(
         mPaintShadow = Paint(Paint.ANTI_ALIAS_FLAG)
         mPaintShadow!!.isDither = true
         setLayerType(LAYER_TYPE_SOFTWARE, null)
-        setBackgroundColor(resources.getColor(android.R.color.transparent))
+        setBackgroundColor(Color.TRANSPARENT)
         mPaint = Paint(Paint.ANTI_ALIAS_FLAG)
         mPaint!!.isDither = true
         mPorterDuffXfermode = PorterDuffXfermode(PorterDuff.Mode.SRC_IN)
@@ -78,7 +80,6 @@ class PaletteImageView @JvmOverloads constructor(
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         val width = MeasureSpec.getSize(widthMeasureSpec)
-        val widthMode = MeasureSpec.getMode(widthMeasureSpec)
         var height = MeasureSpec.getSize(heightMeasureSpec)
         mOnMeasureHeightMode = MeasureSpec.getMode(heightMeasureSpec)
         if (mOnMeasureHeightMode == MeasureSpec.UNSPECIFIED) {
@@ -150,8 +151,8 @@ class PaletteImageView @JvmOverloads constructor(
     }
 
     fun setPaletteShadowOffset(offsetX: Int, offsetY: Int) {
-        mOffsetX = Math.min(offsetX, mPadding)
-        mOffsetY = Math.min(offsetY, mPadding)
+        mOffsetX = min(offsetX, mPadding)
+        mOffsetY = min(offsetY, mPadding)
         mHandler!!.sendEmptyMessage(MSG)
     }
 
@@ -180,7 +181,7 @@ class PaletteImageView @JvmOverloads constructor(
         val target = Bitmap.createBitmap(
             width - mPadding * 2,
             height - mPadding * 2,
-            Bitmap.Config.ARGB_4444
+            Bitmap.Config.ARGB_8888
         )
         val canvas = Canvas(target)
         canvas.drawRoundRect(mRoundRectF!!, radius.toFloat(), radius.toFloat(), mPaint!!)
@@ -252,8 +253,8 @@ class PaletteImageView @JvmOverloads constructor(
         } else {
             var dx = 0
             var dy = 0
-            val small = Math.min(rawHeight, rawWidth)
-            val big = Math.max(reqWidth, reqHeight)
+            val small = min(rawHeight, rawWidth)
+            val big = max(reqWidth, reqHeight)
             val scale = big * 1.0f / small
             matrix!!.setScale(scale, scale)
             if (rawHeight > rawWidth) {
@@ -376,7 +377,7 @@ class PaletteImageView @JvmOverloads constructor(
 
     private class MyHandler(paletteImageView: PaletteImageView?) :
         Handler() {
-        private val mPaletteImageViewWeakReference: WeakReference<PaletteImageView?>
+        private val mPaletteImageViewWeakReference: WeakReference<PaletteImageView?> = WeakReference(paletteImageView)
         override fun handleMessage(msg: Message) {
             if (mPaletteImageViewWeakReference.get() != null) {
                 val paletteImageView = mPaletteImageViewWeakReference.get()
@@ -400,10 +401,6 @@ class PaletteImageView @JvmOverloads constructor(
             }
         }
 
-        init {
-            mPaletteImageViewWeakReference =
-                WeakReference(paletteImageView)
-        }
     }
 
     companion object {

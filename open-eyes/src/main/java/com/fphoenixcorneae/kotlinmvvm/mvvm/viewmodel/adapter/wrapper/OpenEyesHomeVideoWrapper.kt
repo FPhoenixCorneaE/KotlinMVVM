@@ -51,7 +51,7 @@ class OpenEyesHomeVideoWrapper :
             // description
             mTvDescription.apply {
                 // 设置最大显示行数
-                mMaxLineCount = 3
+                mMaxLineCount = 2
                 // 收起文案
                 mCollapseText = ResourceUtil.getString(R.string.open_eyes_collapse_text)
                 // 展开文案

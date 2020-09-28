@@ -1,5 +1,6 @@
 package com.fphoenixcorneae.kotlinmvvm.mvvm.viewmodel.adapter
 
+import android.app.Activity
 import android.content.Context
 import android.graphics.drawable.GradientDrawable
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -9,9 +10,15 @@ import com.fphoenixcorneae.framework.widget.recyclerview.RecyclerItemType
 import com.fphoenixcorneae.framework.widget.recyclerview.StartSnapHelper
 import com.fphoenixcorneae.framework.widget.recyclerview.ViewHolder
 import com.fphoenixcorneae.kotlinmvvm.R
+import com.fphoenixcorneae.kotlinmvvm.constant.OpenEyesConstants
 import com.fphoenixcorneae.kotlinmvvm.mvvm.model.bean.OpenEyesHomeBean
+import com.fphoenixcorneae.kotlinmvvm.mvvm.viewmodel.activity.OpenEyesVideoDetailActivity
+import com.fphoenixcorneae.util.BundleBuilder
 import com.fphoenixcorneae.util.ColorUtil
+import com.fphoenixcorneae.util.IntentUtil
 import kotlinx.android.synthetic.main.open_eyes_item_follow.view.*
+import kotlinx.android.synthetic.main.open_eyes_item_follow.view.mTvTitle
+import kotlinx.android.synthetic.main.open_eyes_item_follow_child.view.*
 
 /**
  * @desc 关注适配器
@@ -53,7 +60,21 @@ class OpenEyesFollowAdapter(
                     setHasFixedSize(true)
                     layoutManager =
                         LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-                    adapter = OpenEyesFollowChildAdapter(context, itemList)
+                    adapter = OpenEyesFollowChildAdapter(context, itemList).apply {
+                        setOnItemClickListener { viewHolder, item, _ ->
+                            // 跳转到视频详情页面
+                            IntentUtil.startActivity(
+                                mContext as Activity,
+                                OpenEyesVideoDetailActivity::class.java,
+                                BundleBuilder.of().putSerializable(
+                                    OpenEyesConstants.EXTRA_KEY_VIDEO_DATA,
+                                    item
+                                ).get(),
+                                -1,
+                                viewHolder.itemView.mIvCoverFeed
+                            )
+                        }
+                    }
                     if (onFlingListener == null) {
                         StartSnapHelper().attachToRecyclerView(this)
                     }

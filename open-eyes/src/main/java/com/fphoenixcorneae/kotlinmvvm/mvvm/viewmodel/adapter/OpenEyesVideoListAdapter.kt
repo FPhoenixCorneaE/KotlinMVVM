@@ -37,15 +37,6 @@ class OpenEyesVideoListAdapter(
     }) {
 
     /**
-     * Kotlin的函数可以作为参数，写callback的时候，可以不用interface了
-     */
-    private var mOnItemClickRelatedVideo: ((item: OpenEyesHomeBean.Issue.Item) -> Unit)? = null
-
-    fun setOnItemDetailClick(mItemRelatedVideo: (item: OpenEyesHomeBean.Issue.Item) -> Unit) {
-        this.mOnItemClickRelatedVideo = mItemRelatedVideo
-    }
-
-    /**
      * 绑定数据
      */
     @SuppressLint("SetTextI18n")
@@ -72,9 +63,6 @@ class OpenEyesVideoListAdapter(
                                 cornerRadius = context.dpToPx(8f)
                             }
                         )
-
-                        // 判断onItemClickRelatedVideo 并使用
-                        holder.itemView.setOnClickListener { mOnItemClickRelatedVideo?.invoke(data) }
                     }
                 }
             }

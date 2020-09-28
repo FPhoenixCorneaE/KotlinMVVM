@@ -10,6 +10,7 @@
         android:layout_width="@dimen/dp_300"
         android:layout_height="@dimen/dp_0"
         android:scaleType="centerCrop"
+        android:transitionName="@string/open_eyes_transition_name_video"
         app:layout_constraintDimensionRatio="1.8:1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

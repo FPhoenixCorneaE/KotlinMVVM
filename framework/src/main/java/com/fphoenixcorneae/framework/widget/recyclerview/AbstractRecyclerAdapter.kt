@@ -9,17 +9,22 @@ import androidx.recyclerview.widget.RecyclerView
  * @desc: 通用的 Adapter
  */
 abstract class AbstractRecyclerAdapter<T>(
-    protected var mContext: Context, var mData: ArrayList<T>, //条目布局
+    protected var mContext: Context,
+    var mData: ArrayList<T>,
     private var mLayoutId: Int
 ) : RecyclerView.Adapter<ViewHolder>() {
     private var mInflater: LayoutInflater? = null
     private var mTypeSupport: RecyclerItemType<T>? = null
 
-    //使用接口回调点击事件
-    private var mItemClickListener: OnItemClickListener? = null
+    /**
+     * 使用接口回调点击事件
+     */
+    private var mItemClickListener: ((ViewHolder,T, Int) -> Unit)? = null
 
-    //使用接口回调点击事件
-    private var mItemLongClickListener: OnItemLongClickListener? = null
+    /**
+     * 使用接口回调长按事件
+     */
+    private var mItemLongClickListener: ((ViewHolder,T, Int) -> Boolean)? = null
 
     init {
         mInflater = LayoutInflater.from(mContext)
@@ -58,7 +63,8 @@ abstract class AbstractRecyclerAdapter<T>(
         //条目点击事件
         mItemClickListener?.let {
             holder.itemView.setOnClickListener {
-                mItemClickListener!!.onItemClick(
+                mItemClickListener!!.invoke(
+                    holder,
                     mData[position],
                     position
                 )
@@ -68,7 +74,8 @@ abstract class AbstractRecyclerAdapter<T>(
         //长按点击事件
         mItemLongClickListener?.let {
             holder.itemView.setOnLongClickListener {
-                mItemLongClickListener!!.onItemLongClick(
+                mItemLongClickListener!!.invoke(
+                    holder,
                     mData[position],
                     position
                 )
@@ -113,11 +120,17 @@ abstract class AbstractRecyclerAdapter<T>(
         notifyDataSetChanged()
     }
 
-    fun setOnItemClickListener(itemClickListener: OnItemClickListener) {
+    /**
+     * Adapter条目的点击事件
+     */
+    fun setOnItemClickListener(itemClickListener: ((ViewHolder,T, Int) -> Unit)?) {
         this.mItemClickListener = itemClickListener
     }
 
-    fun setOnItemLongClickListener(itemLongClickListener: OnItemLongClickListener) {
+    /**
+     * Adapter条目的长按事件
+     */
+    fun setOnItemLongClickListener(itemLongClickListener: ((ViewHolder,T, Int) -> Boolean)?) {
         this.mItemLongClickListener = itemLongClickListener
     }
 }

@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 @Suppress("UNCHECKED_CAST")
 /**
- * @desc:ViewHolder
+ * @desc ViewHolder
  */
 class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 

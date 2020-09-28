@@ -11,9 +11,13 @@ import com.fphoenixcorneae.kotlinmvvm.constant.OpenEyesConstants
 import com.fphoenixcorneae.kotlinmvvm.mvvm.contract.OpenEyesRankContract
 import com.fphoenixcorneae.kotlinmvvm.mvvm.model.bean.OpenEyesHomeBean
 import com.fphoenixcorneae.kotlinmvvm.mvvm.presenter.OpenEyesRankPresenter
+import com.fphoenixcorneae.kotlinmvvm.mvvm.viewmodel.activity.OpenEyesVideoDetailActivity
 import com.fphoenixcorneae.kotlinmvvm.mvvm.viewmodel.adapter.OpenEyesRankAdapter
+import com.fphoenixcorneae.util.BundleBuilder
+import com.fphoenixcorneae.util.IntentUtil
 import com.fphoenixcorneae.util.ScreenUtil
 import kotlinx.android.synthetic.main.open_eyes_fragment_rank.*
+import kotlinx.android.synthetic.main.open_eyes_item_rank.view.*
 import kotlin.math.abs
 
 /**
@@ -86,7 +90,19 @@ class OpenEyesRankFragment :
     }
 
     override fun initListener() {
-
+        mRankAdapter.setOnItemClickListener { viewHolder, item, positon ->
+            // 跳转到视频详情页面
+            IntentUtil.startActivity(
+                mContext,
+                OpenEyesVideoDetailActivity::class.java,
+                BundleBuilder.of().putSerializable(
+                    OpenEyesConstants.EXTRA_KEY_VIDEO_DATA,
+                    item
+                ).get(),
+                -1,
+                viewHolder.itemView.mIvCoverFeed
+            )
+        }
     }
 
     override fun lazyLoadData() {

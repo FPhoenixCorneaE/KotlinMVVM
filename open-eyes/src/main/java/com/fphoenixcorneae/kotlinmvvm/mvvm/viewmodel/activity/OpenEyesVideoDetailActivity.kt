@@ -24,8 +24,6 @@ import com.fphoenixcorneae.kotlinmvvm.mvvm.presenter.OpenEyesVideoDetailPresente
 import com.fphoenixcorneae.kotlinmvvm.mvvm.viewmodel.adapter.OpenEyesVideoListAdapter
 import com.fphoenixcorneae.text.style.AnimatedTypeWriterSpan
 import com.fphoenixcorneae.util.ColorUtil
-import com.fphoenixcorneae.util.ResourceUtil
-import com.fphoenixcorneae.widget.ExpandCollapseTextView
 import com.shuyu.gsyvideoplayer.utils.OrientationUtils
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
 import com.shuyu.gsyvideoplayer.video.base.GSYVideoPlayer
@@ -92,8 +90,9 @@ class OpenEyesVideoDetailActivity :
     private fun initRecyclerView() {
         with(mRvVideo) {
             // 设置相关视频 Item 的点击事件
-            mVideoListAdapter.setOnItemDetailClick {
-                mPresenter.loadVideoInfo(it)
+            mVideoListAdapter.setOnItemClickListener { _, item, _ ->
+                mPresenter.loadVideoInfo(item)
+                mNsvScroll.scrollTo(0, 0)
             }
             layoutManager = LinearLayoutManager(mContext)
             adapter = mVideoListAdapter
@@ -202,7 +201,7 @@ class OpenEyesVideoDetailActivity :
             // category
             AnimatedTypeWriterSpan(
                 "#${category} / ${getString(R.string.open_eyes_eyepetizer_choiceness)} / ${
-                durationFormat(duration)
+                    durationFormat(duration)
                 }"
             ) {
                 mTvCategory.text = it
