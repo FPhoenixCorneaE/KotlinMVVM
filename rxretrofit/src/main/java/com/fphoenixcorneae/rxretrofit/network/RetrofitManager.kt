@@ -44,8 +44,6 @@ object RetrofitManager {
                 forEach { (name, value) ->
                     builder.addQueryParameter(name, value)
                 }
-                // 添加完清空
-                clear()
             }
             val modifiedUrl = builder.build()
             val request = originalRequest.newBuilder().url(modifiedUrl).build()
@@ -67,8 +65,6 @@ object RetrofitManager {
                         requestBuilder.addHeader(name, it)
                     }
                 }
-                // 添加完清空
-                clear()
             }
             requestBuilder.method(originalRequest.method(), originalRequest.body())
             val request = requestBuilder.build()

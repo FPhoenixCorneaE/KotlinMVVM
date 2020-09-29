@@ -36,6 +36,7 @@ class OpenEyesCategoryDetailActivity :
     override fun getLayoutId(): Int = R.layout.open_eyes_activity_category_detail
 
     override fun initView() {
+        mTbTitleBar.setBackgroundColor(Color.TRANSPARENT)
         initSmartRefreshLayout()
         initRecyclerView()
     }
@@ -54,6 +55,7 @@ class OpenEyesCategoryDetailActivity :
                 // description
                 mTvCategoryDesc.text = description
 
+                showLoading()
                 mPresenter.getCategoryDetailList(id)
             }
     }
@@ -69,7 +71,6 @@ class OpenEyesCategoryDetailActivity :
     private fun initRecyclerView() {
         mRvCategoryDetail.apply {
             setHasFixedSize(true)
-            isNestedScrollingEnabled = false
             adapter = mCategoryDetailAdapter
             addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -115,6 +116,8 @@ class OpenEyesCategoryDetailActivity :
     }
 
     override fun setCateDetailList(itemList: ArrayList<OpenEyesHomeBean.Issue.Item>) {
+        showContent()
+        mSrlRefresh.finishLoadMore()
         mCategoryDetailAdapter.addAllData(itemList)
     }
 

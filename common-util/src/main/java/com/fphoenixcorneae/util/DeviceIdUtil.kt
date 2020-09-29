@@ -79,7 +79,7 @@ class DeviceIdUtil private constructor() {
         private val androidID: String
             @SuppressLint("HardwareIds")
             get() = Settings.Secure.getString(
-                ContextUtil.context.getContentResolver(),
+                ContextUtil.context.contentResolver,
                 Settings.Secure.ANDROID_ID
             )
 

@@ -18,7 +18,7 @@
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:contentScrim="@color/open_eyes_color_white"
+            app:contentScrim="@color/open_eyes_color_translucent"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <!-- “pin”：固定模式，在折叠的时候最后固定在顶端;“parallax”：视差模式，在折叠的时候会有个视差折叠的效果 -->
@@ -33,17 +33,24 @@
                 tools:ignore="ContentDescription"
                 tools:src="@tools:sample/backgrounds/scenic" />
 
-            <com.fphoenixcorneae.titlebar.CommonTitleBar
-                android:id="@+id/mTbTitleBar"
+            <com.google.android.material.appbar.MaterialToolbar
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:centerTextColor="@color/open_eyes_color_title_0x222222"
-                app:centerTextSize="@dimen/sp_18"
-                app:centerType="textView"
-                app:layout_collapseMode="pin"
-                app:layout_constraintTop_toTopOf="parent"
-                app:showBottomLine="false"
-                app:titleBarHeight="?attr/actionBarSize" />
+                android:layout_height="@dimen/dp_56"
+                app:contentInsetStart="@dimen/dp_0"
+                app:layout_collapseMode="pin">
+
+                <com.fphoenixcorneae.titlebar.CommonTitleBar
+                    android:id="@+id/mTbTitleBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:centerTextColor="@color/open_eyes_color_title_0x222222"
+                    app:centerTextSize="@dimen/sp_18"
+                    app:centerType="textView"
+                    app:layout_collapseMode="pin"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:showBottomLine="false"
+                    app:titleBarHeight="?attr/actionBarSize" />
+            </com.google.android.material.appbar.MaterialToolbar>
 
             <TextView
                 android:id="@+id/mTvCategoryDesc"
@@ -62,7 +69,8 @@
     <com.scwang.smart.refresh.layout.SmartRefreshLayout
         android:id="@+id/mSrlRefresh"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/mRvCategoryDetail"
@@ -81,7 +89,7 @@
         android:layout_margin="@dimen/dp_16"
         android:src="@drawable/open_eyes_ic_share"
         android:tint="@color/open_eyes_color_black"
-        app:backgroundTint="@color/open_eyes_color_white_alpha50"
+        app:backgroundTint="@color/open_eyes_color_white_alphabb"
         app:elevation="@dimen/dp_4"
         app:fabSize="auto"
         app:layout_anchor="@id/mAblAppBar"
