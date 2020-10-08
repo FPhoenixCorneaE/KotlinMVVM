@@ -12,11 +12,14 @@ import com.fphoenixcorneae.openeyes.mvvm.model.bean.OpenEyesCategoryBean
 import com.fphoenixcorneae.openeyes.mvvm.model.bean.OpenEyesHomeBean
 import com.fphoenixcorneae.openeyes.mvvm.presenter.OpenEyesCategoryDetailPresenter
 import com.fphoenixcorneae.openeyes.mvvm.viewmodel.adapter.OpenEyesCategoryDetailAdapter
+import com.fphoenixcorneae.util.BundleBuilder
 import com.fphoenixcorneae.util.ColorUtil
+import com.fphoenixcorneae.util.IntentUtil
 import com.fphoenixcorneae.util.ScreenUtil
 import com.scwang.smart.refresh.layout.api.RefreshLayout
 import com.scwang.smart.refresh.layout.listener.OnLoadMoreListener
 import kotlinx.android.synthetic.main.open_eyes_activity_category_detail.*
+import kotlinx.android.synthetic.main.open_eyes_item_rank.view.*
 import kotlin.math.abs
 
 /**
@@ -103,6 +106,22 @@ class OpenEyesCategoryDetailActivity :
                     }
                 }
             })
+        }
+    }
+
+    override fun initListener() {
+        mCategoryDetailAdapter.setOnItemClickListener { viewHolder, item, positon ->
+            // 跳转到视频详情页面
+            IntentUtil.startActivity(
+                mContext,
+                OpenEyesVideoDetailActivity::class.java,
+                BundleBuilder.of().putSerializable(
+                    OpenEyesConstants.EXTRA_KEY_VIDEO_DATA,
+                    item
+                ).get(),
+                -1,
+                viewHolder.itemView.mIvCoverFeed
+            )
         }
     }
 

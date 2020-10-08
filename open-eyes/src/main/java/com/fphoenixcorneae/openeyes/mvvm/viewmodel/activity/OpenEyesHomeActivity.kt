@@ -51,22 +51,22 @@ class OpenEyesHomeActivity :
             .setTabs(
                 listOf(
                     BottomNavigationItem(
-                        "首页",
+                        getString(R.string.open_eyes_home_tab_homepage),
                         ColorUtil.setAlphaComponent(ColorUtil.randomColor, 0.1f),
                         R.drawable.open_eyes_ic_nav_home
                     ),
                     BottomNavigationItem(
-                        "发现",
+                        getString(R.string.open_eyes_home_tab_discover),
                         ColorUtil.setAlphaComponent(ColorUtil.randomColor, 0.1f),
                         R.drawable.open_eyes_ic_nav_discover
                     ),
                     BottomNavigationItem(
-                        "热门",
+                        getString(R.string.open_eyes_home_tab_hot),
                         ColorUtil.setAlphaComponent(ColorUtil.randomColor, 0.1f),
                         R.drawable.open_eyes_ic_nav_hot
                     ),
                     BottomNavigationItem(
-                        "我的",
+                        getString(R.string.open_eyes_home_tab_mine),
                         ColorUtil.setAlphaComponent(ColorUtil.randomColor, 0.1f),
                         R.drawable.open_eyes_ic_nav_mine
                     )

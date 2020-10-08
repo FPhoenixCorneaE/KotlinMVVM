@@ -20,4 +20,8 @@
     <string name="open_eyes_setting">设置</string>
     <string name="open_eyes_cache">缓存</string>
     <string name="open_eyes_eyepetizer_choiceness">开眼精选</string>
+    <string name="open_eyes_home_tab_homepage">首页</string>
+    <string name="open_eyes_home_tab_discover">发现</string>
+    <string name="open_eyes_home_tab_hot">热门</string>
+    <string name="open_eyes_home_tab_mine">我的</string>
 </resources>
