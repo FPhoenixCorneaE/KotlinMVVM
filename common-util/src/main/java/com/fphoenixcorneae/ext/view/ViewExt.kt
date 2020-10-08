@@ -188,9 +188,19 @@ fun View.animateRevealHide(
     anim.start()
 }
 
+fun View.dpToPx(dp: Float): Float {
+    val scale = resources.displayMetrics.density
+    return dp * scale + 0.5f
+}
+
 fun View.dp2px(dp: Float): Int {
     val scale = resources.displayMetrics.density
     return (dp * scale + 0.5f).toInt()
+}
+
+fun View.pxToDp(px: Float): Float {
+    val scale = resources.displayMetrics.density
+    return px / scale + 0.5f
 }
 
 fun View.px2dp(px: Float): Int {

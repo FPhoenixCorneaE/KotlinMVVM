@@ -3,7 +3,6 @@ package com.fphoenixcorneae.openeyes.mvvm.viewmodel.activity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.fphoenixcorneae.bottomnavigation.BottomNavigationItem
-import com.fphoenixcorneae.framework.base.activity.Dagger2InjectionActivity
 import com.fphoenixcorneae.openeyes.R
 import com.fphoenixcorneae.openeyes.mvvm.contract.OpenEyesHomeContract
 import com.fphoenixcorneae.openeyes.mvvm.presenter.OpenEyesHomePresenter
@@ -20,7 +19,7 @@ import kotlinx.android.synthetic.main.open_eyes_activity_home.*
  * @desc 首页 Activity
  */
 class OpenEyesHomeActivity :
-    Dagger2InjectionActivity<OpenEyesHomeContract.View, OpenEyesHomePresenter>() {
+    OpenEyesBaseDagger2Activity<OpenEyesHomeContract.View, OpenEyesHomePresenter>() {
 
     private val mFragments = arrayListOf(
         OpenEyesHomeFragment.getInstance(),

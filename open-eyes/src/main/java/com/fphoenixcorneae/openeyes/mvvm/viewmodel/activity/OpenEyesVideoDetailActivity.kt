@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.fphoenixcorneae.ext.durationFormat
 import com.fphoenixcorneae.ext.loggerD
 import com.fphoenixcorneae.ext.toast
-import com.fphoenixcorneae.framework.base.activity.Dagger2InjectionActivity
 import com.fphoenixcorneae.framework.glide.GlideUtil
 import com.fphoenixcorneae.openeyes.R
 import com.fphoenixcorneae.openeyes.constant.OpenEyesConstants
@@ -36,7 +35,7 @@ import java.util.*
  * @desc 视频详情 Activity
  */
 class OpenEyesVideoDetailActivity :
-    Dagger2InjectionActivity<OpenEyesVideoDetailContract.View, OpenEyesVideoDetailPresenter>(),
+    OpenEyesBaseDagger2Activity<OpenEyesVideoDetailContract.View, OpenEyesVideoDetailPresenter>(),
     OpenEyesVideoDetailContract.View {
 
     private val mVideoListAdapter by lazy {

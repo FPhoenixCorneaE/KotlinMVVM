@@ -32,15 +32,9 @@
 
     <com.fphoenixcorneae.titlebar.CommonTitleBar
         android:id="@+id/mTbTitleBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:centerText=""
-        app:centerTextColor="@color/open_eyes_color_title_0x222222"
-        app:centerTextSize="@dimen/sp_18"
-        app:centerType="textView"
+        style="@style/CommonTitleBar"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:rightImageResource="@mipmap/open_eyes_ic_search"
-        app:rightType="imageButton"
-        app:showBottomLine="false"
-        app:titleBarHeight="?attr/actionBarSize" />
+        app:rightType="imageButton" />
 </androidx.constraintlayout.widget.ConstraintLayout>

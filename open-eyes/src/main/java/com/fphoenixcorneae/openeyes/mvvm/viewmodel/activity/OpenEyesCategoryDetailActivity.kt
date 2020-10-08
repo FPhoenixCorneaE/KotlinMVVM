@@ -1,13 +1,10 @@
 package com.fphoenixcorneae.openeyes.mvvm.viewmodel.activity
 
 import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.fphoenixcorneae.framework.base.activity.Dagger2InjectionActivity
-import com.fphoenixcorneae.framework.glide.GlideUtil
 import com.fphoenixcorneae.openeyes.R
 import com.fphoenixcorneae.openeyes.constant.OpenEyesConstants
 import com.fphoenixcorneae.openeyes.mvvm.contract.OpenEyesCategoryDetailContract
@@ -26,7 +23,7 @@ import kotlin.math.abs
  * @desc 分类详情 Activity
  */
 class OpenEyesCategoryDetailActivity :
-    Dagger2InjectionActivity<OpenEyesCategoryDetailContract.View, OpenEyesCategoryDetailPresenter>(),
+    OpenEyesBaseDagger2Activity<OpenEyesCategoryDetailContract.View, OpenEyesCategoryDetailPresenter>(),
     OpenEyesCategoryDetailContract.View, OnLoadMoreListener {
 
     private val mCategoryDetailAdapter by lazy {
@@ -36,7 +33,7 @@ class OpenEyesCategoryDetailActivity :
     override fun getLayoutId(): Int = R.layout.open_eyes_activity_category_detail
 
     override fun initView() {
-        mTbTitleBar.setBackgroundColor(Color.TRANSPARENT)
+        mTbTitleBar.init()
         initSmartRefreshLayout()
         initRecyclerView()
     }
@@ -46,14 +43,8 @@ class OpenEyesCategoryDetailActivity :
             ?.apply {
                 // category name
                 mTbTitleBar.centerTextView?.text = name
-                // headerImage
-                GlideUtil.setupImage(
-                    mIvCategoryHeader,
-                    headerImage,
-                    ColorDrawable(ColorUtil.randomColor)
-                )
                 // description
-                mTvCategoryDesc.text = description
+                mTbTitleBar.centerSubTextView?.text = description
 
                 showLoading()
                 mPresenter.getCategoryDetailList(id)

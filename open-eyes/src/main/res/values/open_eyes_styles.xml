@@ -1,4 +1,18 @@
 <resources>
+
+    <style name="CommonTitleBar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="centerTextColor">@color/open_eyes_color_title_0x222222</item>
+        <item name="centerTextSize">@dimen/sp_18</item>
+        <item name="centerType">textView</item>
+        <item name="leftImageTint">@color/open_eyes_color_title_0x222222</item>
+        <item name="showBottomLine">false</item>
+        <item name="statusBarColor">@color/open_eyes_colorPrimaryDark</item>
+        <item name="titleBarColor">@color/open_eyes_colorPrimary</item>
+        <item name="titleBarHeight">?attr/actionBarSize</item>
+    </style>
+
     <!-- 圆角图片 -->
     <style name="roundedCornerStyle">
         <item name="cornerFamily">rounded</item>
