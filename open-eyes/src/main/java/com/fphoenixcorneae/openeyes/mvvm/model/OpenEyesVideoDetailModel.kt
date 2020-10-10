@@ -7,7 +7,7 @@ import io.reactivex.Observable
 import javax.inject.Inject
 
 /**
- * @desc: 视频详情 Model
+ * @desc 视频详情 Model
  */
 @Module
 class OpenEyesVideoDetailModel @Inject constructor() : OpenEyesBaseModel() {

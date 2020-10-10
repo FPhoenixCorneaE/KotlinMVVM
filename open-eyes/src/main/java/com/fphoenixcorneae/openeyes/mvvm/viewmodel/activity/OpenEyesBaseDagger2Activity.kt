@@ -13,15 +13,15 @@ abstract class OpenEyesBaseDagger2Activity<V : IView, P : IPresenter<V>> :
      * 初始化标题栏
      */
     protected fun CommonTitleBar.init(
-        onTitleBarClickListener: CommonTitleBar.OnTitleBarClickListener? = null
+        onTitleBarClickListener: ((v: View, action: Int, extra: String?) -> Unit)? = null
     ) {
         apply {
             setOnTitleBarClickListener(object : CommonTitleBar.OnTitleBarClickListener {
-                override fun onClicked(v: View?, action: Int, extra: String?) {
+                override fun onClicked(v: View, action: Int, extra: String?) {
                     when (action) {
                         CommonTitleBar.MotionAction.ACTION_LEFT_BUTTON -> finish()
                     }
-                    onTitleBarClickListener?.onClicked(v, action, extra)
+                    onTitleBarClickListener?.invoke(v, action, extra)
                 }
             })
         }

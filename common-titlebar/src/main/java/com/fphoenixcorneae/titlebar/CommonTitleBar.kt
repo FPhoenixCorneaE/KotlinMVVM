@@ -17,7 +17,11 @@ import android.view.inputmethod.EditorInfo
 import android.widget.*
 import android.widget.TextView.OnEditorActionListener
 import androidx.core.content.ContextCompat
-import com.fphoenixcorneae.ext.*
+import androidx.core.content.res.ResourcesCompat
+import com.fphoenixcorneae.ext.dp2px
+import com.fphoenixcorneae.ext.dpToPx
+import com.fphoenixcorneae.ext.screenWidth
+import com.fphoenixcorneae.ext.spToPx
 import com.fphoenixcorneae.ext.view.setTintColor
 import com.fphoenixcorneae.util.KeyboardUtil
 import com.fphoenixcorneae.util.ViewUtil
@@ -25,7 +29,7 @@ import com.fphoenixcorneae.util.statusbar.StatusBarUtil
 import kotlin.math.max
 
 /**
- * 通用标题栏
+ * @desc 通用标题栏
  */
 class CommonTitleBar @JvmOverloads constructor(
     context: Context,
@@ -134,14 +138,16 @@ class CommonTitleBar @JvmOverloads constructor(
     private var statusBarColor: Int = Color.WHITE // 状态栏颜色 = 0
     private var statusBarMode: Int = 0 // 状态栏模式 = 0
     private var showBottomLine: Boolean = true // 是否显示底部分割线 = false
-    private var bottomLineColor: Int = Color.parseColor("#dddddd")// 分割线颜色 = 0
+    private var bottomLineColor: Int = 0// 分割线颜色 = 0
     private var bottomShadowHeight: Float = 0f // 底部阴影高度 = 0f
     private var leftType =
         TYPE_LEFT_NONE// 左边视图类型 = 0
     private var leftText // 左边TextView文字
             : String? = null
-    private var leftTextColor = 0// 左边TextView颜色 = 0
+    private var leftTextColor = NO_ID// 左边TextView颜色 = NO_ID
     private var leftTextSize = 0f// 左边TextView文字大小 = 0f
+    private var leftTextFontFamily = 0// 左边TextView文字字体 = 0
+    private var leftTextBold = false// 左边TextView文字是否加粗 = false
     private var leftDrawable = 0// 左边TextView drawableLeft资源 = 0
     private var leftDrawablePadding = 5f // 左边TextView drawablePadding = 0f
     private var leftImageResource = R.drawable.common_titlebar_reback_selector // 左边图片资源 = 0
@@ -151,8 +157,10 @@ class CommonTitleBar @JvmOverloads constructor(
         TYPE_RIGHT_NONE // 右边视图类型 = 0
     private var rightText // 右边TextView文字
             : String? = null
-    private var rightTextColor = 0// 右边TextView颜色 = 0
+    private var rightTextColor = NO_ID// 右边TextView颜色 = NO_ID
     private var rightTextSize = 0f// 右边TextView文字大小 = 0f
+    private var rightTextFontFamily = 0// 右边TextView文字字体 = 0
+    private var rightTextBold = false// 右边TextView文字是否加粗 = false
     private var rightImageResource = 0// 右边图片资源 = 0
     private var rightImageTint = Color.BLACK
     private var rightCustomViewRes = 0// 右边自定义视图布局资源 = 0
@@ -162,11 +170,15 @@ class CommonTitleBar @JvmOverloads constructor(
             : String? = null
     private var centerTextColor = Color.parseColor("#333333")// 中间TextView字体颜色 = 0
     private var centerTextSize = 0f// 中间TextView字体大小 = 0f
+    private var centerTextFontFamily = 0// 中间TextView文字字体 = 0
+    private var centerTextBold = true// 中间TextView文字是否加粗 = true
     private var centerTextMarquee = true// 中间TextView字体是否显示跑马灯效果 = false
     private var centerSubText // 中间subTextView文字
             : String? = null
     private var centerSubTextColor = Color.parseColor("#666666")// 中间subTextView字体颜色 = 0
     private var centerSubTextSize = 0f// 中间subTextView字体大小 = 0f
+    private var centerSubTextFontFamily = 0// 中间subTextView文字字体 = 0
+    private var centerSubTextBold = false// 中间subTextView文字是否加粗 = true
 
     /**
      * 搜索输入框:是否可输入、提示文字、提示文字颜色、文字颜色、文字大小、背景图片、
@@ -207,7 +219,7 @@ class CommonTitleBar @JvmOverloads constructor(
         showBottomLine = array.getBoolean(R.styleable.CommonTitleBar_showBottomLine, true)
         bottomLineColor = array.getColor(
             R.styleable.CommonTitleBar_bottomLineColor,
-            Color.parseColor("#dddddd")
+            Color.parseColor("#eeeeee")
         )
         bottomShadowHeight = array.getDimension(
             R.styleable.CommonTitleBar_bottomShadowHeight,
@@ -222,11 +234,19 @@ class CommonTitleBar @JvmOverloads constructor(
                 leftText = array.getString(R.styleable.CommonTitleBar_leftText)
                 leftTextColor = array.getColor(
                     R.styleable.CommonTitleBar_leftTextColor,
-                    ContextCompat.getColor(context, R.color.common_titlebar_text_selector)
+                    NO_ID
                 )
                 leftTextSize = array.getDimension(
                     R.styleable.CommonTitleBar_leftTextSize,
                     context.spToPx(16f)
+                )
+                leftTextFontFamily = array.getResourceId(
+                    R.styleable.CommonTitleBar_leftTextFontFamily,
+                    0
+                )
+                leftTextBold = array.getBoolean(
+                    R.styleable.CommonTitleBar_leftTextBold,
+                    false
                 )
                 leftDrawable = array.getResourceId(R.styleable.CommonTitleBar_leftDrawable, 0)
                 leftDrawablePadding =
@@ -256,11 +276,19 @@ class CommonTitleBar @JvmOverloads constructor(
                 rightText = array.getString(R.styleable.CommonTitleBar_rightText)
                 rightTextColor = array.getColor(
                     R.styleable.CommonTitleBar_rightTextColor,
-                    ContextCompat.getColor(context, R.color.common_titlebar_text_selector)
+                    NO_ID
                 )
                 rightTextSize = array.getDimension(
                     R.styleable.CommonTitleBar_rightTextSize,
                     context.spToPx(16f)
+                )
+                rightTextFontFamily = array.getResourceId(
+                    R.styleable.CommonTitleBar_rightTextFontFamily,
+                    0
+                )
+                rightTextBold = array.getBoolean(
+                    R.styleable.CommonTitleBar_rightTextBold,
+                    false
                 )
             }
             TYPE_RIGHT_IMAGE_BUTTON -> {
@@ -312,6 +340,14 @@ class CommonTitleBar @JvmOverloads constructor(
                     R.styleable.CommonTitleBar_centerTextSize,
                     context.spToPx(18f)
                 )
+                centerTextFontFamily = array.getResourceId(
+                    R.styleable.CommonTitleBar_centerTextFontFamily,
+                    0
+                )
+                centerTextBold = array.getBoolean(
+                    R.styleable.CommonTitleBar_centerTextBold,
+                    true
+                )
                 centerTextMarquee =
                     array.getBoolean(R.styleable.CommonTitleBar_centerTextMarquee, true)
                 centerSubText = array.getString(R.styleable.CommonTitleBar_centerSubText)
@@ -322,6 +358,14 @@ class CommonTitleBar @JvmOverloads constructor(
                 centerSubTextSize = array.getDimension(
                     R.styleable.CommonTitleBar_centerSubTextSize,
                     context.spToPx(11f)
+                )
+                centerSubTextFontFamily = array.getResourceId(
+                    R.styleable.CommonTitleBar_centerSubTextFontFamily,
+                    0
+                )
+                centerSubTextBold = array.getBoolean(
+                    R.styleable.CommonTitleBar_centerSubTextBold,
+                    false
                 )
             }
             TYPE_CENTER_SEARCH_VIEW -> {
@@ -459,10 +503,28 @@ class CommonTitleBar @JvmOverloads constructor(
                 leftTextView = TextView(context)
                 leftTextView!!.id = ViewUtil.generateViewId()
                 leftTextView!!.text = leftText
-                leftTextView!!.setTextColor(leftTextColor)
+                when {
+                    leftTextColor != NO_ID -> {
+                        leftTextView!!.setTextColor(leftTextColor)
+                    }
+                    else -> {
+                        leftTextView!!.setTextColor(
+                            ContextCompat.getColorStateList(
+                                context,
+                                R.color.common_titlebar_text_selector
+                            )
+                        )
+                    }
+                }
                 leftTextView!!.setTextSize(TypedValue.COMPLEX_UNIT_PX, leftTextSize)
                 leftTextView!!.gravity = Gravity.START or Gravity.CENTER_VERTICAL
                 leftTextView!!.isSingleLine = true
+                // 字体
+                if (!isInEditMode && leftTextFontFamily != 0) {
+                    leftTextView!!.typeface = ResourcesCompat.getFont(context, leftTextFontFamily)
+                }
+                // 字体加粗
+                leftTextView!!.paint.isFakeBoldText = leftTextBold
                 leftTextView!!.setOnClickListener(this)
                 // 设置DrawableLeft及DrawablePadding
                 if (leftDrawable != 0) {
@@ -524,10 +586,28 @@ class CommonTitleBar @JvmOverloads constructor(
                 rightTextView = TextView(context)
                 rightTextView!!.id = ViewUtil.generateViewId()
                 rightTextView!!.text = rightText
-                rightTextView!!.setTextColor(rightTextColor)
+                when {
+                    rightTextColor != NO_ID -> {
+                        rightTextView!!.setTextColor(rightTextColor)
+                    }
+                    else -> {
+                        rightTextView!!.setTextColor(
+                            ContextCompat.getColorStateList(
+                                context,
+                                R.color.common_titlebar_text_selector
+                            )
+                        )
+                    }
+                }
                 rightTextView!!.setTextSize(TypedValue.COMPLEX_UNIT_PX, rightTextSize)
                 rightTextView!!.gravity = Gravity.END or Gravity.CENTER_VERTICAL
                 rightTextView!!.isSingleLine = true
+                // 字体
+                if (!isInEditMode && rightTextFontFamily != 0) {
+                    rightTextView!!.typeface = ResourcesCompat.getFont(context, rightTextFontFamily)
+                }
+                // 字体加粗
+                rightTextView!!.paint.isFakeBoldText = rightTextBold
                 rightTextView!!.setPadding(PADDING_16, 0, PADDING_16, 0)
                 rightTextView!!.setOnClickListener(this)
                 rlMain!!.addView(rightTextView, rightInnerParams)
@@ -582,8 +662,13 @@ class CommonTitleBar @JvmOverloads constructor(
                 centerTextView!!.setTextSize(TypedValue.COMPLEX_UNIT_PX, centerTextSize)
                 centerTextView!!.gravity = Gravity.CENTER
                 centerTextView!!.isSingleLine = true
+                // 字体
+                if (!isInEditMode && centerTextFontFamily != 0) {
+                    centerTextView!!.typeface =
+                        ResourcesCompat.getFont(context, centerTextFontFamily)
+                }
                 // 字体加粗
-                centerTextView!!.paint.isFakeBoldText = true
+                centerTextView!!.paint.isFakeBoldText = centerTextBold
                 // 设置跑马灯效果
                 centerTextView!!.maxWidth = (context.screenWidth * 3 / 5.0).toInt()
                 if (centerTextMarquee) {
@@ -611,6 +696,13 @@ class CommonTitleBar @JvmOverloads constructor(
                 centerSubTextView!!.setTextSize(TypedValue.COMPLEX_UNIT_PX, centerSubTextSize)
                 centerSubTextView!!.gravity = Gravity.CENTER
                 centerSubTextView!!.isSingleLine = true
+                // 字体
+                if (!isInEditMode && centerSubTextFontFamily != 0) {
+                    centerSubTextView!!.typeface =
+                        ResourcesCompat.getFont(context, centerSubTextFontFamily)
+                }
+                // 字体加粗
+                centerSubTextView!!.paint.isFakeBoldText = centerSubTextBold
                 if (TextUtils.isEmpty(centerSubText)) {
                     centerSubTextView!!.visibility = View.GONE
                 }
@@ -1145,7 +1237,7 @@ class CommonTitleBar @JvmOverloads constructor(
          * @param extra  中间为搜索框时,如果可输入,点击键盘的搜索按钮,会返回输入关键词
          */
         fun onClicked(
-            v: View?,
+            v: View,
             @MotionAction action: Int,
             extra: String?
         )
@@ -1155,7 +1247,7 @@ class CommonTitleBar @JvmOverloads constructor(
      * 标题栏双击事件监听
      */
     interface OnTitleBarDoubleClickListener {
-        fun onDoubleClicked(v: View?)
+        fun onDoubleClicked(v: View)
     }
 
     companion object {

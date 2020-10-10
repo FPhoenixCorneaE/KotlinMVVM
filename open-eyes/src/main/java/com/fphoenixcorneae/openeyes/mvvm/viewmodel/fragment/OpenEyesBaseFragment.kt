@@ -2,12 +2,14 @@ package com.fphoenixcorneae.openeyes.mvvm.viewmodel.fragment
 
 import android.content.Context
 import android.graphics.Typeface
+import android.view.View
 import android.view.animation.AccelerateInterpolator
 import android.view.animation.DecelerateInterpolator
 import androidx.viewpager2.widget.ViewPager2
 import com.fphoenixcorneae.adapter.viewpager2.FragmentStatePager2ItemAdapter
 import com.fphoenixcorneae.framework.base.fragment.AutoDisposeFragment
 import com.fphoenixcorneae.openeyes.R
+import com.fphoenixcorneae.titlebar.CommonTitleBar
 import com.fphoenixcorneae.util.ResourceUtil
 import com.fphoenixcorneae.util.SizeUtil
 import com.fphoenixcorneae.widget.magicindicator.IPagerIndicator
@@ -24,6 +26,21 @@ import com.fphoenixcorneae.widget.magicindicator.titleview.ScaleTransitionPagerT
  * @date 2020-09-18 17:14
  */
 abstract class OpenEyesBaseFragment : AutoDisposeFragment() {
+
+    /**
+     * 初始化标题栏
+     */
+    protected fun CommonTitleBar.init(
+        onTitleBarClickListener: ((v: View, action: Int, extra: String?) -> Unit)? = null
+    ) {
+        apply {
+            setOnTitleBarClickListener(object : CommonTitleBar.OnTitleBarClickListener {
+                override fun onClicked(v: View, action: Int, extra: String?) {
+                    onTitleBarClickListener?.invoke(v, action, extra)
+                }
+            })
+        }
+    }
 
     /**
      * 初始化 ViewPager2 & MagicIndicator

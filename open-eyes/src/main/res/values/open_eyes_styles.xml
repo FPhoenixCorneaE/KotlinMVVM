@@ -6,6 +6,8 @@
         <item name="centerTextColor">@color/open_eyes_color_title_0x222222</item>
         <item name="centerTextSize">@dimen/sp_18</item>
         <item name="centerType">textView</item>
+        <item name="centerTextBold">true</item>
+        <item name="centerTextFontFamily">@font/open_eyes_fzlt_black_simplified_thin</item>
         <item name="leftImageTint">@color/open_eyes_color_title_0x222222</item>
         <item name="showBottomLine">false</item>
         <item name="statusBarColor">@color/open_eyes_colorPrimaryDark</item>

@@ -25,6 +25,8 @@
         android:id="@+id/mTbTitleBar"
         style="@style/CommonTitleBar"
         app:centerSubText=" "
+        app:centerSubTextBold="false"
+        app:centerSubTextFontFamily="@font/open_eyes_fzlt_black_simplified_thin"
         app:layout_behavior="@string/easy_behavior_title_behavior"
         app:layout_collapseMode="parallax"
         app:leftType="imageButton" />

@@ -4,7 +4,6 @@ import android.annotation.TargetApi
 import android.graphics.Color
 import android.os.Build
 import android.transition.Fade
-import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.TextView
 import androidx.lifecycle.Observer
@@ -14,16 +13,17 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.WhichButton
 import com.afollestad.materialdialogs.actions.getActionButton
 import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
+import com.fphoenixcorneae.ext.gson.toJson
+import com.fphoenixcorneae.ext.popBackStack
+import com.fphoenixcorneae.ext.view.*
+import com.fphoenixcorneae.ext.viewModel
 import com.fphoenixcorneae.flowlayout.FlowItem
 import com.fphoenixcorneae.flowlayout.FlowLayout
-import com.fphoenixcorneae.ext.*
-import com.fphoenixcorneae.ext.view.*
 import com.fphoenixcorneae.titlebar.CommonTitleBar
 import com.fphoenixcorneae.util.BundleBuilder
 import com.fphoenixcorneae.util.KeyboardUtil
 import com.fphoenixcorneae.util.ResourceUtil
 import com.fphoenixcorneae.util.SharedPreferencesUtil
-import com.fphoenixcorneae.ext.gson.toJson
 import com.fphoenixcorneae.wanandroid.R
 import com.fphoenixcorneae.wanandroid.constant.WanAndroidConstant
 import com.fphoenixcorneae.wanandroid.mvvm.model.WanAndroidSearchBean
@@ -53,20 +53,18 @@ class WanAndroidSearchFragment : WanAndroidBaseFragment() {
             }
         }
 
-        mTbTitleBar.init(object : CommonTitleBar.OnTitleBarClickListener {
-            override fun onClicked(v: View?, action: Int, extra: String?) {
-                when (action) {
-                    CommonTitleBar.MotionAction.ACTION_SEARCH_SUBMIT -> {
-                        // 搜索框输入状态下,键盘提交触发
-                        updateSearchHistory(extra ?: "")
-                        goToSearchResult(extra)
-                    }
-                    CommonTitleBar.MotionAction.ACTION_RIGHT_TEXT -> {
-                        onBackPressed()
-                    }
+        mTbTitleBar.init { _, action, extra ->
+            when (action) {
+                CommonTitleBar.MotionAction.ACTION_SEARCH_SUBMIT -> {
+                    // 搜索框输入状态下,键盘提交触发
+                    updateSearchHistory(extra ?: "")
+                    goToSearchResult(extra)
+                }
+                CommonTitleBar.MotionAction.ACTION_RIGHT_TEXT -> {
+                    onBackPressed()
                 }
             }
-        })
+        }
     }
 
 

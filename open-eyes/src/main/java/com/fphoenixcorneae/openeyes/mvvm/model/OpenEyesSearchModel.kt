@@ -2,12 +2,15 @@ package com.fphoenixcorneae.openeyes.mvvm.model
 
 import com.fphoenixcorneae.openeyes.mvvm.model.bean.OpenEyesHomeBean
 import com.fphoenixcorneae.rxretrofit.scheduler.SchedulerManager
+import dagger.Module
 import io.reactivex.Observable
+import javax.inject.Inject
 
 /**
- * @desc: 搜索 Model
+ * @desc 搜索 Model
  */
-class OpenEyesSearchModel : OpenEyesBaseModel() {
+@Module
+class OpenEyesSearchModel @Inject constructor() : OpenEyesBaseModel() {
 
     /**
      * 请求热门关键词的数据

@@ -16,10 +16,12 @@ import com.fphoenixcorneae.openeyes.constant.OpenEyesConstants
 import com.fphoenixcorneae.openeyes.mvvm.contract.OpenEyesHomeContract
 import com.fphoenixcorneae.openeyes.mvvm.model.bean.OpenEyesHomeBean
 import com.fphoenixcorneae.openeyes.mvvm.presenter.OpenEyesHomePresenter
+import com.fphoenixcorneae.openeyes.mvvm.viewmodel.activity.OpenEyesSearchActivity
 import com.fphoenixcorneae.openeyes.mvvm.viewmodel.activity.OpenEyesVideoDetailActivity
 import com.fphoenixcorneae.openeyes.mvvm.viewmodel.adapter.wrapper.OpenEyesHomeBannerWrapper
 import com.fphoenixcorneae.openeyes.mvvm.viewmodel.adapter.wrapper.OpenEyesHomeDateWrapper
 import com.fphoenixcorneae.openeyes.mvvm.viewmodel.adapter.wrapper.OpenEyesHomeVideoWrapper
+import com.fphoenixcorneae.titlebar.CommonTitleBar
 import com.fphoenixcorneae.util.BundleBuilder
 import com.fphoenixcorneae.util.ColorUtil
 import com.fphoenixcorneae.util.IntentUtil
@@ -184,6 +186,19 @@ class OpenEyesHomeFragment :
                     }
                 }
             })
+        }
+    }
+
+    override fun initListener() {
+        mTbTitleBar.init { v, action, _ ->
+            if (action == CommonTitleBar.MotionAction.ACTION_RIGHT_BUTTON) {
+                v.transitionName = getString(R.string.titlebar_search_hint)
+                IntentUtil.startActivity(
+                    mContext,
+                    OpenEyesSearchActivity::class.java,
+                    views = arrayOf(v)
+                )
+            }
         }
     }
 

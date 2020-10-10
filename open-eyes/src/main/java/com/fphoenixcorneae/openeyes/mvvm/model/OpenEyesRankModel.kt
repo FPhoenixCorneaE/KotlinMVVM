@@ -7,7 +7,7 @@ import io.reactivex.Observable
 import javax.inject.Inject
 
 /**
- * @desc: 排行榜 Model
+ * @desc 排行榜 Model
  */
 @Module
 class OpenEyesRankModel @Inject constructor() : OpenEyesBaseModel() {

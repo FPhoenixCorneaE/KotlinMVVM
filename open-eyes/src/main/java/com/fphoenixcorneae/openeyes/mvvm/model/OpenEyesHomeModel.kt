@@ -7,7 +7,7 @@ import io.reactivex.Observable
 import javax.inject.Inject
 
 /**
- * @desc: 首页精选 model
+ * @desc 首页精选 model
  */
 @Module
 class OpenEyesHomeModel @Inject constructor() : OpenEyesBaseModel() {

@@ -51,7 +51,7 @@ class WanAndroidMainActivity : WanAndroidBaseActivity() {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
             }
         }
-        ContextUtil.runOnUiThreadDelayed(Runnable {
+        ContextUtil.runOnUiThreadDelayed({
             ActivityUtil.recreate()
         }, 300)
     }

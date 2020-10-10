@@ -55,7 +55,7 @@ open class BaseWebActivity : BaseActivity() {
 
     override fun initListener() {
         mTbTitleBar.setOnTitleBarClickListener(object : CommonTitleBar.OnTitleBarClickListener {
-            override fun onClicked(v: View?, action: Int, extra: String?) {
+            override fun onClicked(v: View, action: Int, extra: String?) {
                 when (action) {
                     CommonTitleBar.MotionAction.ACTION_LEFT_BUTTON -> finish()
                 }

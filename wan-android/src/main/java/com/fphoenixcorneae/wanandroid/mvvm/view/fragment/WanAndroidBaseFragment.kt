@@ -60,15 +60,15 @@ abstract class WanAndroidBaseFragment : BaseFragment() {
      * 初始化标题栏
      */
     protected fun CommonTitleBar.init(
-        onTitleBarClickListener: CommonTitleBar.OnTitleBarClickListener? = null
+        onTitleBarClickListener: ((v: View, action: Int, extra: String?) -> Unit)? = null
     ) {
         apply {
             setOnTitleBarClickListener(object : CommonTitleBar.OnTitleBarClickListener {
-                override fun onClicked(v: View?, action: Int, extra: String?) {
+                override fun onClicked(v: View, action: Int, extra: String?) {
                     when (action) {
                         CommonTitleBar.MotionAction.ACTION_LEFT_BUTTON -> navigateUp()
                     }
-                    onTitleBarClickListener?.onClicked(v, action, extra)
+                    onTitleBarClickListener?.invoke(v, action, extra)
                 }
             })
         }

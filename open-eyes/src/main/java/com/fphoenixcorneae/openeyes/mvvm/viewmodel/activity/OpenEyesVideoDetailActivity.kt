@@ -11,7 +11,9 @@ import android.widget.ImageView
 import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.fphoenixcorneae.ext.durationFormat
+import com.fphoenixcorneae.ext.gson.toJson
 import com.fphoenixcorneae.ext.loggerD
+import com.fphoenixcorneae.ext.loggerJson
 import com.fphoenixcorneae.ext.toast
 import com.fphoenixcorneae.framework.glide.GlideUtil
 import com.fphoenixcorneae.openeyes.R
@@ -191,6 +193,7 @@ class OpenEyesVideoDetailActivity :
      */
     @SuppressLint("SetTextI18n")
     override fun setVideoInfo(itemInfo: OpenEyesHomeBean.Issue.Item) {
+        loggerJson(itemInfo.toJson(), "VideoDetailInfo")
         mVideoDetailData = itemInfo
         mVideoDetailData.data?.apply {
             // title
@@ -222,12 +225,12 @@ class OpenEyesVideoDetailActivity :
             // avatar
             GlideUtil.setupImage(
                 mIvAvatar,
-                author.icon
+                author?.icon ?: provider?.icon
             )
             // author name
-            mTvAuthorName.text = author.name
+            mTvAuthorName.text = author?.name ?: provider?.name
             // author description
-            mTvAuthorDescription.text = author.description
+            mTvAuthorDescription.text = author?.description ?: provider?.alias
         }
     }
 

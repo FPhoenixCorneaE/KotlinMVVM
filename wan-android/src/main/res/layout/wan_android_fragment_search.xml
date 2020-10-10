@@ -32,7 +32,7 @@
             android:id="@+id/mTbTitleBar"
             style="@style/CommonTitleBar"
             android:layout_width="@dimen/dp_0"
-            app:centerSearchBg="@drawable/wan_android_shape_titlebar_search_bg"
+            app:centerSearchBg="@drawable/wan_android_shape_bg_titlebar_search"
             app:centerSearchHintText="@string/wan_android_search_hint_text"
             app:centerSearchHintTextColor="@color/wan_android_color_gray_0x666666"
             app:centerSearchIconTint="@color/wan_android_color_white"

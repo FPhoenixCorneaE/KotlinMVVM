@@ -3,6 +3,7 @@ package com.fphoenixcorneae.openeyes.dagger2
 import com.fphoenixcorneae.openeyes.mvvm.model.*
 import com.fphoenixcorneae.openeyes.mvvm.viewmodel.activity.OpenEyesCategoryDetailActivity
 import com.fphoenixcorneae.openeyes.mvvm.viewmodel.activity.OpenEyesHomeActivity
+import com.fphoenixcorneae.openeyes.mvvm.viewmodel.activity.OpenEyesSearchActivity
 import com.fphoenixcorneae.openeyes.mvvm.viewmodel.activity.OpenEyesVideoDetailActivity
 import com.fphoenixcorneae.openeyes.mvvm.viewmodel.fragment.*
 import dagger.Module
@@ -36,12 +37,6 @@ abstract class OpenEyesActivityModule {
     abstract fun bindOpenEyesCategoryFragment(): OpenEyesCategoryFragment
 
     /**
-     * 绑定分类详情Activity
-     */
-    @ContributesAndroidInjector(modules = [OpenEyesCategoryDetailModel::class])
-    abstract fun bindOpenEyesCategoryDetailActivity(): OpenEyesCategoryDetailActivity
-
-    /**
      * 绑定热门Fragment
      */
     @ContributesAndroidInjector(modules = [OpenEyesHotModel::class])
@@ -58,4 +53,16 @@ abstract class OpenEyesActivityModule {
      */
     @ContributesAndroidInjector(modules = [OpenEyesVideoDetailModel::class])
     abstract fun bindOpenEyesVideoDetailActivity(): OpenEyesVideoDetailActivity
+
+    /**
+     * 绑定分类详情Activity
+     */
+    @ContributesAndroidInjector(modules = [OpenEyesCategoryDetailModel::class])
+    abstract fun bindOpenEyesCategoryDetailActivity(): OpenEyesCategoryDetailActivity
+
+    /**
+     * 绑定搜索Activity
+     */
+    @ContributesAndroidInjector(modules = [OpenEyesSearchModel::class])
+    abstract fun bindOpenEyesSearchActivity(): OpenEyesSearchActivity
 }

@@ -7,7 +7,7 @@ import io.reactivex.Observable
 import javax.inject.Inject
 
 /**
- * @desc: 分类数据 Model
+ * @desc 分类数据 Model
  */
 @Module
 class OpenEyesCategoryModel @Inject constructor() : OpenEyesBaseModel() {

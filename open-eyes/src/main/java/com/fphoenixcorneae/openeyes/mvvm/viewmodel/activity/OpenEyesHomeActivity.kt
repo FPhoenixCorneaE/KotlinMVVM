@@ -47,7 +47,7 @@ class OpenEyesHomeActivity :
                 ResourceUtil.getColor(R.color.open_eyes_color_black),
                 ResourceUtil.getColor(R.color.open_eyes_color_darker_gray)
             )
-            .setFont(ResourceUtil.getFont(R.font.framework_slender_gold))
+            .setFont(ResourceUtil.getFont(R.font.open_eyes_fzlt_black_simplified_medium_bold))
             .setTabs(
                 listOf(
                     BottomNavigationItem(

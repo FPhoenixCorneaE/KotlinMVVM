@@ -2,6 +2,7 @@ package com.fphoenixcorneae.openeyes.mvvm.viewmodel.fragment
 
 import android.content.Context
 import android.graphics.Typeface
+import android.view.View
 import android.view.animation.AccelerateInterpolator
 import android.view.animation.DecelerateInterpolator
 import androidx.viewpager2.widget.ViewPager2
@@ -10,6 +11,7 @@ import com.fphoenixcorneae.framework.base.IPresenter
 import com.fphoenixcorneae.framework.base.IView
 import com.fphoenixcorneae.framework.base.fragment.Dagger2InjectionFragment
 import com.fphoenixcorneae.openeyes.R
+import com.fphoenixcorneae.titlebar.CommonTitleBar
 import com.fphoenixcorneae.util.ResourceUtil
 import com.fphoenixcorneae.util.SizeUtil
 import com.fphoenixcorneae.widget.magicindicator.IPagerIndicator
@@ -27,6 +29,21 @@ import com.fphoenixcorneae.widget.magicindicator.titleview.ScaleTransitionPagerT
  */
 abstract class OpenEyesBaseDagger2Fragment<V : IView, P : IPresenter<V>> :
     Dagger2InjectionFragment<V, P>() {
+
+    /**
+     * 初始化标题栏
+     */
+    protected fun CommonTitleBar.init(
+        onTitleBarClickListener: ((v: View, action: Int, extra: String?) -> Unit)? = null
+    ) {
+        apply {
+            setOnTitleBarClickListener(object : CommonTitleBar.OnTitleBarClickListener {
+                override fun onClicked(v: View, action: Int, extra: String?) {
+                    onTitleBarClickListener?.invoke(v, action, extra)
+                }
+            })
+        }
+    }
 
     /**
      * 初始化 ViewPager2 & MagicIndicator

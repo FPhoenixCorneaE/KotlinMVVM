@@ -7,7 +7,7 @@ import io.reactivex.Observable
 import javax.inject.Inject
 
 /**
- * @desc: 关注 Model
+ * @desc 关注 Model
  */
 @Module
 class OpenEyesFollowModel @Inject constructor() : OpenEyesBaseModel() {

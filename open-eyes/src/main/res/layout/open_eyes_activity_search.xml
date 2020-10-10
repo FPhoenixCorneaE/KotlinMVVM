@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mClRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/open_eyes_color_bg_default">
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/mFabCircle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:transitionName="@string/titlebar_search_hint"
+        app:backgroundTint="@color/open_eyes_color_bg_default"
+        app:elevation="@dimen/dp_0"
+        app:fabSize="normal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:targetApi="lollipop" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/mClSearch"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible"
+        tools:visibility="visible">
+
+        <com.fphoenixcorneae.titlebar.CommonTitleBar
+            android:id="@+id/mTbTitleBar"
+            style="@style/CommonTitleBar"
+            android:layout_width="@dimen/dp_0"
+            app:centerSearchBg="@drawable/open_eyes_shape_bg_titlebar_search"
+            app:centerSearchHintText="@string/open_eyes_search_hint_text"
+            app:centerSearchHintTextColor="@color/open_eyes_color_gray_0x666666"
+            app:centerSearchIconTint="@color/open_eyes_color_gray_0x666666"
+            app:centerSearchTextColor="@color/open_eyes_color_gray_0x666666"
+            app:centerSearchTextSize="@dimen/sp_14"
+            app:centerType="searchView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:leftType="none"
+            app:rightText="@string/open_eyes_cancel"
+            app:rightTextColor="@color/open_eyes_color_gray_0x666666"
+            app:rightTextSize="@dimen/sp_14"
+            app:rightType="textView"
+            app:statusBarColor="@color/open_eyes_color_bg_default"
+            app:titleBarColor="@color/open_eyes_color_bg_default" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/mClHotSearch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/mTbTitleBar"
+            tools:visibility="visible">
+
+            <TextView
+                android:id="@+id/mTvSearchTips"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_12"
+                android:fontFamily="@font/open_eyes_fzlt_black_simplified_thin"
+                android:text="@string/open_eyes_search_tips_text"
+                android:textColor="@color/open_eyes_color_gray_0x666666"
+                android:textSize="@dimen/sp_13"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/mTvHotSearch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_16"
+                android:fontFamily="@font/open_eyes_fzlt_black_simplified_thin"
+                android:text="@string/open_eyes_search_hot_key"
+                android:textColor="@color/open_eyes_color_title_0x222222"
+                android:textSize="@dimen/sp_14"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/mTvSearchTips" />
+
+            <com.fphoenixcorneae.flowlayout.FlowLayout
+                android:id="@+id/mRvHotSearch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_12"
+                app:flowLayoutClickable="true"
+                app:flowLayoutCornerRadius="@dimen/dp_8"
+                app:flowLayoutHorizontalSpacing="@dimen/dp_8"
+                app:flowLayoutMode="none"
+                app:flowLayoutNormalBgColor="@color/open_eyes_color_lighter_gray"
+                app:flowLayoutRandomTextColor="true"
+                app:flowLayoutSelectedBgColor="@color/open_eyes_color_darker_gray"
+                app:flowLayoutTextFontFamily="@font/framework_arial"
+                app:flowLayoutTextSize="@dimen/sp_16"
+                app:flowLayoutVerticalSpacing="@dimen/dp_8"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/mTvHotSearch" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/mNsvSearchResult"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_0"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mTbTitleBar"
+            tools:visibility="gone">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/mTvSearchResultCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_12"
+                    android:fontFamily="@font/open_eyes_fzlt_black_simplified_thin"
+                    android:textColor="@color/open_eyes_color_title_0x222222"
+                    android:textSize="@dimen/sp_14"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="--『摄影日常』搜索结果共26365个--" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/mRvSearchResult"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_12"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintTop_toBottomOf="@+id/mTvSearchResultCount"
+                    tools:itemCount="10"
+                    tools:listitem="@layout/open_eyes_item_search_result" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
