@@ -21,6 +21,7 @@ class Config {
             ExpandCollapseTextView: 'com.github.FPhoenixCorneaE:ExpandCollapseTextView:1.0.0',
             CustomKeyboard        : 'com.github.FPhoenixCorneaE:CustomKeyboard:1.0.1',
             CustomSpan            : 'com.github.FPhoenixCorneaE:CustomSpan:1.0.0',
+            CommonTitlebar        : 'com.github.FPhoenixCorneaE:CommonTitlebar:1.0.2',
     ]
 
     /** Android */
