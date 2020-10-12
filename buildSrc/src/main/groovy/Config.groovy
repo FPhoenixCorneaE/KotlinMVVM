@@ -11,6 +11,7 @@ class Config {
 
     /* 组件 */
     static FPhoenixCorneaE = [
+            CommonUtil            : "com.github.FPhoenixCorneaE:CommonUtil:1.0.1",
             FlowLayout            : "com.github.FPhoenixCorneaE:FlowLayout:1.0.6",
             ShapeImageView        : "com.github.FPhoenixCorneaE:ShapeImageView:1.0.5",
             PrettyDialog          : "com.github.FPhoenixCorneaE:PrettyDialog:1.0.1",

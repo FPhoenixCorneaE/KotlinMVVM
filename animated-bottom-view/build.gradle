@@ -60,7 +60,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
-    implementation project(':common-util')
+    implementation Config.FPhoenixCorneaE.CommonUtil
     implementation Config.support.appcompat
     implementation Config.kotlin.core
     implementation Config.kotlin.kotlinStdlibJdk7

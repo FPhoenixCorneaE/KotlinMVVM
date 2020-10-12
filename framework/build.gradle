@@ -73,7 +73,6 @@ dependencies {
     api project(':animated-bottom-view')
     api project(':base-code')
     api project(':common-titlebar')
-    api project(':common-util')
     api project(':magic-indicator')
     api project(':multiple-status-view')
     api project(':multi-type-adapter')
