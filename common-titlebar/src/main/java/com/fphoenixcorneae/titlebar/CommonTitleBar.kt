@@ -1,5 +1,6 @@
 package com.fphoenixcorneae.titlebar
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.ContextWrapper
@@ -23,8 +24,9 @@ import com.fphoenixcorneae.ext.dpToPx
 import com.fphoenixcorneae.ext.screenWidth
 import com.fphoenixcorneae.ext.spToPx
 import com.fphoenixcorneae.ext.view.setTintColor
-import com.fphoenixcorneae.util.KeyboardUtil
 import com.fphoenixcorneae.util.ViewUtil
+import com.fphoenixcorneae.ext.closeKeyboard
+import com.fphoenixcorneae.ext.openKeyboard
 import com.fphoenixcorneae.util.statusbar.StatusBarUtil
 import kotlin.math.max
 
@@ -198,6 +200,7 @@ class CommonTitleBar @JvmOverloads constructor(
     private var onTitleBarClickListener: OnTitleBarClickListener? = null
     private var onTitleBarDoubleClickListener: OnTitleBarDoubleClickListener? = null
 
+    @SuppressLint("ObsoleteSdkInt")
     private fun loadAttributes(
         context: Context,
         attrs: AttributeSet?
@@ -494,6 +497,7 @@ class CommonTitleBar @JvmOverloads constructor(
      *
      * @param context 上下文
      */
+    @SuppressLint("ObsoleteSdkInt")
     private fun initMainLeftViews(context: Context) {
         val leftInnerParams = LayoutParams(WRAP_CONTENT, MATCH_PARENT)
         leftInnerParams.addRule(ALIGN_PARENT_START)
@@ -1131,10 +1135,10 @@ class CommonTitleBar @JvmOverloads constructor(
                     isFocusable = true
                     isFocusableInTouchMode = true
                     requestFocus()
-                    KeyboardUtil.openKeyboard(this)
+                    openKeyboard()
                 }
                 else -> {
-                    KeyboardUtil.closeKeyboard(this)
+                    closeKeyboard()
                 }
             }
         }

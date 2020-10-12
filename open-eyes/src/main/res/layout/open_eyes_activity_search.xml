@@ -5,7 +5,7 @@
     android:id="@+id/mClRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/open_eyes_color_bg_default">
+    android:background="@color/open_eyes_color_translucent">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/mFabCircle"
@@ -25,7 +25,8 @@
         android:id="@+id/mClSearch"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="visible"
+        android:background="@color/open_eyes_color_bg_default"
+        android:visibility="gone"
         tools:visibility="visible">
 
         <com.fphoenixcorneae.titlebar.CommonTitleBar

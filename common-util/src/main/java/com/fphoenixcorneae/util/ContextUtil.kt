@@ -11,6 +11,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.WindowManager
+import com.fphoenixcorneae.ext.fixSoftInputLeaks
 import com.fphoenixcorneae.ext.loggerD
 import com.fphoenixcorneae.ext.loggerI
 import java.util.*
@@ -191,7 +192,7 @@ class ActivityLifecycleCallbacksImpl : ActivityLifecycleCallbacks {
         logActivityLifecycle("onDestroyed(): ", activity)
         mActivityList.remove(activity)
         consumeOnActivityDestroyedListener(activity)
-        KeyboardUtil.fixSoftInputLeaks(activity.window)
+        activity.window.fixSoftInputLeaks()
     }
 
     /**
@@ -248,7 +249,7 @@ class ActivityLifecycleCallbacksImpl : ActivityLifecycleCallbacks {
                 .setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
         } else {
             val tag = activity.window.decorView.getTag(-123) as? Int ?: return
-            ContextUtil.runOnUiThreadDelayed(Runnable {
+            ContextUtil.runOnUiThreadDelayed({
                 val window = activity.window
                 window?.setSoftInputMode(tag)
             }, 100)

@@ -6,22 +6,19 @@ import android.os.Build
 import android.transition.Fade
 import android.view.animation.AnimationUtils
 import android.widget.TextView
-import androidx.lifecycle.Observer
 import androidx.transition.Transition
 import androidx.transition.TransitionInflater
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.WhichButton
 import com.afollestad.materialdialogs.actions.getActionButton
 import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
+import com.fphoenixcorneae.ext.*
 import com.fphoenixcorneae.ext.gson.toJson
-import com.fphoenixcorneae.ext.popBackStack
 import com.fphoenixcorneae.ext.view.*
-import com.fphoenixcorneae.ext.viewModel
 import com.fphoenixcorneae.flowlayout.FlowItem
 import com.fphoenixcorneae.flowlayout.FlowLayout
 import com.fphoenixcorneae.titlebar.CommonTitleBar
 import com.fphoenixcorneae.util.BundleBuilder
-import com.fphoenixcorneae.util.KeyboardUtil
 import com.fphoenixcorneae.util.ResourceUtil
 import com.fphoenixcorneae.util.SharedPreferencesUtil
 import com.fphoenixcorneae.wanandroid.R
@@ -117,14 +114,14 @@ class WanAndroidSearchFragment : WanAndroidBaseFragment() {
             }
         }
         mSearchViewModel.apply {
-            mHotSearch.observe(viewLifecycleOwner, Observer {
+            mHotSearch.observe(viewLifecycleOwner, {
                 it?.let {
                     mRvHotSearch.apply {
                         mDatas = it as ArrayList<in FlowItem>
                     }
                 }
             })
-            mSearchHistory.observe(viewLifecycleOwner, Observer {
+            mSearchHistory.observe(viewLifecycleOwner, {
                 mTvEmpty.isVisible = it.isNotEmpty()
                 mTvNoSearchHistory.isVisible = it.isEmpty()
                 mRvSearchHistory.apply {
@@ -171,7 +168,7 @@ class WanAndroidSearchFragment : WanAndroidBaseFragment() {
      */
     private fun goToSearchResult(itemName: CharSequence?) {
         // 关闭软键盘
-        KeyboardUtil.closeKeyboard(mTbTitleBar.centerSearchEditText)
+        mTbTitleBar.centerSearchEditText.closeKeyboard()
         navigateNext(
             R.id.searchResultFragment,
             BundleBuilder.of()
@@ -186,7 +183,7 @@ class WanAndroidSearchFragment : WanAndroidBaseFragment() {
         mClSearch.startAnimation(AnimationUtils.loadAnimation(mContext, android.R.anim.fade_in))
         mClSearch.visible()
         // 打开软键盘
-        KeyboardUtil.openKeyboard(mTbTitleBar.centerSearchEditText)
+        mTbTitleBar.centerSearchEditText.openKeyboard()
     }
 
     override fun lazyLoadData() {
@@ -278,12 +275,12 @@ class WanAndroidSearchFragment : WanAndroidBaseFragment() {
      */
     private fun defaultBackPressed() {
         // 关闭软键盘
-        KeyboardUtil.closeKeyboard(mTbTitleBar.centerSearchEditText)
+        mTbTitleBar.centerSearchEditText.closeKeyboard()
         popBackStack()
     }
 
     override fun onDestroy() {
-        KeyboardUtil.fixSoftInputLeaks(mContext.window)
+        mContext.window.fixSoftInputLeaks()
         super.onDestroy()
     }
 }

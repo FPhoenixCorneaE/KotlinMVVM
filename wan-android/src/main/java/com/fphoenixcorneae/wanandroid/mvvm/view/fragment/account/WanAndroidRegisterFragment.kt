@@ -8,11 +8,11 @@ import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.lifecycle.Observer
 import com.fphoenixcorneae.ext.androidViewModel
-import com.fphoenixcorneae.ext.view.isVisible
 import com.fphoenixcorneae.ext.toast
+import com.fphoenixcorneae.ext.view.isVisible
 import com.fphoenixcorneae.framework.widget.ProgressButton
-import com.fphoenixcorneae.util.KeyboardUtil
 import com.fphoenixcorneae.util.ResourceUtil
+import com.fphoenixcorneae.ext.closeKeyboard
 import com.fphoenixcorneae.wanandroid.R
 import com.fphoenixcorneae.wanandroid.mvvm.model.WanAndroidAccountBody
 import com.fphoenixcorneae.wanandroid.mvvm.view.fragment.WanAndroidBaseFragment
@@ -59,7 +59,7 @@ class WanAndroidRegisterFragment : WanAndroidBaseFragment(), TextWatcher,
         mBtnRegister.setOnClickListener(this)
         mAccountViewModel.apply {
             // 需要观察该LiveData,否则不会执行注册接口
-            mRegisterSuccess.observe(viewLifecycleOwner, Observer {
+            mRegisterSuccess.observe(viewLifecycleOwner, {
                 if (!it) {
                     mBtnRegister?.postDelayed({
                         mBtnRegister?.reset()
@@ -67,7 +67,7 @@ class WanAndroidRegisterFragment : WanAndroidBaseFragment(), TextWatcher,
                 }
             })
             // 需要观察该LiveData,否则不会执行登录接口
-            mLoginSuccess.observe(viewLifecycleOwner, Observer {
+            mLoginSuccess.observe(viewLifecycleOwner, {
                 mBtnRegister?.postDelayed({
                     if (it) {
                         // 登录成功,进入首页
@@ -166,7 +166,7 @@ class WanAndroidRegisterFragment : WanAndroidBaseFragment(), TextWatcher,
                     }
                     else -> {
                         // 隐藏软键盘
-                        KeyboardUtil.closeKeyboard(mContext)
+                        mContext.closeKeyboard()
                         // 注册
                         mBtnRegister.startAnim()
                         val accountBody = WanAndroidAccountBody(username, password)

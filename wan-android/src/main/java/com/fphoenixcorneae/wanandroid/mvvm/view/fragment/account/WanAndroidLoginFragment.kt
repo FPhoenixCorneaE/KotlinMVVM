@@ -14,9 +14,9 @@ import com.fphoenixcorneae.ext.androidViewModel
 import com.fphoenixcorneae.ext.view.isVisible
 import com.fphoenixcorneae.ext.navigateUp
 import com.fphoenixcorneae.framework.widget.ProgressButton
-import com.fphoenixcorneae.util.KeyboardUtil
 import com.fphoenixcorneae.util.ResourceUtil
 import com.fphoenixcorneae.util.SpannableStringUtil
+import com.fphoenixcorneae.ext.closeKeyboard
 import com.fphoenixcorneae.wanandroid.R
 import com.fphoenixcorneae.wanandroid.mvvm.model.WanAndroidAccountBody
 import com.fphoenixcorneae.wanandroid.mvvm.view.fragment.WanAndroidBaseFragment
@@ -75,7 +75,7 @@ class WanAndroidLoginFragment : WanAndroidBaseFragment(), TextWatcher, View.OnFo
         mBtnLogin.setOnClickListener(this)
         mAccountViewModel.apply {
             // 需要观察该LiveData,否则不会执行登录接口
-            mLoginSuccess.observe(viewLifecycleOwner, Observer {
+            mLoginSuccess.observe(viewLifecycleOwner, {
                 mBtnLogin?.postDelayed({
                     if (it) {
                         // 登录成功,进入首页
@@ -139,7 +139,7 @@ class WanAndroidLoginFragment : WanAndroidBaseFragment(), TextWatcher, View.OnFo
             }
             mBtnLogin -> {
                 // 隐藏软键盘
-                KeyboardUtil.closeKeyboard(mContext)
+                mContext.closeKeyboard()
                 val username = mEtAccount.text.toString()
                 val password = mEtPassword.text.toString()
                 // 登录

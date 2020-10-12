@@ -26,6 +26,6 @@
     <string name="open_eyes_home_tab_mine">我的</string>
     <string name="open_eyes_cancel">取消</string>
     <string name="open_eyes_search_hint_text">寻找感兴趣的视频</string>
-    <string name="open_eyes_search_tips_text">输入标题或者描述中的关键词找到更多视频</string>
+    <string name="open_eyes_search_tips_text">Tips：输入标题或者描述中的关键词找到更多视频</string>
     <string name="open_eyes_search_hot_key">-- 热门搜索词 --</string>
 </resources>
