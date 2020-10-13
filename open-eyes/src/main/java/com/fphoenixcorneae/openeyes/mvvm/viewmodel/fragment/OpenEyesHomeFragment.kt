@@ -6,9 +6,9 @@ import android.text.TextUtils
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.fphoenixcorneae.adapter.internal.Delegation
-import com.fphoenixcorneae.adapter.internal.MultiTypeAdapter
-import com.fphoenixcorneae.adapter.wrapper.ViewHolderWrapper
+import com.fphoenixcorneae.viewpager.internal.Delegation
+import com.fphoenixcorneae.viewpager.internal.MultiTypeAdapter
+import com.fphoenixcorneae.viewpager.wrapper.ViewHolderWrapper
 import com.fphoenixcorneae.ext.view.gone
 import com.fphoenixcorneae.ext.view.visible
 import com.fphoenixcorneae.openeyes.R

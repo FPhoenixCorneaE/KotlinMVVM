@@ -1,8 +1,8 @@
 package com.fphoenixcorneae.wanandroid.mvvm.view.fragment.home
 
 import androidx.navigation.NavOptions
-import com.fphoenixcorneae.adapter.app.FragmentPagerItems
-import com.fphoenixcorneae.adapter.viewpager2.FragmentStatePager2ItemAdapter
+import com.fphoenixcorneae.viewpager.FragmentPagerItems
+import com.fphoenixcorneae.viewpager.FragmentStatePager2ItemAdapter
 import com.fphoenixcorneae.framework.navigation.FragmentNavigatorExtras
 import com.fphoenixcorneae.util.statusbar.StatusBarUtil
 import com.fphoenixcorneae.wanandroid.R

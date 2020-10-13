@@ -6,9 +6,9 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.scwang.smart.refresh.layout.api.RefreshLayout
 import com.scwang.smart.refresh.layout.listener.OnRefreshLoadMoreListener
-import com.fphoenixcorneae.adapter.AnimationType
-import com.fphoenixcorneae.adapter.BaseNBAdapter
-import com.fphoenixcorneae.adapter.SimpleOnItemChildClickListener
+import com.fphoenixcorneae.viewpager.AnimationType
+import com.fphoenixcorneae.viewpager.BaseNBAdapter
+import com.fphoenixcorneae.viewpager.SimpleOnItemChildClickListener
 import com.fphoenixcorneae.ext.androidViewModel
 import com.fphoenixcorneae.ext.toHtml
 import com.fphoenixcorneae.ext.viewModel

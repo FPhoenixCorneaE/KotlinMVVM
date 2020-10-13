@@ -2,8 +2,8 @@ package com.fphoenixcorneae.openeyes.mvvm.viewmodel.fragment
 
 import android.graphics.Color
 import android.os.Bundle
-import com.fphoenixcorneae.adapter.app.FragmentPagerItems
-import com.fphoenixcorneae.adapter.viewpager2.FragmentStatePager2ItemAdapter
+import com.fphoenixcorneae.viewpager.FragmentPagerItems
+import com.fphoenixcorneae.viewpager.FragmentStatePager2ItemAdapter
 import com.fphoenixcorneae.openeyes.R
 import com.fphoenixcorneae.openeyes.constant.OpenEyesConstants
 import com.fphoenixcorneae.openeyes.mvvm.contract.OpenEyesHotTabContract

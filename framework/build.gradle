@@ -76,7 +76,7 @@ dependencies {
     api project(':multiple-status-view')
     api project(':multi-type-adapter')
     api project(':nb-adapter')
-    api project(':pager-adapter')
+    api project(':view-pager-adapter')
     api project(':palette-image-view')
     api project(':rxretrofit')
     api project(':shine-button')

@@ -1,7 +1,7 @@
 package com.fphoenixcorneae.wanandroid.mvvm.view.adapter
 
 import androidx.recyclerview.widget.RecyclerView
-import com.fphoenixcorneae.adapter.BaseNBAdapter
+import com.fphoenixcorneae.viewpager.BaseNBAdapter
 import com.fphoenixcorneae.framework.glide.GlideUtil
 import com.fphoenixcorneae.util.ScreenUtil
 import com.fphoenixcorneae.util.SizeUtil

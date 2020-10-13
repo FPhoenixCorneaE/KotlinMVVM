@@ -22,13 +22,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <com.fphoenixcorneae.adapter.fold.FoldRecyclerView
+                <com.fphoenixcorneae.viewpager.fold.FoldRecyclerView
                     android:id="@+id/mRvBanner"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_200"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:itemCount="5"
-                    tools:layoutManager="com.fphoenixcorneae.adapter.fold.LeftFlowLayoutManger"
+                    tools:layoutManager="com.fphoenixcorneae.viewpager.fold.LeftFlowLayoutManger"
                     tools:listitem="@layout/wan_android_recycler_item_home_banner" />
 
                 <androidx.recyclerview.widget.RecyclerView

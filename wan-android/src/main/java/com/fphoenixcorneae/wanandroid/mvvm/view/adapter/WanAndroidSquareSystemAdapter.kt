@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import androidx.recyclerview.widget.RecyclerView
 import com.fphoenixcorneae.flowlayout.FlowItem
 import com.fphoenixcorneae.flowlayout.FlowLayout
-import com.fphoenixcorneae.adapter.BaseNBAdapter
+import com.fphoenixcorneae.viewpager.BaseNBAdapter
 import com.fphoenixcorneae.ext.toHtml
 import com.fphoenixcorneae.wanandroid.R
 import com.fphoenixcorneae.wanandroid.mvvm.model.WanAndroidSystemBean

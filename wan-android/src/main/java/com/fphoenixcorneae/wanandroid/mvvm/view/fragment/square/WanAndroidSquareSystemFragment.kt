@@ -4,8 +4,8 @@ import android.view.View
 import androidx.lifecycle.Observer
 import com.scwang.smart.refresh.layout.api.RefreshLayout
 import com.scwang.smart.refresh.layout.listener.OnRefreshListener
-import com.fphoenixcorneae.adapter.BaseNBAdapter
-import com.fphoenixcorneae.adapter.SimpleOnItemChildClickListener
+import com.fphoenixcorneae.viewpager.BaseNBAdapter
+import com.fphoenixcorneae.viewpager.SimpleOnItemChildClickListener
 import com.fphoenixcorneae.ext.isNonNullAndNotEmpty
 import com.fphoenixcorneae.ext.viewModel
 import com.fphoenixcorneae.util.BundleBuilder

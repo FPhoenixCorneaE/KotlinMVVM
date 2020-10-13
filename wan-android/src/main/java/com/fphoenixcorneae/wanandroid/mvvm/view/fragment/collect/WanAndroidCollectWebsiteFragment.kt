@@ -3,7 +3,7 @@ package com.fphoenixcorneae.wanandroid.mvvm.view.fragment.collect
 import androidx.lifecycle.Observer
 import com.scwang.smart.refresh.layout.api.RefreshLayout
 import com.scwang.smart.refresh.layout.listener.OnRefreshListener
-import com.fphoenixcorneae.adapter.BaseNBAdapter
+import com.fphoenixcorneae.viewpager.BaseNBAdapter
 import com.fphoenixcorneae.ext.isNonNullAndNotEmpty
 import com.fphoenixcorneae.ext.viewModel
 import com.fphoenixcorneae.framework.web.BaseWebFragment

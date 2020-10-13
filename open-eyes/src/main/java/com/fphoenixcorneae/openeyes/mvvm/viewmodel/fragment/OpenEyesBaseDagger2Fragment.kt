@@ -6,7 +6,7 @@ import android.view.View
 import android.view.animation.AccelerateInterpolator
 import android.view.animation.DecelerateInterpolator
 import androidx.viewpager2.widget.ViewPager2
-import com.fphoenixcorneae.adapter.viewpager2.FragmentStatePager2ItemAdapter
+import com.fphoenixcorneae.viewpager.FragmentStatePager2ItemAdapter
 import com.fphoenixcorneae.framework.base.IPresenter
 import com.fphoenixcorneae.framework.base.IView
 import com.fphoenixcorneae.framework.base.fragment.Dagger2InjectionFragment

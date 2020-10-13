@@ -2,8 +2,8 @@ package com.fphoenixcorneae.openeyes.mvvm.viewmodel.adapter.wrapper
 
 import android.annotation.SuppressLint
 import android.graphics.drawable.GradientDrawable
-import com.fphoenixcorneae.adapter.internal.ViewHolder
-import com.fphoenixcorneae.adapter.wrapper.ViewHolderWrapper
+import com.fphoenixcorneae.viewpager.internal.ViewHolder
+import com.fphoenixcorneae.viewpager.wrapper.ViewHolderWrapper
 import com.fphoenixcorneae.ext.dpToPx
 import com.fphoenixcorneae.ext.durationFormat
 import com.fphoenixcorneae.framework.glide.GlideUtil

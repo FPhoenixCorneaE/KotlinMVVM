@@ -1,8 +1,8 @@
 package com.fphoenixcorneae.wanandroid.mvvm.view.fragment.vipcn
 
 import androidx.lifecycle.Observer
-import com.fphoenixcorneae.adapter.app.FragmentPagerItems
-import com.fphoenixcorneae.adapter.viewpager2.FragmentStatePager2ItemAdapter
+import com.fphoenixcorneae.viewpager.FragmentPagerItems
+import com.fphoenixcorneae.viewpager.FragmentStatePager2ItemAdapter
 import com.fphoenixcorneae.ext.toHtml
 import com.fphoenixcorneae.ext.viewModel
 import com.fphoenixcorneae.util.BundleBuilder

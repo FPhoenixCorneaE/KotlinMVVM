@@ -14,9 +14,9 @@ import androidx.navigation.NavOptions
 import androidx.navigation.Navigator
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
-import com.fphoenixcorneae.adapter.AnimationType
-import com.fphoenixcorneae.adapter.BaseNBAdapter
-import com.fphoenixcorneae.adapter.viewpager2.FragmentStatePager2ItemAdapter
+import com.fphoenixcorneae.viewpager.AnimationType
+import com.fphoenixcorneae.viewpager.BaseNBAdapter
+import com.fphoenixcorneae.viewpager.FragmentStatePager2ItemAdapter
 import com.fphoenixcorneae.ext.loggerD
 import com.fphoenixcorneae.ext.navigate
 import com.fphoenixcorneae.ext.navigateUp
@@ -99,9 +99,7 @@ abstract class WanAndroidBaseFragment : BaseFragment() {
     ) {
         viewPager2.apply {
             offscreenPageLimit = when {
-                fragmentStatePager2ItemAdapter.itemCount > 1 -> {
-                    fragmentStatePager2ItemAdapter.itemCount
-                }
+                fragmentStatePager2ItemAdapter.itemCount > 1 -> fragmentStatePager2ItemAdapter.itemCount
                 else -> 1
             }
             adapter = fragmentStatePager2ItemAdapter
