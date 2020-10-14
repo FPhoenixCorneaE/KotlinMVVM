@@ -2,10 +2,10 @@ package com.fphoenixcorneae.wanandroid.mvvm.view.adapter
 
 import android.annotation.SuppressLint
 import androidx.recyclerview.widget.RecyclerView
+import com.fphoenixcorneae.ext.toHtml
 import com.fphoenixcorneae.flowlayout.FlowItem
 import com.fphoenixcorneae.flowlayout.FlowLayout
 import com.fphoenixcorneae.viewpager.BaseNBAdapter
-import com.fphoenixcorneae.ext.toHtml
 import com.fphoenixcorneae.wanandroid.R
 import com.fphoenixcorneae.wanandroid.mvvm.model.WanAndroidSystemBean
 import kotlinx.android.synthetic.main.wan_android_recycler_item_square_system.view.*
@@ -30,7 +30,9 @@ class WanAndroidSquareSystemAdapter : BaseNBAdapter<WanAndroidSystemBean>() {
         viewHolder.itemView.apply {
             mTvName.text = data.name.toHtml()
             mRvSystemChild.apply {
-                mDatas = data.children as ArrayList<in FlowItem>
+                mDatas = data.children.map {
+                    FlowItem(it.name.toHtml())
+                } as ArrayList<in FlowItem>
                 mOnItemClickListener = object : FlowLayout.OnItemClickListener {
                     override fun onItemClick(
                         itemName: CharSequence?,

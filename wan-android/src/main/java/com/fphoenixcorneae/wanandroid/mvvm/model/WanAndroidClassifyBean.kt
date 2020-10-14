@@ -2,8 +2,6 @@ package com.fphoenixcorneae.wanandroid.mvvm.model
 
 import android.os.Parcelable
 import androidx.annotation.Keep
-import com.fphoenixcorneae.flowlayout.FlowItem
-import com.fphoenixcorneae.ext.toHtml
 import kotlinx.android.parcel.Parcelize
 
 /**
@@ -21,8 +19,4 @@ data class WanAndroidClassifyBean(
     var parentChapterId: Int = 0,
     var userControlSetTop: Boolean = false,
     var visible: Int = 0
-) : Parcelable, FlowItem {
-    override fun getItemName(): CharSequence? {
-        return name.toHtml()
-    }
-}
+) : Parcelable

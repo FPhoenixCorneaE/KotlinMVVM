@@ -1,7 +1,7 @@
 package com.fphoenixcorneae.openeyes.mvvm.contract
 
-import com.fphoenixcorneae.framework.base.IView
 import com.fphoenixcorneae.framework.base.IPresenter
+import com.fphoenixcorneae.framework.base.IView
 import com.fphoenixcorneae.openeyes.mvvm.model.bean.OpenEyesHomeBean
 
 /**
@@ -13,7 +13,7 @@ interface OpenEyesSearchContract {
         /**
          * 设置热门关键词数据
          */
-        fun setHotWordData(string: ArrayList<String>)
+        fun setHotWordData(hotWords: ArrayList<String>)
 
         /**
          * 设置搜索关键词返回的结果
@@ -29,9 +29,6 @@ interface OpenEyesSearchContract {
          * 设置空 View
          */
         fun setEmptyView()
-
-
-        fun showError(errorMsg: String, errorCode: Int)
     }
 
 

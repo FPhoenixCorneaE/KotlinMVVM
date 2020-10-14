@@ -1,27 +1,32 @@
 package com.fphoenixcorneae.openeyes.mvvm.viewmodel.activity
 
 import android.annotation.TargetApi
-import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.transition.Fade
 import android.transition.Transition
 import android.transition.TransitionInflater
 import android.view.animation.AnimationUtils
-import com.fphoenixcorneae.ext.view.*
-import com.fphoenixcorneae.openeyes.R
-import com.fphoenixcorneae.openeyes.mvvm.contract.OpenEyesSearchContract
-import com.fphoenixcorneae.openeyes.mvvm.presenter.OpenEyesSearchPresenter
+import android.view.animation.LayoutAnimationController
 import com.fphoenixcorneae.ext.closeKeyboard
 import com.fphoenixcorneae.ext.openKeyboard
+import com.fphoenixcorneae.ext.view.*
+import com.fphoenixcorneae.flowlayout.FlowItem
+import com.fphoenixcorneae.flowlayout.FlowLayout
+import com.fphoenixcorneae.openeyes.R
+import com.fphoenixcorneae.openeyes.mvvm.contract.OpenEyesSearchContract
+import com.fphoenixcorneae.openeyes.mvvm.model.bean.OpenEyesHomeBean
+import com.fphoenixcorneae.openeyes.mvvm.presenter.OpenEyesSearchPresenter
 import com.fphoenixcorneae.titlebar.CommonTitleBar
+import com.fphoenixcorneae.util.ResourceUtil
 import kotlinx.android.synthetic.main.open_eyes_activity_search.*
 
 /**
  * @desc 搜索 Activity
  */
 class OpenEyesSearchActivity :
-    OpenEyesBaseDagger2Activity<OpenEyesSearchContract.View, OpenEyesSearchPresenter>() {
+    OpenEyesBaseDagger2Activity<OpenEyesSearchContract.View, OpenEyesSearchPresenter>(),
+    OpenEyesSearchContract.View {
 
     override fun getLayoutId(): Int = R.layout.open_eyes_activity_search
 
@@ -91,12 +96,17 @@ class OpenEyesSearchActivity :
     }
 
     private fun setUpView() {
-        mClRoot.setBackgroundColor(Color.TRANSPARENT)
+        mClRoot.setBackgroundColor(ResourceUtil.getColor(R.color.open_eyes_color_bg_default))
         mFabCircle.gone()
-        mClSearch.startAnimation(AnimationUtils.loadAnimation(mContext, android.R.anim.fade_in))
-        mClSearch.visible()
+        mClSearch.apply {
+            alpha = 0f
+            visible()
+            animate().alpha(1f).withLayer().start()
+        }
         // 打开软键盘
         mTbTitleBar.centerSearchEditText.openKeyboard()
+
+        mPresenter.requestHotWordData()
     }
 
     override fun onBackPressed() {
@@ -124,11 +134,51 @@ class OpenEyesSearchActivity :
      * 默认返回
      */
     private fun defaultBackPressed() {
-        // 关闭软键盘
-        mTbTitleBar.centerSearchEditText.closeKeyboard()
+        closeSoftKeyboard()
         super.onBackPressed()
     }
 
     override fun initData(savedInstanceState: Bundle?) {
+
+    }
+
+    override fun setHotWordData(hotWords: ArrayList<String>) {
+        mRvHotSearch.apply {
+            // item随机淡入动画
+            layoutAnimation = LayoutAnimationController(
+                AnimationUtils.loadAnimation(
+                    mContext,
+                    android.R.anim.fade_in
+                )
+            ).apply {
+                order = LayoutAnimationController.ORDER_RANDOM
+                delay = 0.1f
+            }
+            mDatas = hotWords.map {
+                FlowItem(it)
+            } as ArrayList<in FlowItem>
+
+            mOnItemClickListener = object : FlowLayout.OnItemClickListener {
+                override fun onItemClick(
+                    itemName: CharSequence?,
+                    position: Int,
+                    isSelected: Boolean,
+                    selectedData: ArrayList<in FlowItem>
+                ) {
+
+                }
+            }
+        }
+    }
+
+    override fun setSearchResult(issue: OpenEyesHomeBean.Issue) {
+    }
+
+    override fun closeSoftKeyboard() {
+        // 关闭软键盘
+        mTbTitleBar.centerSearchEditText.closeKeyboard()
+    }
+
+    override fun setEmptyView() {
     }
 }

@@ -30,7 +30,9 @@ class WanAndroidSquareNavigationAdapter : BaseNBAdapter<WanAndroidNavigationBean
         viewHolder.itemView.apply {
             mTvName.text = data.name.toHtml()
             mRvNavigationChild.apply {
-                mDatas = data.articles as ArrayList<in FlowItem>
+                mDatas = data.articles.map {
+                    FlowItem(it.title.toHtml())
+                } as ArrayList<in FlowItem>
                 mOnItemClickListener = object : FlowLayout.OnItemClickListener {
                     override fun onItemClick(
                         itemName: CharSequence?,

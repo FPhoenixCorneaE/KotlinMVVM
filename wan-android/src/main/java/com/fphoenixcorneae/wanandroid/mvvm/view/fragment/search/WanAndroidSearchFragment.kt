@@ -117,7 +117,9 @@ class WanAndroidSearchFragment : WanAndroidBaseFragment() {
             mHotSearch.observe(viewLifecycleOwner, {
                 it?.let {
                     mRvHotSearch.apply {
-                        mDatas = it as ArrayList<in FlowItem>
+                        mDatas = it.map { searchBean ->
+                            FlowItem(searchBean.name)
+                        } as ArrayList<in FlowItem>
                     }
                 }
             })
@@ -125,7 +127,9 @@ class WanAndroidSearchFragment : WanAndroidBaseFragment() {
                 mTvEmpty.isVisible = it.isNotEmpty()
                 mTvNoSearchHistory.isVisible = it.isEmpty()
                 mRvSearchHistory.apply {
-                    mDatas = it as ArrayList<in FlowItem>
+                    mDatas = it.map { searchBean ->
+                        FlowItem(searchBean.name)
+                    } as ArrayList<in FlowItem>
                 }
                 // 保存搜索历史
                 SharedPreferencesUtil.put(

@@ -3,7 +3,6 @@ package com.fphoenixcorneae.openeyes.mvvm.presenter
 import com.fphoenixcorneae.framework.base.BasePresenter
 import com.fphoenixcorneae.openeyes.mvvm.contract.OpenEyesSearchContract
 import com.fphoenixcorneae.openeyes.mvvm.model.OpenEyesSearchModel
-import com.fphoenixcorneae.rxretrofit.network.exception.ExceptionHandle
 import com.uber.autodispose.autoDisposable
 import javax.inject.Inject
 
@@ -19,31 +18,26 @@ class OpenEyesSearchPresenter @Inject constructor() : BasePresenter<OpenEyesSear
     @Inject
     lateinit var searchModel: OpenEyesSearchModel
 
-
     /**
      * 获取热门关键词
      */
     override fun requestHotWordData() {
-        mView.apply {
-            closeSoftKeyboard()
-            showLoading()
-        }
         searchModel.requestHotWordData()
             .autoDisposable(mScopeProvider)
-            .subscribe({ string ->
+            .subscribe({ hotWords ->
                 mView.apply {
-                    setHotWordData(string)
+                    setHotWordData(hotWords)
                 }
             }, { throwable ->
                 mView.apply {
-                    //处理异常
-                    showError(ExceptionHandle.handleException(throwable), ExceptionHandle.errorCode)
+                    // 处理异常
+                    showErrorMsg(throwable)
                 }
             })
     }
 
     /**
-     * 查询关键词
+     * 根据关键词查询数据
      */
     override fun querySearchData(words: String) {
         mView.apply {
@@ -58,14 +52,14 @@ class OpenEyesSearchPresenter @Inject constructor() : BasePresenter<OpenEyesSear
                     if (issue.count > 0 && issue.itemList.size > 0) {
                         nextPageUrl = issue.nextPageUrl
                         setSearchResult(issue)
-                    } else
+                    } else {
                         setEmptyView()
+                    }
                 }
             }, { throwable ->
                 mView.apply {
-                    showContent()
-                    //处理异常
-                    showError(ExceptionHandle.handleException(throwable), ExceptionHandle.errorCode)
+                    // 处理异常
+                    showErrorMsg(throwable)
                 }
             })
     }
@@ -84,11 +78,8 @@ class OpenEyesSearchPresenter @Inject constructor() : BasePresenter<OpenEyesSear
                     }
                 }, { throwable ->
                     mView.apply {
-                        //处理异常
-                        showError(
-                            ExceptionHandle.handleException(throwable),
-                            ExceptionHandle.errorCode
-                        )
+                        // 处理异常
+                        showErrorMsg(throwable)
                     }
                 })
         }

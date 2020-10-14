@@ -2,8 +2,6 @@ package com.fphoenixcorneae.wanandroid.mvvm.model
 
 import android.os.Parcelable
 import androidx.annotation.Keep
-import com.fphoenixcorneae.flowlayout.FlowItem
-import com.fphoenixcorneae.ext.toHtml
 import kotlinx.android.parcel.Parcelize
 
 /**
@@ -38,10 +36,7 @@ data class WanAndroidArticleBean(
     var userId: Int,
     var visible: Int,
     var zan: Int
-) : Parcelable, FlowItem {
-    override fun getItemName(): CharSequence? {
-        return title.toHtml()
-    }
+) : Parcelable {
 
     /**
      * 文章的标签
