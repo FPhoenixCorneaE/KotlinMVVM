@@ -37,6 +37,7 @@
             app:centerSearchHintText="@string/open_eyes_search_hint_text"
             app:centerSearchHintTextColor="@color/open_eyes_color_gray_0x666666"
             app:centerSearchIconTint="@color/open_eyes_color_gray_0x666666"
+            app:centerSearchRightType="delete"
             app:centerSearchTextColor="@color/open_eyes_color_gray_0x666666"
             app:centerSearchTextSize="@dimen/sp_14"
             app:centerType="searchView"
@@ -55,7 +56,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@+id/mTbTitleBar"
-            tools:visibility="visible">
+            tools:visibility="gone">
 
             <TextView
                 android:id="@+id/mTvSearchTips"
@@ -104,42 +105,47 @@
                 app:layout_constraintTop_toBottomOf="@+id/mTvHotSearch" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.core.widget.NestedScrollView
-            android:id="@+id/mNsvSearchResult"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/mClSearchResult"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_0"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/mTbTitleBar"
-            tools:visibility="gone">
+            tools:visibility="visible">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <TextView
+                android:id="@+id/mTvSearchResultCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_12"
+                android:fontFamily="@font/open_eyes_fzlt_black_simplified_thin"
+                android:textColor="@color/open_eyes_color_title_0x222222"
+                android:textSize="@dimen/sp_14"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="--『摄影日常』搜索结果共26365个--" />
+
+            <com.scwang.smart.refresh.layout.SmartRefreshLayout
+                android:id="@+id/mSrlRefresh"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/mTvSearchResultCount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_12"
-                    android:fontFamily="@font/open_eyes_fzlt_black_simplified_thin"
-                    android:textColor="@color/open_eyes_color_title_0x222222"
-                    android:textSize="@dimen/sp_14"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:text="--『摄影日常』搜索结果共26365个--" />
+                android:layout_height="@dimen/dp_0"
+                android:layout_marginTop="@dimen/dp_12"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/mTvSearchResultCount"
+                tools:visibility="visible">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/mRvSearchResult"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_12"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:layout_constraintTop_toBottomOf="@+id/mTvSearchResultCount"
                     tools:itemCount="10"
                     tools:listitem="@layout/open_eyes_item_search_result" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.core.widget.NestedScrollView>
+
+            </com.scwang.smart.refresh.layout.SmartRefreshLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

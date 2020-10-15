@@ -61,11 +61,11 @@ android {
             // 屏蔽lint耗时检查
             project.gradle.startParameter.excludedTaskNames.add('lint')
             // 执行proguard混淆
-            minifyEnabled true
+            minifyEnabled false
             // Zipalign优化
-            zipAlignEnabled true
+            zipAlignEnabled false
             // 移除无用的resource文件
-            shrinkResources true
+            shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt')
             proguardFiles 'proguard-rules-universal.pro'
             proguardFiles 'proguard-rules.pro'

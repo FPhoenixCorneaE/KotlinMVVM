@@ -28,4 +28,6 @@
     <string name="open_eyes_search_hint_text">寻找感兴趣的视频</string>
     <string name="open_eyes_search_tips_text">Tips：输入标题或者描述中的关键词找到更多视频</string>
     <string name="open_eyes_search_hot_key">-- 热门搜索词 --</string>
+    <string name="open_eyes_search_result_count">--『%1$s』搜索结果共%2$d个--</string>
+    <string name="open_eyes_search_result_empty">抱歉！没有找到相匹配的内容！</string>
 </resources>

@@ -110,7 +110,7 @@ class OpenEyesCategoryDetailActivity :
     }
 
     override fun initListener() {
-        mCategoryDetailAdapter.setOnItemClickListener { viewHolder, item, positon ->
+        mCategoryDetailAdapter.setOnItemClickListener { viewHolder, item, _ ->
             // 跳转到视频详情页面
             IntentUtil.startActivity(
                 mContext,

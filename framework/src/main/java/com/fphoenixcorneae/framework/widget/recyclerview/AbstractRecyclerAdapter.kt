@@ -19,12 +19,12 @@ abstract class AbstractRecyclerAdapter<T>(
     /**
      * 使用接口回调点击事件
      */
-    private var mItemClickListener: ((ViewHolder,T, Int) -> Unit)? = null
+    private var mItemClickListener: ((ViewHolder, T, Int) -> Unit)? = null
 
     /**
      * 使用接口回调长按事件
      */
-    private var mItemLongClickListener: ((ViewHolder,T, Int) -> Boolean)? = null
+    private var mItemLongClickListener: ((ViewHolder, T, Int) -> Boolean)? = null
 
     init {
         mInflater = LayoutInflater.from(mContext)
@@ -121,16 +121,24 @@ abstract class AbstractRecyclerAdapter<T>(
     }
 
     /**
+     * 清空数据
+     */
+    fun clear() {
+        mData.clear()
+        notifyDataSetChanged()
+    }
+
+    /**
      * Adapter条目的点击事件
      */
-    fun setOnItemClickListener(itemClickListener: ((ViewHolder,T, Int) -> Unit)?) {
+    fun setOnItemClickListener(itemClickListener: ((ViewHolder, T, Int) -> Unit)?) {
         this.mItemClickListener = itemClickListener
     }
 
     /**
      * Adapter条目的长按事件
      */
-    fun setOnItemLongClickListener(itemLongClickListener: ((ViewHolder,T, Int) -> Boolean)?) {
+    fun setOnItemLongClickListener(itemLongClickListener: ((ViewHolder, T, Int) -> Boolean)?) {
         this.mItemLongClickListener = itemLongClickListener
     }
 }

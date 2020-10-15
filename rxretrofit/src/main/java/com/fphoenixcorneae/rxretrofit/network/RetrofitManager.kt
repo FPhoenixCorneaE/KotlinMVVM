@@ -148,11 +148,11 @@ object RetrofitManager {
             // 添加Cookies自动持久化
             .cookieJar(mPersistentCookieJar)
             // 连接超时时间
-            .connectTimeout(10L, TimeUnit.SECONDS)
+            .connectTimeout(10, TimeUnit.SECONDS)
             // 读超时时间
-            .readTimeout(10L, TimeUnit.SECONDS)
+            .readTimeout(10, TimeUnit.SECONDS)
             // 写超时时间
-            .writeTimeout(10L, TimeUnit.SECONDS)
+            .writeTimeout(10, TimeUnit.SECONDS)
             .build()
     }
 
