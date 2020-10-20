@@ -65,7 +65,7 @@
         app:strokeColor="@color/open_eyes_color_lighter_gray"
         app:strokeWidth="@dimen/dp_0_5" />
 
-    <androidx.recyclerview.widget.RecyclerView
+    <com.fphoenixcorneae.framework.widget.RecyclerViewAtViewPager2
         android:id="@+id/mRvRecycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
