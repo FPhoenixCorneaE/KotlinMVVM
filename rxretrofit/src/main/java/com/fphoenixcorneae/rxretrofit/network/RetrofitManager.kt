@@ -141,6 +141,8 @@ object RetrofitManager {
             // 信任所有证书,不安全有风险
             .sslSocketFactory(sslParams.sSLSocketFactory, sslParams.trustManager)
             .hostnameVerifier(SslSocketUtil.mUnSafeHostnameVerifier)
+            // 连接池
+            .connectionPool(ConnectionPool(200, 3, TimeUnit.MINUTES))
             // 错误重连
             .retryOnConnectionFailure(true)
             // 添加缓存文件与大小

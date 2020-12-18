@@ -51,6 +51,7 @@ object SslSocketUtil {
             return arrayOf()
         }
     }
+
     /**
      * 此类是用于主机名验证的基接口。 在握手期间，如果 URL 的主机名和服务器的标识主机名不匹配，
      * 则验证机制可以回调此接口的实现程序来确定是否应该允许此连接。策略可以是基于证书的或依赖于其他验证方案。
@@ -129,7 +130,7 @@ object SslSocketUtil {
             // 第一个参数是授权的密钥管理器，用来授权验证，比如授权自签名的证书验证。第二个是被授权的证书管理器，用来验证服务器端的证书
             sslContext.init(keyManagers, arrayOf<TrustManager>(manager!!), null)
             // 通过sslContext获取SSLSocketFactory对象
-            sslParams.sSLSocketFactory = NoSSLv3SocketFactory(sslContext.socketFactory)
+            sslParams.sSLSocketFactory = sslContext.socketFactory
             sslParams.trustManager = manager
             return sslParams
         } catch (e: NoSuchAlgorithmException) {
@@ -179,7 +180,6 @@ object SslSocketUtil {
         } catch (e: Exception) {
             loggerE(e.toString())
         }
-
         return null
     }
 
