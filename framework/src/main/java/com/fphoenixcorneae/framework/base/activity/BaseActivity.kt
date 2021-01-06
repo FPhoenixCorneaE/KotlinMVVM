@@ -64,10 +64,10 @@ abstract class BaseActivity : AppCompatActivity() {
         // 将当前布局添加到根布局
         mMsvRoot.removeAllViews()
         mMsvRoot.addView(contentView)
-        mMsvRoot.setOnRetryClickListener(View.OnClickListener {
+        mMsvRoot.setOnRetryClickListener {
             showLoading()
             initData(null)
-        })
+        }
         super.setContentView(mMsvRoot)
     }
 

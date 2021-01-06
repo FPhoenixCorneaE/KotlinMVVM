@@ -3,13 +3,13 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion Config.android.compileSdkVersion
-    buildToolsVersion Config.android.buildToolsVersion
+    compileSdkVersion Deps.android.compileSdkVersion
+    buildToolsVersion Deps.android.buildToolsVersion
 
     defaultConfig {
         applicationId "com.fphoenixcorneae.standalone_common_util"
-        minSdkVersion Config.android.minSdkVersion
-        targetSdkVersion Config.android.targetSdkVersion
+        minSdkVersion Deps.android.minSdkVersion
+        targetSdkVersion Deps.android.targetSdkVersion
         versionCode 1
         versionName "1.0"
 
@@ -74,7 +74,7 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-    implementation Config.supportLibs
-    implementation Config.kotlinLibs
-    implementation Config.FPhoenixCorneaE.CommonUtil
+    implementation Deps.supportLibs
+    implementation Deps.kotlinLibs
+    implementation Deps.FPhoenixCorneaE.CommonUtil
 }

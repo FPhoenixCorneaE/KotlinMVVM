@@ -1,5 +1,5 @@
-class Config {
-    static gradle_version = '4.0.1'
+class Deps {
+    static gradle_version = '4.1.1'
     static kotlin_version = '1.4.0'
     static navigation_version = '2.3.0'
 
@@ -209,6 +209,8 @@ class Config {
     static persistentCookieJar = 'com.github.franmontiel:PersistentCookieJar:v1.0.1'
     /** Kotlin Coroutines Image Loader */
     static coil = 'io.coil-kt:coil:0.13.0'
+    /** 性能优化工具 */
+    static leakCanary = "com.squareup.leakcanary:leakcanary-android:2.5"
 
 
     /** compiler */

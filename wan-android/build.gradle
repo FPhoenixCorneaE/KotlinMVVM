@@ -11,13 +11,13 @@ static def getDate() {
 }
 
 android {
-    compileSdkVersion Config.android.compileSdkVersion
-    buildToolsVersion Config.android.buildToolsVersion
+    compileSdkVersion Deps.android.compileSdkVersion
+    buildToolsVersion Deps.android.buildToolsVersion
 
     defaultConfig {
         applicationId "com.fphoenixcorneae.wanandroid"
-        minSdkVersion Config.android.minSdkVersion
-        targetSdkVersion Config.android.targetSdkVersion
+        minSdkVersion Deps.android.minSdkVersion
+        targetSdkVersion Deps.android.targetSdkVersion
         versionCode 1
         versionName "1.0.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -123,8 +123,9 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
     implementation project(':framework')
-    implementation Config.navigationLibs
-    implementation Config.buglyLibs
+    implementation Deps.navigationLibs
+    implementation Deps.buglyLibs
+    implementation Deps.leakCanary
 }
 
 

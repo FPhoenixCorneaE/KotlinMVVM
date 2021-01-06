@@ -4,7 +4,7 @@
     android:id="@+id/mMsvRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:emptyView="@layout/multiple_status_layout_empty"
-    app:errorView="@layout/multiple_status_layout_error"
-    app:loadingView="@layout/multiple_status_layout_loading"
-    app:noNetworkView="@layout/multiple_status_layout_no_network" />
+    app:msv_emptyView="@layout/multiple_status_layout_empty"
+    app:msv_errorView="@layout/multiple_status_layout_error"
+    app:msv_loadingView="@layout/multiple_status_layout_loading"
+    app:msv_noNetworkView="@layout/multiple_status_layout_no_network" />

@@ -6,13 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import androidx.core.view.isVisible
 import com.fphoenixcorneae.widget.multiplestatus.R
 import java.util.*
 
 /**
- * 类描述：  一个方便在多种状态切换的view
- * 多状态布局不能继承RelativeLayout或者LinearLayout否则AgentWeb加载网页空白
- * 创建时间: 2016/1/15 10:20.
+ * @desc：一个方便在多种状态切换的 View
+ *        注意：多状态布局不能继承 RelativeLayout 或者 LinearLayout,否则 AgentWeb 加载网页空白
+ * @date: 2016-01-15 10:20.
  */
 class MultipleStatusView @JvmOverloads constructor(
     context: Context,
@@ -34,7 +35,7 @@ class MultipleStatusView @JvmOverloads constructor(
     /**
      * 获取当前状态
      */
-    private var viewStatus: Int = 0
+    private var mCurrentViewStatus: Int = 0
     private var mInflater: LayoutInflater? = null
     private var mOnRetryClickListener: OnClickListener? = null
 
@@ -44,23 +45,25 @@ class MultipleStatusView @JvmOverloads constructor(
         val a =
             context.obtainStyledAttributes(attrs, R.styleable.MultipleStatusView, defStyleAttr, 0)
         mEmptyViewResId = a.getResourceId(
-            R.styleable.MultipleStatusView_emptyView,
+            R.styleable.MultipleStatusView_msv_emptyView,
             R.layout.multiple_status_layout_empty
         )
         mErrorViewResId = a.getResourceId(
-            R.styleable.MultipleStatusView_errorView,
+            R.styleable.MultipleStatusView_msv_errorView,
             R.layout.multiple_status_layout_error
         )
         mLoadingViewResId = a.getResourceId(
-            R.styleable.MultipleStatusView_loadingView,
+            R.styleable.MultipleStatusView_msv_loadingView,
             R.layout.multiple_status_layout_loading
         )
         mNoNetworkViewResId = a.getResourceId(
-            R.styleable.MultipleStatusView_noNetworkView,
+            R.styleable.MultipleStatusView_msv_noNetworkView,
             R.layout.multiple_status_layout_no_network
         )
-        mContentViewResId =
-            a.getResourceId(R.styleable.MultipleStatusView_contentView, NULL_RESOURCE_ID)
+        mContentViewResId = a.getResourceId(
+            R.styleable.MultipleStatusView_msv_contentView,
+            NO_ID
+        )
         a.recycle()
         mInflater = LayoutInflater.from(getContext())
     }
@@ -72,11 +75,9 @@ class MultipleStatusView @JvmOverloads constructor(
 
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
-        clear(mEmptyView, mLoadingView, mErrorView, mNoNetworkView)
+        remove(mEmptyView, mLoadingView, mErrorView, mNoNetworkView)
         mOtherIds.clear()
-        if (null != mOnRetryClickListener) {
-            mOnRetryClickListener = null
-        }
+        mOnRetryClickListener = null
         mInflater = null
     }
 
@@ -107,9 +108,9 @@ class MultipleStatusView @JvmOverloads constructor(
      * @param view 自定义视图
      * @param layoutParams 布局参数
      */
-    fun showEmpty(view: View, layoutParams: ViewGroup.LayoutParams) {
+    fun showEmpty(view: View?, layoutParams: ViewGroup.LayoutParams) {
         checkNull(view, "Empty view is null!")
-        viewStatus = STATUS_EMPTY
+        mCurrentViewStatus = STATUS_EMPTY
         if (null == mEmptyView) {
             mEmptyView = view
             val emptyRetryView = mEmptyView!!.findViewById<View>(R.id.empty_retry_view)
@@ -140,9 +141,12 @@ class MultipleStatusView @JvmOverloads constructor(
      * @param view 自定义视图
      * @param layoutParams 布局参数
      */
-    fun showError(view: View, layoutParams: ViewGroup.LayoutParams) {
+    fun showError(
+        view: View?,
+        layoutParams: ViewGroup.LayoutParams = DEFAULT_LAYOUT_PARAMS
+    ) {
         checkNull(view, "Error view is null!")
-        viewStatus = STATUS_ERROR
+        mCurrentViewStatus = STATUS_ERROR
         if (null == mErrorView) {
             mErrorView = view
             val errorRetryView = mErrorView!!.findViewById<View>(R.id.error_retry_view)
@@ -173,9 +177,12 @@ class MultipleStatusView @JvmOverloads constructor(
      * @param view 自定义视图
      * @param layoutParams 布局参数
      */
-    fun showLoading(view: View, layoutParams: ViewGroup.LayoutParams) {
+    fun showLoading(
+        view: View?,
+        layoutParams: ViewGroup.LayoutParams = DEFAULT_LAYOUT_PARAMS
+    ) {
         checkNull(view, "Loading view is null!")
-        viewStatus = STATUS_LOADING
+        mCurrentViewStatus = STATUS_LOADING
         if (null == mLoadingView) {
             mLoadingView = view
             mOtherIds.add(mLoadingView!!.id)
@@ -202,9 +209,12 @@ class MultipleStatusView @JvmOverloads constructor(
      * @param view 自定义视图
      * @param layoutParams 布局参数
      */
-    fun showNoNetwork(view: View, layoutParams: ViewGroup.LayoutParams) {
+    fun showNoNetwork(
+        view: View?,
+        layoutParams: ViewGroup.LayoutParams = DEFAULT_LAYOUT_PARAMS
+    ) {
         checkNull(view, "No network view is null!")
-        viewStatus = STATUS_NO_NETWORK
+        mCurrentViewStatus = STATUS_NO_NETWORK
         if (null == mNoNetworkView) {
             mNoNetworkView = view
             val noNetworkRetryView = mNoNetworkView!!.findViewById<View>(R.id.no_network_retry_view)
@@ -221,10 +231,12 @@ class MultipleStatusView @JvmOverloads constructor(
      * 显示内容视图
      */
     fun showContent() {
-        viewStatus = STATUS_CONTENT
-        if (null == mContentView && mContentViewResId != NULL_RESOURCE_ID) {
-            mContentView = mInflater!!.inflate(mContentViewResId, null)
-            addView(mContentView, 0, DEFAULT_LAYOUT_PARAMS)
+        mCurrentViewStatus = STATUS_CONTENT
+        if (null == mContentView && mContentViewResId != NO_ID) {
+            mContentView = mInflater?.inflate(mContentViewResId, null)
+            mContentView?.let {
+                addView(it, 0, DEFAULT_LAYOUT_PARAMS)
+            }
         }
         showContentView()
     }
@@ -233,66 +245,78 @@ class MultipleStatusView @JvmOverloads constructor(
         val childCount = childCount
         for (i in 0 until childCount) {
             val view = getChildAt(i)
-            view.visibility = if (mOtherIds.contains(view.id)) View.GONE else View.VISIBLE
+            view?.let {
+                it.isVisible = !mOtherIds.contains(it.id)
+            }
         }
     }
 
-    private fun inflateView(layoutId: Int): View {
-        return mInflater!!.inflate(layoutId, null)
+    private fun inflateView(layoutId: Int): View? {
+        return mInflater?.inflate(layoutId, null)
     }
 
+    /**
+     * 根据 View 的 id 显示 View
+     */
     private fun showViewById(viewId: Int) {
         val childCount = childCount
         for (i in 0 until childCount) {
             val view = getChildAt(i)
-            view.visibility = if (view.id == viewId) View.VISIBLE else View.GONE
+            view?.isVisible = view?.id == viewId
         }
     }
 
+    /**
+     * 检查是否为空
+     */
     private fun checkNull(`object`: Any?, hint: String) {
         if (null == `object`) {
             throw NullPointerException(hint)
         }
     }
 
-    private fun clear(vararg views: View?) {
-        try {
-            for (view in views) {
-                if (null != view) {
-                    removeView(view)
-                }
+    /**
+     * 移除 View
+     */
+    private fun remove(vararg views: View?) {
+        views.forEach { view ->
+            view?.let {
+                removeView(it)
             }
-        } catch (e: Exception) {
-            e.printStackTrace()
         }
     }
 
     companion object {
 
-        private val DEFAULT_LAYOUT_PARAMS = LayoutParams(
+        val DEFAULT_LAYOUT_PARAMS = LayoutParams(
             LayoutParams.MATCH_PARENT,
             LayoutParams.MATCH_PARENT
         )
 
-        const val STATUS_CONTENT = 0x00
+        /**
+         * 显示数据内容
+         */
+        const val STATUS_CONTENT = 0
+
         /**
          * 显示加载中视图
          */
-        const val STATUS_LOADING = 0x01
+        const val STATUS_LOADING = 1
+
         /**
          * 显示空视图
          */
-        const val STATUS_EMPTY = 0x02
+        const val STATUS_EMPTY = 2
+
         /**
          * 显示错误视图
          */
-        const val STATUS_ERROR = 0x03
+        const val STATUS_ERROR = 3
+
         /**
          * 显示无网络视图
          */
-        const val STATUS_NO_NETWORK = 0x04
-
-        private const val NULL_RESOURCE_ID = -1
+        const val STATUS_NO_NETWORK = 4
     }
 }
 

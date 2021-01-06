@@ -12,5 +12,5 @@
     <TextView
         style="@style/MultipleStatusView.Content"
         android:id="@+id/empty_view_tv"
-        android:text="@string/empty_view_hint"/>
+        android:text="@string/msv_empty_view_hint"/>
 </RelativeLayout>

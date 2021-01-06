@@ -12,5 +12,5 @@
     <TextView
         android:id="@+id/error_view_tv"
         style="@style/MultipleStatusView.Content"
-        android:text="@string/error_view_hint" />
+        android:text="@string/msv_error_view_hint" />
 </RelativeLayout>

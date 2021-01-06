@@ -6,12 +6,12 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion Config.android.compileSdkVersion
-    buildToolsVersion Config.android.buildToolsVersion
+    compileSdkVersion Deps.android.compileSdkVersion
+    buildToolsVersion Deps.android.buildToolsVersion
 
     defaultConfig {
-        minSdkVersion Config.android.minSdkVersion
-        targetSdkVersion Config.android.targetSdkVersion
+        minSdkVersion Deps.android.minSdkVersion
+        targetSdkVersion Deps.android.targetSdkVersion
         versionCode 1
         versionName "1.0"
 
@@ -81,29 +81,29 @@ dependencies {
     api project(':rxretrofit')
     api project(':shine-button')
     api project(':arc-layout')
-    api Config.supportLibs
-    api Config.kotlinLibs
-    implementation Config.dagger2Libs
-    kapt Config.kaptDagger2
-    api Config.autoDisposeLibs
-    api Config.smartRefreshLibs
-    api Config.glideLibs
-    kapt Config.kaptGlide
-    api Config.videoPlayer
-    kapt Config.kaptDataBinding
-    api Config.multiTypeLibs
-    api Config.rxImagePickerLibs
-    api Config.rxPermissions
-    api Config.folivora
-    api Config.realtimeBlurView
-    api Config.smartSwipeLibs
-    api Config.agentWebLibs
-    api Config.lottie
-    api Config.workManager
-    api Config.kenBurnsView
-    api Config.navigationLibs
-    api Config.androidSkinSupportLibs
-    api Config.materialDialogsLibs
-    api Config.FPhoenixCorneaELibs
-    api Config.qrCodeLibs
+    api Deps.supportLibs
+    api Deps.kotlinLibs
+    implementation Deps.dagger2Libs
+    kapt Deps.kaptDagger2
+    api Deps.autoDisposeLibs
+    api Deps.smartRefreshLibs
+    api Deps.glideLibs
+    kapt Deps.kaptGlide
+    api Deps.videoPlayer
+    kapt Deps.kaptDataBinding
+    api Deps.multiTypeLibs
+    api Deps.rxImagePickerLibs
+    api Deps.rxPermissions
+    api Deps.folivora
+    api Deps.realtimeBlurView
+    api Deps.smartSwipeLibs
+    api Deps.agentWebLibs
+    api Deps.lottie
+    api Deps.workManager
+    api Deps.kenBurnsView
+    api Deps.navigationLibs
+    api Deps.androidSkinSupportLibs
+    api Deps.materialDialogsLibs
+    api Deps.FPhoenixCorneaELibs
+    api Deps.qrCodeLibs
 }
