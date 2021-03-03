@@ -2,7 +2,7 @@ package com.fphoenixcorneae.openeyes.test
 
 import com.fphoenixcorneae.rxretrofit.network.IBaseUrl
 import com.fphoenixcorneae.rxretrofit.network.RetrofitManager
-import com.fphoenixcorneae.rxretrofit.scheduler.SchedulerManager
+import com.fphoenixcorneae.rxretrofit.scheduler.SchedulerFactory
 import okhttp3.RequestBody
 
 class TestModel : IBaseUrl {
@@ -27,25 +27,25 @@ class TestModel : IBaseUrl {
 
     fun queryRebateListByUserId(body: RequestBody) {
         sService.queryRebateListByUserId(body)
-            .compose(SchedulerManager.ioToMain())
+            .compose(SchedulerFactory.ioToMain())
             .subscribe()
     }
 
     fun queryGoodsClass(id: String) {
         sService.queryGoodsClass(id)
-            .compose(SchedulerManager.ioToMain())
+            .compose(SchedulerFactory.ioToMain())
             .subscribe()
     }
 
     fun uploadImage(userId: String, image: String, folder: String) {
         sService.uploadImage(userId, image, folder)
-            .compose(SchedulerManager.ioToMain())
+            .compose(SchedulerFactory.ioToMain())
             .subscribe()
     }
 
     fun getBindQrCode(orderId: String, deviceId: String) {
         sService.getBindQrCode(orderId, deviceId)
-            .compose(SchedulerManager.ioToMain())
+            .compose(SchedulerFactory.ioToMain())
             .subscribe()
     }
 }

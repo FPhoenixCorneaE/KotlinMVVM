@@ -11,7 +11,7 @@ import com.fphoenixcorneae.ext.toast
 import com.fphoenixcorneae.framework.imagepicker.WeChatImagePicker
 import com.fphoenixcorneae.openeyes.R
 import com.fphoenixcorneae.openeyes.mvvm.viewmodel.activity.OpenEyesHomeActivity
-import com.fphoenixcorneae.rxretrofit.scheduler.SchedulerManager
+import com.fphoenixcorneae.rxretrofit.scheduler.SchedulerFactory
 import com.fphoenixcorneae.util.ImgBase64Util
 import com.fphoenixcorneae.util.SharedPreferencesUtil
 import com.qingmei2.rximagepicker.core.RxImagePicker
@@ -87,7 +87,7 @@ class TestActivity : AppCompatActivity() {
                                 .build()
                         )
                 }
-                .compose(SchedulerManager.ioToMain())
+                .compose(SchedulerFactory.ioToMain())
                 .autoDisposable(
                     AndroidLifecycleScopeProvider.from(
                         this@TestActivity,

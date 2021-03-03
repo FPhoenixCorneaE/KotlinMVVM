@@ -1,7 +1,7 @@
 package com.fphoenixcorneae.openeyes.mvvm.model
 
 import com.fphoenixcorneae.openeyes.mvvm.model.bean.OpenEyesTabInfoBean
-import com.fphoenixcorneae.rxretrofit.scheduler.SchedulerManager
+import com.fphoenixcorneae.rxretrofit.scheduler.SchedulerFactory
 import dagger.Module
 import io.reactivex.Observable
 import javax.inject.Inject
@@ -17,6 +17,6 @@ class OpenEyesHotModel @Inject constructor() : OpenEyesBaseModel() {
      */
     fun getTabInfo(): Observable<OpenEyesTabInfoBean> {
         return sOpenEyesService.getRankList()
-            .compose(SchedulerManager.ioToMain())
+            .compose(SchedulerFactory.ioToMain())
     }
 }

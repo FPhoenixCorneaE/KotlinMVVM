@@ -1,7 +1,7 @@
 package com.fphoenixcorneae.openeyes.mvvm.model
 
 import com.fphoenixcorneae.openeyes.mvvm.model.bean.OpenEyesCategoryBean
-import com.fphoenixcorneae.rxretrofit.scheduler.SchedulerManager
+import com.fphoenixcorneae.rxretrofit.scheduler.SchedulerFactory
 import dagger.Module
 import io.reactivex.Observable
 import javax.inject.Inject
@@ -18,6 +18,6 @@ class OpenEyesCategoryModel @Inject constructor() : OpenEyesBaseModel() {
     fun getCategoryData(): Observable<ArrayList<OpenEyesCategoryBean>> {
         return sOpenEyesService
             .getCategory()
-            .compose(SchedulerManager.ioToMain())
+            .compose(SchedulerFactory.ioToMain())
     }
 }

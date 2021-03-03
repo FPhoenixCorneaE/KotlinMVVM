@@ -1,7 +1,7 @@
 package com.fphoenixcorneae.openeyes.mvvm.model
 
 import com.fphoenixcorneae.openeyes.mvvm.model.bean.OpenEyesHomeBean
-import com.fphoenixcorneae.rxretrofit.scheduler.SchedulerManager
+import com.fphoenixcorneae.rxretrofit.scheduler.SchedulerFactory
 import dagger.Module
 import io.reactivex.Observable
 import javax.inject.Inject
@@ -17,7 +17,7 @@ class OpenEyesSearchModel @Inject constructor() : OpenEyesBaseModel() {
      */
     fun requestHotWordData(): Observable<ArrayList<String>> {
         return sOpenEyesService.getHotWord()
-            .compose(SchedulerManager.ioToMain())
+            .compose(SchedulerFactory.ioToMain())
     }
 
 
@@ -26,7 +26,7 @@ class OpenEyesSearchModel @Inject constructor() : OpenEyesBaseModel() {
      */
     fun getSearchResult(words: String): Observable<OpenEyesHomeBean.Issue> {
         return sOpenEyesService.getSearchData(words)
-            .compose(SchedulerManager.ioToMain())
+            .compose(SchedulerFactory.ioToMain())
     }
 
     /**
@@ -34,6 +34,6 @@ class OpenEyesSearchModel @Inject constructor() : OpenEyesBaseModel() {
      */
     fun loadMoreData(url: String): Observable<OpenEyesHomeBean.Issue> {
         return sOpenEyesService.getIssueData(url)
-            .compose(SchedulerManager.ioToMain())
+            .compose(SchedulerFactory.ioToMain())
     }
 }

@@ -1,6 +1,10 @@
 package com.fphoenixcorneae.rxretrofit.scheduler
 
-object SchedulerManager {
+/**
+ * @desc：调度器工厂
+ * @date：2021/3/3 17:15
+ */
+object SchedulerFactory {
 
     /**
      * 用于计算任务，如事件循环或和回调处理，不要用于IO操作(IO操作请使用Schedulers.io())；

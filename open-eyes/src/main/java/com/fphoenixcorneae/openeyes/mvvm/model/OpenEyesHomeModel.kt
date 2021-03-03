@@ -1,7 +1,7 @@
 package com.fphoenixcorneae.openeyes.mvvm.model
 
 import com.fphoenixcorneae.openeyes.mvvm.model.bean.OpenEyesHomeBean
-import com.fphoenixcorneae.rxretrofit.scheduler.SchedulerManager
+import com.fphoenixcorneae.rxretrofit.scheduler.SchedulerFactory
 import dagger.Module
 import io.reactivex.Observable
 import javax.inject.Inject
@@ -18,7 +18,7 @@ class OpenEyesHomeModel @Inject constructor() : OpenEyesBaseModel() {
     fun requestHomeData(num: Int): Observable<OpenEyesHomeBean> {
         return sOpenEyesService
             .getFirstHomeData(num)
-            .compose(SchedulerManager.ioToMain())
+            .compose(SchedulerFactory.ioToMain())
     }
 
     /**
@@ -27,6 +27,6 @@ class OpenEyesHomeModel @Inject constructor() : OpenEyesBaseModel() {
     fun loadMoreData(url: String): Observable<OpenEyesHomeBean> {
         return sOpenEyesService
             .getMoreHomeData(url)
-            .compose(SchedulerManager.ioToMain())
+            .compose(SchedulerFactory.ioToMain())
     }
 }
