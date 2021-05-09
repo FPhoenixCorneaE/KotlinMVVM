@@ -1,5 +1,7 @@
 package com.fphoenixcorneae.animated_bottom_view
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.animation.ValueAnimator
 import android.view.View
 import android.view.animation.LinearInterpolator
@@ -18,8 +20,10 @@ class TranslationAnimationManager(
     private var animator: ValueAnimator = ValueAnimator()
     private var onAnimationUpdate: AnimationUpdate? = null
 
-
     override fun startAnimation() {
+        if (animator.isRunning) {
+            stopAnimation()
+        }
         view?.let {
             animator.apply {
                 setFloatValues(0.0f, 1.0f)
@@ -39,6 +43,12 @@ class TranslationAnimationManager(
                     it.translationX = translationX
                     it.translationY = translationY
                 }
+                addListener(object : AnimatorListenerAdapter() {
+                    override fun onAnimationCancel(animation: Animator?) {
+                        super.onAnimationCancel(animation)
+                        onAnimationUpdate?.onAnimationUpdate(1f)
+                    }
+                })
                 start()
             }
         }
@@ -53,6 +63,8 @@ class TranslationAnimationManager(
     override fun cancelAnimation() {
         view?.let {
             animator.cancel()
+            it.translationX = endTranslationX
+            it.translationY = 0f
         }
     }
 
