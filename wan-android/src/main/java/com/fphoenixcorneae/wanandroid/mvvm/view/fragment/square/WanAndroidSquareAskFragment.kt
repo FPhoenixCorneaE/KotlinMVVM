@@ -96,7 +96,7 @@ class WanAndroidSquareAskFragment : WanAndroidBaseFragment(), OnRefreshLoadMoreL
      * 懒加载数据
      */
     override fun lazyLoadData() {
-        mSrlRefresh.autoRefresh()
+        mSrlRefresh.autoRefresh(400)
     }
 
     override fun isAlreadyLoadedData(): Boolean =

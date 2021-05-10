@@ -136,7 +136,7 @@ class WanAndroidProjectChildFragment : WanAndroidBaseFragment(), OnRefreshLoadMo
      */
     override fun lazyLoadData() {
         mProjectViewModel.mClassifyId = mClassifyId
-        mSrlRefresh.autoRefresh()
+        mSrlRefresh.autoRefresh(400)
     }
 
     override fun isAlreadyLoadedData(): Boolean = mProjectAdapter.dataList.isNonNullAndNotEmpty()

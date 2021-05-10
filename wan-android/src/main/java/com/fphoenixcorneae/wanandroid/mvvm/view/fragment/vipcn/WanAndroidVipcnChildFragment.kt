@@ -104,7 +104,7 @@ class WanAndroidVipcnChildFragment : WanAndroidBaseFragment(), OnRefreshLoadMore
      */
     override fun lazyLoadData() {
         mVipcnViewModel.mClassifyId = mClassifyId
-        mSrlRefresh.autoRefresh()
+        mSrlRefresh.autoRefresh(400)
     }
 
     override fun isAlreadyLoadedData(): Boolean = mVipcnAdapter.dataList.isNonNullAndNotEmpty()
