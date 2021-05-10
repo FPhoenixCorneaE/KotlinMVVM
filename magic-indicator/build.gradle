@@ -60,9 +60,9 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation Deps.support.appcompat
-    implementation Deps.support.viewpager2
-    implementation Deps.kotlin.core
-    implementation Deps.kotlin.kotlinStdlibJdk7
+    compileOnly(fileTree(dir: 'libs', include: ['*.jar']))
+    compileOnly(Deps.support.appcompat)
+    compileOnly(Deps.support.viewpager2)
+    compileOnly(Deps.kotlin.core)
+    compileOnly(Deps.kotlin.kotlinStdlibJdk7)
 }

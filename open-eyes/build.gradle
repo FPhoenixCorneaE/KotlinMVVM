@@ -27,6 +27,10 @@ android {
         ndk {
             abiFilters "arm64-v8a", "armeabi"
         }
+
+        // 如果没有特殊的需求的话，可以只编译中文，因为其他的语言用不上，如果用不上的语言编译了，
+        // 会在 resource 的表里面占用大量的空间，故仅支持 中文
+        resConfigs "zh"
     }
 
     signingConfigs {
@@ -35,12 +39,16 @@ android {
             keyPassword 'kotlinmvvm'
             storeFile file('../kotlinmvvm.jks')
             storePassword 'kotlinmvvm'
+            v1SigningEnabled true
+            v2SigningEnabled true
         }
         debug {
             keyAlias 'kotlinmvvm'
             keyPassword 'kotlinmvvm'
             storeFile file('../kotlinmvvm.jks')
             storePassword 'kotlinmvvm'
+            v1SigningEnabled true
+            v2SigningEnabled true
         }
     }
 
@@ -114,9 +122,9 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    testImplementation 'junit:junit:4.13'
-    androidTestImplementation 'androidx.test:runner:1.2.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test:runner:1.3.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
     implementation project(':framework')
     implementation Deps.dagger2Libs

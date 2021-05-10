@@ -59,8 +59,8 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation Deps.support.appcompat
-    implementation Deps.kotlinLibs
+    compileOnly(fileTree(dir: 'libs', include: ['*.jar']))
+    compileOnly(Deps.support.appcompat)
+    compileOnly(Deps.kotlinLibs)
 }
 

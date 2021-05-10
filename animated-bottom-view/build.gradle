@@ -59,9 +59,9 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: "libs", include: ["*.jar"])
-    implementation Deps.FPhoenixCorneaE.CommonUtil
-    implementation Deps.support.appcompat
-    implementation Deps.kotlin.core
-    implementation Deps.kotlin.kotlinStdlibJdk7
+    compileOnly(fileTree(dir: "libs", include: ["*.jar"]))
+    compileOnly(Deps.FPhoenixCorneaE.CommonUtil)
+    compileOnly(Deps.support.appcompat)
+    compileOnly(Deps.kotlin.core)
+    compileOnly(Deps.kotlin.kotlinStdlibJdk7)
 }

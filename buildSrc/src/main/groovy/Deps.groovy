@@ -1,7 +1,7 @@
 class Deps {
-    static gradle_version = '4.1.1'
-    static kotlin_version = '1.4.0'
-    static navigation_version = '2.3.0'
+    static gradle_version = '4.2.0'
+    static kotlin_version = '1.5.0'
+    static navigation_version = '2.3.5'
 
     static classpath = [
             gradle            : "com.android.tools.build:gradle:$gradle_version",

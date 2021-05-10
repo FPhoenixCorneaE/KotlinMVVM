@@ -63,6 +63,6 @@ dependencies {
     /**
      * Kotlin
      */
-    implementation Deps.kotlin.kotlinStdlibJdk7
-    implementation Deps.kotlin.core
+    compileOnly(Deps.kotlin.kotlinStdlibJdk7)
+    compileOnly(Deps.kotlin.core)
 }

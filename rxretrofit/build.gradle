@@ -59,9 +59,9 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation Deps.FPhoenixCorneaE.CommonUtil
-    implementation Deps.kotlinLibs
+    compileOnly(fileTree(dir: 'libs', include: ['*.jar']))
+    compileOnly(Deps.FPhoenixCorneaE.CommonUtil)
+    compileOnly(Deps.kotlinLibs)
     api Deps.retrofit2Libs
     api Deps.rxJava2Libs
     api Deps.persistentCookieJar
