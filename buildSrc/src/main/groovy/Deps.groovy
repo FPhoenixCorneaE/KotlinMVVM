@@ -9,7 +9,7 @@ class Deps {
             navigationSafeArgs: "androidx.navigation:navigation-safe-args-gradle-plugin:$navigation_version",
     ]
 
-    /* 组件 */
+    /** 组件 */
     static FPhoenixCorneaE = [
             CommonUtil            : "com.github.FPhoenixCorneaE:CommonUtil:1.0.4",
             FlowLayout            : "com.github.FPhoenixCorneaE:FlowLayout:1.0.7",
@@ -18,7 +18,7 @@ class Deps {
             AvatarWaveView        : 'com.github.FPhoenixCorneaE:AvatarWaveView:1.0.1',
             EasyBehavior          : 'com.github.FPhoenixCorneaE:EasyBehavior:1.0.1',
             BottomNavigationView  : 'com.github.FPhoenixCorneaE:BottomNavigationView:1.0.3',
-            ExpandCollapseTextView: 'com.github.FPhoenixCorneaE:ExpandCollapseTextView:1.0.0',
+            ExpandCollapseTextView: 'com.github.FPhoenixCorneaE:ExpandCollapseTextView:1.0.1',
             CustomKeyboard        : 'com.github.FPhoenixCorneaE:CustomKeyboard:1.0.1',
             CustomSpan            : 'com.github.FPhoenixCorneaE:CustomSpan:1.0.0',
             CommonTitlebar        : 'com.github.FPhoenixCorneaE:CommonTitlebar:1.0.2',

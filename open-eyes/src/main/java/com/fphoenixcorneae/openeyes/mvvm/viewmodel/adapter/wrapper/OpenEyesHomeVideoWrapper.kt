@@ -52,21 +52,21 @@ class OpenEyesHomeVideoWrapper :
                 // description
                 mTvDescription.apply {
                     // 设置最大显示行数
-                    mMaxLineCount = 2
+                    maxLineCount = 2
                     // 收起文案
-                    mCollapseText = ResourceUtil.getString(R.string.open_eyes_collapse_text)
+                    collapseText = ResourceUtil.getString(R.string.open_eyes_collapse_text)
                     // 展开文案
-                    mExpandText = ResourceUtil.getString(R.string.open_eyes_expand_text)
+                    expandText = ResourceUtil.getString(R.string.open_eyes_expand_text)
                     // 是否支持收起功能
-                    mCollapseEnable = true
+                    collapseEnable = true
                     // 是否给展开收起添加下划线
-                    mUnderlineEnable = false
+                    underlineEnable = false
                     // 收起文案颜色
-                    mCollapseTextColor = ResourceUtil.getColor(R.color.open_eyes_color_black)
+                    collapseTextColor = ResourceUtil.getColor(R.color.open_eyes_color_black)
                     // 展开文案颜色
-                    mExpandTextColor = ResourceUtil.getColor(R.color.open_eyes_color_black)
+                    expandTextColor = ResourceUtil.getColor(R.color.open_eyes_color_black)
                     // 文字状态改变监听器
-                    mOnTextStateChangedListener = { state ->
+                    onTextStateChangedListener = { state ->
                         if (state == ExpandCollapseTextView.TextState.Expanded
                             || state == ExpandCollapseTextView.TextState.Collapsed
                         ) {
