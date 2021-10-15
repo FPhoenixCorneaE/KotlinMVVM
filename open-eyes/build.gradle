@@ -130,5 +130,6 @@ dependencies {
     implementation Deps.dagger2Libs
     kapt Deps.kaptDagger2
     implementation Deps.navigationLibs
+    implementation Deps.buglyLibs
     debugImplementation Deps.leakCanary
 }
