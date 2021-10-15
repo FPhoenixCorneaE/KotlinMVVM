@@ -38,7 +38,7 @@ android {
         }
 
         manifestPlaceholders = [
-                BuglyAppId: "02c30f2095"
+                BuglyAppId: "51362dd6c0"
         ]
     }
 

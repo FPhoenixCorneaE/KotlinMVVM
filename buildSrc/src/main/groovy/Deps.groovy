@@ -166,8 +166,8 @@ class Deps {
 
     /** 腾讯Bugly异常上报*/
     static bugly = [
-            crashReport      : 'com.tencent.bugly:crashreport:3.2.33',
-            nativeCrashReport: 'com.tencent.bugly:nativecrashreport:3.7.3'
+            crashReport      : 'com.tencent.bugly:crashreport:3.4.4',
+            nativeCrashReport: 'com.tencent.bugly:nativecrashreport:3.9.2'
     ]
 
     /* MaterialDialogs */
