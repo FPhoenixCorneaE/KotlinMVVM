@@ -20,7 +20,9 @@ import android.content.Context
 import androidx.annotation.LayoutRes
 import androidx.annotation.StringRes
 
-class ViewPagerItems(context: Context) : PagerItems<ViewPagerItem>(context) {
+class ViewPagerItems(
+    context: Context
+) : PagerItems<ViewPagerItem>(context) {
 
     class Creator(context: Context) {
 

@@ -2,6 +2,7 @@ package com.fphoenixcorneae.viewpager
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentManager
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 
@@ -11,15 +12,18 @@ import androidx.viewpager2.widget.ViewPager2
 class FragmentStatePager2ItemAdapter : FragmentStateAdapter {
 
     private val pages: FragmentPagerItems
+    private var mFragmentManager: FragmentManager
 
     constructor(
         fragmentActivity: FragmentActivity,
         pages: FragmentPagerItems
     ) : super(fragmentActivity) {
+        this.mFragmentManager = fragmentActivity.supportFragmentManager
         this.pages = pages
     }
 
     constructor(fragment: Fragment, pages: FragmentPagerItems) : super(fragment) {
+        this.mFragmentManager = fragment.childFragmentManager
         this.pages = pages
     }
 
@@ -37,7 +41,7 @@ class FragmentStatePager2ItemAdapter : FragmentStateAdapter {
      * @see [ViewPager2.setOffscreenPageLimit]
      */
     override fun createFragment(position: Int): Fragment {
-        return getPagerItem(position).instantiate(pages.context, position)
+        return getPagerItem(position).instantiate(mFragmentManager, pages.context, position)
     }
 
     /**
@@ -47,7 +51,7 @@ class FragmentStatePager2ItemAdapter : FragmentStateAdapter {
      */
     override fun getItemCount(): Int = pages.size
 
-    fun getPageTitle(position: Int): CharSequence {
+    fun getPageTitle(position: Int): CharSequence? {
         return getPagerItem(position).title
     }
 

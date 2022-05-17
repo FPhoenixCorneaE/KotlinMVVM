@@ -23,8 +23,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 
-class FragmentStatePagerItemAdapter(fm: FragmentManager, private val pages: FragmentPagerItems) :
-    FragmentStatePagerAdapter(fm) {
+class FragmentStatePagerItemAdapter(
+    private val fm: FragmentManager,
+    private val pages: FragmentPagerItems
+) : FragmentStatePagerAdapter(fm) {
     private val holder: SparseArrayCompat<WeakReference<Fragment>> = SparseArrayCompat(pages.size)
 
     override fun getCount(): Int {
@@ -32,7 +34,7 @@ class FragmentStatePagerItemAdapter(fm: FragmentManager, private val pages: Frag
     }
 
     override fun getItem(position: Int): Fragment {
-        return getPagerItem(position).instantiate(pages.context, position)
+        return getPagerItem(position).instantiate(fm, pages.context, position)
     }
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {

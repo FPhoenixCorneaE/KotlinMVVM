@@ -22,6 +22,7 @@ import android.content.Context
 import android.os.Bundle
 
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 
 class FragmentPagerItem protected constructor(
     title: CharSequence,
@@ -30,15 +31,18 @@ class FragmentPagerItem protected constructor(
     private val args: Bundle
 ) : PagerItem(title, width) {
 
-    fun instantiate(context: Context, position: Int): Fragment {
+    fun instantiate(fm: FragmentManager, context: Context, position: Int): Fragment {
         setPosition(args, position)
-        return Fragment.instantiate(context, className, args)
+        return fm.fragmentFactory.instantiate(context.classLoader, className).apply {
+            args.classLoader = javaClass.classLoader
+            arguments = args
+        }
     }
 
     companion object {
 
-        private val TAG = "FragmentPagerItem"
-        private val KEY_POSITION = "$TAG:Position"
+        private const val TAG = "FragmentPagerItem"
+        private const val KEY_POSITION = "$TAG:Position"
 
         fun of(title: CharSequence, clazz: Class<out Fragment>): FragmentPagerItem {
             return of(title, DEFAULT_WIDTH, clazz)

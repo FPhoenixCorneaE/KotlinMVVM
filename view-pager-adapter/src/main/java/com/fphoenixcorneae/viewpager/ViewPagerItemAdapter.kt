@@ -23,7 +23,9 @@ import java.lang.ref.WeakReference
 import androidx.collection.SparseArrayCompat
 import androidx.viewpager.widget.PagerAdapter
 
-class ViewPagerItemAdapter(private val pages: ViewPagerItems) : PagerAdapter() {
+class ViewPagerItemAdapter(
+    private val pages: ViewPagerItems
+) : PagerAdapter() {
     private val holder: SparseArrayCompat<WeakReference<View>> = SparseArrayCompat(pages.size)
     private val inflater: LayoutInflater = LayoutInflater.from(pages.context)
 

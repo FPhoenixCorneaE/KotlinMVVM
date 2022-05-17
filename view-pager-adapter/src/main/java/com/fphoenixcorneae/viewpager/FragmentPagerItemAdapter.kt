@@ -23,8 +23,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 
-class FragmentPagerItemAdapter(fm: FragmentManager, private val pages: FragmentPagerItems) :
-    FragmentPagerAdapter(fm) {
+class FragmentPagerItemAdapter(
+    private val fm: FragmentManager,
+    private val pages: FragmentPagerItems
+) : FragmentPagerAdapter(fm) {
     private val holder: SparseArrayCompat<WeakReference<Fragment>> = SparseArrayCompat(pages.size)
 
     override fun getCount(): Int {
@@ -32,7 +34,7 @@ class FragmentPagerItemAdapter(fm: FragmentManager, private val pages: FragmentP
     }
 
     override fun getItem(position: Int): Fragment {
-        return getPagerItem(position).instantiate(pages.context, position)
+        return getPagerItem(position).instantiate(fm, pages.context, position)
     }
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
@@ -48,12 +50,8 @@ class FragmentPagerItemAdapter(fm: FragmentManager, private val pages: FragmentP
         super.destroyItem(container, position, `object`)
     }
 
-    override fun getPageTitle(position: Int): CharSequence {
+    override fun getPageTitle(position: Int): CharSequence? {
         return getPagerItem(position).title
-    }
-
-    override fun getPageWidth(position: Int): Float {
-        return super.getPageWidth(position)
     }
 
     fun getPage(position: Int): Fragment? {
@@ -64,5 +62,4 @@ class FragmentPagerItemAdapter(fm: FragmentManager, private val pages: FragmentP
     protected fun getPagerItem(position: Int): FragmentPagerItem {
         return pages[position]
     }
-
 }

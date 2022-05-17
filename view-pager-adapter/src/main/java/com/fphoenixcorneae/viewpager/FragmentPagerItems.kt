@@ -20,8 +20,9 @@ import android.os.Bundle
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 
-class FragmentPagerItems private constructor(context: Context) :
-    PagerItems<FragmentPagerItem>(context) {
+class FragmentPagerItems private constructor(
+    context: Context
+) : PagerItems<FragmentPagerItem>(context) {
 
     class Creator(context: Context) {
 

@@ -15,9 +15,11 @@
  */
 package com.fphoenixcorneae.viewpager
 
-abstract class PagerItem protected constructor(val title: CharSequence, val width: Float) {
+abstract class PagerItem protected constructor(
+    val title: CharSequence?,
+    val width: Float
+) {
     companion object {
         const val DEFAULT_WIDTH = 1F
     }
-
 }
