@@ -4,7 +4,7 @@ apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion Deps.android.compileSdkVersion
-    buildToolsVersion Deps.android.buildToolsVersion
+    
 
     defaultConfig {
         applicationId "com.fphoenixcorneae.standalone_common_util"

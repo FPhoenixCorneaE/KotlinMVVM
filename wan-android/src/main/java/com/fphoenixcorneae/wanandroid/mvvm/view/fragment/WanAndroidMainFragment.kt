@@ -1,9 +1,9 @@
 package com.fphoenixcorneae.wanandroid.mvvm.view.fragment
 
-import android.view.View
+import android.content.res.ColorStateList
+import android.graphics.Color
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.fphoenixcorneae.animated_bottom_view.AnimatedNavigationItem
-import com.fphoenixcorneae.animated_bottom_view.OnNavigationItemClickListener
+import com.fphoenixcorneae.navigation.ImageTextItem
 import com.fphoenixcorneae.util.ContextUtil
 import com.fphoenixcorneae.util.ResourceUtil
 import com.fphoenixcorneae.wanandroid.R
@@ -29,6 +29,20 @@ class WanAndroidMainFragment : WanAndroidBaseFragment() {
             WanAndroidMineFragment.getInstance()
         )
     }
+    private val mIconResources = listOf(
+        R.mipmap.wan_android_ic_menu_home_main,
+        R.mipmap.wan_android_ic_menu_home_project,
+        R.mipmap.wan_android_ic_menu_home_square,
+        R.mipmap.wan_android_ic_menu_home_vipcn,
+        R.mipmap.wan_android_ic_menu_home_mine,
+    )
+    private val mTexts = listOf(
+        ResourceUtil.getString(R.string.wan_android_home_main),
+        ResourceUtil.getString(R.string.wan_android_home_project),
+        ResourceUtil.getString(R.string.wan_android_home_square),
+        ResourceUtil.getString(R.string.wan_android_home_vipcn),
+        ResourceUtil.getString(R.string.wan_android_home_mine),
+    )
 
     /**
      *  加载布局
@@ -53,40 +67,44 @@ class WanAndroidMainFragment : WanAndroidBaseFragment() {
                 setCurrentItem(0, false)
             }, 300)
         }
-        mBnvMain.addImageButtons(
-            arrayOf(
-                AnimatedNavigationItem(
-                    R.mipmap.wan_android_ic_menu_home_main,
-                    getString(R.string.wan_android_home_main),
-                    ResourceUtil.getColor(R.color.wan_android_color_gray_0x666666),
-                    ResourceUtil.getColor(R.color.wan_android_colorPrimary)
-                ),
-                AnimatedNavigationItem(
-                    R.mipmap.wan_android_ic_menu_home_project,
-                    getString(R.string.wan_android_home_project),
-                    ResourceUtil.getColor(R.color.wan_android_color_gray_0x666666),
-                    ResourceUtil.getColor(R.color.wan_android_colorPrimary)
-                ),
-                AnimatedNavigationItem(
-                    R.mipmap.wan_android_ic_menu_home_square,
-                    getString(R.string.wan_android_home_square),
-                    ResourceUtil.getColor(R.color.wan_android_color_gray_0x666666),
-                    ResourceUtil.getColor(R.color.wan_android_colorPrimary)
-                ),
-                AnimatedNavigationItem(
-                    R.mipmap.wan_android_ic_menu_home_vipcn,
-                    getString(R.string.wan_android_home_vipcn),
-                    ResourceUtil.getColor(R.color.wan_android_color_gray_0x666666),
-                    ResourceUtil.getColor(R.color.wan_android_colorPrimary)
-                ),
-                AnimatedNavigationItem(
-                    R.mipmap.wan_android_ic_menu_home_mine,
-                    getString(R.string.wan_android_home_mine),
-                    ResourceUtil.getColor(R.color.wan_android_color_gray_0x666666),
-                    ResourceUtil.getColor(R.color.wan_android_colorPrimary)
-                )
+        mVgNavi.apply {
+            // Set background tint
+            backgroundTintList = ColorStateList.valueOf(Color.WHITE)
+            // Set items
+            setImageTextItems(
+                mIconResources.flatMapIndexed { index: Int, id: Int ->
+                    listOf(ImageTextItem(context).apply {
+                        // Set icon
+                        setIconResource(id)
+                        // Set icon size
+                        setIconSize(28f)
+                        // Set text size
+                        textSize = 16f
+                        // Set normal state tint color and selected state tint color
+                        setIconTextColor(ResourceUtil.getColor(R.color.wan_android_color_gray_0x666666),
+                            ResourceUtil.getColor(R.color.wan_android_colorPrimary))
+                        // Set padding between icon and text
+                        setIconTextPadding(4f)
+                        // Set text
+                        text = mTexts[index]
+                    })
+                }
             )
-        )
+            // Set animated item size
+            setAnimatedItemSize(60f)
+            // Set animated item content padding
+            setAnimatedItemContentPadding(8f)
+            // Set animated item double click
+            setOnAnimatedItemDoubleClickListener { position ->
+                if (position == 0) {
+
+                }
+            }
+            // Set item click
+            setOnItemClickListener { itemView, position ->
+                mVpMain.setCurrentItem(position, false)
+            }
+        }
     }
 
     override fun lazyLoadData() {
@@ -95,10 +113,5 @@ class WanAndroidMainFragment : WanAndroidBaseFragment() {
     override fun isAlreadyLoadedData(): Boolean = true
 
     override fun initListener() {
-        mBnvMain.onNavigationItemClickListener = object : OnNavigationItemClickListener {
-            override fun onItemClick(itemView: View, index: Int) {
-                mVpMain.setCurrentItem(index, false)
-            }
-        }
     }
 }

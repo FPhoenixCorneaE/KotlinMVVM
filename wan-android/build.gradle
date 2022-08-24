@@ -12,7 +12,7 @@ static def getDate() {
 
 android {
     compileSdkVersion Deps.android.compileSdkVersion
-    buildToolsVersion Deps.android.buildToolsVersion
+    
 
     defaultConfig {
         applicationId "com.fphoenixcorneae.wanandroid"

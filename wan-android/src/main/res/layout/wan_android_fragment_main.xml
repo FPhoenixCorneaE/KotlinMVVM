@@ -12,9 +12,9 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.fphoenixcorneae.animated_bottom_view.AnimatedNavigationBar
-        android:id="@+id/mBnvMain"
+    <com.fphoenixcorneae.navigation.AnimatedNavigation
+        android:id="@+id/mVgNavi"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         app:layout_constraintBottom_toBottomOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

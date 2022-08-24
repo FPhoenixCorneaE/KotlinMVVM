@@ -7,7 +7,7 @@ apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion Deps.android.compileSdkVersion
-    buildToolsVersion Deps.android.buildToolsVersion
+    
 
     defaultConfig {
         minSdkVersion Deps.android.minSdkVersion
